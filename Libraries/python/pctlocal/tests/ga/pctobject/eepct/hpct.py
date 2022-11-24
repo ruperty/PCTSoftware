@@ -19,6 +19,7 @@ from pct.putils import stringListToListOfStrings
 
 
 class HPCTARCH(IntEnum):
+    "List of architecture elements"
     PERCEPTION = auto()
     REFERENCE = auto()
     COMPARATOR = auto()
@@ -40,7 +41,7 @@ class HPCTARCH(IntEnum):
 
 
 class HPCTControlFunctionCollection(object):
-
+    "Collection of functions associated with a control unit."
     def __init__(self, reference=None, perception=None, comparator=None, output=None, action=None):
         self.reference = reference
         self.perception = perception
@@ -64,6 +65,7 @@ class HPCTControlFunctionCollection(object):
         return ' '.join((r, p, c, o))
 
     def get_function_properties(self, control_function_type):
+        "Get the properties of a control function type in terms of class, var type and var property."
         if control_function_type == HPCTARCH.REFERENCE:
             return self.reference.func_class, self.reference.var_type, self.reference.var_properties
         if control_function_type == HPCTARCH.PERCEPTION:
@@ -76,6 +78,7 @@ class HPCTControlFunctionCollection(object):
             return self.action.func_class, self.action.var_type, self.action.var_properties
 
     def set_function_property(self, control_function_type, type, value):
+        "Set a property value according to its type."
         if control_function_type == HPCTARCH.REFERENCE:
             self.reference.set(type, value)
         if control_function_type == HPCTARCH.PERCEPTION:
@@ -88,6 +91,7 @@ class HPCTControlFunctionCollection(object):
             self.action.set(type, value)
 
     def set_function_properties(self, function):
+        "Set all three properties of a function from architecture properties."
         if function[0] == HPCTARCH.REFERENCE:
             self.reference.func_class, self.reference.var_type = function[1][
                 HPCTARCH.FUNCTION_CLASS], function[1][HPCTARCH.VARIABLE_TYPE]
@@ -121,6 +125,7 @@ class HPCTControlFunctionCollection(object):
 
 @dataclass
 class HPCTControlFunctionProperties(object):
+    "Definition of the type of a function."
     var_type : enum
     func_class : str 
     var_properties : dict
@@ -131,6 +136,7 @@ class HPCTControlFunctionProperties(object):
     #     self.var_properties = properties[HPCTARCH.VARIABLE_PROPERTIES]
 
     def set(self, type, value):
+        "Set the value of a property according to the type of property."
         if type == HPCTARCH.VARIABLE_TYPE:
             self.var_type = value
         if type == HPCTARCH.FUNCTION_CLASS:
@@ -141,6 +147,7 @@ class HPCTControlFunctionProperties(object):
     # HPCTControlFunctionProperties.from_properties
     @classmethod
     def from_properties(cls, properties):
+        "Create a functions from its properties."
         hpctcfp = cls(properties[HPCTARCH.VARIABLE_TYPE], properties[HPCTARCH.FUNCTION_CLASS], properties[HPCTARCH.VARIABLE_PROPERTIES])
 
         return hpctcfp
@@ -155,12 +162,14 @@ class HPCTArchitecture(object):
             if mode ==0:
                 arch = {
                     HPCTARCH.HIERARCHY: {
+                        # Default definition of types of functions within a hierarchy.
                         HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTARCH.REFERENCE: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTARCH.COMPARATOR: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'Subtract', HPCTARCH.VARIABLE_PROPERTIES: None},
                         HPCTARCH.OUTPUT: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAProportional', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTARCH.ACTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTARCH.LEVELS: {
+                            # Overridsing some functions at levels.
                             HPCTARCH.ZERO: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None}},
                             HPCTARCH.N: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None}},
                             HPCTARCH.ZEROTOP: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None},
@@ -249,7 +258,7 @@ class HPCTArchitecture(object):
                         self.levels_zerotop.set_function_properties(function)
 
     def get_function_properties(self, level_type, control_function_type):
-
+        "Get the properties of a function definition at a level type."
         if level_type == HPCTARCH.ZEROTOP:
             return self.levels_zerotop.get_function_properties(control_function_type)
 
@@ -265,6 +274,7 @@ class HPCTArchitecture(object):
         return None, None
 
     def set(self, level_type, control_function_type, type, value):
+        "Set the value of a property of a control function type at a level type."
         if level_type == HPCTARCH.ZEROTOP:
             self.levels_zerotop.set_function_property(
                 control_function_type, type, value)
@@ -283,7 +293,7 @@ class HPCTArchitecture(object):
 
 
 class HPCTIndividual(PCTHierarchy):
-
+    "Definition of an individual HPCT entity object in terms of the architecture types definitions, the architecture configuration, the references, the inputs and the environment."
     def __init__(self, env=None, levels=0, cols=0, history=False, error_collector=None,
                  env_inputs=None, toplevel_inputs=None, zerolevel_inputs=None, levels_columns_grid=None,
                  lower_float=-1, upper_float=1, arch=None, references=None, num_actions=None):
@@ -306,6 +316,7 @@ class HPCTIndividual(PCTHierarchy):
             self.set_action_function(env, levels_columns_grid, num_actions)
 
     def set_action_function(self,  env, levels_columns_grid, num_actions):
+        "Link the hierarchy to the environment actions."
         levels = len(levels_columns_grid)
         columns = levels_columns_grid[0]
 
@@ -330,7 +341,7 @@ class HPCTIndividual(PCTHierarchy):
             env.add_link(action)
 
     def get_arch_parameter(self, level_type, function_type):
-
+        "Get an architecture parameter?"
         fn_class, var_type, var_props = self.arch.get_function_properties(
             level_type, function_type)
         #print(var_type, var_props)
@@ -339,7 +350,10 @@ class HPCTIndividual(PCTHierarchy):
         return parameter
 
 
+    #  Create the function and class, and its metadata depending upon where it is in the hierarchy.  
+
     def get_level_type(self, level):
+        "Get the type of a particular level."
         levels = self.get_levels()
         if levels == 1 and level == 0:
             return HPCTARCH.ZEROTOP
@@ -356,6 +370,7 @@ class HPCTIndividual(PCTHierarchy):
         return None
 
     def get_function_parameters(self, level_type=None, level=None, column=None, function_type=None, levels_grid=None, var_type=None, var_props=None):
+        # Get the ? parameters of a hierarchy function.
         parameters = {}
 
         fn_class, var_type, var_props = self.arch.get_function_properties(
@@ -409,25 +424,30 @@ class HPCTIndividual(PCTHierarchy):
         return parameters, fn_class
 
     def get_parameter(self, type, props):
+        "Create the function parameter based on its type, and set properties."
         parameter = ParameterFactory.createParameter(type)
         parameter.set_properties(props)
         return parameter
 
     def create_node(self, level, column, level_type, levels_grid):
+        "Create a PCT unit based on its position in hierarchy."
         #print(f'level {level}  column {column} ' )
 
+        # perceptual function
         parameters, fn_class = self.get_function_parameters(
             level_type, level, column, HPCTARCH.PERCEPTION, levels_grid)
         perception = EAFunctionFactory.createFunctionWithNamespace(fn_class, namespace=self.namespace)
         perception.set_name(f'PL{level}C{column}')
         perception.create_properties(parameters)
 
+        # reference function
         parameters, fn_class = self.get_function_parameters(
             level_type, level, column, HPCTARCH.REFERENCE, levels_grid)
         reference = EAFunctionFactory.createFunctionWithNamespace(fn_class, namespace=self.namespace)
         reference.set_name(f'RL{level}C{column}')
         reference.create_properties(parameters)
 
+        # comparator function
         fn_class, _, _ = self.arch.get_function_properties(
             level_type, HPCTARCH.COMPARATOR)
         comparator = FunctionFactory.createFunctionWithNamespace(fn_class, namespace=self.namespace)
@@ -435,6 +455,7 @@ class HPCTIndividual(PCTHierarchy):
         comparator.set_link(reference)
         comparator.add_link(perception)
 
+        # output function
         parameters, fn_class = self.get_function_parameters(
             level_type, level, column, HPCTARCH.OUTPUT, levels_grid)
         output = EAFunctionFactory.createFunctionWithNamespace(fn_class, namespace=self.namespace)
@@ -449,6 +470,7 @@ class HPCTIndividual(PCTHierarchy):
         return node
 
     def configure_nodes(self, levels_grid):
+        "Configure the node types based upon the level."
         # print(levels_grid)
         levels = len(levels_grid)
         if levels == 1:
@@ -471,6 +493,7 @@ class HPCTIndividual(PCTHierarchy):
 
 
     def validate(self):
+        "Validate the number of connections of the nodes and functions of the configured hierarchy."
         func = self.preCollection[0]
         func.validate(len(self.postCollection))
                     
@@ -492,6 +515,7 @@ class HPCTIndividual(PCTHierarchy):
 
 
     def mutate(self, evolve_properties):
+        "Mutate the individual by mutating each function in each node."
         if evolve_properties['attr_mut_pb'] == 0:
             return False
             
@@ -511,6 +535,7 @@ class HPCTIndividual(PCTHierarchy):
 
     @classmethod
     def from_config(cls, config, namespace=None):
+        "Create an individual from a provided configuration."
         hpct = HPCTIndividual()
         namespace = hpct.namespace
         #print(namespace)
@@ -556,6 +581,7 @@ class HPCTIndividual(PCTHierarchy):
     @classmethod
     def run_from_config(cls, config, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, verbose=False, early_termination=False):
+        "Run an individual from a provided configuration."
         ind = cls.from_config(config)
         env = ind.get_preprocessor()[0]
         env.set_render(render)
@@ -574,9 +600,10 @@ class HPCTIndividual(PCTHierarchy):
 
 
 class HPCTNode(PCTNode):
-
+    "A hierarchical PCT node."
     @classmethod
     def collection_from_config(node, collection, coll_dict, namespace):
+        "Set a node collection from JSON dictionary."
         #print("collection_from_config", coll_dict)
         for fndict_label in coll_dict:
             #print("fndict_label",fndict_label)
@@ -596,7 +623,7 @@ class HPCTNode(PCTNode):
 
     @classmethod
     def from_config(cls, config=None, namespace=None, node=None, reference=False, comparator=False, perception=False, output=False):
-
+        "Create a node from JSON dictionary configuration."
         if node is None:
             node = PCTNode(default=False, name=config['name'], namespace=namespace)
 
@@ -705,6 +732,7 @@ class HPCTEvolver(BaseEvolver):
 
 
     def create_inputs(self, env_inputs_indexes, env_inputs_names, toplevel_inputs_indexes, zerolevel_inputs_indexes, env):
+        "Linking the hierarchy inputs to the environment."
         if toplevel_inputs_indexes is not None:
             toplevel_inputs = []
             if len(toplevel_inputs_indexes) != len(self.references):
@@ -734,6 +762,7 @@ class HPCTEvolver(BaseEvolver):
         return env_inputs, toplevel_inputs, zerolevel_inputs
 
     def get_grid(self, grid=None):
+        "Create a hierarchy size with random number of levles and columns, within configured limits."
         if grid is None:
             grid = []
             levels = random.randint(self.min_levels_limit, self.max_levels_limit)
@@ -746,6 +775,7 @@ class HPCTEvolver(BaseEvolver):
         return grid
 
     def evaluate(self, hpct):
+        "Run a hierarchy in its environment returning the evaluation score."
         if self.save_arch_all:
             self.fig_file = f'arch-{self.gen:04}-{self.member:04}.png'
 
@@ -782,6 +812,7 @@ class HPCTEvolver(BaseEvolver):
         return score,
 
     def create(self, cls, grid=None):
+        "Create a hierarchy individual."
         error_collector = BaseErrorCollector.collector(self.error_response_type, self.error_collector_type, self.error_limit, properties=self.error_properties)
         levels_columns_grid = self.get_grid(grid)
         if levels_columns_grid[-1] != len(self.references):
@@ -815,6 +846,7 @@ class HPCTEvolver(BaseEvolver):
                    references=self.references, num_actions=self.num_actions)  # , lower_float=self.lower_float, upper_float=self.upper_float)
 
     def mate(self, indvidual1, indvidual2):
+        "Mate two individuals producing two children."
         child1 = CommonToolbox.getInstance().get_toolbox().clone(indvidual1) 
         child2 = CommonToolbox.getInstance().get_toolbox().clone(indvidual2)
         child1.change_namespace() 
@@ -875,6 +907,7 @@ class HPCTEvolver(BaseEvolver):
 
 
     def mutate(self, hpct, choice=None, remove_level=None, remove_nodes=None, add_level=None, add_nodes=None):
+        "Mutate an individual hierarchy clone."
         tb = CommonToolbox.getInstance().get_toolbox()
         mutant = tb.clone(hpct)
         mutant.change_namespace()
@@ -887,8 +920,10 @@ class HPCTEvolver(BaseEvolver):
         if self.debug > 2:
             print('mut b4',mutant.get_parameters_list())
 
+        # Mutate the functions.
         mutated = mutant.mutate(self.evolve_properties)
 
+        # Mutate the structure.
         if random.random() < self.structurepb:
             mutated_structure = self.mutate_structure(mutant, choice, remove_level, remove_nodes, add_level, add_nodes)
 
@@ -907,6 +942,7 @@ class HPCTEvolver(BaseEvolver):
 
 
     def add_nodes(self, individual, num_nodes, level, levels_columns_grid):  
+        "Add noes to a level."
         existing_columns = levels_columns_grid[level]
 
         if level==0:
@@ -947,6 +983,7 @@ class HPCTEvolver(BaseEvolver):
 
 
     def add_level(self, individual, num_columns, level, levels_columns_grid):  
+        "Add a level to the hierarchy."
         levels=len(levels_columns_grid)
         # flist = FunctionsList.getInstance()
 
@@ -1034,6 +1071,7 @@ class HPCTEvolver(BaseEvolver):
 
 
     def remove_level(self, individual, level):
+        "Remove a level from the hierarchy."
         levels_columns_grid = individual.get_grid()
         num_old_columns = levels_columns_grid[level]
         individual.remove_level(level)
@@ -1105,6 +1143,7 @@ class HPCTEvolver(BaseEvolver):
 
 
     def remove_nodes(self, individual, level, num_nodes):
+        "Remove nodes from a level."
         #levels_columns_grid = individual.get_grid()
         individual.remove_nodes(level, num_nodes)
         levels_columns_grid = individual.get_grid()
@@ -1145,7 +1184,7 @@ class HPCTEvolver(BaseEvolver):
 
 
     def mutate_structure(self, individual, choice=None, remove_level=None, remove_nodes=None, add_level=None, add_nodes=None):
-
+        "Muate the structure of a hierarchy."
         if isinstance(individual.get_postprocessor()[0].get_links()[0], str):
             pass
         else:
@@ -1160,7 +1199,9 @@ class HPCTEvolver(BaseEvolver):
         levels = individual.get_levels()
         levels_columns_grid = individual.get_grid()
         #print(levels_columns_grid)
+        
         if choice == 1 :
+            # add nodes
             upper_levels_limit = levels-2
             if upper_levels_limit >= 0:
                 if add_level is None:
@@ -1183,6 +1224,7 @@ class HPCTEvolver(BaseEvolver):
                         mutated_structure = True
 
         if choice == 2 :
+            # add level
             max_levels_limit = self.max_levels_limit
             if levels < max_levels_limit:
                 if add_nodes is None:
@@ -1194,6 +1236,7 @@ class HPCTEvolver(BaseEvolver):
                 #struct, mutated_structure = cs.add_level(num_columns=num_columns)
 
         if choice == 3 :
+            # remove level
             min_levels_limit = self.min_levels_limit
             if levels > min_levels_limit:
                 remove_level = levels-2
@@ -1204,6 +1247,7 @@ class HPCTEvolver(BaseEvolver):
                 #struct, mutated_structure = cs.remove_level()
 
         if choice == 4 :
+            # remove nodes
             upper_levels_limit = levels-2
             if upper_levels_limit >= 0:
                 if remove_level is None:
@@ -1224,8 +1268,15 @@ class HPCTEvolver(BaseEvolver):
                         mutated_structure = True
                         #struct, mutated_structure = cs.remove_nodes(level=remove_level, num_nodes=remove_nodes)
 
-        if individual.get_postprocessor()[0].get_links()[0].get_name() == 'OL1C0':
-            raise Exception('Wrong action connection')
+
+        if isinstance(individual.get_postprocessor()[0].get_links()[0], str):
+            pass
+        else:
+            if individual.get_postprocessor()[0].get_links()[0].get_name() == 'OL1C0':
+                raise Exception('Wrong action connection')
+            
+        #if individual.get_postprocessor()[0].get_links()[0].get_name() == 'OL1C0':
+        #    raise Exception('Wrong action connection')
 
         return mutated_structure
 
@@ -1239,7 +1290,7 @@ class HPCTEvolver(BaseEvolver):
 
 
 class HPCTEvolverWrapper(EvolverWrapper):
-
+    "Class that runs the genetic algorithm usinf DEAP."
     def run(self, gens=25, verbose=False, deap_verbose=False, log=False):
         log_string = ''
         
@@ -1342,7 +1393,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
 
 
 class HPCTEvolveProperties(object):
-
+    "Properties associated with GA execution."
 
     def __init__(self):
         # self.properties = {}
@@ -1384,6 +1435,7 @@ class HPCTEvolveProperties(object):
 
 
     def load_db(self, file):
+        "Load properties of one run of GA from file."
         from jproperties import Properties
 
         # read properties from file
@@ -1398,7 +1450,7 @@ class HPCTEvolveProperties(object):
 
 
     def get_error_properties(self):
-
+        "Get properties of error function from loaded properties list of the form propertyn."
         error_properties = []
         for property in range(1, 100):
             property_key = f'property{property}'
@@ -1414,6 +1466,7 @@ class HPCTEvolveProperties(object):
         return error_properties
         
     def collect_types_strings(self):
+        "?"
         types_strings={}
         for type in range(1, 100):
             type_key = f'type{type}'
@@ -1423,6 +1476,7 @@ class HPCTEvolveProperties(object):
         return types_strings
 
     def collect_configs_strings(self):
+        "?"
         configs_strings={}
         for config in range(1, 100):
             config_key = f'config{config}'
@@ -1434,7 +1488,7 @@ class HPCTEvolveProperties(object):
     #@classmethod
     def load_properties(self, file=None, nevals=None, seed=None, print_properties=False,
                         gens=None, pop_size=None, evolve=False):
-
+        "Set all the properties."
         self.load_db(file)
 
         # evolve arguments
@@ -1465,7 +1519,7 @@ class HPCTEvolveProperties(object):
         # self.file_properties['raw'] = raw
 
         self.file_properties['desc'] = self.db['desc']
-
+        # environment properties
         self.set_property_value(properties_var=self.environment_properties, property_name='early_termination', eval_convert=True, default=False)
         self.set_property_value(properties_var=self.environment_properties, property_name='env_inputs_indexes', eval_convert=True)
         self.set_property_value(properties_var=self.environment_properties, property_name='references', eval_convert=True)
@@ -1474,7 +1528,7 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.environment_properties, property_name='env_inputs_names', stringList=True)
         self.set_property_value(properties_var=self.environment_properties, property_name='env_name')
         self.set_property_value(properties_var=self.environment_properties, property_name='num_actions', int_convert=True)
-
+        # structure properties
         self.set_property_value(properties_var=self.hpct_structure_properties, property_name='min_levels_limit', int_convert=True, default=1)
         self.set_property_value(properties_var=self.hpct_structure_properties, property_name='min_columns_limit', int_convert=True, default=1)
         self.set_property_value(properties_var=self.hpct_structure_properties, property_name='max_levels_limit', int_convert=True, default=1)
@@ -1487,6 +1541,7 @@ class HPCTEvolveProperties(object):
         self.hpct_structure_properties['configs_strings'] = self.collect_configs_strings()
 
         error_properties = self.get_error_properties()
+        # properties of one HPCT run.
         self.hpct_run_properties['error_properties'] = error_properties
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_collector_type',  default='TotalError')
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_response_type',  default='RootSumSquaredError')
@@ -1510,9 +1565,10 @@ class HPCTEvolveProperties(object):
 
         
 
-    # Cell
+
     def setup_environment(self, properties, render=False, seed=None, early_termination=None,
             error_collector_type=None, error_response_type=None):
+        "Set up simulation environment and error/store collector."
 
         if error_collector_type == None:
             error_collector_type = properties['error_collector_type']
@@ -1557,6 +1613,7 @@ class HPCTEvolveProperties(object):
     #     return types_string
 
     def get_configs_string(self):
+        "?"
         configs_string=""
         configs_strings = self.hpct_structure_properties['configs_strings']
         for config_key, config_value  in configs_strings.items():
@@ -1570,7 +1627,7 @@ class HPCTEvolveProperties(object):
         return configs_string
 
     def create_hash_string(self, properties_string, configs_string):
-
+        "Create an unique hash ID defined by the properties of this GA instance."
         hs = ''.join((f'{self.environment_properties["env_inputs_indexes"]}{self.environment_properties["references"]}{self.environment_properties["toplevel_inputs_indexes"]}',
             f'{properties_string}{self.file_properties["desc"]}{self.hpct_run_properties["error_response_type"]}{self.hpct_run_properties["error_collector_type"]}',
             f'{configs_string}{self.hpct_structure_properties["mode"]}{self.hpct_run_properties["seed"]}{self.wrapper_properties["pop_size"]}',
@@ -1583,13 +1640,14 @@ class HPCTEvolveProperties(object):
         return  hs 
 
     def get_verbose_property(self, key, verbose, default=False):
+        "?"
         value = default
         if key in verbose:
             value = verbose[key]
         return value
 
     def write_output(self, output, out_dir, env_name, desc, hash_num, overwrite):
-
+        "Write results of GA run to file."
         if output:
             import os
             dir1 = out_dir + env_name
@@ -1613,7 +1671,7 @@ class HPCTEvolveProperties(object):
             test=False, gens=None, pop_size=None, nevals = None, move=None, out_dir=None, node_size=200,
             parallel=False, video_wrap=False, log=False, figsize=(12,12), summary=False, draw_file=None, with_edge_labels=True,
             print_properties=False, overwrite=False, output=False, toolbox=None, processes=1):
-
+        "Evolve from file - when is this used?"
         import hashlib
         self.load_properties(file, print_properties=print_properties, evolve=True)
 
@@ -1624,7 +1682,7 @@ class HPCTEvolveProperties(object):
             seed = self.hpct_run_properties['seed']
         # modes_list = properties['modes']
        
-        # types_string = self.get_types_string()
+        # types_string = self.get_types_string() # is this function needed
         configs_string= self.get_configs_string()
 
         properties_string=""
@@ -1755,6 +1813,7 @@ class HPCTEvolveProperties(object):
         return output_file, evr, score
 
     def get_file_contents(self, file):
+        "Get filtered contents a GA properties file."
         from io import StringIO
         file_str = StringIO()
         with open(file, 'r') as f:
@@ -1770,6 +1829,7 @@ class HPCTEvolveProperties(object):
 
 
 class HPCTGenerateEvolvers(object):
+    "Generate files of evolver properties, from array of options."
     def __init__(self, iters=1, envs=None, collection=None, configs=None, properties=None, varieties=None):
         import os
         for env in envs:
@@ -1787,6 +1847,7 @@ class HPCTGenerateEvolvers(object):
                 self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
 
     def generate_option_files(self, iters, env, num_actions, arch, config, nevals, properties, collection):
+        "Generate properties file based upon architecture type."
         import os
         arch_name = arch['name']
         # inputs_names = arch['inputs_names']
@@ -1814,6 +1875,7 @@ class HPCTGenerateEvolvers(object):
                         print(cmd, end='\n')
 
     def additional_properties(self, properties, response, collector):
+        "Add additional properties such as error function parameters."
         ppars = ''
         
         if len(properties)>0:
@@ -1837,11 +1899,13 @@ class HPCTGenerateEvolvers(object):
 
 
     def write_to_file(self, file, text):
+        "Write text to file."
         f = open(file, "w")
         f.write(text)
         f.close()
 
     def structure_parameters(self, collector,response,  struct, arch):
+        "List the evolution configuration parameters."
         header = '### Structure\n\n'
         header = header + '# modes - pattern of nodes at particular levels, zero, n, top and zerotop\n'
         header = header + '# the mode numbers refer to:\n'
@@ -1904,12 +1968,13 @@ class HPCTGenerateEvolvers(object):
         
 
     def description(self, collector,response, mode, arch):
+        "Define the description and filename."
         filename = '-'.join((arch, collector,response, mode))
         rtn = ''.join(('\n### Description:\n\n','desc = ', filename,'\n'))
         return rtn, filename
 
     def fixed_parameters(self, env, option, num_actions):  
-            
+        "List the fixed parameters of the environment."
         header = '### Environment parameters\n\n# Full list of input indexes from environment\n# List of input indexes from environment for zero level if not full\n# List of input indexes from environment for top level# List of reference values\n# Number of actions\n# Display names for environment inputs\n\n'
         text1 = f'env_name = {env}\n' 
         text1 = text1 + f'env_inputs_indexes = {self.get_parameter(option, "env_inputs_indexes")}\n'
@@ -1922,6 +1987,7 @@ class HPCTGenerateEvolvers(object):
         return ''.join((header,text1))    
 
     def get_parameter(self, pdict, name, default=None):
+        "Get a parameter from a dictionary."
         if name in pdict:
             return pdict[name]
 

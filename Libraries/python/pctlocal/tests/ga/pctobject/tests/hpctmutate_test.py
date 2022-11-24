@@ -280,8 +280,9 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
     def test_NoTopInputs_a_choice4(self):
         ind = self.evr.toolbox.individual()
         ind.get_preprocessor()[0].summary()
-
-        #print(ind.get_grid())
+        print(ind.get_postprocessor()[0].get_links()[0])
+        # ind.summary()
+        print(ind.get_grid())
         ind1 = self.evr.toolbox.mutate(ind)[0]
         #ind1.get_preprocessor()[0].summary()
 
