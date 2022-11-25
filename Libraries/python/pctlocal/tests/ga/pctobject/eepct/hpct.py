@@ -25,10 +25,10 @@ class HPCTARCH(IntEnum):
     COMPARATOR = auto()
     OUTPUT = auto()
     ACTION = auto()
-    ZERO = auto()
-    N = auto()
-    TOP = auto()
-    ZEROTOP = auto()
+    # ZERO = auto()
+    # N = auto()
+    # TOP = auto()
+    # ZEROTOP = auto()
     HIERARCHY = auto()
     LEVELS = auto()
     LEVEL = auto()
@@ -39,6 +39,13 @@ class HPCTARCH(IntEnum):
     FUNCTION_CLASS = auto()
     VARIABLE_PROPERTIES = auto()
 
+
+class HPCTLEVEL(IntEnum):
+    "The level types associated with a hierarchy depending upon the number of levels."
+    ZERO = auto() # lowest level if more than one levels.
+    N = auto() # level which is neither top or lowest (zero).
+    TOP = auto() # top level
+    ZEROTOP = auto() # if only one level
 
 class HPCTControlFunctionCollection(object):
     "Collection of functions associated with a control unit."
@@ -170,11 +177,11 @@ class HPCTArchitecture(object):
                         HPCTARCH.ACTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overridsing some functions at levels.
-                            HPCTARCH.ZERO: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None}},
-                            HPCTARCH.N: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None}},
-                            HPCTARCH.ZEROTOP: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None},
+                            HPCTLEVEL.ZERO: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None}},
+                            HPCTLEVEL.N: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None}},
+                            HPCTLEVEL.ZEROTOP: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None},
                                             HPCTARCH.REFERENCE: {HPCTARCH.VARIABLE_TYPE: 'Literal', HPCTARCH.FUNCTION_CLASS: 'EAConstant', HPCTARCH.VARIABLE_PROPERTIES: None}},
-                            HPCTARCH.TOP: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None},
+                            HPCTLEVEL.TOP: {HPCTARCH.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None},
                                         HPCTARCH.REFERENCE: {HPCTARCH.VARIABLE_TYPE: 'Literal', HPCTARCH.FUNCTION_CLASS: 'EAConstant', HPCTARCH.VARIABLE_PROPERTIES: None}}
                         }}
             }
@@ -238,56 +245,56 @@ class HPCTArchitecture(object):
 
         if HPCTARCH.LEVELS in self.arch[HPCTARCH.HIERARCHY]:
             if self.levels_zero != None:
-                if HPCTARCH.ZERO in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS]:
-                    for function in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS][HPCTARCH.ZERO].items():
+                if HPCTLEVEL.ZERO in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS]:
+                    for function in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS][HPCTLEVEL.ZERO].items():
                         self.levels_zero.set_function_properties(function)
 
             if self.levels_n != None:
-                if HPCTARCH.N in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS]:
-                    for function in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS][HPCTARCH.N].items():
+                if HPCTLEVEL.N in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS]:
+                    for function in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS][HPCTLEVEL.N].items():
                         self.levels_n.set_function_properties(function)
 
             if self.levels_top != None:
-                if HPCTARCH.TOP in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS]:
-                    for function in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS][HPCTARCH.TOP].items():
+                if HPCTLEVEL.TOP in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS]:
+                    for function in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS][HPCTLEVEL.TOP].items():
                         self.levels_top.set_function_properties(function)
 
             if self.levels_zerotop != None:
-                if HPCTARCH.ZEROTOP in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS]:
-                    for function in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS][HPCTARCH.ZEROTOP].items():
+                if HPCTLEVEL.ZEROTOP in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS]:
+                    for function in self.arch[HPCTARCH.HIERARCHY][HPCTARCH.LEVELS][HPCTLEVEL.ZEROTOP].items():
                         self.levels_zerotop.set_function_properties(function)
 
     def get_function_properties(self, level_type, control_function_type):
         "Get the properties of a function definition at a level type."
-        if level_type == HPCTARCH.ZEROTOP:
+        if level_type == HPCTLEVEL.ZEROTOP:
             return self.levels_zerotop.get_function_properties(control_function_type)
 
-        if level_type == HPCTARCH.ZERO:
+        if level_type == HPCTLEVEL.ZERO:
             return self.levels_zero.get_function_properties(control_function_type)
 
-        if level_type == HPCTARCH.TOP:
+        if level_type == HPCTLEVEL.TOP:
             return self.levels_top.get_function_properties(control_function_type)
 
-        if level_type == HPCTARCH.N:
+        if level_type == HPCTLEVEL.N:
             return self.levels_n.get_function_properties(control_function_type)
 
         return None, None
 
     def set(self, level_type, control_function_type, type, value):
         "Set the value of a property of a control function type at a level type."
-        if level_type == HPCTARCH.ZEROTOP:
+        if level_type == HPCTLEVEL.ZEROTOP:
             self.levels_zerotop.set_function_property(
                 control_function_type, type, value)
 
-        if level_type == HPCTARCH.ZERO:
+        if level_type == HPCTLEVEL.ZERO:
             self.levels_zero.set_function_property(
                 control_function_type, type, value)
 
-        if level_type == HPCTARCH.TOP:
+        if level_type == HPCTLEVEL.TOP:
             self.levels_top.set_function_property(
                 control_function_type, type, value)
 
-        if level_type == HPCTARCH.N:
+        if level_type == HPCTLEVEL.N:
             self.levels_n.set_function_property(
                 control_function_type, type, value)
 
@@ -301,7 +308,7 @@ class HPCTIndividual(PCTHierarchy):
         namespace = None
         if env is not None:
             namespace = env.namespace
-        super().__init__(history=history, error_collector=error_collector, namespace=namespace)
+        super().__init__(levels=levels, cols=cols, history=history, error_collector=error_collector, namespace=namespace)
 
         self.arch = arch
         self.lower_float, self.upper_float, self.references = lower_float, upper_float, references
@@ -320,9 +327,9 @@ class HPCTIndividual(PCTHierarchy):
         levels = len(levels_columns_grid)
         columns = levels_columns_grid[0]
 
-        level_type = HPCTARCH.ZERO
+        level_type = HPCTLEVEL.ZERO
         if levels == 1:
-            level_type = HPCTARCH.ZEROTOP
+            level_type = HPCTLEVEL.ZEROTOP
 
         function_type = HPCTARCH.ACTION
         for actionIndex in range(num_actions):
@@ -356,16 +363,16 @@ class HPCTIndividual(PCTHierarchy):
         "Get the type of a particular level."
         levels = self.get_levels()
         if levels == 1 and level == 0:
-            return HPCTARCH.ZEROTOP
+            return HPCTLEVEL.ZEROTOP
 
         if levels > 1 and level == 0:
-            return HPCTARCH.ZERO
+            return HPCTLEVEL.ZERO
 
         if levels > 1 and level < levels-1:
-            return HPCTARCH.N
+            return HPCTLEVEL.N
 
         if levels > 1 and level == levels-1:
-            return HPCTARCH.TOP
+            return HPCTLEVEL.TOP
 
         return None
 
@@ -385,15 +392,15 @@ class HPCTIndividual(PCTHierarchy):
             return parameters, fn_class
 
         if function_type == HPCTARCH.PERCEPTION:
-            if (level_type == HPCTARCH.TOP or level_type == HPCTARCH.ZEROTOP) and self.toplevel_inputs is not None:
+            if (level_type == HPCTLEVEL.TOP or level_type == HPCTLEVEL.ZEROTOP) and self.toplevel_inputs is not None:
                 parameters['inputs'] = [self.toplevel_inputs[column]]
                 parameters['targetcolumns'] = 1
                 parameters['parameter'] = parameter
-            elif level_type == HPCTARCH.ZEROTOP:
+            elif level_type == HPCTLEVEL.ZEROTOP:
                 parameters['inputs'] = self.env_inputs
                 parameters['targetcolumns'] = len(self.env_inputs)
                 parameters['parameter'] = parameter
-            elif level_type == HPCTARCH.ZERO:
+            elif level_type == HPCTLEVEL.ZERO:
                 parameters['inputs'] = self.zerolevel_inputs
                 parameters['targetcolumns'] = len(self.zerolevel_inputs)
                 parameters['parameter'] = parameter
@@ -405,12 +412,12 @@ class HPCTIndividual(PCTHierarchy):
             return parameters, fn_class
 
         if function_type == HPCTARCH.REFERENCE:
-            if level_type == HPCTARCH.N or level_type == HPCTARCH.ZERO:
+            if level_type == HPCTLEVEL.N or level_type == HPCTLEVEL.ZERO:
                 parameters['targetlevel'] = level+1
                 parameters['targetprefix'] = 'O'
                 parameters['targetcolumns'] = levels_grid[level+1]
                 parameters['parameter'] = parameter
-            if level_type == HPCTARCH.TOP or level_type == HPCTARCH.ZEROTOP:
+            if level_type == HPCTLEVEL.TOP or level_type == HPCTLEVEL.ZEROTOP:
                 parameters['value'] = self.references[column]
             return parameters, fn_class
 
@@ -474,16 +481,16 @@ class HPCTIndividual(PCTHierarchy):
         # print(levels_grid)
         levels = len(levels_grid)
         if levels == 1:
-            level_type = HPCTARCH.ZEROTOP
+            level_type = HPCTLEVEL.ZEROTOP
         else:
-            level_type = HPCTARCH.ZERO
+            level_type = HPCTLEVEL.ZERO
 
         for level, columns in enumerate(levels_grid):
             if level > 0:
                 if level == levels-1:
-                    level_type = HPCTARCH.TOP
+                    level_type = HPCTLEVEL.TOP
                 else:
-                    level_type = HPCTARCH.N
+                    level_type = HPCTLEVEL.N
             for column in range(columns):
                 node = self.create_node(level, column, level_type, levels_grid)
                 self.add_node(node, level, column)
@@ -859,7 +866,7 @@ class HPCTEvolver(BaseEvolver):
         # actions, at level 0
         child1actions = child1.get_postprocessor()
         child2actions = child2.get_postprocessor()
-        #parameter = child1.get_arch_parameter(HPCTARCH.ZERO, HPCTARCH.ACTION)
+        #parameter = child1.get_arch_parameter(HPCTLEVEL.ZERO, HPCTARCH.ACTION)
         for ctr in range(self.num_actions):
             child1actions[ctr].mate(child2actions[ctr],  self.evolve_properties)
      
@@ -946,9 +953,9 @@ class HPCTEvolver(BaseEvolver):
         existing_columns = levels_columns_grid[level]
 
         if level==0:
-            level_type = HPCTARCH.ZERO
+            level_type = HPCTLEVEL.ZERO
         else:
-            level_type = HPCTARCH.N
+            level_type = HPCTLEVEL.N
 
         # create nodes
         for column in range(existing_columns, existing_columns+num_nodes):
@@ -957,7 +964,7 @@ class HPCTEvolver(BaseEvolver):
             individual.add_node(node, level, column)
 
         if level==0:
-            parameter = individual.get_arch_parameter(HPCTARCH.ZERO, HPCTARCH.ACTION)
+            parameter = individual.get_arch_parameter(HPCTLEVEL.ZERO, HPCTARCH.ACTION)
             for action in  individual.get_postprocessor():
                 action.add_connections(num_nodes, level,  parameter, 'O')
         else:
@@ -970,7 +977,7 @@ class HPCTEvolver(BaseEvolver):
 
         # higher perceptions
         level_type = individual.get_level_type(level+1)
-        if (level_type == HPCTARCH.TOP or level_type == HPCTARCH.ZEROTOP) and self.toplevel_inputs is not None:
+        if (level_type == HPCTLEVEL.TOP or level_type == HPCTLEVEL.ZEROTOP) and self.toplevel_inputs is not None:
             # don't change top inputs
             pass
         else:
@@ -1026,7 +1033,7 @@ class HPCTEvolver(BaseEvolver):
             # perception.set_name(f'P{suffix}')
 
             level_type = individual.get_level_type(top_level)
-            if (level_type == HPCTARCH.TOP or level_type == HPCTARCH.ZEROTOP) and self.toplevel_inputs is not None:
+            if (level_type == HPCTLEVEL.TOP or level_type == HPCTLEVEL.ZEROTOP) and self.toplevel_inputs is not None:
                 # don't change top inputs
                 pass
             else:
@@ -1063,7 +1070,7 @@ class HPCTEvolver(BaseEvolver):
             # lower actions
             for action in  individual.get_postprocessor():
                 # if adjust_lower_connections>0:
-                parameter = individual.get_arch_parameter(HPCTARCH.ZERO, HPCTARCH.ACTION)
+                parameter = individual.get_arch_parameter(HPCTLEVEL.ZERO, HPCTARCH.ACTION)
                 action.reset_connections(num_columns, level,  parameter, 'O')
                 # if adjust_lower_connections<0:
                 #     action.remove_connections(abs(adjust_lower_connections))
@@ -1092,7 +1099,7 @@ class HPCTEvolver(BaseEvolver):
 
             if level==0:
                 level_type = individual.get_level_type(level)
-                if level_type == HPCTARCH.ZEROTOP:
+                if level_type == HPCTLEVEL.ZEROTOP:
                     if self.toplevel_inputs is None:
                         #parameter = individual.get_arch_parameter(level_type, HPCTARCH.PERCEPTION)
                         parameters, _ = individual.get_function_parameters(level_type, level, column, HPCTARCH.PERCEPTION, levels_columns_grid)
@@ -1106,7 +1113,7 @@ class HPCTEvolver(BaseEvolver):
 
             else:
                 level_type = individual.get_level_type(level)
-                if (level_type == HPCTARCH.TOP or level_type == HPCTARCH.ZEROTOP) and self.toplevel_inputs is not None:
+                if (level_type == HPCTLEVEL.TOP or level_type == HPCTLEVEL.ZEROTOP) and self.toplevel_inputs is not None:
                     # don't change top inputs
                     pass
                 else:
@@ -1121,7 +1128,7 @@ class HPCTEvolver(BaseEvolver):
         adjust_lower_connections = levels_columns_grid[-1] - num_old_columns
         if level==0:
             # lower actions
-            parameter = individual.get_arch_parameter(HPCTARCH.ZERO, HPCTARCH.ACTION)
+            parameter = individual.get_arch_parameter(HPCTLEVEL.ZERO, HPCTARCH.ACTION)
             for action in  individual.get_postprocessor():
                 if adjust_lower_connections>0:
                     action.add_connections(adjust_lower_connections, level,  parameter, 'O')
@@ -1151,7 +1158,7 @@ class HPCTEvolver(BaseEvolver):
         # perceptions at higher level
         higher_level = level+1
         level_type = individual.get_level_type(higher_level)
-        if (level_type == HPCTARCH.TOP or level_type == HPCTARCH.ZEROTOP) and self.toplevel_inputs is not None:
+        if (level_type == HPCTLEVEL.TOP or level_type == HPCTLEVEL.ZEROTOP) and self.toplevel_inputs is not None:
             # don't change top level perceptions
             pass
         else:

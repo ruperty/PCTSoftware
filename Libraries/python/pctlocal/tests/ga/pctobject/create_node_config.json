@@ -1,0 +1,123 @@
+{
+    "type": "Individual",
+    "name": "pcthierarchy",
+    "pre": {
+        "pre0": {
+            "type": "CartPoleV1",
+            "name": "CartPoleV1",
+            "value": [0.09167718645484463, 0.016581867845028825, 0.0005768263293848813, -0.016596000470601835, 0.09225401275224174],
+            "links": {
+                "0": "Action1"
+            },
+            "env_name": "CartPole - v1",
+            "reward": 1.0,
+            "done": "False",
+            "info": {}
+        },
+        "pre1": {
+            "type": "IndexedParameter",
+            "name": "ICV",
+            "value": 0.016581867845028825,
+            "links": {
+                "0": "CartPoleV1"
+            },
+            "index": 1
+        },
+        "pre2": {
+            "type": "IndexedParameter",
+            "name": "ICP",
+            "value": 0.09167718645484463,
+            "links": {
+                "0": "CartPoleV1"
+            },
+            "index": 0
+        },
+        "pre3": {
+            "type": "IndexedParameter",
+            "name": "IPV",
+            "value": -0.016596000470601835,
+            "links": {
+                "0": "CartPoleV1"
+            },
+            "index": 3
+        },
+        "pre4": {
+            "type": "IndexedParameter",
+            "name": "IPA",
+            "value": 0.0005768263293848813,
+            "links": {
+                "0": "CartPoleV1"
+            },
+            "index": 2
+        }
+    },
+    "levels": {
+        "level0": {
+            "level": 0,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "L0C0",
+                        "refcoll": {
+                            "0": {
+                                "type": "EAConstant",
+                                "name": "RL0C0",
+                                "value": 0,
+                                "links": {}
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "EAWeightedSum",
+                                "name": "PL0C0",
+                                "value": 0.0005626937038118712,
+                                "links": {
+                                    "0": "ICV",
+                                    "1": "ICP",
+                                    "2": "IPV",
+                                    "3": "IPA"
+                                },
+                                "weights": [1, 0, 1, 1]
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "CL0C0",
+                                "value": -0.0005626937038118712,
+                                "links": {
+                                    "0": "RL0C0",
+                                    "1": "PL0C0"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "EAProportional",
+                                "name": "OL0C0",
+                                "value": -0.0005019000223479335,
+                                "links": {
+                                    "0": "CL0C0"
+                                },
+                                "gain": 0.8919595491257475
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "post": {
+        "post0": {
+            "type": "EAWeightedSum",
+            "name": "Action1",
+            "value": 3.400675609195577e-05,
+            "links": {
+                "0": "OL0C0"
+            },
+            "weights": [-0.06775603621786885]
+        }
+    }
+    }
