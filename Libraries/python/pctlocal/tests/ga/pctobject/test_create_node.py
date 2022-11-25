@@ -4,6 +4,9 @@ from eepct.hpct import HPCTIndividual
 from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTArchitecture
 
+from eepct.hpct import HPCTFUNCTION
+from eepct.hpct import HPCTARCH
+
 namespace = uuid.uuid1()
 
 test = 1
@@ -18,25 +21,30 @@ if test==1:
     #config = loadjson("create_node_config.json")
 
     #ind = HPCTIndividual.from_config(config)
-    
-    ind = HPCTIndividual(levels=3, cols=1)
+
+    print(HPCTFUNCTION.REFERENCE.name, HPCTFUNCTION.REFERENCE.value)
+    print(HPCTARCH.LEVELS.name, HPCTARCH.LEVELS.value)
     
     arch = HPCTArchitecture()
     arch.configure()
-    ind.arch = arch
+
+    ind = HPCTIndividual(levels=3, cols=1, arch = arch)
     
     ind.get_node(2,0).get_function('output').set_name("OL2C0")
     ind.get_node(0,0).get_function('perception').set_name("PL0C0")
          
-    ind.summary()
+    #ind.summary()
     
     level=1
     column=1
     level_type=HPCTLEVEL.N
     levels_grid=ind.get_grid()
     node = ind.create_node(level, column, level_type, levels_grid)
+    ind.add_node(node, level, column)
+
+    print("---- node ----")
     node.summary()
-    print("**** ind ****")
+    print("---- ind ----")
     ind.summary()
     
 
