@@ -7,7 +7,7 @@ from pct.environments import VelocityModel
 from epct.evolvers import EvolverWrapper, CommonToolbox
 from pct.functions import CUF
 
-from eepct.hpct import HPCTArchitecture
+
 from eepct.hpct import HPCTARCH
 from eepct.hpct import HPCTEvolver
 from eepct.hpct import HPCTIndividual

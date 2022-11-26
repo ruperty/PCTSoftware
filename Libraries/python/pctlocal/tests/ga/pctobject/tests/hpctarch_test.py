@@ -3,7 +3,10 @@ import unittest
 
 from eepct.hpct import HPCTArchitecture
 from eepct.hpct import HPCTARCH
+from eepct.hpct import HPCTLEVEL
 
+from eepct.hpct import HPCTFUNCTION
+from eepct.hpct import HPCTVARIABLE
 
 
 
@@ -28,8 +31,9 @@ class TestHPCTArchConfig(unittest.TestCase):
         #     }
         # cls.arch = HPCTArchitecture(arch=hpct_architecture_properties)
         cls.arch = HPCTArchitecture()
-        cls.arch.configure()
-        cls.arch.set(HPCTARCH.ZERO, HPCTARCH.ACTION, HPCTARCH.VARIABLE_PROPERTIES, {'lower': -50, 'upper': 50})
+        
+        cls.arch.configure() 
+        cls.arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': -50, 'upper': 50})
         cls.arch.set(HPCTARCH.ZERO, HPCTARCH.REFERENCE, HPCTARCH.VARIABLE_PROPERTIES, {'lower': -5, 'upper': 5})
         cls.arch.set(HPCTARCH.TOP, HPCTARCH.OUTPUT, HPCTARCH.VARIABLE_PROPERTIES, {'lower': -2, 'upper': 2})
         cls.arch.set(HPCTARCH.N, HPCTARCH.REFERENCE, HPCTARCH.VARIABLE_PROPERTIES, {'lower': -5, 'upper': 5})
