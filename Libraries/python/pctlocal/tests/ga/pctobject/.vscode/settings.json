@@ -4,15 +4,15 @@
         "./utils",
         "./eepct"
     ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "arepl.pythonpath": "/home/ruperty/anaconda3/envs/dev37/bin/python",
     "python.testing.unittestArgs": [
         "-v",
         "-s",
         "./tests",
         "-p",
         "*_test.py"
-    ],
-    "python.testing.pytestEnabled": false,
-    "python.testing.nosetestsEnabled": false,
-    "python.testing.unittestEnabled": true,
-    "arepl.pythonpath":"/home/ruperty/anaconda3/envs/dev37/bin/python"
+    ]
 }

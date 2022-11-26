@@ -40,12 +40,15 @@ class HPCTARCH(IntEnum):
     HIERARCHY = 6
     LEVELS = auto()
     LEVEL = auto()
-    VARIABLE_TYPE = auto()
     PARAMETER = auto()
     CONN = auto()
     EVOLVE = auto()
-    FUNCTION_CLASS = auto()
-    VARIABLE_PROPERTIES = auto()
+
+class HPCTVARIABLE(IntEnum):
+    "The level types associated with a hierarchy depending upon the number of levels."
+    FUNCTION_CLASS = 12
+    PROPERTIES = auto()
+    TYPE = auto()
 
 
 class HPCTLEVEL(IntEnum):
@@ -109,33 +112,33 @@ class HPCTControlFunctionCollection(object):
         "Set all three properties of a function from architecture properties."
         if function[0] == HPCTFUNCTION.REFERENCE:
             self.reference.func_class, self.reference.var_type = function[1][
-                HPCTARCH.FUNCTION_CLASS], function[1][HPCTARCH.VARIABLE_TYPE]
-            if HPCTARCH.VARIABLE_PROPERTIES in function[1] != None:
-                self.reference.var_properties = function[1][HPCTARCH.VARIABLE_PROPERTIES]
+                HPCTVARIABLE.FUNCTION_CLASS], function[1][HPCTVARIABLE.TYPE]
+            if HPCTVARIABLE.PROPERTIES in function[1] != None:
+                self.reference.var_properties = function[1][HPCTVARIABLE.PROPERTIES]
 
         if function[0] == HPCTFUNCTION.PERCEPTION:
             self.perception.func_class, self.perception.var_type = function[1][
-                HPCTARCH.FUNCTION_CLASS], function[1][HPCTARCH.VARIABLE_TYPE]
-            if HPCTARCH.VARIABLE_PROPERTIES in function[1] != None:
-                self.perception.var_properties = function[1][HPCTARCH.VARIABLE_PROPERTIES]
+                HPCTVARIABLE.FUNCTION_CLASS], function[1][HPCTVARIABLE.TYPE]
+            if HPCTVARIABLE.PROPERTIES in function[1] != None:
+                self.perception.var_properties = function[1][HPCTVARIABLE.PROPERTIES]
 
         if function[0] == HPCTFUNCTION.OUTPUT:
             self.output.func_class, self.output.var_type = function[1][
-                HPCTARCH.FUNCTION_CLASS], function[1][HPCTARCH.VARIABLE_TYPE]
-            if HPCTARCH.VARIABLE_PROPERTIES in function[1] != None:
-                self.output.var_properties = function[1][HPCTARCH.VARIABLE_PROPERTIES]
+                HPCTVARIABLE.FUNCTION_CLASS], function[1][HPCTVARIABLE.TYPE]
+            if HPCTVARIABLE.PROPERTIES in function[1] != None:
+                self.output.var_properties = function[1][HPCTVARIABLE.PROPERTIES]
 
         if function[0] == HPCTFUNCTION.COMPARATOR:
             self.comparator.func_class, self.comparator.var_type = function[1][
-                HPCTARCH.FUNCTION_CLASS], function[1][HPCTARCH.VARIABLE_TYPE]
-            if HPCTARCH.VARIABLE_PROPERTIES in function[1] != None:
-                self.comparator.var_properties = function[1][HPCTARCH.VARIABLE_PROPERTIES]
+                HPCTVARIABLE.FUNCTION_CLASS], function[1][HPCTVARIABLE.TYPE]
+            if HPCTVARIABLE.PROPERTIES in function[1] != None:
+                self.comparator.var_properties = function[1][HPCTVARIABLE.PROPERTIES]
 
         if function[0] == HPCTFUNCTION.ACTION:
             self.action.func_class, self.action.var_type = function[1][
-                HPCTARCH.FUNCTION_CLASS], function[1][HPCTARCH.VARIABLE_TYPE]
-            if HPCTARCH.VARIABLE_PROPERTIES in function[1] != None:
-                self.action.var_properties = function[1][HPCTARCH.VARIABLE_PROPERTIES]
+                HPCTVARIABLE.FUNCTION_CLASS], function[1][HPCTVARIABLE.TYPE]
+            if HPCTVARIABLE.PROPERTIES in function[1] != None:
+                self.action.var_properties = function[1][HPCTVARIABLE.PROPERTIES]
 
 
 @dataclass
@@ -146,24 +149,24 @@ class HPCTControlFunctionProperties(object):
     var_properties : dict
 
     # def __init__(self, properties=None):
-    #     self.var_type = properties[HPCTARCH.VARIABLE_TYPE]
-    #     self.func_class = properties[HPCTARCH.FUNCTION_CLASS]
-    #     self.var_properties = properties[HPCTARCH.VARIABLE_PROPERTIES]
+    #     self.var_type = properties[HPCTVARIABLE.TYPE]
+    #     self.func_class = properties[HPCTVARIABLE.FUNCTION_CLASS]
+    #     self.var_properties = properties[HPCTVARIABLE.PROPERTIES]
 
     def set(self, type, value):
         "Set the value of a property according to the type of property."
-        if type == HPCTARCH.VARIABLE_TYPE:
+        if type == HPCTVARIABLE.TYPE:
             self.var_type = value
-        if type == HPCTARCH.FUNCTION_CLASS:
+        if type == HPCTVARIABLE.FUNCTION_CLASS:
             self.func_class = value
-        if type == HPCTARCH.VARIABLE_PROPERTIES:
+        if type == HPCTVARIABLE.PROPERTIES:
             self.var_properties = value
 
     # HPCTControlFunctionProperties.from_properties
     @classmethod
     def from_properties(cls, properties):
         "Create a functions from its properties."
-        hpctcfp = cls(properties[HPCTARCH.VARIABLE_TYPE], properties[HPCTARCH.FUNCTION_CLASS], properties[HPCTARCH.VARIABLE_PROPERTIES])
+        hpctcfp = cls(properties[HPCTVARIABLE.TYPE], properties[HPCTVARIABLE.FUNCTION_CLASS], properties[HPCTVARIABLE.PROPERTIES])
 
         return hpctcfp
     # def __repr__(self):
@@ -178,19 +181,19 @@ class HPCTArchitecture(object):
                 arch = {
                     HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
-                        HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.REFERENCE: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.COMPARATOR: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'Subtract', HPCTARCH.VARIABLE_PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAProportional', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overridsing some functions at levels.
-                            HPCTLEVEL.ZERO: {HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None}},
-                            HPCTLEVEL.N: {HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None}},
-                            HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None},
-                                            HPCTFUNCTION.REFERENCE: {HPCTARCH.VARIABLE_TYPE: 'Literal', HPCTARCH.FUNCTION_CLASS: 'EAConstant', HPCTARCH.VARIABLE_PROPERTIES: None}},
-                            HPCTLEVEL.TOP: {HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTARCH.VARIABLE_PROPERTIES: None},
-                                        HPCTFUNCTION.REFERENCE: {HPCTARCH.VARIABLE_TYPE: 'Literal', HPCTARCH.FUNCTION_CLASS: 'EAConstant', HPCTARCH.VARIABLE_PROPERTIES: None}}
+                            HPCTLEVEL.ZERO: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.N: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None},
+                                            HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.TOP: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None},
+                                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}}
                         }}
             }
 
