@@ -1,11 +1,11 @@
 import uuid
 from pct.putils import loadjson
 from eepct.hpct import HPCTIndividual
-from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTArchitecture
 
 from eepct.hpct import HPCTFUNCTION
 from eepct.hpct import HPCTARCH
+from eepct.hpct import HPCTLEVEL
 
 namespace = uuid.uuid1()
 
