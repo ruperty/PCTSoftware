@@ -16,7 +16,7 @@ arch.configure()
 print(arch)
 print()
 
-xx
+
 
 #arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTARCH.VARIABLE_PROPERTIES, {'lower': -50, 'upper': 50})
 arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTARCH.VARIABLE_TYPE, 'Binary')
