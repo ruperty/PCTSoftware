@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pct.hierarchy import PCTHierarchy
 from pct.nodes import PCTNode
 from pct.errors import BaseErrorCollector
-from pct.functions import FunctionFactory, CUF, FunctionsList
+from pct.functions import FunctionFactory, HPCTFUNCTION, FunctionsList
 from pct.environments import EnvironmentFactory, OpenAIGym
 
 from pct.functions import IndexedParameter
@@ -17,13 +17,7 @@ from epct.functions import EAFunctionFactory
 from epct.structure import ParameterFactory
 from pct.putils import stringListToListOfStrings
 
-class HPCTFUNCTION(IntEnum):
-    "Types of control functions in a node."
-    PERCEPTION = auto()
-    REFERENCE = auto()
-    COMPARATOR = auto()
-    OUTPUT = auto()
-    ACTION = auto()
+
 
 
 class HPCTARCH(IntEnum):
@@ -37,7 +31,7 @@ class HPCTARCH(IntEnum):
     # N = auto()
     # TOP = auto()
     # ZEROTOP = auto()
-    HIERARCHY = 6
+    HIERARCHY = 5
     LEVELS = auto()
     LEVEL = auto()
     PARAMETER = auto()
@@ -46,14 +40,14 @@ class HPCTARCH(IntEnum):
 
 class HPCTVARIABLE(IntEnum):
     "The level types associated with a hierarchy depending upon the number of levels."
-    FUNCTION_CLASS = 12
+    FUNCTION_CLASS = 11
     PROPERTIES = auto()
     TYPE = auto()
 
 
 class HPCTLEVEL(IntEnum):
     "The level types associated with a hierarchy depending upon the number of levels."
-    ZERO = 15 # lowest level if more than one levels.
+    ZERO = 14 # lowest level if more than one levels.
     N = auto() # level which is neither top or lowest (zero).
     TOP = auto() # top level
     ZEROTOP = auto() # if only one level
@@ -541,9 +535,9 @@ class HPCTIndividual(PCTHierarchy):
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])):
                     node = self.hierarchy[level][col]
-                    mutated += node.get_function_from_collection(CUF.REFERENCE).mutate(evolve_properties)
-                    mutated += node.get_function_from_collection(CUF.PERCEPTION).mutate(evolve_properties)
-                    mutated += node.get_function_from_collection(CUF.OUTPUT).mutate(evolve_properties)
+                    mutated += node.get_function_from_collection(HPCTFUNCTION.REFERENCE).mutate(evolve_properties)
+                    mutated += node.get_function_from_collection(HPCTFUNCTION.PERCEPTION).mutate(evolve_properties)
+                    mutated += node.get_function_from_collection(HPCTFUNCTION.OUTPUT).mutate(evolve_properties)
 
         for func in self.postCollection:
             mutated += func.mutate(evolve_properties)   
@@ -888,11 +882,11 @@ class HPCTEvolver(BaseEvolver):
                 #print(node)
                 # perceptions
                 #parameter = child1.get_arch_parameter(child1.get_level_type(level), HPCTFUNCTION.PERCEPTION)
-                node[0].get_function_from_collection(CUF.PERCEPTION).mate(node[1].get_function_from_collection(CUF.PERCEPTION),  self.evolve_properties)
+                node[0].get_function_from_collection(HPCTFUNCTION.PERCEPTION).mate(node[1].get_function_from_collection(HPCTFUNCTION.PERCEPTION),  self.evolve_properties)
 
                # output
                 #parameter = child1.get_arch_parameter(child1.get_level_type(level), HPCTFUNCTION.OUTPUT)
-                node[0].get_function_from_collection(CUF.OUTPUT).mate(node[1].get_function_from_collection(CUF.OUTPUT), self.evolve_properties)
+                node[0].get_function_from_collection(HPCTFUNCTION.OUTPUT).mate(node[1].get_function_from_collection(HPCTFUNCTION.OUTPUT), self.evolve_properties)
 
         # references at all levels except top
         level=0
@@ -902,10 +896,10 @@ class HPCTEvolver(BaseEvolver):
                 break
             #print(level_lists)
             for node in zip(level_lists[0], level_lists[1]):
-                ref0 = node[0].get_function_from_collection(CUF.REFERENCE)
-                ref1 = node[1].get_function_from_collection(CUF.REFERENCE)
+                ref0 = node[0].get_function_from_collection(HPCTFUNCTION.REFERENCE)
+                ref1 = node[1].get_function_from_collection(HPCTFUNCTION.REFERENCE)
                 ref0.mate(ref1, self.evolve_properties)
-                # node[0].get_function_from_collection(CUF.REFERENCE).mate(node[1].get_function_from_collection(CUF.REFERENCE), self.evolve_properties)
+                # node[0].get_function_from_collection(HPCTFUNCTION.REFERENCE).mate(node[1].get_function_from_collection(HPCTFUNCTION.REFERENCE), self.evolve_properties)
 
             level+=1
 
@@ -983,7 +977,7 @@ class HPCTEvolver(BaseEvolver):
             parameter = individual.get_arch_parameter(level_type, HPCTFUNCTION.REFERENCE)
             for column in range(individual.get_columns(level-1)):
                 node = individual.get_node(level-1, column)
-                func = node.get_function_from_collection(CUF.REFERENCE)
+                func = node.get_function_from_collection(HPCTFUNCTION.REFERENCE)
                 func.add_connections(num_nodes, level,  parameter, 'O')
 
         # higher perceptions
@@ -995,7 +989,7 @@ class HPCTEvolver(BaseEvolver):
             parameter = individual.get_arch_parameter(individual.get_level_type(level+1), HPCTFUNCTION.PERCEPTION)
             for column in range(individual.get_columns(level+1)):
                 node = individual.get_node(level+1, column)
-                func = node.get_function_from_collection(CUF.PERCEPTION)
+                func = node.get_function_from_collection(HPCTFUNCTION.PERCEPTION)
                 func.add_connections(num_nodes, level,  parameter, 'P')
         
 
@@ -1020,12 +1014,12 @@ class HPCTEvolver(BaseEvolver):
         for column in range(levels_columns_grid[-1]):
             node = individual.get_node(top_level, column)
             suffix = f'L{top_level}C{column}'
-            node.get_function_from_collection(CUF.REFERENCE).set_name(f'R{suffix}')
+            node.get_function_from_collection(HPCTFUNCTION.REFERENCE).set_name(f'R{suffix}')
             node.set_name(suffix)
-            perception = node.get_function_from_collection(CUF.PERCEPTION)
+            perception = node.get_function_from_collection(HPCTFUNCTION.PERCEPTION)
             perception.set_name(f'P{suffix}')
-            node.get_function_from_collection(CUF.COMPARATOR).set_name(f'C{suffix}')
-            node.get_function_from_collection(CUF.OUTPUT).set_name(f'O{suffix}')
+            node.get_function_from_collection(HPCTFUNCTION.COMPARATOR).set_name(f'C{suffix}')
+            node.get_function_from_collection(HPCTFUNCTION.OUTPUT).set_name(f'O{suffix}')
 
         # create nodes at new level
         level_type = individual.get_level_type(level)
@@ -1038,9 +1032,9 @@ class HPCTEvolver(BaseEvolver):
         for column in range(levels_columns_grid[-1]):
             node = individual.get_node(top_level, column)
             # suffix = f'L{top_level}C{column}'
-            # node.get_function_from_collection(CUF.REFERENCE).set_name(f'R{suffix}')
+            # node.get_function_from_collection(HPCTFUNCTION.REFERENCE).set_name(f'R{suffix}')
             # node.set_name(suffix)
-            perception = node.get_function_from_collection(CUF.PERCEPTION)
+            perception = node.get_function_from_collection(HPCTFUNCTION.PERCEPTION)
             # perception.set_name(f'P{suffix}')
 
             level_type = individual.get_level_type(top_level)
@@ -1058,8 +1052,8 @@ class HPCTEvolver(BaseEvolver):
                 #change the perception links
                 perception.reset_links('P', level)
 
-            # node.get_function_from_collection(CUF.COMPARATOR).set_name(f'C{suffix}')
-            # node.get_function_from_collection(CUF.OUTPUT).set_name(f'O{suffix}')
+            # node.get_function_from_collection(HPCTFUNCTION.COMPARATOR).set_name(f'C{suffix}')
+            # node.get_function_from_collection(HPCTFUNCTION.OUTPUT).set_name(f'O{suffix}')
 
 
         # lower level adjust connections
@@ -1069,7 +1063,7 @@ class HPCTEvolver(BaseEvolver):
             lower_level = new_levels-levels_offset
             for column in range(levels_columns_grid[-levels_offset]):
                 node = individual.get_node(lower_level, column)
-                reference = node.get_function_from_collection(CUF.REFERENCE)
+                reference = node.get_function_from_collection(HPCTFUNCTION.REFERENCE)
 
                 parameter = individual.get_arch_parameter(individual.get_level_type(level), HPCTFUNCTION.REFERENCE)
                 if adjust_lower_connections <0:
@@ -1102,11 +1096,11 @@ class HPCTEvolver(BaseEvolver):
             node.name = f'L{level}C{column}'
             # rename functions
             suffix = f'L{level}C{column}'
-            node.get_function_from_collection(CUF.REFERENCE).set_name(f'R{suffix}')
-            perception = node.get_function_from_collection(CUF.PERCEPTION)
+            node.get_function_from_collection(HPCTFUNCTION.REFERENCE).set_name(f'R{suffix}')
+            perception = node.get_function_from_collection(HPCTFUNCTION.PERCEPTION)
             perception.set_name(f'P{suffix}')
-            node.get_function_from_collection(CUF.COMPARATOR).set_name(f'C{suffix}')
-            node.get_function_from_collection(CUF.OUTPUT).set_name(f'O{suffix}')
+            node.get_function_from_collection(HPCTFUNCTION.COMPARATOR).set_name(f'C{suffix}')
+            node.get_function_from_collection(HPCTFUNCTION.OUTPUT).set_name(f'O{suffix}')
 
             if level==0:
                 level_type = individual.get_level_type(level)
@@ -1151,7 +1145,7 @@ class HPCTEvolver(BaseEvolver):
             lower_level = level-1
             for column in range(levels_columns_grid[lower_level]):
                 node = individual.get_node(lower_level, column)
-                reference = node.get_function_from_collection(CUF.REFERENCE)
+                reference = node.get_function_from_collection(HPCTFUNCTION.REFERENCE)
 
                 if adjust_lower_connections <0:
                     reference.remove_connections(abs(adjust_lower_connections))
@@ -1175,7 +1169,7 @@ class HPCTEvolver(BaseEvolver):
         else:
             for column in range(levels_columns_grid[higher_level]):
                 node = individual.get_node(higher_level, column)
-                perception = node.get_function_from_collection(CUF.PERCEPTION)
+                perception = node.get_function_from_collection(HPCTFUNCTION.PERCEPTION)
                 if self.debug>1:
                     print(f'Remove {num_nodes} connections from {len(perception.weights)} links')
                     if num_nodes == len(perception.weights):
@@ -1196,7 +1190,7 @@ class HPCTEvolver(BaseEvolver):
             lower_level = level-1
             for column in range(levels_columns_grid[lower_level]):
                 node = individual.get_node(lower_level, column)
-                reference = node.get_function_from_collection(CUF.REFERENCE)
+                reference = node.get_function_from_collection(HPCTFUNCTION.REFERENCE)
                 reference.remove_connections(num_nodes)
 
 
