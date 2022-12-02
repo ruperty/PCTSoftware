@@ -5,7 +5,7 @@ from deap import tools, base, creator
 from pct.environments import VelocityModel
 
 from epct.evolvers import EvolverWrapper, CommonToolbox
-from pct.functions import CUF
+from pct.functions import HPCTFUNCTION
 
 
 from eepct.hpct import HPCTVARIABLE
@@ -85,17 +85,17 @@ class TestHPCTIndividual1Level(unittest.TestCase):
     def test_hpctind_create1(self):
 
         #self.ind.build_links()
-        pwts = self.ind.get_node(0,0).get_function_from_collection(CUF.PERCEPTION).weights
+        pwts = self.ind.get_node(0,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).weights
         self.assertEqual(pwts, [1])
         #self.assertEqual(pwts, [0, 1, 0, 1])
 
-        ref = self.ind.get_node(0,0).get_function_from_collection(CUF.REFERENCE).value
+        ref = self.ind.get_node(0,0).get_function_from_collection(HPCTFUNCTION.REFERENCE).value
         self.assertEqual(ref, 11)
 
-        ref = self.ind.get_node(0,1).get_function_from_collection(CUF.REFERENCE).value
+        ref = self.ind.get_node(0,1).get_function_from_collection(HPCTFUNCTION.REFERENCE).value
         self.assertEqual(ref, 2)
 
-        out = self.ind.get_node(0,0).get_function_from_collection(CUF.OUTPUT).gain
+        out = self.ind.get_node(0,0).get_function_from_collection(HPCTFUNCTION.OUTPUT).gain
         self.assertAlmostEqual(out, -1.5283251853157558)
 
         act = self.ind.get_postprocessor()[0].weights
@@ -221,16 +221,16 @@ class TestHPCTIndividual2Level(unittest.TestCase):
 
         #self.ind.build_links()
         #self.ind.summary()
-        pwts = self.ind.get_node(0,0).get_function_from_collection(CUF.PERCEPTION).weights
+        pwts = self.ind.get_node(0,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).weights
         self.assertEqual(pwts, [1, 0])
 
-        ref = self.ind.get_node(1,0).get_function_from_collection(CUF.REFERENCE).value
+        ref = self.ind.get_node(1,0).get_function_from_collection(HPCTFUNCTION.REFERENCE).value
         self.assertEqual(ref, 11)
 
-        ref = self.ind.get_node(1,1).get_function_from_collection(CUF.REFERENCE).value
+        ref = self.ind.get_node(1,1).get_function_from_collection(HPCTFUNCTION.REFERENCE).value
         self.assertEqual(ref, 2)
 
-        out = self.ind.get_node(0,0).get_function_from_collection(CUF.OUTPUT).gain
+        out = self.ind.get_node(0,0).get_function_from_collection(HPCTFUNCTION.OUTPUT).gain
         self.assertAlmostEqual(out, -0.5372443323496578)
 
         act = self.ind.get_postprocessor()[0].weights
@@ -371,22 +371,22 @@ class TestHPCTIndividual3Level(unittest.TestCase):
         # print(self.ind.get_grid())
         #self.ind.build_links()
         #self.ind.summary()
-        pwts = self.ind.get_node(0,0).get_function_from_collection(CUF.PERCEPTION).weights
+        pwts = self.ind.get_node(0,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).weights
         self.assertEqual(pwts, [1, 0,1,0])
 
-        ref = self.ind.get_node(2,0).get_function_from_collection(CUF.REFERENCE).value
+        ref = self.ind.get_node(2,0).get_function_from_collection(HPCTFUNCTION.REFERENCE).value
         self.assertEqual(ref, 11)
 
-        rwts = self.ind.get_node(1,1).get_function_from_collection(CUF.REFERENCE).weights
+        rwts = self.ind.get_node(1,1).get_function_from_collection(HPCTFUNCTION.REFERENCE).weights
         self.assertEqual(rwts, [-4.982251377974654])
 
-        out = self.ind.get_node(0,0).get_function_from_collection(CUF.OUTPUT).gain
+        out = self.ind.get_node(0,0).get_function_from_collection(HPCTFUNCTION.OUTPUT).gain
         self.assertAlmostEqual(out, -0.12372380887134504)
 
-        out = self.ind.get_node(1,1).get_function_from_collection(CUF.OUTPUT).gain
+        out = self.ind.get_node(1,1).get_function_from_collection(HPCTFUNCTION.OUTPUT).gain
         self.assertAlmostEqual(out, 1.4856189788971284)
 
-        out = self.ind.get_node(1,2).get_function_from_collection(CUF.OUTPUT).gain
+        out = self.ind.get_node(1,2).get_function_from_collection(HPCTFUNCTION.OUTPUT).gain
         self.assertAlmostEqual(out, 1.4896310617472075)
 
         act = self.ind.get_postprocessor()[0].weights

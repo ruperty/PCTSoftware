@@ -6,12 +6,11 @@ from deap import tools, base, creator
 from pct.environments import VelocityModel
 from epct.evolvers import EvolverWrapper, CommonToolbox
 
-from pct.functions import CUF
+from pct.functions import HPCTFUNCTION
 
 from eepct.hpct import HPCTArchitecture
 
 from eepct.hpct import HPCTVARIABLE
-from eepct.hpct import HPCTARCH
 from eepct.hpct import HPCTFUNCTION
 from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTEvolver
@@ -82,8 +81,8 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         ind = self.evr.toolbox.individual()
         #print(ind.get_grid())
         
-        link_name_0_A = ind.get_node(1,0).get_function_from_collection(CUF.PERCEPTION).get_links()[0].name
-        link_name_1_A = ind.get_node(1,1).get_function_from_collection(CUF.PERCEPTION).get_links()[0].name
+        link_name_0_A = ind.get_node(1,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
+        link_name_1_A = ind.get_node(1,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
 
 
         ind1 = self.evr.toolbox.mutate(ind)[0]
@@ -93,9 +92,9 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
 
         self.assertEqual(grid, [2])
 
-        link_name_0_B = ind1.get_node(0,0).get_function_from_collection(CUF.PERCEPTION).get_links()[0].name
+        link_name_0_B = ind1.get_node(0,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
         self.assertEqual(link_name_0_B, link_name_0_A)
-        link_name_1_B = ind1.get_node(0,1).get_function_from_collection(CUF.PERCEPTION).get_links()[0].name
+        link_name_1_B = ind1.get_node(0,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
         self.assertEqual(link_name_1_B, link_name_1_A)
 
         
@@ -137,8 +136,8 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         random.seed(12)
         ind = self.evr.toolbox.individual()
         #ind.draw(file='test_TopInputs_c_choice2_b4.png', node_size=200)
-        link_name_0_A = ind.get_node(3,0).get_function_from_collection(CUF.PERCEPTION).get_links()[0].name
-        link_name_1_A = ind.get_node(3,1).get_function_from_collection(CUF.PERCEPTION).get_links()[0].name
+        link_name_0_A = ind.get_node(3,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
+        link_name_1_A = ind.get_node(3,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
         #print(ind.get_grid())
         ind1 = self.evr.toolbox.mutate(ind)[0]
         #ind1.draw(file='test_TopInputs_c_choice2_b5.png', node_size=200)
@@ -148,9 +147,9 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
 
         self.assertEqual(grid, [3, 5, 3, 2, 2])
 
-        link_name_0_B = ind1.get_node(4,0).get_function_from_collection(CUF.PERCEPTION).get_links()[0].name
+        link_name_0_B = ind1.get_node(4,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
         self.assertEqual(link_name_0_B, link_name_0_A)
-        link_name_1_B = ind1.get_node(4,1).get_function_from_collection(CUF.PERCEPTION).get_links()[0].name
+        link_name_1_B = ind1.get_node(4,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
         self.assertEqual(link_name_1_B, link_name_1_A)
 
 
@@ -203,10 +202,10 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
 
         self.assertEqual(grid,  [2, 2])
 
-        rlinks = ind1.get_node(0,1).get_function_from_collection(CUF.REFERENCE).get_links()
+        rlinks = ind1.get_node(0,1).get_function_from_collection(HPCTFUNCTION.REFERENCE).get_links()
         self.assertEqual(rlinks, ['OL1C0', 'OL1C1'])
 
-        plinks = [link.name for link in ind1.get_node(0,1).get_function_from_collection(CUF.PERCEPTION).get_links()]
+        plinks = [link.name for link in ind1.get_node(0,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()]
         self.assertEqual(plinks, ['IP', 'IC'])
 
 
