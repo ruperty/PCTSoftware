@@ -1,7 +1,7 @@
 
 from pct.functions import Proportional, WeightedSum, Constant, Variable, Integration 
 from pct.nodes import PCTNode
-from pct.putils import UniqueNamer, FunctionsList
+from pct.putils import UniqueNamer, FunctionsList, get_drive
 from pct.architectures import DynamicArchitecture
 
 from epct.configs import DynamicConfiguration
@@ -156,14 +156,28 @@ if __name__ == "__main__":
 
 
     test=12
+    if test==13:
+        user = "ruper"
+        cwd = os.getcwd()
+        if 'ryoung' in  cwd:
+            user  = "ryoung"
+        print(user)
+        
     if test==12:
+        import os
+        user = "ruper"
+        cwd = os.getcwd()
+        if 'ryoung' in  cwd:
+            user  = "ryoung"
+            
         from pct.architectures import run_from_properties_file
+        print(get_drive())
         runs=500
         render=False
         draw=False
         
         root_dir = '/mnt/c'
-        path =  'Users/ruper/Versioning/python/nbdev/epct/nbs/'
+        path =  'Users/'+user+'/Versioning/python/nbdev/epct/nbs/'
         filename = 'testfiles/ga-001.444-3344-397818342161201780.properties'
         nevals = 1
         move={'OL0C0ws':[0.25,0], 'CL0C0':[0.25,0]}

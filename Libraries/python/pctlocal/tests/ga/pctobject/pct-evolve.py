@@ -7,12 +7,12 @@ from deap import base, creator
 import random
 
 from epct.evolvers import EvolverWrapper, CommonToolbox
-from pct.functions import CUF
+from pct.functions import HPCTFUNCTION
 
 from eepct.hpct import HPCTIndividual
 from eepct.hpct import HPCTEvolver
 from eepct.hpct import HPCTArchitecture
-xx
+
 
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)

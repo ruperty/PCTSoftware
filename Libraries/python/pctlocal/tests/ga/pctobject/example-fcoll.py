@@ -22,6 +22,8 @@ print(fcoll.action)
 fcoll.set_function_property( HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
 
 print(fcoll.action)
+print()
+print(fcoll)
 
 
 

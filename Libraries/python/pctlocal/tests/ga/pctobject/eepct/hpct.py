@@ -53,7 +53,7 @@ class HPCTLEVEL(IntEnum):
     ZEROTOP = auto() # if only one level
 
 class HPCTControlFunctionCollection(object):
-    "Collection of functions associated with a control unit."
+    "Collection of function templates associated with a control unit."
     def __init__(self, reference=None, perception=None, comparator=None, output=None, action=None):
         self.reference = reference
         self.perception = perception
@@ -62,6 +62,7 @@ class HPCTControlFunctionCollection(object):
         self.action = action
 
     def __repr__(self):
+        r = p = o = c = a = ""
         if self.reference is not None:
             r = f'Ref:{self.reference.__repr__()}'
         if self.perception is not None:
@@ -90,7 +91,7 @@ class HPCTControlFunctionCollection(object):
             return self.action.func_class, self.action.var_type, self.action.var_properties
 
     def set_function_property(self, control_function_type, type, value):
-        "Set a property value according to its type."
+        "Set the value of property element according to its type, a specific control function position type."
         if control_function_type == HPCTFUNCTION.REFERENCE:
             self.reference.set(type, value)
         if control_function_type == HPCTFUNCTION.PERCEPTION:
@@ -159,7 +160,7 @@ class HPCTControlFunctionProperties(object):
     # HPCTControlFunctionProperties.from_properties
     @classmethod
     def from_properties(cls, properties):
-        "Create a functions from its properties."
+        "Create a function template from its properties."
         hpctcfp = cls(properties[HPCTVARIABLE.TYPE], properties[HPCTVARIABLE.FUNCTION_CLASS], properties[HPCTVARIABLE.PROPERTIES])
 
         return hpctcfp
@@ -1302,7 +1303,7 @@ class HPCTEvolver(BaseEvolver):
 
 
 class HPCTEvolverWrapper(EvolverWrapper):
-    "Class that runs the genetic algorithm usinf DEAP."
+    "Class that runs the genetic algorithm using DEAP."
     def run(self, gens=25, verbose=False, deap_verbose=False, log=False):
         log_string = ''
         
