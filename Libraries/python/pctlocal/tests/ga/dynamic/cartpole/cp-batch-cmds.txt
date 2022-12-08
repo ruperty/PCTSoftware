@@ -1,0 +1,25 @@
+
+python test-dynamic-evolver-env-run.py cp-default.properties 100 1 False False > /mnt/c/tmp/ga/CartPoleV1/batch-output-default.txt
+
+python test-dynamic-evolver-env-run.py cp-inerr-rms.properties 100 1 False False > /mnt/c/tmp/ga/CartPoleV1/batch-output-inerr-rms.txt
+
+python test-dynamic-evolver-env-run.py cp-inerr-rms-alo.properties 100 1 False False > /mnt/c/tmp/ga/CartPoleV1/batch-output-inerr-rms-alo.txt
+
+python test-dynamic-evolver-env-run.py cp-inerr-rms-flts.properties 100 1 False False > /mnt/c/tmp/ga/CartPoleV1/batch-output-inerr-rms-flts.txt
+
+python test-dynamic-evolver-env-run.py cp-inerr-rms-allflts.properties 100 1 False False > ~/gdrive/data/ga/CartPoleV1/batch-output-inerr-rms-allflts.txt
+
+python test-dynamic-evolver-env-run.py cartpole/cp-inerr-rms-allflts-smooth.properties 100 1 False False > ~/gdrive/data/ga/CartPoleV1/batch-output-inerr-rms-allflts-sm.txt
+
+
+
+
+
+python test-dynamic-evolver-env-run.py cartpole/cp-inerr-rms.properties 1 1 False False 100 10 True > /mnt/c/tmp/ga/CartPoleV1/batch-output-inerr-rms.txt
+
+python test-dynamic-evolver-env-run.py cartpole/cp-inerr-rms-top.properties 1 1 False False 100 10 True > /mnt/c/tmp/ga/CartPoleV1/batch-output-inerr-rms-top.txt
+
+
+
+
+

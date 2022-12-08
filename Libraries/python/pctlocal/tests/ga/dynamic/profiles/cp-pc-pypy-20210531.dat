@@ -1,0 +1,28 @@
+Properties:
+Description =  InputsError-RootMeanSquareError-Binary-WeightedSum-Std
+inputs =  [1, 0, 3, 2]
+references =  [0]
+top_inputs =  None
+names =  ['ICV', 'ICP', 'IPV', 'IPA']
+error_collector =  InputsError
+error_response =  RootMeanSquareError
+seed =  1
+nevals =  1
+modes =  [3, 3, 4, 4]
+gen   pop   min       mean      max        mut  muts  timing
+   0  100    0.177     29.101    100.193 
+   1  100    0.177     22.484    100.247   54%  33%   0.294
+   2  100    0.129     19.166    100.247   45%  19%   0.088
+   3  100    0.125     15.609    100.193   52%  29%   0.083
+   4  100    0.123     17.574    100.193   55%  33%   0.088
+   5  100    0.123     17.970    100.193   46%  25%   0.085
+   6  100    0.120     15.000    100.193   51%  23%   0.079
+   7  100    0.120     16.424    100.193   49%  29%   0.084
+   8  100    0.120     18.486    100.193   58%  31%   0.083
+   9  100    0.120     14.304    100.193   48%  26%   0.083
+  10  100    0.120     12.106    100.193   44%  27%   0.080
+Best Score: 0.12036
+Best Ind: [[[[1, 0], [1, 0], [0, 1], [1, 1]], [8.828819976190136, -8.281915664082188], [[11.027846601609115], [6.2794197805896586]], [[1, 1]]], [[[1], [1]], [-0.5030822987808206], [0]]]
+Mean time:  0.105
+/mnt/c/Users/ruper/Google Drive/data/ga/CartPoleV1/InputsError-RootMeanSquareError-Binary-WeightedSum-Std/ga-000.120-s001-2x2-3344-658a91ded9696b861346ab21100e4070.properties
+Evolve time: 104.75

@@ -1,0 +1,50 @@
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-rms.properties  100 1 False False > ~/gdrive/data/ga/PendulumV0/batch-output-reward-rms.txt
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-curr.properties  100 1 False False > ~/gdrive/data/ga/PendulumV0/batch-output-reward-curr.txt
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-rms-allflts-smooth.properties  100 1 False False > ~/gdrive/data/ga/PendulumV0/batch-output-reward-rms-allflts-smooth.txt
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-curr-allflts-smooth.properties  100 1 False False > ~/gdrive/data/ga/PendulumV0/batch-output-reward-curr-allflts-smooth.txt
+
+
+
+
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-curr-smooth.properties  100 1 False False > ~/gdrive/data/ga/PendulumV0/batch-output-reward-curr-smooth.txt
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-rms-smooth.properties  100 1 False False > ~/gdrive/data/ga/PendulumV0/batch-output-reward-rms-smooth.txt
+
+
+
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-sme.properties  100 1 False False 
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-sme-smooth.properties  100 1 False False 
+
+
+
+python test-dynamic-evolver-env-run.py pendulum/pen-inerr-rms-top.properties  100 1 False False 
+
+python test-dynamic-evolver-env-run.py pendulum/pen-inerr-rms-topp-smooth.properties  100 1 False False 
+
+
+
+
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-sme-topp.properties  100 1 False False
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-sme-smooth-topp.properties  100 1 False False
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-rms-smooth-topp.properties  100 1 False False
+python test-dynamic-evolver-env-run.py pendulum/pen-reward-curr-smooth-topp.properties  100 1 False False
+
+
+
+
+
+
+python test-dynamic-evolver-env-run.py pendulum/pen-toterr-rms-bin-sm-topp.properties  100 1 False False
+python test-dynamic-evolver-env-run.py pendulum/pen-toterr-sme-bin-sm-topp.properties  100 1 False False
+
+
+
+
+

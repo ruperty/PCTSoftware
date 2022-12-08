@@ -1,0 +1,9 @@
+
+python test-dynamic-evolver-env-run.py mountaincar/mc-default.properties 100 1 False False > ~/gdrive/data/ga/MountainCarV0/batch-output-default.txt
+
+
+python test-dynamic-evolver-env-run.py mountaincar/mc-rms-allflts-smooth.properties 100 1 False False > ~/gdrive/data/ga/PendulumV0/batch-output-rms-allflts-smooth.txt
+
+
+
+
