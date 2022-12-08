@@ -10,13 +10,14 @@ from eepct.hpct import HPCTVARIABLE
 
 
 arch = HPCTArchitecture()
+
 arch.configure()
 print(arch)
 print()
 
 
 
-#arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTARCH.VARIABLE_PROPERTIES, {'lower': -50, 'upper': 50})
-arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
+arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': -50, 'upper': 50})
+arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
 print(arch)
 

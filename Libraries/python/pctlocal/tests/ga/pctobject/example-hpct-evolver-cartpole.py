@@ -29,8 +29,8 @@ if __name__ == "__main__":
     references=[0]
 
     error_collector_type , error_response_type = 'InputsError', 'RootMeanSquareError'
-    seed, debug, pop_size, processes, runs, nevals, num_actions=1, 0, 25, 1, 500, 1, 1
-    min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 2, 1, 3, 100
+    seed, debug, pop_size, processes, runs, nevals, num_actions=3, 0, 25, 1, 500, 1, 1
+    min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
     zerolevel_inputs_indexes=None
     toplevel_inputs_indexes=None
 
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         print('Start evolve')
         verbose=  True #False #True #
         deap_verbose=False #True #
-        gens=10
+        gens=2
         tic = time.perf_counter()
         top_ind=evr.run(gens=gens, deap_verbose=deap_verbose, verbose=verbose)
         toc = time.perf_counter()
