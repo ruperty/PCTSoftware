@@ -182,14 +182,15 @@ class HPCTArchitecture(object):
                         HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTARCH.LEVELS: {
-                            # Overridsing some functions at levels.
+                            # Overriding some functions at levels.
                             HPCTLEVEL.ZERO: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None}},
                             HPCTLEVEL.N: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None}},
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None},
                                             HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
                             HPCTLEVEL.TOP: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None},
                                         HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}}
-                        }}
+                        }
+                    }
             }
 
         self.arch = arch
@@ -199,25 +200,31 @@ class HPCTArchitecture(object):
         self.levels_n = None
 
     def __repr__(self):
-
+        z=n=t=zt=''
         if self.levels_zerotop is not None:
-            return f'ZeroTop:{self.levels_zerotop.__repr__()}'
+            zt =  f'**ZeroTop:{self.levels_zerotop.__repr__()}'
 
         if self.levels_zero is not None:
-            z = f'Zero:{self.levels_zero.__repr__()}'
+            z = f'**Zero:{self.levels_zero.__repr__()}'
 
         if self.levels_n is not None:
-            n = f'N:{self.levels_n.__repr__()}'
+            n = f'**N:{self.levels_n.__repr__()}'
 
         if self.levels_top is not None:
-            t = f'Top:{self.levels_top.__repr__()}'
+            t = f'**Top:{self.levels_top.__repr__()}'
 
-        if self.levels_n is None:
-            return '\n'.join((z, t))
+        rtn = ''.join(( z, n, t, zt))
+        if len(rtn) == 0:
+            rtn = "Warning: HPCTArchitecture has not yet been congigured."
+            return rtn
 
-        return '\n'.join(( z, n, t))
+        # if self.levels_n is None:
+        #     return '\n'.join(( z, t))
 
-    def configure(self, levels=None, additional=None):
+        return '\n'.join(( zt, z, n, t))
+
+    #def configure(self, levels=None, additional=None):
+    def configure(self, additional=None):
         if additional is not None:
             self.arch = {**self.arch, **additional}
         if HPCTARCH.HIERARCHY in self.arch:
@@ -775,7 +782,7 @@ class HPCTEvolver(BaseEvolver):
         return env_inputs, toplevel_inputs, zerolevel_inputs
 
     def get_grid(self, grid=None):
-        "Create a hierarchy size with random number of levles and columns, within configured limits."
+        "Create a hierarchy size with random number of levels and columns, within configured limits."
         if grid is None:
             grid = []
             levels = random.randint(self.min_levels_limit, self.max_levels_limit)
@@ -1368,6 +1375,8 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, 
                     error_limit=100, steps=500, verbose=False, early_termination=self.evolver.early_termination)
 
+                # draw ind to file ??
+                
                 self.evolver.fig_file = None
 
 

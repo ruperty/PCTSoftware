@@ -10,6 +10,7 @@ from eepct.hpct import HPCTVARIABLE
 
 
 arch = HPCTArchitecture()
+print(arch)
 
 arch.configure()
 print(arch)
