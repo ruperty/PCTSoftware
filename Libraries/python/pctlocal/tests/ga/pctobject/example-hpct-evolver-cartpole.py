@@ -29,7 +29,7 @@ if __name__ == "__main__":
     references=[0]
 
     error_collector_type , error_response_type = 'InputsError', 'RootMeanSquareError'
-    seed, debug, pop_size, processes, runs, nevals, num_actions=3, 0, 25, 1, 500, 1, 1
+    seed, debug, pop_size, processes, runs, nevals, num_actions=3, 0, 20, 1, 500, 1, 1
     min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
     zerolevel_inputs_indexes=None
     toplevel_inputs_indexes=None
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     random.seed(seed)
     evolver = HPCTEvolver(**evolver_properties)
-    print(evolver_properties)
+    #print(evolver_properties)
     evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True)
 
     test=1
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         print('Start evolve')
         verbose=  True #False #True #
         deap_verbose=False #True #
-        gens=2
+        gens=10
         tic = time.perf_counter()
         top_ind=evr.run(gens=gens, deap_verbose=deap_verbose, verbose=verbose)
         toc = time.perf_counter()

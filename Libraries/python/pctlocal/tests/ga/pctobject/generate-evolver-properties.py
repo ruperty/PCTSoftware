@@ -9,6 +9,10 @@ from eepct.hpct import HPCTGenerateEvolvers
 
 
 from eepct.hpct import HPCTARCH
+from eepct.hpct import HPCTLEVEL
+from eepct.hpct import HPCTVARIABLE
+
+from pct.functions import HPCTFUNCTION
 
 # removed RootSumSquaredError
 # reomved Floats
@@ -31,8 +35,8 @@ collection = {
             'CartPoleV1': { 'arch': {
                                 'Std' : {'collectors': ['InputsError' ],
                                 'responses': ['RootMeanSquareError'],
-                                'structs' : [{'mode': 0, 'types':[[HPCTARCH.ZERO, HPCTARCH.ACTION, HPCTARCH.VARIABLE_TYPE, 'Binary'], 
-                                            [HPCTARCH.ZERO, HPCTARCH.REFERENCE, HPCTARCH.VARIABLE_PROPERTIES, {'lower': -5, 'upper': 5}]]}]
+                                'structs' : [{'mode': 0, 'types':[[HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
+                                            [HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': -5, 'upper': 5}]]}]
                                 }
                                 }
                             }

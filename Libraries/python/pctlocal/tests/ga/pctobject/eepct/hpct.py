@@ -39,7 +39,7 @@ class HPCTARCH(IntEnum):
     EVOLVE = auto()
 
 class HPCTVARIABLE(IntEnum):
-    "The level types associated with a hierarchy depending upon the number of levels."
+    "The types of variables associated with a function template property."
     FUNCTION_CLASS = 11
     PROPERTIES = auto()
     TYPE = auto()
@@ -53,7 +53,7 @@ class HPCTLEVEL(IntEnum):
     ZEROTOP = auto() # if only one level
 
 class HPCTControlFunctionCollection(object):
-    "Collection of function templates associated with a control unit."
+    "Collection of function templates associated with a control unit in a hierarchy structure."
     def __init__(self, reference=None, perception=None, comparator=None, output=None, action=None):
         self.reference = reference
         self.perception = perception
@@ -78,7 +78,7 @@ class HPCTControlFunctionCollection(object):
         return ' '.join((r, p, c, o))
 
     def get_function_properties(self, control_function_type):
-        "Get the properties of a control function type in terms of class, var type and var property."
+        "Get the properties of a control function template type in terms of class, var type and var property."
         if control_function_type == HPCTFUNCTION.REFERENCE:
             return self.reference.func_class, self.reference.var_type, self.reference.var_properties
         if control_function_type == HPCTFUNCTION.PERCEPTION:
@@ -91,7 +91,7 @@ class HPCTControlFunctionCollection(object):
             return self.action.func_class, self.action.var_type, self.action.var_properties
 
     def set_function_property(self, control_function_type, type, value):
-        "Set the value of property element according to its type, a specific control function position type."
+        "Set the value of property element of a control function template according to its type, for a specific position in the control unit."
         if control_function_type == HPCTFUNCTION.REFERENCE:
             self.reference.set(type, value)
         if control_function_type == HPCTFUNCTION.PERCEPTION:
@@ -104,7 +104,7 @@ class HPCTControlFunctionCollection(object):
             self.action.set(type, value)
 
     def set_function_properties(self, function):
-        "Set all three properties of a function from architecture properties."
+        "Set all three properties of a function template."
         if function[0] == HPCTFUNCTION.REFERENCE:
             self.reference.func_class, self.reference.var_type = function[1][
                 HPCTVARIABLE.FUNCTION_CLASS], function[1][HPCTVARIABLE.TYPE]
@@ -138,7 +138,7 @@ class HPCTControlFunctionCollection(object):
 
 @dataclass
 class HPCTControlFunctionProperties(object):
-    "Definition of the type of a function."
+    "Definition of the type of a control function template. For example, a template may be defined as Type: Float, class : EAWeightedSum with properties lower_float=-5, upper_float=10."
     var_type : enum
     func_class : str 
     var_properties : dict
@@ -160,7 +160,7 @@ class HPCTControlFunctionProperties(object):
     # HPCTControlFunctionProperties.from_properties
     @classmethod
     def from_properties(cls, properties):
-        "Create a function template from its properties."
+        "Create a function template from its JSON dictionary properties."
         hpctcfp = cls(properties[HPCTVARIABLE.TYPE], properties[HPCTVARIABLE.FUNCTION_CLASS], properties[HPCTVARIABLE.PROPERTIES])
 
         return hpctcfp
@@ -169,7 +169,7 @@ class HPCTControlFunctionProperties(object):
 
 
 class HPCTArchitecture(object):
-
+    "The definition of what the architecture of a hierarchy will be in terms of the type of functions at each position in the control unit and at each level."
     def __init__(self, arch=None, mode=0, lower_float=-10, upper_float=10):
         if arch == None:
             if mode ==0:
@@ -200,6 +200,7 @@ class HPCTArchitecture(object):
         self.levels_n = None
 
     def __repr__(self):
+        "For printing."
         z=n=t=zt=''
         if self.levels_zerotop is not None:
             zt =  f'**ZeroTop:{self.levels_zerotop.__repr__()}'
@@ -225,6 +226,7 @@ class HPCTArchitecture(object):
 
     #def configure(self, levels=None, additional=None):
     def configure(self, additional=None):
+        "Create the function templates fro the whole architecture from the architecture properties specification."
         if additional is not None:
             self.arch = {**self.arch, **additional}
         if HPCTARCH.HIERARCHY in self.arch:
@@ -839,7 +841,8 @@ class HPCTEvolver(BaseEvolver):
             raise Exception(
                 f'HPCTEvolver.create: top level nodes {levels_columns_grid[-1]}, should be equal to number of references {len(self.references)}')
 
-        self.arch.configure(len(levels_columns_grid))
+        #self.arch.configure(len(levels_columns_grid))
+        self.arch.configure()
         env = EnvironmentFactory.createEnvironment(self.env_name)
         # testing only
         if self.env_name == 'VelocityModel':
@@ -1415,7 +1418,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
 
 
 class HPCTEvolveProperties(object):
-    "Properties associated with GA execution."
+    "For running evolution from properties file."
 
     def __init__(self):
         # self.properties = {}
@@ -1622,17 +1625,17 @@ class HPCTEvolveProperties(object):
         return env, error_collector
 
 
-    # def get_types_string(self):
-    #     types_string=""
-    #     types_strings = self.hpct_structure_properties['types_strings'] 
-    #     for type_key, type_value in types_strings.items():
-    #         types_string+=type_value
-    #         type_list = stringListToListOfStrings(type_value, ',')
-    #         lk = eval(type_list[0])
-    #         #print(lk, type_list[1], type_list[2])
-    #         # structure.set_config_type(lk, type_list[1], type_list[2])
+    def get_types_string(self):
+        types_string=""
+        types_strings = self.hpct_structure_properties['types_strings'] 
+        for type_key, type_value in types_strings.items():
+            types_string+=type_value
+            type_list = stringListToListOfStrings(type_value, ' ')
+            lk = eval(type_list[0])
+            #print(lk, type_list[1], type_list[2])
+            # structure.set_config_type(lk, type_list[1], type_list[2])
 
-    #     return types_string
+        return types_string
 
     def get_configs_string(self):
         "?"
@@ -1704,8 +1707,8 @@ class HPCTEvolveProperties(object):
             seed = self.hpct_run_properties['seed']
         # modes_list = properties['modes']
        
-        # types_string = self.get_types_string() # is this function needed
         configs_string= self.get_configs_string()
+        types_string = self.get_types_string() # is this function needed
 
         properties_string=""
         #print(error_properties)
@@ -1942,8 +1945,8 @@ class HPCTGenerateEvolvers(object):
         types = ''
 
         for type in struct['types']:
-            types = ''.join((types, f'type{type_num} = HPCTARCH.{type[0].name} HPCTARCH.{type[1].name} HPCTARCH.{type[2].name} {type[3]}\n'))
-
+            types = ''.join((types, f'type{type_num} = HPCTLEVEL.{type[0].name} HPCTFUNCTION.{type[1].name} HPCTVARIABLE.{type[2].name} {type[3]}\n'))
+            type_num += 1
         # if weight == 'Floats' or weight == 'AllFloats':
         #     types = ''.join((types, f'type{type_num} = [LevelKey.ZERO, perception, Float]\n'))
         #     type_num += 1

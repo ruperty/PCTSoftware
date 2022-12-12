@@ -40,7 +40,8 @@ class TestHPCTArchConfig(unittest.TestCase):
         cls.arch.set(HPCTLEVEL.N, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': -2, 'upper': 2})
 
         cls.arch1 = HPCTArchitecture()
-        cls.arch1.configure(1)
+        #cls.arch1.configure(1)
+        cls.arch1.configure()
         cls.arch1.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': -50, 'upper': 50})
         cls.arch1.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': -2, 'upper': 2})
 

@@ -33,7 +33,8 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
 
         lower, upper = -100, 100 
         arch = HPCTArchitecture()
-        arch.configure(3)
+        #arch.configure(3)
+        arch.configure()
         arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
         arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
         arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
@@ -237,7 +238,8 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
         lower, upper = -100, 100 
         arch = HPCTArchitecture()
-        arch.configure(3)
+        #arch.configure(3)
+        arch.configure()
         arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
         arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
         arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
