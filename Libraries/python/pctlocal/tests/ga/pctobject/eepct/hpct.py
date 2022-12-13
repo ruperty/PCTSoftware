@@ -1692,7 +1692,7 @@ class HPCTEvolveProperties(object):
         return False, None
 
 
-    def evolve_from_properties_file(self, file=None, verbose=None, env_name=None, seed=None,
+    def evolve_from_properties_file(self, file=None, verbose=None, env_name=None, seed=None, 
             test=False, gens=None, pop_size=None, nevals = None, move=None, out_dir=None, node_size=200,
             parallel=False, video_wrap=False, log=False, figsize=(12,12), summary=False, draw_file=None, with_edge_labels=True,
             print_properties=False, overwrite=False, output=False, toolbox=None, processes=1):
