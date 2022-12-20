@@ -337,6 +337,41 @@ class HPCTIndividual(PCTHierarchy):
             self.configure_nodes(levels_columns_grid)
             self.set_action_function(env, levels_columns_grid, num_actions)
 
+    # @classmethod
+    # def raw_to_config(cls, rawstr):
+    #     raw = eval(rawstr)
+    #     config = {"type": type(cls).__name__,
+    #                 "name": 'pcthierarchy'}        
+        
+    #     prelist = raw[0][0]
+    #     pre = {}
+    #     for i in range(len(prelist)):
+    #         pre[f'pre{i}']=prelist[i]
+    #     config['pre']=pre
+
+        
+    #     levels = {}
+    #     for lvl in range(len(raw[1])):
+    #         level ={'level':lvl}
+    #         columns={}
+    #         for col in range(len(raw[1][lvl])):
+    #             column={'col':col}
+    #             nodeconfig = raw[1][lvl][col].get_config()
+    #             #print(nodeconfig)
+    #             column['node']=nodeconfig
+    #             #print(column)
+    #             columns[f'col{col}']=column
+    #         level['nodes']=columns
+    #         levels[f'level{lvl}']=level
+    #     config['levels']=levels
+        
+    #     postlist =  raw[0][1]
+    #     post = {}
+    #     for i in range(len( raw[0][1])):
+    #         post[f'post{i}']=postlist[i]
+    #     config['post']=post
+    #     return config       
+
     def set_action_function(self,  env, levels_columns_grid, num_actions):
         "Link the hierarchy to the environment actions."
         levels = len(levels_columns_grid)
@@ -726,9 +761,16 @@ class HPCTEvolver(BaseEvolver):
 
         # self. = self.get_property_value('', hpct_run_properties, '')
 
-        self.error_collector_type = self.get_property_value('error_collector_type', hpct_run_properties, 'InputsError')
-        self.error_response_type = self.get_property_value('error_response_type', hpct_run_properties, 'RootMeanSquareError')
-        self.error_properties = self.get_property_value('error_properties', hpct_run_properties, 'error:smooth_factor,0.5')
+        #self.error_collector_type = self.get_property_value('error_collector_type', hpct_run_properties, 'InputsError')
+        #self.error_response_type = self.get_property_value('error_response_type', hpct_run_properties, 'RootMeanSquareError')
+        #self.error_properties = self.get_property_value('error_properties', hpct_run_properties, 'error:smooth_factor,0.5')
+        self.error_collector_type = self.get_property_value('error_collector_type', hpct_run_properties, None)
+        self.error_response_type = self.get_property_value('error_response_type', hpct_run_properties, None)        
+        self.error_properties = self.get_property_value('error_properties', hpct_run_properties, None)
+        if self.error_collector_type ==None:
+            raise Exception(f'Error collector not specified {self.__class__.__name__}.')
+        if self.error_response_type == None:
+            raise Exception(f'Error response not specified {self.__class__.__name__}.')
 
         self.error_limit = self.get_property_value('error_limit', hpct_run_properties, 100)
         self.nevals = self.get_property_value('nevals', hpct_run_properties, 2)
@@ -1568,8 +1610,8 @@ class HPCTEvolveProperties(object):
         error_properties = self.get_error_properties()
         # properties of one HPCT run.
         self.hpct_run_properties['error_properties'] = error_properties
-        self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_collector_type',  default='TotalError')
-        self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_response_type',  default='RootSumSquaredError')
+        self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_collector_type',  default=None)
+        self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_response_type',  default=None)
         self.set_property_value(properties_var=self.hpct_run_properties, existing_var=True, var=nevals, property_name='nevals', int_convert=True, default=1)
         self.set_property_value(properties_var=self.hpct_run_properties, existing_var=True, var=seed, property_name='seed', int_convert=True)
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_limit', float_convert=True)
@@ -1723,9 +1765,9 @@ class HPCTEvolveProperties(object):
         env.set_name(env_name)
         namespace=env.namespace
 
-        if video_wrap:
-            env.set_video_wrap(video_wrap)
-            env.create_env(seed)
+        # if video_wrap:
+        #     env.set_video_wrap(video_wrap)
+        #     env.create_env(seed)
 
         debug = self.get_verbose_property( 'debug', verbose, default=0)
         hpct_verbose = self.get_verbose_property ('hpct_verbose', verbose)
@@ -1826,6 +1868,7 @@ class HPCTEvolveProperties(object):
             f.write('# Result'+'\n')
             f.write('# Best individual'+'\n')
             f.write(f'raw = {best.get_parameters_list()}'+'\n')
+            f.write(f'config = {best.get_config()}'+'\n')
             f.write(f'score = {score:0.5f}'+'\n')
             f.write(f'# Time  {meantime:0.4f}'+'\n')
             f.write(file_contents.replace(f'seed = {int(self.hpct_run_properties["seed"])}', f'seed = {seed}')+'\n')
@@ -1986,7 +2029,7 @@ class HPCTGenerateEvolvers(object):
             value = config[key]
             text = ''.join((text, key, ' = ', f'{value}', '\n'))
         
-        text = ''.join((header, text, f'nevals = {nevals}\nerror_collector = {collector}\nerror_response = {response}\n'))
+        text = ''.join((header, text, f'nevals = {nevals}\nerror_collector_type = {collector}\nerror_response_type = {response}\n'))
         
         #f'seed = {seed}\nPOPULATION_SIZE = {POPULATION_SIZE}\nMAX_GENERATIONS = {MAX_GENERATIONS}\nattr_mut_pb={attr_mut_pb}\nstructurepb={structurepb}\nruns={runs}\nlower_float = {lower_float}\nupper_float = {upper_float}\nlevels_limit = {levels_limit}\ncolumns_limit = {columns_limit}\nerror_limit = {error_limit}\np_crossover = {p_crossover}\np_mutation = {p_mutation}\nnevals = {nevals}\nerror_collector = {error_collector}\nerror_response = {error_response}\n'
         return text
