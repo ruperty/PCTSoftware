@@ -1,7 +1,7 @@
 
 
 from eepct.hpct import HPCTEvolveProperties
-from utils.paths import get_root_path
+from utils.paths import get_root_path, get_gdrive
 
 from deap import base, creator
 
@@ -19,8 +19,8 @@ CommonToolbox.getInstance().set_toolbox(toolbox)
 root = get_root_path()
 
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/CartPoleV1/Std-InputsError-RootMeanSquareError-Mode00.properties'
-out_dir= root + 'tmp/ga/'
-
+out_dir= get_gdrive() + 'data/ga/'
+print(out_dir)
 #file = root + 'tmp/CartPoleV1/InputsError-RootMeanSquareError-Binary-WeightedSum-Topp1/ga-000.160-s001-5x5-m0-fed09c2940d19fc9624a4c166c7e9dcb.properties'
 #out_dir=  '/mnt/c/tmp/ga/'
 
@@ -28,8 +28,8 @@ out_dir= root + 'tmp/ga/'
 output=True
 overwrite=True
 # draw_file='evolve-best.png'
-draw_file=None
-verbose={ 'debug': 0, 'evolve_verbose':True, 'display_env': False, 'hpct_verbose':False}
+draw_file='efpf.png'
+verbose={ 'debug': 0, 'evolve_verbose':2, 'display_env': True, 'hpct_verbose':False}
 
 hep = HPCTEvolveProperties()
 output=True

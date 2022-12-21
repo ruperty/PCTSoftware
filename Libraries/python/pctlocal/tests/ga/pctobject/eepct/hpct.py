@@ -64,15 +64,15 @@ class HPCTControlFunctionCollection(object):
     def __repr__(self):
         r = p = o = c = a = ""
         if self.reference is not None:
-            r = f'Ref:{self.reference.__repr__()}'
+            r = f'Ref:{self.reference.__repr__()}\n'
         if self.perception is not None:
-            p = f'Per:{self.perception.__repr__()}'
+            p = f'Per:{self.perception.__repr__()}\n'
         if self.output is not None:
-            o = f'Out:{self.output.__repr__()}'
+            o = f'Out:{self.output.__repr__()}\n'
         if self.comparator is not None:
-            c = f'Com:{self.comparator.__repr__()}'
+            c = f'Com:{self.comparator.__repr__()}\n'
         if self.action is not None:
-            a = f'Act:{self.action.__repr__()}'
+            a = f'Act:{self.action.__repr__()}\n'
             return ' '.join((r, p, c, o, a))
 
         return ' '.join((r, p, c, o))
@@ -591,6 +591,16 @@ class HPCTIndividual(PCTHierarchy):
 
 
     @classmethod
+    def from_properties_file(cls, file):
+        hep = HPCTEvolveProperties()
+        hep.load_db(file=file)
+
+        config = eval(hep.db['config'])
+        hpct = HPCTIndividual.from_config(config)
+        return hpct
+    
+    
+    @classmethod
     def from_config(cls, config, namespace=None):
         "Create an individual from a provided configuration."
         hpct = HPCTIndividual()
@@ -883,7 +893,7 @@ class HPCTEvolver(BaseEvolver):
             raise Exception(
                 f'HPCTEvolver.create: top level nodes {levels_columns_grid[-1]}, should be equal to number of references {len(self.references)}')
 
-        #self.arch.configure(len(levels_columns_grid))
+
         self.arch.configure()
         env = EnvironmentFactory.createEnvironment(self.env_name)
         # testing only
@@ -1400,7 +1410,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
 
             top_ind = tools.selBest(self.pop, k=1)[0]
             if verbose>1:
-                print ( f'[{top_ind}]')
+                print ( f' [{top_ind.get_parameters_list()}]')
             else:
                 if verbose>0:
                     print()
@@ -1542,15 +1552,15 @@ class HPCTEvolveProperties(object):
 
         return types_strings
 
-    def collect_configs_strings(self):
-        "?"
-        configs_strings={}
-        for config in range(1, 100):
-            config_key = f'config{config}'
-            if config_key in self.db:
-                configs_strings[config_key]=self.db[config_key]
+    # def collect_configs_strings(self):
+    #     "?"
+    #     configs_strings={}
+    #     for config in range(1, 100):
+    #         config_key = f'config{config}'
+    #         if config_key in self.db:
+    #             configs_strings[config_key]=self.db[config_key]
 
-        return configs_strings
+    #     return configs_strings
 
     #@classmethod
     def load_properties(self, file=None, nevals=None, seed=None, print_properties=False,
@@ -1605,7 +1615,7 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.hpct_structure_properties, property_name='mode', eval_convert=True)
 
         self.hpct_structure_properties['types_strings'] = self.collect_types_strings()
-        self.hpct_structure_properties['configs_strings'] = self.collect_configs_strings()
+        #self.hpct_structure_properties['configs_strings'] = self.collect_configs_strings()
 
         error_properties = self.get_error_properties()
         # properties of one HPCT run.
@@ -1667,37 +1677,46 @@ class HPCTEvolveProperties(object):
         return env, error_collector
 
 
-    def get_types_string(self):
+    def get_types_string(self, arch):
         types_string=""
         types_strings = self.hpct_structure_properties['types_strings'] 
         for type_key, type_value in types_strings.items():
             types_string+=type_value
-            type_list = stringListToListOfStrings(type_value, ' ')
+            type_list = stringListToListOfStrings(type_value, '^')
             lk = eval(type_list[0])
+            fk = eval(type_list[1])
+            vk = eval(type_list[2])
+            properties = type_list[3]
+            if '{' in properties:
+                pk = eval(properties)
+            else:
+                pk = properties
+            
+            arch.set(lk, fk, vk, pk)
             #print(lk, type_list[1], type_list[2])
             # structure.set_config_type(lk, type_list[1], type_list[2])
 
         return types_string
 
-    def get_configs_string(self):
-        "?"
-        configs_string=""
-        configs_strings = self.hpct_structure_properties['configs_strings']
-        for config_key, config_value  in configs_strings.items():
-            configs_string+=config_value
-            config_list = stringListToListOfStrings(config_value,',')
-            lk = eval(config_list[0])
-            bk = eval(config_list[3])
-            #print(lk, config_list[1], config_list[2], bk)
-            # structure.set_config_parameter(lk, config_list[1], config_list[2], bk)
+    # def get_configs_string(self):
+    #     "?"
+    #     configs_string=""
+    #     configs_strings = self.hpct_structure_properties['configs_strings']
+    #     for config_key, config_value  in configs_strings.items():
+    #         configs_string+=config_value
+    #         config_list = stringListToListOfStrings(config_value,',')
+    #         lk = eval(config_list[0])
+    #         bk = eval(config_list[3])
+    #         #print(lk, config_list[1], config_list[2], bk)
+    #         # structure.set_config_parameter(lk, config_list[1], config_list[2], bk)
 
-        return configs_string
+    #     return configs_string
 
-    def create_hash_string(self, properties_string, configs_string):
+    def create_hash_string(self, properties_string, types_string):
         "Create an unique hash ID defined by the properties of this GA instance."
         hs = ''.join((f'{self.environment_properties["env_inputs_indexes"]}{self.environment_properties["references"]}{self.environment_properties["toplevel_inputs_indexes"]}',
             f'{properties_string}{self.file_properties["desc"]}{self.hpct_run_properties["error_response_type"]}{self.hpct_run_properties["error_collector_type"]}',
-            f'{configs_string}{self.hpct_structure_properties["mode"]}{self.hpct_run_properties["seed"]}{self.wrapper_properties["pop_size"]}',
+            f'{types_string}{self.hpct_structure_properties["mode"]}{self.hpct_run_properties["seed"]}{self.wrapper_properties["pop_size"]}',
             f'{self.wrapper_properties["gens"]}{self.evolve_properties["attr_mut_pb"]}{self.evolve_properties["structurepb"]}',
             f'{self.hpct_run_properties["runs"]}{self.hpct_structure_properties["lower_float"]}{self.hpct_structure_properties["upper_float"]}',
             f'{self.hpct_structure_properties["max_levels_limit"]}{self.hpct_structure_properties["max_columns_limit"]}',
@@ -1749,8 +1768,7 @@ class HPCTEvolveProperties(object):
             seed = self.hpct_run_properties['seed']
         # modes_list = properties['modes']
        
-        configs_string= self.get_configs_string()
-        types_string = self.get_types_string() # is this function needed
+        #configs_string= self.get_configs_string()
 
         properties_string=""
         #print(error_properties)
@@ -1781,10 +1799,14 @@ class HPCTEvolveProperties(object):
         evolve_verbose = self.get_verbose_property( 'evolve_verbose', verbose)
         deap_verbose = self.get_verbose_property( 'deap_verbose', verbose)
 
+        arch = HPCTArchitecture(mode=self.hpct_structure_properties["mode"], lower_float=self.hpct_structure_properties["lower_float"], upper_float=self.hpct_structure_properties["upper_float"])
+        arch.configure()
+        types_string = self.get_types_string(arch) 
+
         desc = self.file_properties['desc']
         # create hash
         #print(modes_list)
-        hash_string = self.create_hash_string(properties_string, configs_string)
+        hash_string = self.create_hash_string(properties_string, types_string)
         #print(hash_string)
         hash_num = hashlib.md5(hash_string.encode()).hexdigest()
         #print(hash_num)
@@ -1795,8 +1817,6 @@ class HPCTEvolveProperties(object):
             return None,None,None
 
 
-        arch = HPCTArchitecture(mode=self.hpct_structure_properties["mode"], lower_float=self.hpct_structure_properties["lower_float"], upper_float=self.hpct_structure_properties["upper_float"])
-        arch.configure()
         
         evolver_properties = {'environment_properties':self.environment_properties, 
         'evolve_properties':self.evolve_properties,  
@@ -1988,7 +2008,7 @@ class HPCTGenerateEvolvers(object):
         types = ''
 
         for type in struct['types']:
-            types = ''.join((types, f'type{type_num} = HPCTLEVEL.{type[0].name} HPCTFUNCTION.{type[1].name} HPCTVARIABLE.{type[2].name} {type[3]}\n'))
+            types = ''.join((types, f'type{type_num} = HPCTLEVEL.{type[0].name}^HPCTFUNCTION.{type[1].name}^HPCTVARIABLE.{type[2].name}^{type[3]}\n'))
             type_num += 1
         # if weight == 'Floats' or weight == 'AllFloats':
         #     types = ''.join((types, f'type{type_num} = [LevelKey.ZERO, perception, Float]\n'))

@@ -35,7 +35,9 @@ collection = {
             'CartPoleV1': { 'arch': {
                                 'Std' : {'collectors': ['InputsError' ],
                                 'responses': ['RootMeanSquareError'],
-                                'structs' : [{'mode': 0, 'types':[[HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
+                                'structs' : [{'mode': 0, 'types':[
+                                            [HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
+                                            [HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
                                             [HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': -5, 'upper': 5}]]}]
                                 }
                                 }
