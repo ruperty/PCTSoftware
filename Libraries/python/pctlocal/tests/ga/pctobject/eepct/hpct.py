@@ -1993,7 +1993,7 @@ class HPCTGenerateEvolvers(object):
         f.close()
 
     def structure_parameters(self, collector,response,  struct, arch):
-        "List the evolution configuration parameters."
+        "Add the hierarchy architecture configuration and additional parameters."
         header = '### Structure\n\n'
         header = header + '# modes - pattern of nodes at particular levels, zero, n, top and zerotop\n'
         header = header + '# the mode numbers refer to:\n'
@@ -2010,25 +2010,6 @@ class HPCTGenerateEvolvers(object):
         for type in struct['types']:
             types = ''.join((types, f'type{type_num} = HPCTLEVEL.{type[0].name}^HPCTFUNCTION.{type[1].name}^HPCTVARIABLE.{type[2].name}^{type[3]}\n'))
             type_num += 1
-        # if weight == 'Floats' or weight == 'AllFloats':
-        #     types = ''.join((types, f'type{type_num} = [LevelKey.ZERO, perception, Float]\n'))
-        #     type_num += 1
-        #     types = ''.join((types, f'type{type_num} = [LevelKey.N, perception, Float]\n'))
-        #     type_num += 1
-        #     types = ''.join((types, f'type{type_num} = [LevelKey.TOP, perception, Float]\n'))
-        #     type_num += 1
-
-        # if weight == 'AllFloats':
-        #     types = ''.join((types, f'type{type_num} = [LevelKey.ZERO, action, Float]\n'))
-        #     type_num += 1
-            
-        # if struct == 'SmoothWeightedSum':
-        #     types = ''.join((types, f'type{type_num} = [LevelKey.ZERO, output, Smooth]\n'))
-        #     type_num += 1
-        #     types = ''.join((types, f'type{type_num} = [LevelKey.N, output, Smooth]\n'))
-        #     type_num += 1
-        #     types = ''.join((types, f'type{type_num} = [LevelKey.TOP, output, Smooth]\n'))
-        #     type_num += 1
 
         types = types + '\n\n\n\n'
             
@@ -2038,6 +2019,7 @@ class HPCTGenerateEvolvers(object):
 
 
     def configurable_parameters(self,  config, collector, response, nevals):  
+        "Main configuration parameters of environment evolution."
         header = ''.join(("### Configurable parameters\n\n# Randomisation seed to reproduce results\n# Size of population\n", 
                         "# Number of generations\n# Probability that an attribute will be mutated\n# Probability that the structure will be mutated\n",
                         "# Number of runs of environment\n# Lower limit of float values\n# Upper limit of float values\n",
