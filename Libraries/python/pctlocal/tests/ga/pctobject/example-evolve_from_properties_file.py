@@ -18,7 +18,9 @@ CommonToolbox.getInstance().set_toolbox(toolbox)
 
 root = get_root_path()
 
-file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/CartPoleV1/Std-InputsError-RootMeanSquareError-Mode00.properties'
+filename = 'Std-InputsError-RootMeanSquareError-Mode00.properties'
+filename = 'Std-TotalError-RootMeanSquareError-Mode00.properties'
+file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/CartPoleV1/'+filename
 out_dir= get_gdrive() + 'data/ga/'
 print(out_dir)
 #file = root + 'tmp/CartPoleV1/InputsError-RootMeanSquareError-Binary-WeightedSum-Topp1/ga-000.160-s001-5x5-m0-fed09c2940d19fc9624a4c166c7e9dcb.properties'

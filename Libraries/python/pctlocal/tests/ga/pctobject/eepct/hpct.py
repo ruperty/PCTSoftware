@@ -596,12 +596,13 @@ class HPCTIndividual(PCTHierarchy):
         hep.load_db(file=file)
 
         config = eval(hep.db['config'])
-        hpct = HPCTIndividual.from_config(config)
-        return hpct
+        seed = eval(hep.db['seed'])
+        hpct = HPCTIndividual.from_config(config, seed=seed)
+        return hpct, hep
     
     
     @classmethod
-    def from_config(cls, config, namespace=None):
+    def from_config(cls, config, namespace=None, seed=None):
         "Create an individual from a provided configuration."
         hpct = HPCTIndividual()
         namespace = hpct.namespace
@@ -610,7 +611,7 @@ class HPCTIndividual(PCTHierarchy):
         coll_dict = config['pre']
         env_dict = coll_dict.pop('pre0')
 
-        env = EnvironmentFactory.createEnvironmentWithNamespace(env_dict['type'], namespace=namespace)
+        env = EnvironmentFactory.createEnvironmentWithNamespace(env_dict['type'], namespace=namespace, seed=seed)
         for key, link in env_dict['links'].items():
             env.add_link(link)
         preCollection.append(env)
@@ -894,7 +895,7 @@ class HPCTEvolver(BaseEvolver):
                 f'HPCTEvolver.create: top level nodes {levels_columns_grid[-1]}, should be equal to number of references {len(self.references)}')
 
 
-        self.arch.configure()
+        #self.arch.configure()
         env = EnvironmentFactory.createEnvironment(self.env_name)
         # testing only
         if self.env_name == 'VelocityModel':

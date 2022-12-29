@@ -3,8 +3,13 @@
 from utils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual
 
+filepath = 'Std-InputsError-RootMeanSquareError-Mode00/test-1level.properties'
 
-file = get_gdrive() + 'data/ga/CartPoleV1/Std-InputsError-RootMeanSquareError-Mode00/ga-000.121-s001-3x4-m0-924f41bf8c5ff68654b05da500579fea.properties'
+
+filepath = 'Std-TotalError-RootMeanSquareError-Mode00/ga-000.009-s001-2x1-m0-c154bde0a46332caf14754adb39b05ad.properties'
+
+file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
+#ga-000.121-s001-3x4-m0-924f41bf8c5ff68654b05da500579fea.properties'
 #ga-000.124-s001-1x1-m0-a8ab4cf3151b29a13abb2680bc574781.properties'
 #ga-000.124-s001-1x1-m0-8b0d9b3da7c984766efd233b07bec593.properties'
 #ga-000.124-s001-1x1-m0-5cb8a3bb27767c9f0cd9f6df498bcc59.properties'
@@ -25,7 +30,7 @@ move={'CartPoleV1': [-1, -0.2],'ICV': [-0.45, 0], 'ICP': [-0.25,  0.1],
       'IPV': [-0.05, 0.2],'IPA': [0.1, 0.3], 'OL0C0p':[0.0,0], 
       'RL0C0c':[-0.0,-0], 'PL0C0ws':[0.0,0.0],  
       'Action1ws': [-1.0, 0]}
-move={}
+move={'OL0C0p':[0.1,0]}
 hpct.draw(file='draw-test.png', move=move, with_edge_labels=True, font_size=8, node_size=200)
 
 

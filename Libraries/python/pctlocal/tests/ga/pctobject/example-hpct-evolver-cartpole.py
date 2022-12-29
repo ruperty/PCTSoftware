@@ -24,8 +24,9 @@ if __name__ == "__main__":
     arch = HPCTArchitecture(lower_float=lower, upper_float=upper)
     arch.configure()
 
-    #arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
-    #arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
+    arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
+    arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
+    arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': -5, 'upper': 5})
     
     env_name = 'CartPoleV1'
     env_inputs_indexes=[1, 0, 3, 2]
