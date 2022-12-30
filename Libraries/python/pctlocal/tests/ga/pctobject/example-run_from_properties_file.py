@@ -1,7 +1,7 @@
 
 
 from utils.paths import  get_gdrive
-from eepct.hpct import HPCTIndividual
+from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
 from pct.architectures import run_from_properties_file
    
 filepath = 'Std-InputsError-RootMeanSquareError-Mode00/test-1level.properties'
@@ -13,31 +13,32 @@ filepath = 'Std-TotalError-RootMeanSquareError-Mode00/'+ filename +'.properties'
 
 file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
 
-#
-
 #ga-000.121-s001-3x4-m0-924f41bf8c5ff68654b05da500579fea.properties'
 #ga-000.124-s001-1x1-m0-a8ab4cf3151b29a13abb2680bc574781.properties'
 #ga-000.124-s001-1x1-m0-8b0d9b3da7c984766efd233b07bec593.properties'
 #ga-000.124-s001-1x1-m0-5cb8a3bb27767c9f0cd9f6df498bcc59.properties'
 
-hpct, hep = HPCTIndividual.from_properties_file(file)
+# hpct, hep = HPCTIndividual.from_properties_file(file)
+# hpct.set_name('Cartpole')
+# hpct.set_suffixes()
+# config = hpct.get_config()
 
-hpct.set_name('Cartpole')
-hpct.set_suffixes()
-config = hpct.get_config()
-
+hep = HPCTEvolveProperties()
+hep.load_db(file)
 render=True
 
 error_collector_type = hep.db['error_collector_type']
 error_response_type = hep.db['error_response_type']
 error_limit = eval(hep.db['error_limit'])
 runs = eval(hep.db['runs'])
+config = eval(hep.db['config'])
+seed = eval(hep.db['seed'])
 
 # plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0c':'ref','IPA':'pa'}, 'title':'Goal'},
 # {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
 # plots=[]
 
-ind, score = HPCTIndividual.run_from_config(config, render=True,  error_collector_type=error_collector_type, error_response_type=error_response_type, error_properties=None, error_limit=error_limit, steps=runs, verbose=False)
+ind, score = HPCTIndividual.run_from_config(config, render=True,  error_collector_type=error_collector_type, error_response_type=error_response_type, error_properties=None, error_limit=error_limit, steps=runs, verbose=True, seed=seed)
 
 ind.draw(file=filename + '.png', node_size=200, font_size=10, with_edge_labels=True)
     

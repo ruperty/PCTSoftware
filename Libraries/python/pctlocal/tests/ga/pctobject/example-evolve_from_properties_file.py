@@ -31,7 +31,9 @@ output=True
 overwrite=True
 # draw_file='evolve-best.png'
 draw_file='efpf.png'
-verbose={ 'debug': 0, 'evolve_verbose':2, 'display_env': True, 'hpct_verbose':False}
+debug=3
+hpct_verbose= True
+verbose={ 'debug': debug, 'evolve_verbose':2, 'display_env': True, 'hpct_verbose':hpct_verbose}
 
 hep = HPCTEvolveProperties()
 output=True

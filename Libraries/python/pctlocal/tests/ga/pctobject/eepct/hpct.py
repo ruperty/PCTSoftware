@@ -602,7 +602,7 @@ class HPCTIndividual(PCTHierarchy):
     
     
     @classmethod
-    def from_config(cls, config, namespace=None, seed=None):
+    def from_config(cls, config, seed=None):
         "Create an individual from a provided configuration."
         hpct = HPCTIndividual()
         namespace = hpct.namespace
@@ -648,9 +648,9 @@ class HPCTIndividual(PCTHierarchy):
 
     @classmethod
     def run_from_config(cls, config, render=False,  error_collector_type=None, error_response_type=None, 
-        error_properties=None, error_limit=100, steps=500, verbose=False, early_termination=False):
+        error_properties=None, error_limit=100, steps=500, verbose=False, early_termination=False, seed=None):
         "Run an individual from a provided configuration."
-        ind = cls.from_config(config)
+        ind = cls.from_config(config, seed=seed)
         env = ind.get_preprocessor()[0]
         env.set_render(render)
         env.early_termination = early_termination
@@ -878,6 +878,7 @@ class HPCTEvolver(BaseEvolver):
             current_error=hpct.get_error_collector().error()
             score += current_error
 
+        env.close()
         score = score / self.nevals
         if self.debug > 1:
             print(f'{self.gen:03} {self.member:03} score {score:5.3f}')
@@ -896,7 +897,7 @@ class HPCTEvolver(BaseEvolver):
 
 
         #self.arch.configure()
-        env = EnvironmentFactory.createEnvironment(self.env_name)
+        env = EnvironmentFactory.createEnvironment(self.env_name, seed=self.seed)
         # testing only
         if self.env_name == 'VelocityModel':
             env.mass, env.num_links, env.indexes=250, 2, 4
@@ -1429,7 +1430,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
 
                 ind, score = HPCTIndividual.run_from_config(top_ind.get_config(), render=True,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, 
-                    error_limit=100, steps=500, verbose=False, early_termination=self.evolver.early_termination)
+                    error_limit=100, steps=500, verbose=False, early_termination=self.evolver.early_termination, seed=self.evolver.seed)
 
                 # draw ind to file ??
                 
@@ -1644,38 +1645,38 @@ class HPCTEvolveProperties(object):
         
 
 
-    def setup_environment(self, properties, render=False, seed=None, early_termination=None,
-            error_collector_type=None, error_response_type=None):
-        "Set up simulation environment and error/store collector."
+    # def setup_environment(self, properties, render=False, seed=None, early_termination=None,
+    #         error_collector_type=None, error_response_type=None):
+    #     "Set up simulation environment and error/store collector."
 
-        if error_collector_type == None:
-            error_collector_type = properties['error_collector_type']
-        if error_response_type == None:
-            error_response_type = properties['error_response_type']
-        if early_termination == None:
-            early_termination = properties['early_termination']
+    #     if error_collector_type == None:
+    #         error_collector_type = properties['error_collector_type']
+    #     if error_response_type == None:
+    #         error_response_type = properties['error_response_type']
+    #     if early_termination == None:
+    #         early_termination = properties['early_termination']
 
-        env_name = properties['env_name']
-        error_limit = properties['error_limit']
-        error_properties = properties['error_properties']
-        if seed == None:
-            seed = properties['seed']
+    #     env_name = properties['env_name']
+    #     error_limit = properties['error_limit']
+    #     error_properties = properties['error_properties']
+    #     if seed == None:
+    #         seed = properties['seed']
 
 
-        env = EnvironmentFactory.createEnvironment(env_name)
-        env.render=render
-        env.set_name(env_name)
-        env.early_termination = early_termination
+    #     env = EnvironmentFactory.createEnvironment(env_name)
+    #     env.render=render
+    #     env.set_name(env_name)
+    #     env.early_termination = early_termination
 
-        if env == None:
-            env = EnvironmentFactory.createEnvironment('DummyModel')
+    #     if env == None:
+    #         env = EnvironmentFactory.createEnvironment('DummyModel')
 
-        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, properties=error_properties)
-        if seed != None:
-            env.set_seed(seed)
-        env.reset()
+    #     error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, properties=error_properties)
+    #     if seed != None:
+    #         env.set_seed(seed)
+    #     env.reset()
 
-        return env, error_collector
+    #     return env, error_collector
 
 
     def get_types_string(self, arch):
@@ -1780,9 +1781,9 @@ class HPCTEvolveProperties(object):
         #print(structure.get_config())
         # env factory
         env_name = self.environment_properties['env_name']
-        env = EnvironmentFactory.createEnvironment(env_name)
-        env.set_name(env_name)
-        namespace=env.namespace
+        # env = EnvironmentFactory.createEnvironment(env_name, seed=seed)
+        # env.set_name(env_name)
+        # namespace=env.namespace
 
         # if video_wrap:
         #     env.set_video_wrap(video_wrap)
@@ -1889,7 +1890,7 @@ class HPCTEvolveProperties(object):
             f.write('# Result'+'\n')
             f.write('# Best individual'+'\n')
             f.write(f'raw = {best.get_parameters_list()}'+'\n')
-            f.write(f'config = {best.get_config()}'+'\n')
+            f.write(f'config = {best.get_config(zero=0)}'+'\n')
             f.write(f'score = {score:0.5f}'+'\n')
             f.write(f'# Time  {meantime:0.4f}'+'\n')
             f.write(file_contents.replace(f'seed = {int(self.hpct_run_properties["seed"])}', f'seed = {seed}')+'\n')
@@ -1897,7 +1898,7 @@ class HPCTEvolveProperties(object):
                 f.write(log_string)
 
             f.close()
-        env.close()
+        #env.close()
 
         return output_file, evr, score
 
