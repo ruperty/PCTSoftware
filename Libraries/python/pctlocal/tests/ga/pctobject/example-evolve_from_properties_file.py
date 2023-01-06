@@ -18,22 +18,27 @@ CommonToolbox.getInstance().set_toolbox(toolbox)
 
 root = get_root_path()
 
-filename = 'Std-InputsError-RootMeanSquareError-Mode00.properties'
-filename = 'Std-TotalError-RootMeanSquareError-Mode00.properties'
-file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/CartPoleV1/'+filename
+test = 0
+
+if test == 0:
+    filename = 'Std-InputsError-RootMeanSquareError-Mode00'
+if test == 1:
+    filename = 'Std-InputsError-RootMeanSquareError-Mode01'
+
+file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/CartPoleV1/'+ filename + ".properties"
 out_dir= get_gdrive() + 'data/ga/'
 print(out_dir)
-#file = root + 'tmp/CartPoleV1/InputsError-RootMeanSquareError-Binary-WeightedSum-Topp1/ga-000.160-s001-5x5-m0-fed09c2940d19fc9624a4c166c7e9dcb.properties'
-#out_dir=  '/mnt/c/tmp/ga/'
-
 
 output=True
 overwrite=True
-# draw_file='evolve-best.png'
-draw_file='efpf.png'
-debug=3
-hpct_verbose= True
-verbose={ 'debug': debug, 'evolve_verbose':2, 'display_env': True, 'hpct_verbose':hpct_verbose}
+
+draw_file= filename + '-evolve-best' + '.png'
+debug=0 #3
+hpct_verbose= False #True
+evolve_verbose = 1 #2
+display_env = True
+
+verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose}
 
 hep = HPCTEvolveProperties()
 output=True

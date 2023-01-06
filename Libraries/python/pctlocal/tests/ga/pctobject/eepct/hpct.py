@@ -173,8 +173,39 @@ class HPCTArchitecture(object):
     def __init__(self, arch=None, mode=0, lower_float=-10, upper_float=10):
         if arch == None:
             if mode ==0:
-                arch = {
-                    HPCTARCH.HIERARCHY: {
+                arch = self.mode00(lower_float, upper_float)
+
+            if mode == 1:
+                arch = self.mode01(lower_float, upper_float)
+
+        self.arch = arch
+        self.levels_zerotop = None
+        self.levels_zero = None
+        self.levels_top = None
+        self.levels_n = None
+
+    def mode00(self, lower_float, upper_float):
+        arch = {
+            HPCTARCH.HIERARCHY: {
+                        # Default definition of types of functions within a hierarchy.
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTARCH.LEVELS: {
+                            # Overriding some functions at levels.
+                            HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.TOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}}
+                        }
+                    }
+            }
+
+        return arch
+        
+    def mode01(self, lower_float, upper_float):
+        arch = {
+            HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
                         HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
@@ -193,11 +224,7 @@ class HPCTArchitecture(object):
                     }
             }
 
-        self.arch = arch
-        self.levels_zerotop = None
-        self.levels_zero = None
-        self.levels_top = None
-        self.levels_n = None
+        return arch
 
     def __repr__(self):
         "For printing."
@@ -881,7 +908,7 @@ class HPCTEvolver(BaseEvolver):
         env.close()
         score = score / self.nevals
         if self.debug > 1:
-            print(f'{self.gen:03} {self.member:03} score {score:5.3f}')
+            print(f'{self.gen:03} {self.member:03} final score {score:5.3f}')
 
         self.member += 1
 
@@ -1426,12 +1453,13 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 if self.save_arch_gen:
                     self.evolver.fig_file = f'fig{gen:03}.png'
 
-                print(f'Displaying gen {gen}')
+                print(f'Displaying gen {gen}', end = ' ')
 
                 ind, score = HPCTIndividual.run_from_config(top_ind.get_config(), render=True,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, 
                     error_limit=100, steps=500, verbose=False, early_termination=self.evolver.early_termination, seed=self.evolver.seed)
 
+                print(f'score = {score}' )
                 # draw ind to file ??
                 
                 self.evolver.fig_file = None
@@ -2001,7 +2029,7 @@ class HPCTGenerateEvolvers(object):
         header = header + '# the mode numbers refer to:\n'
         header = header + '# 0 - per:bin-ws, ref:flt-ws, com:sub, out:flt-ws\n'
 
-        mode = 0
+        mode = struct['mode']
         # if struct == 'SmoothWeightedSum':
         #     modes = [6, 6, 5, 5]
             
