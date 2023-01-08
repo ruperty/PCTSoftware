@@ -898,7 +898,9 @@ class HPCTEvolver(BaseEvolver):
             if self.fig_file != None:
                 hpct.draw(file=self.fig_file)
 
+            #print(f'gen {self.gen} # {self.member} {hpct.get_error_collector().error()}' )
             hpct.get_error_collector().reset()
+            #print(f'after reset {hpct.get_error_collector().error()}' )
             hpct.run(steps=self.runs, verbose=self.hpct_verbose)
             # if i==0:
             #     env.close()
@@ -916,6 +918,7 @@ class HPCTEvolver(BaseEvolver):
 
     def create(self, cls, grid=None):
         "Create a hierarchy individual."
+        #print(f'gen {self.gen} # {self.member}' )
         error_collector = BaseErrorCollector.collector(self.error_response_type, self.error_collector_type, self.error_limit, properties=self.error_properties)
         levels_columns_grid = self.get_grid(grid)
         if levels_columns_grid[-1] != len(self.references):
