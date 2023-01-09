@@ -34,7 +34,7 @@ if __name__ == "__main__":
     seed = 1
 
     error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
-    seed, debug, pop_size, processes, runs, nevals, num_actions=seed, 3, 100, 1, 1, 1, 1
+    debug, pop_size, processes, runs, nevals, num_actions= 0, 100, 1, 1, 1, 1
     min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
     zerolevel_inputs_indexes=None
     toplevel_inputs_indexes=None
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
         'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
-        'history':False, 'hpct_verbose':True,  'debug':debug, 'seed':seed}    
+        'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 
 
     evolver_properties = {'environment_properties':environment_properties, 
@@ -67,11 +67,12 @@ if __name__ == "__main__":
 
     ind1 = evr.toolbox.individual()     
 
-    tic = time.process_time() 
-    for ctr in range(2):
+    for ctr in range(10):
+        tic = time.process_time() 
         ind1.fitness.values = evr.toolbox.evaluate(ind1)
-    toc = time.process_time()
-    elapsed = toc-tic
-    print(f'Evaluate time: {elapsed:4.4f}')
-    print (ind1.fitness)  
+        print(ind1.get_preprocessor()[0].get_value())
+        toc = time.process_time()
+        elapsed = toc-tic
+        #print(f'Evaluate time: {elapsed:4.4f}')
+        #print (ind1.fitness)  
 

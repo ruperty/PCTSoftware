@@ -36,10 +36,10 @@ draw_file= filename + '-evolve-best' + '.png'
 
 debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 hpct_verbose= False #True # log of every control system iteration
-evolve_verbose = 2# 1 #2 # output of evolve iterations, 2 for best of each gen
+evolve_verbose = 1# 1 #2 # output of evolve iterations, 2 for best of each gen
 
-debug= 3 #0 #3 # details of population in each gen, inc. mutate and merge
-hpct_verbose= True # log of every control system iteration
+#debug= 3 #0 #3 # details of population in each gen, inc. mutate and merge
+#hpct_verbose= True # log of every control system iteration
 
 save_arch_gen = True
 display_env = True

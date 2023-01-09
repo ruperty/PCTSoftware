@@ -24,18 +24,15 @@ if test ==1:
 
 if test ==2:
     # seed 3 circles anti-clockwise
-    cp = CartPoleV1(render=True, seed=1) 
-    cp.add_link(Constant(1))
+    cp = CartPoleV1(render=False, seed=1) 
+    cp.add_link(Constant(0))
     print(cp.get_config())
 
-    for i in range(1):
-        cp.run(steps=steps, verbose=True)
-
-    print()
-    
-    cp.reset(full=False, seed=1)
-    for i in range(1):
-        cp.run(steps=steps, verbose=True)
+    for ctr in range(10):
+        for i in range(1):
+            cp.run(steps=steps, verbose=True)
+        print()
+        cp.reset(full=False, seed=1)
     
     cp.close()
 

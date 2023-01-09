@@ -1475,7 +1475,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
 
 
                 print(f'Displaying gen {gen}', end = ' ')
-                hpct_verbose = True if verbose>0 else False
+                hpct_verbose = True if verbose>2 else False
                 ind, score = HPCTIndividual.run_from_config(top_ind.get_config(), render=True,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
                     steps=self.evolver.runs, verbose=hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed)
