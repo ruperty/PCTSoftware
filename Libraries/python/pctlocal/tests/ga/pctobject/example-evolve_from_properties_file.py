@@ -33,12 +33,19 @@ output=True
 overwrite=True
 
 draw_file= filename + '-evolve-best' + '.png'
-debug=0 #3
-hpct_verbose= False #True
-evolve_verbose = 1 #2
+
+debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
+hpct_verbose= False #True # log of every control system iteration
+evolve_verbose = 2# 1 #2 # output of evolve iterations, 2 for best of each gen
+
+debug= 3 #0 #3 # details of population in each gen, inc. mutate and merge
+hpct_verbose= True # log of every control system iteration
+
+save_arch_gen = True
 display_env = True
 
-verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose}
+
+verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 'save_arch_gen': save_arch_gen}
 
 hep = HPCTEvolveProperties()
 output=True

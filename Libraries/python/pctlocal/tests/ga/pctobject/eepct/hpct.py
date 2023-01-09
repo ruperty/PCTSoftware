@@ -617,6 +617,28 @@ class HPCTIndividual(PCTHierarchy):
         return mutated > 0
 
 
+    def write_config_to_file(self, seed, runs , early_termination, error_response_type, error_collector_type, error_limit, score, file):
+        
+        f = open(file, "w")
+        from datetime import datetime   
+        dateTimeObj = datetime.now()
+        f.write(f'# Date {dateTimeObj}\n')
+        f.write('# individual'+'\n')
+        f.write(f'score = {score:0.5f}'+'\n')
+        #f.write(f'# Time  {meantime:0.4f}'+'\n')
+        f.write(f'seed = {seed}'+'\n')
+        f.write(f'runs = {runs} \n')
+        f.write(f'early_termination = {early_termination} \n')               
+        f.write(f'error_response_type = {error_response_type} \n')
+        f.write(f'error_collector_type = {error_collector_type} \n')
+        f.write(f'error_limit = {error_limit} \n')
+        f.write(f'raw = {self.get_parameters_list()}'+'\n')
+        f.write(f'config = {self.get_config(zero=0)}'+'\n')
+
+        f.close()
+        
+    
+
     @classmethod
     def from_properties_file(cls, file):
         hep = HPCTEvolveProperties()
@@ -889,9 +911,7 @@ class HPCTEvolver(BaseEvolver):
 
         env = hpct.get_preprocessor()[0]
         for i in range(self.nevals):
-            if self.seed != None:
-                env.set_seed(self.seed+i)
-            env.reset(full=False)
+            env.reset(full=False, seed=self.seed+i)
             if i > 0:
                 env.set_render(False)
 
@@ -1453,19 +1473,23 @@ class HPCTEvolverWrapper(EvolverWrapper):
             # if self.display_env and gen == gens:
             if self.display_env:
 
-                if self.save_arch_gen:
-                    self.evolver.fig_file = f'fig{gen:03}.png'
 
                 print(f'Displaying gen {gen}', end = ' ')
-
+                hpct_verbose = True if verbose>0 else False
                 ind, score = HPCTIndividual.run_from_config(top_ind.get_config(), render=True,  error_collector_type=self.evolver.error_collector_type, 
-                    error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, 
-                    error_limit=100, steps=500, verbose=False, early_termination=self.evolver.early_termination, seed=self.evolver.seed)
+                    error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
+                    steps=self.evolver.runs, verbose=hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed)
 
                 print(f'score = {score}' )
                 # draw ind to file ??
+
+                if self.save_arch_gen:
+                    fig_file = f'output/fig{gen:03}.png'
+                    top_ind.write_config_to_file(self.evolver.seed, self.evolver.runs , self.evolver.early_termination, self.evolver.error_response_type, self.evolver.error_collector_type, self.evolver.error_limit, score, f'output/conf-{gen:03}.config')                
+                    ind.draw(file=fig_file + '.png', node_size=200, font_size=10, with_edge_labels=True)
+
                 
-                self.evolver.fig_file = None
+
 
 
                 # newind = CommonToolbox.getInstance().get_toolbox().clone(top_ind)

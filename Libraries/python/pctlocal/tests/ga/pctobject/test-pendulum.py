@@ -10,7 +10,7 @@ from pct.functions import Constant
 
 steps=1
 
-test = 1
+test = 2
 
 if test ==1:
     # seed 3 circles anti-clockwise
@@ -24,12 +24,19 @@ if test ==1:
 
 if test ==2:
     # seed 3 circles anti-clockwise
-    cp = CartPoleV1(render=True, seed=4) 
+    cp = CartPoleV1(render=True, seed=1) 
     cp.add_link(Constant(1))
     print(cp.get_config())
 
-    for i in range(100):
+    for i in range(1):
         cp.run(steps=steps, verbose=True)
+
+    print()
+    
+    cp.reset(full=False, seed=1)
+    for i in range(1):
+        cp.run(steps=steps, verbose=True)
+    
     cp.close()
 
 if test ==3:
