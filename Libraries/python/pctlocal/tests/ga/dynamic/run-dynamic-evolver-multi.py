@@ -14,9 +14,9 @@ import warnings
 warnings.simplefilter(action='ignore', category=UserWarning)
 
 from epct.evolvers import evolve_from_properties_file
-from pct.putils import get_gdrive
+#from pct.putils import get_gdrive
 
-
+gdrive = '~/gdrive/'
 
 
 
@@ -34,7 +34,7 @@ def evolve(args):
     print(f'Start seed {seed}')
     tic = time.perf_counter()
     
-    out_dir=get_gdrive()+ 'data' +os.sep+'ga'+os.sep
+    out_dir=gdrive+ 'data' +os.sep+'ga'+os.sep
     out,evr,score=evolve_from_properties_file(out_dir=out_dir,file=file, verbose=verbosed, seed=seed, gens=gens, pop_size=pop, 
           output=True, draw=False, print_properties=verbose, overwrite=overwrite, log=True)
     if out != None:

@@ -56,8 +56,8 @@ if __name__ == '__main__':
 
     if single:
         tic = time.perf_counter()
-        out,evr,score=evolve_from_properties_file(filename, verbose=verbose, gens=gens, pop_size=pop_size, test=test, move=move, 
-                                    parallel=parallel, draw=True, print_properties=True)
+        out,evr,score=evolve_from_properties_file(file=filename, verbose=verbose, gens=gens, pop_size=pop_size, test=test, move=move, 
+                                    parallel=parallel, draw=True, print_properties=True, seed=1)
         if out != None:
             toc = time.perf_counter()
             elapsed = toc-tic        
