@@ -13,7 +13,7 @@ from pct.architectures import run_from_properties_file
 # filename = 'ga-000.117-s001-3x3-m0-669248b3e5087c5e888ea90fe2198af4'
 # filepath = 'Std-TotalError-RootMeanSquareError-Mode00/'+ filename +'.properties'
 
-test = 1
+test = 2
 
 if test == 0:
     filename = 'ga-000.117-s001-3x3-m0-669248b3e5087c5e888ea90fe2198af4'
@@ -23,6 +23,13 @@ if test == 0:
 if test == 1:   
     filename = 'conf-001'
     file = 'output/'+filename+'.config'
+
+if test == 2:
+    filename = 'ga-000.113-s001-4x3-m0-669248b3e5087c5e888ea90fe2198af4'
+    filepath = 'Std-InputsError-RootMeanSquareError-Mode00/'+ filename +'.properties'
+    file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
+
+
 
 hep = HPCTEvolveProperties()
 hep.load_db(file)
@@ -39,9 +46,14 @@ early_termination = eval(hep.db['early_termination'])
 # {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
 # plots=[]
 
-ind, score = HPCTIndividual.run_from_config(config, render=True,  error_collector_type=error_collector_type, error_response_type=error_response_type, error_properties=None, error_limit=error_limit, steps=runs, verbose=True, seed=seed, early_termination=early_termination)
+hpct_verbose= False #True
+render=True
 
-ind.draw(file=filename + '.png', node_size=200, font_size=10, with_edge_labels=True)
+ind, score = HPCTIndividual.run_from_config(config, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+                                            error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, 
+                                            seed=seed, early_termination=early_termination)
+
+ind.draw(file=filename + '.png', node_size=100, font_size=5, with_edge_labels=True)
     
 print("Score: %0.3f" % score)
 #ind.summary()

@@ -52,8 +52,8 @@ class TestHPCTArchConfig(unittest.TestCase):
 
         c1, v1, p1 = self.arch1.get_function_properties(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.PERCEPTION)
         self.assertEqual(c1, 'EAWeightedSum')
-        self.assertEqual(v1, 'Binary')
-        self.assertEqual(p1, None)
+        self.assertEqual(v1, 'Float')
+        self.assertEqual(p1, {'lower': -10, 'upper': 10})
 
         c1, v1, p1 = self.arch1.get_function_properties(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION)
         self.assertEqual(c1, 'EAWeightedSum')
@@ -78,9 +78,10 @@ class TestHPCTArchConfig(unittest.TestCase):
     def test_hpctarch_3levels(self):
 
         c1, v1, p1 = self.arch.get_function_properties(HPCTLEVEL.ZERO, HPCTFUNCTION.PERCEPTION)
+        #print(c1, v1, p1)
         self.assertEqual(c1, 'EAWeightedSum')
-        self.assertEqual(v1, 'Binary')
-        self.assertEqual(p1, None)
+        self.assertEqual(v1, 'Float')
+        self.assertEqual(p1, {'lower': -10, 'upper': 10})
 
         c1, v1, p1 = self.arch.get_function_properties(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION)
         #print(c1, v1, p1)
