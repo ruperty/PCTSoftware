@@ -703,9 +703,11 @@ class HPCTIndividual(PCTHierarchy):
         env = ind.get_preprocessor()[0]
         env.set_render(render)
         env.early_termination = early_termination
+        env.reset(full=False, seed=seed)
         error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, properties=error_properties)
 
         ind.set_error_collector(error_collector)
+        ind.summary()
         ind.run(steps, verbose)
         env.close()
         
@@ -912,6 +914,7 @@ class HPCTEvolver(BaseEvolver):
         env = hpct.get_preprocessor()[0]
         for i in range(self.nevals):
             env.reset(full=False, seed=self.seed+i)
+            hpct.summary()
             if i > 0:
                 env.set_render(False)
 
@@ -1418,7 +1421,19 @@ class HPCTEvolver(BaseEvolver):
 
 class HPCTEvolverWrapper(EvolverWrapper):
     "Class that runs the genetic algorithm using DEAP."
-    def run(self, gens=25, verbose=False, deap_verbose=False, log=False):
+    
+    def __init__(self, evolver, pop_size=25, p_crossover = 0.9, p_mutation = 0.1, display_env=False,
+                 select={'selection_type':'tournament', 'tournsize':None}, processes=1,
+                 save_arch_gen=False, save_arch_all=False, toolbox=None, hpct_verbose=False, run_gen_best=False, **cargs):
+
+        super().__init__(evolver=evolver, pop_size=pop_size, p_crossover = p_crossover, p_mutation = p_mutation, display_env=display_env,
+                 select=select, processes=processes, save_arch_gen=save_arch_gen, save_arch_all=save_arch_all, toolbox=toolbox)
+        
+        self.hpct_verbose=hpct_verbose        
+        self.run_gen_best=run_gen_best
+    
+    
+    def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False):
         log_string = ''
         
         if self.save_arch_all:
@@ -1428,7 +1443,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
         self.pop = self.toolbox.population(n=self.pop_size)
         self.genealogy.update(self.pop)
 
-        if verbose>0:
+        if evolve_verbose>0:
             logs = 'gen   pop   min       mean      max        mut  muts  timing'
             print(logs)
         if log:
@@ -1449,36 +1464,34 @@ class HPCTEvolverWrapper(EvolverWrapper):
             self.timing_sum += timeperpop
             self.evolver.member=0
             if gen == 1:
-                log_stats = self.collect_stats( 0, 0, logbook, timeperpop, verbose, log)
+                log_stats = self.collect_stats( 0, 0, logbook, timeperpop, evolve_verbose, log)
                 if log:
                     log_string = ''.join((log_string, log_stats))
 
-            log_stats = self.collect_stats( gen, 1, logbook, timeperpop, verbose, log)
+            log_stats = self.collect_stats( gen, 1, logbook, timeperpop, evolve_verbose, log)
 
-            if verbose>2:
+            if evolve_verbose>2:
                 print('pop ***')
                 for pop in self.pop:
                     print(pop)
 
             top_ind = tools.selBest(self.pop, k=1)[0]
-            if verbose>1:
+            if evolve_verbose>1:
                 print ( f' [{top_ind.get_parameters_list()}]')
             else:
-                if verbose>0:
+                if evolve_verbose>0:
                     print()
                 if log:
                     log_string = ''.join((log_string, log_stats, '\n'))
 
             self.best_of_gens.append(top_ind)
             # if self.display_env and gen == gens:
-            if self.display_env:
-
-
+            if self.run_gen_best:
                 print(f'Displaying gen {gen}', end = ' ')
-                hpct_verbose = True if verbose>2 else False
-                ind, score = HPCTIndividual.run_from_config(top_ind.get_config(), render=True,  error_collector_type=self.evolver.error_collector_type, 
+                render = True if self.display_env else False
+                ind, score = HPCTIndividual.run_from_config(top_ind.get_config(), render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
-                    steps=self.evolver.runs, verbose=hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed)
+                    steps=self.evolver.runs, verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed)
 
                 print(f'score = {score}' )
                 # draw ind to file ??
@@ -1846,6 +1859,8 @@ class HPCTEvolveProperties(object):
 
         debug = self.get_verbose_property( 'debug', verbose, default=0)
         hpct_verbose = self.get_verbose_property ('hpct_verbose', verbose)
+        run_gen_best = self.get_verbose_property ('run_gen_best', verbose)
+
 
         self.hpct_run_properties['hpct_verbose']=hpct_verbose
         self.hpct_run_properties['debug']= debug  
@@ -1892,6 +1907,11 @@ class HPCTEvolveProperties(object):
         self.wrapper_properties['select']={'selection_type':'tournament'}
         self.wrapper_properties['processes']=processes
         self.wrapper_properties['toolbox']=toolbox        
+        self.wrapper_properties['hpct_verbose']=hpct_verbose        
+        self.wrapper_properties['run_gen_best']=run_gen_best        
+        
+                  
+        
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 
         if test:
@@ -1903,7 +1923,7 @@ class HPCTEvolveProperties(object):
             #print(f'Mean time: {meantime:6.3f}')
 
         else:
-            meantime, log_string = evr.run(gens=gens, verbose=evolve_verbose, deap_verbose=deap_verbose, log=log)
+            meantime, log_string = evr.run(gens=gens, evolve_verbose=evolve_verbose, deap_verbose=deap_verbose, log=log)
             best= evr.best()
             score = evr.best_score()
             s1 = f'Best Score: {score:0.5f}'

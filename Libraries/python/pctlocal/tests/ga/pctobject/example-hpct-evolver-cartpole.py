@@ -64,7 +64,7 @@ if __name__ == "__main__":
         deap_verbose=False #True #
         gens=10
         tic = time.perf_counter()
-        top_ind=evr.run(gens=gens, deap_verbose=deap_verbose, verbose=verbose)
+        top_ind=evr.run(gens=gens, deap_verbose=deap_verbose, evolve_verbose=verbose)
         toc = time.perf_counter()
         elapsed = toc-tic
         best=evr.best()
