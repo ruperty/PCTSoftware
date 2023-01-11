@@ -46,7 +46,8 @@ save_arch_gen = True #False #True
 display_env = False #True #False
 run_gen_best = True #False #True
 
-verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 'save_arch_gen': save_arch_gen, 'run_gen_best':run_gen_best}
+verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
+         'save_arch_gen': save_arch_gen, 'run_gen_best':run_gen_best}
 
 hep = HPCTEvolveProperties()
 output=True

@@ -1,4 +1,7 @@
+# https://www.namingcrisis.net/post/2019/03/11/interactive-matplotlib-ipython/
+# 
 
+import os
 
 from utils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
@@ -28,9 +31,13 @@ if test == 2:
     filename = 'ga-000.113-s001-4x3-m0-669248b3e5087c5e888ea90fe2198af4'
     filepath = 'Std-InputsError-RootMeanSquareError-Mode00/'+ filename +'.properties'
     file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
+    move={'CartPoleV1': [-0.4, -0.3],'ICV': [0, 0], 'ICP': [0,  -0.1], 
+        'IPV': [-0.0, -0.1],'IPA': [0.0, 0.0], 'Action1ws': [-0.3, -0.3]}
+    plots = [ {'plot_items': {'PL1C0ws':'PL1C0ws','PL1C0ws':'ref'}, 'title':'Goal1'},
+             {'plot_items': {'IPA':'pa','ICP':'cp'}, 'title':'Inputs'}
+            ]
 
-
-
+    
 hep = HPCTEvolveProperties()
 hep.load_db(file)
 render=True
@@ -42,22 +49,26 @@ runs = eval(hep.db['runs'])
 config = eval(hep.db['config'])
 seed = eval(hep.db['seed'])
 early_termination = eval(hep.db['early_termination'])
+
+outdir = 'output'
+draw_file = file= outdir + os.sep  + filename + '.png'
 # plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0c':'ref','IPA':'pa'}, 'title':'Goal'},
 # {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
 # plots=[]
+
 
 hpct_verbose= False #True
 render=True
 
 ind, score = HPCTIndividual.run_from_config(config, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                            error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, 
-                                            seed=seed, early_termination=early_termination)
+                                            error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=True,
+                                            seed=seed, early_termination=early_termination, draw_file=draw_file, move=move, plots=plots, suffixes=True, plots_dir=outdir)
 
-ind.draw(file=filename + '.png', node_size=100, font_size=5, with_edge_labels=True)
+#ind.draw(file='output/' + filename + '.png', node_size=100, font_size=5, with_edge_labels=True)
     
 print("Score: %0.3f" % score)
 #ind.summary()
-print(ind.get_parameters_list())
+ind.pretty_print()
 
 
 

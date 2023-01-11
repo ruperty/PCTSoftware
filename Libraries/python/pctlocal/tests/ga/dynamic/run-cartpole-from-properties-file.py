@@ -10,7 +10,7 @@ Created on Thu Feb  4 19:08:59 2021
 
 from pct.architectures import run_from_properties_file
 
-from pct.putils import get_gdrive
+from utils.paths import get_gdrive
 import os
 
 
@@ -47,7 +47,7 @@ if test==10:
     
     plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0c':'ref','IPA':'pa'}, 'title':'Goal'}]
     
-    plots = []
+    #plots = []
 
     #plots = [ {'plot_items': {'IV':'iv','IT':'it'}, 'title':'Input'}]  
     #nevals=1

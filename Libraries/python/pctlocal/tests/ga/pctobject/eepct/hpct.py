@@ -343,7 +343,7 @@ class HPCTArchitecture(object):
 
 class HPCTIndividual(PCTHierarchy):
     "Definition of an individual HPCT entity object in terms of the architecture types definitions, the architecture configuration, the references, the inputs and the environment."
-    def __init__(self, env=None, levels=0, cols=0, history=False, error_collector=None,
+    def __init__(self, env=None, levels=0, cols=0, history=False, error_collector=None, 
                  env_inputs=None, toplevel_inputs=None, zerolevel_inputs=None, levels_columns_grid=None,
                  lower_float=-1, upper_float=1, arch=None, references=None, num_actions=None):
 
@@ -651,9 +651,9 @@ class HPCTIndividual(PCTHierarchy):
     
     
     @classmethod
-    def from_config(cls, config, seed=None):
+    def from_config(cls, config, seed=None, history=False, suffixes=False):
         "Create an individual from a provided configuration."
-        hpct = HPCTIndividual()
+        hpct = HPCTIndividual(history=history)
         namespace = hpct.namespace
         #print(namespace)
         preCollection = []        
@@ -676,7 +676,7 @@ class HPCTIndividual(PCTHierarchy):
         for level_key in config['levels']:
             cols = []
             for nodes_key in config['levels'][level_key]['nodes']:
-                node = HPCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, perception=True)
+                node = HPCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, perception=True, history=history)
                 cols.append(node)
             hpct.hierarchy.append(cols)
 
@@ -684,24 +684,46 @@ class HPCTIndividual(PCTHierarchy):
             cols = []
             for nodes_key, nodes_value in dict(reversed(list(level_value['nodes'].items()))).items():
                 node = hpct.get_node(level_value['level'], nodes_value['col'])
-                HPCTNode.from_config(config=nodes_value['node'], namespace=namespace, reference=True, comparator=True,  output=True, node=node)
+                HPCTNode.from_config(config=nodes_value['node'], namespace=namespace, reference=True, comparator=True,  output=True, node=node, history=history)
                 
         postCollection = []        
         coll_dict = config['post']
         HPCTNode.collection_from_config(postCollection, coll_dict, namespace=namespace)
         hpct.postCollection=postCollection
 
-    
+        if suffixes:
+            hpct.set_suffixes()
         return hpct
 
+    def pretty_print(self):
+        hpct = self.get_parameters_list()
+        levels = len(hpct)
+        level = 0
+        print('grid: ',self.get_grid())
+        for lvl in hpct:
+            #print(lvl)
+            if level==0:
+                print('env: ', lvl[0], ' act: ', lvl[1])
+            else:
+                print(f'level{level-1} ', end = ' ')
+                column = 0
+                for col in lvl:
+                    print('col: ', column, end= ' ')
+                    print('ref: ', col[0], end= ' ')
+                    print('per: ', col[1], end= ' ')
+                    print('out: ', col[2])
+                    column = column + 1
+            level=level+1
 
     @classmethod
     def run_from_config(cls, config, render=False,  error_collector_type=None, error_response_type=None, 
-        error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, seed=None):
+        error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
+        seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
+        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None):
         "Run an individual from a provided configuration."
         if hpct_verbose:
             print(config)
-        ind = cls.from_config(config, seed=seed)
+        ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
         env = ind.get_preprocessor()[0]
         env.set_render(render)
         env.early_termination = early_termination
@@ -714,6 +736,16 @@ class HPCTIndividual(PCTHierarchy):
         ind.run(steps, hpct_verbose)
         env.close()
         
+        # draw network file
+        move = {} if move == None else move
+        if draw_file is not None:
+            ind.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
+        
+        if history:
+            import os
+            for plot in plots:
+                fig = ind.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+os.sep+plot['title']+'.png')
+
         score=ind.get_error_collector().error()
         
         return ind, score
@@ -744,10 +776,10 @@ class HPCTNode(PCTNode):
 
 
     @classmethod
-    def from_config(cls, config=None, namespace=None, node=None, reference=False, comparator=False, perception=False, output=False):
+    def from_config(cls, config=None, namespace=None, node=None, reference=False, comparator=False, perception=False, output=False, history=False):
         "Create a node from JSON dictionary configuration."
         if node is None:
-            node = PCTNode(default=False, name=config['name'], namespace=namespace)
+            node = PCTNode(default=False, name=config['name'], namespace=namespace, history=history)
 
         namespace= node.namespace
 
