@@ -721,8 +721,8 @@ class HPCTIndividual(PCTHierarchy):
         seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None):
         "Run an individual from a provided configuration."
-        if hpct_verbose:
-            print(config)
+        #if hpct_verbose:
+        #    print(config)
         ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
         env = ind.get_preprocessor()[0]
         env.set_render(render)
@@ -733,6 +733,7 @@ class HPCTIndividual(PCTHierarchy):
         ind.set_error_collector(error_collector)
         if hpct_verbose:
             ind.summary()
+            ind.pretty_print()
         ind.run(steps, hpct_verbose)
         env.close()
         
@@ -944,11 +945,14 @@ class HPCTEvolver(BaseEvolver):
         if self.debug > 2:
             # hpct.summary()
             print(f'{self.gen:03} {self.member:03} {hpct.namespace}')
-            print(hpct.get_parameters_list())
+            #print(hpct.get_parameters_list())
+            #hpct.summary()
+            hpct.pretty_print()
 
         env = hpct.get_preprocessor()[0]
         for i in range(self.nevals):
             env.reset(full=False, seed=self.seed+i)
+            hpct.reset()
             if self.debug > 3:
                 hpct.summary()
             if i > 0:
@@ -1525,8 +1529,12 @@ class HPCTEvolverWrapper(EvolverWrapper):
             self.best_of_gens.append(top_ind)
             # if self.display_env and gen == gens:
             if self.run_gen_best:
-                print(f'Displaying gen {gen:03}', end = ' ')
                 render = True if self.display_env else False
+                if render:
+                    print(f'Displaying gen {gen:03}', end = ' ')
+                else:
+                    print(f'Running gen {gen:03}', end = ' ')
+                    
                 ind, score = HPCTIndividual.run_from_config(top_ind.get_config(zero=0), render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
                     steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed)

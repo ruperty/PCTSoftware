@@ -38,9 +38,9 @@ debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 hpct_verbose= False #True # log of every control system iteration
 evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 
-# debug= 3 #0 #3 # details of population in each gen, inc. mutate and merge
-# hpct_verbose= True # log of every control system iteration
-# evolve_verbose = 2# 1 #2 # output of evolve iterations, 2 for best of each gen
+debug= 4 #0 #3 # details of population in each gen, inc. mutate and merge
+hpct_verbose= True # log of every control system iteration
+evolve_verbose = 2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
 save_arch_gen = True #False #True
 display_env = False #True #False
