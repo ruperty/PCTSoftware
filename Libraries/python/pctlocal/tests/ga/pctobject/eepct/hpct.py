@@ -8,7 +8,9 @@ from dataclasses import dataclass
 from pct.hierarchy import PCTHierarchy
 from pct.nodes import PCTNode
 from pct.errors import BaseErrorCollector
-from pct.functions import FunctionFactory, HPCTFUNCTION, FunctionsList
+from pct.functions import FunctionFactory, HPCTFUNCTION
+from pct.putils import FunctionsList, UniqueNamer
+
 from pct.environments import EnvironmentFactory, OpenAIGym
 
 from pct.functions import IndexedParameter
@@ -964,6 +966,25 @@ class HPCTEvolver(BaseEvolver):
             #print(f'gen {self.gen} # {self.member} {hpct.get_error_collector().error()}' )
             hpct.get_error_collector().reset()
             #print(f'after reset {hpct.get_error_collector().error()}' )
+            
+            if self.member==2 and self.gen ==5 :
+                print('$$$ debug')
+                hpct.summary()
+                print(hpct.namespace)
+                refL2C0 = hpct.hierarchy[2][0].get_function("reference")
+                print(refL2C0.namespace)
+                refL2C0.summary()
+                for link in refL2C0.links:
+                    print(link.namespace)
+                    link.summary()
+                    print("&&& ", link.name, [link])
+                    print(link)
+                FunctionsList.getInstance().report(namespace=hpct.namespace, name='RL2C0')
+                FunctionsList.getInstance().report(namespace=hpct.namespace, name='OL3C0')
+
+                FunctionsList.getInstance().report()
+                UniqueNamer.getInstance().report()
+            
             hpct.run(steps=self.runs, verbose=self.hpct_verbose)
             # if i==0:
             #     env.close()
@@ -1063,6 +1084,7 @@ class HPCTEvolver(BaseEvolver):
 
 
         if self.debug > 1:
+            print(f'gen {self.gen:03} member {self.member:03}')
             print(f'mate indvidual1 ', indvidual1.get_grid(), indvidual1.namespace)
             print(f'mate indvidual2 ', indvidual2.get_grid(), indvidual2.namespace)
 
@@ -1086,10 +1108,12 @@ class HPCTEvolver(BaseEvolver):
         mutated=False
 
         if self.debug > 1:
-            print(f'member {self.member:03}', mutant.get_grid(), mutant.namespace)
+            print(f'gen {self.gen:03} member {self.member:03}', mutant.get_grid(), mutant.namespace)
         if self.debug > 2:
             print('mut b4',mutant.get_parameters_list())
-
+        if self.debug > 3:
+            mutant.summary(extra=True)
+            
         # Mutate the functions.
         mutated = mutant.mutate(self.evolve_properties)
 
@@ -1107,6 +1131,8 @@ class HPCTEvolver(BaseEvolver):
             print(f'member {self.member:03}', mutant.get_grid(), mutant.namespace)
         if self.debug>2:
             print('mut b5',mutant.get_parameters_list())
+        if self.debug > 3:
+            mutant.summary(extra=True)
 
         return mutant, 
 
