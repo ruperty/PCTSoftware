@@ -401,6 +401,19 @@ class HPCTIndividual(PCTHierarchy):
     #     config['post']=post
     #     return config       
 
+
+    def print_links(self, level, column, type, num_links):
+        func = self.hierarchy[level][column].get_function(type)
+        print(func.namespace)
+        func.summary()
+        func.check_links(num_links)
+        for link in func.links:
+            link.summary()
+            print(link.namespace)
+            print("&&& ", link.name, [link])
+            print(link)
+
+
     def set_action_function(self,  env, levels_columns_grid, num_actions):
         "Link the hierarchy to the environment actions."
         levels = len(levels_columns_grid)
@@ -813,6 +826,7 @@ class HPCTNode(PCTNode):
         node.links_built = True
         return node
 
+
 class HPCTEvolver(BaseEvolver):
 
     def __init__(self, environment_properties=None, evolve_properties=None, arch=None,
@@ -1098,6 +1112,8 @@ class HPCTEvolver(BaseEvolver):
         return child1, child2
 
 
+
+
     def mutate(self, hpct, choice=None, remove_level=None, remove_nodes=None, add_level=None, add_nodes=None):
         "Mutate an individual hierarchy clone."
         tb = CommonToolbox.getInstance().get_toolbox()
@@ -1113,6 +1129,8 @@ class HPCTEvolver(BaseEvolver):
             print('mut b4',mutant.get_parameters_list())
         if self.debug > 3:
             mutant.summary(extra=True)
+        # temp debug
+        mutant.print_links(2, 0, "reference", 1)
             
         # Mutate the functions.
         mutated = mutant.mutate(self.evolve_properties)
