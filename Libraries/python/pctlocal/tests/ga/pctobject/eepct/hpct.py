@@ -1164,7 +1164,7 @@ class HPCTEvolver(BaseEvolver):
             mutant.summary(extra=True)
             
         # temp debug
-        if mutant.get_name() == 'debugRemoveLevels':
+        if mutant.name == 'debugRemoveLevels':
             print('Links before mutate')
             mutant.print_links(2, 0, "reference", 1)
             refL2C0 = mutant.hierarchy[2][0].get_function("reference")
