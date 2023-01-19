@@ -41,7 +41,12 @@ class TestHPCTIndividual1Level(unittest.TestCase):
         toplevel_inputs_indexes=[2,3]
         env_inputs_names=['IP', 'IV', 'IC', 'IF']
         references=[11, 2]
-        # error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
+        error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
+
+        error_limit=100 
+        runs=1
+        nevals=1
+        debug=0
 
         environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
@@ -49,9 +54,9 @@ class TestHPCTIndividual1Level(unittest.TestCase):
 
         # hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit,
         #     'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit, 'lower_float':-100, 'upper_float':100, 'structurepb':1, }    
-        # hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
-        #     'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
-        #     'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
+        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
+            'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
+            'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 
 
         hpct_architecture_properties ={
@@ -73,7 +78,7 @@ class TestHPCTIndividual1Level(unittest.TestCase):
         evolver_properties = {'environment_properties':environment_properties, 
             #'evolve_properties':evolve_properties,
             #'hpct_structure_properties':hpct_structure_properties,
-            #'hpct_run_properties':hpct_run_properties,
+            'hpct_run_properties':hpct_run_properties,
             #'individual_properties': individual_properties,
             'hpct_architecture_properties':hpct_architecture_properties}
 
@@ -113,17 +118,17 @@ class TestHPCTIndividual1Level(unittest.TestCase):
     def test_hpctind_evaluate1(self):
         #self.ind.summary()
         self.ind.fitness.values = self.evr.toolbox.evaluate(self.ind)
-        #print (self.ind.fitness)  
-        self.assertAlmostEqual(self.ind.fitness.values[0], 9.504875648872767)
+        print (self.ind.fitness)  
+        self.assertAlmostEqual(self.ind.fitness.values[0], 1)
 
 
     def test_hpctind_mutate1(self):
         ind1 = self.evr.toolbox.mutate(self.ind)[0]
 
         new_config = ind1.get_config()
-        old_config =  {'type': 'Individual', 'name': 'pcthierarchy', 'pre': {'pre0': {'type': 'VelocityModel', 'name': 'VelocityModel', 'value': [9.659475450093897, 9.659475450093897, 9.659475450093897, 9.659475450093897], 'links': {0: 'Action1', 1: 'Action2'}, 'mass': 250}, 'pre1': {'type': 'IndexedParameter', 'name': 'IP', 'value': 9.659475450093897, 'links': {0: 'VelocityModel'}, 'index': 0}, 'pre2': {'type': 'IndexedParameter', 'name': 'IV', 'value': 9.659475450093897, 'links': {0: 'VelocityModel'}, 'index': 2}, 'pre3': {'type': 'IndexedParameter', 'name': 'IC', 'value': 9.659475450093897, 'links': {0: 'VelocityModel'}, 'index': 1}, 'pre4': {'type': 'IndexedParameter', 'name': 'IF', 'value': 9.659475450093897, 'links': {0: 'VelocityModel'}, 'index': 3}}, 'levels': {'level0': {'level': 0, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L0C0', 'refcoll': {'0': {'type': 'EAWeightedSum', 'name': 'RL0C0', 'value': 0, 'links': {0: 'OL1C0', 1: 'OL1C1'}, 'weights': [-0.6103836995543688, 0.08426488249981823]}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL0C0', 'value': 0, 'links': {0: 'IP', 1: 'IC'}, 'weights': [1, 0]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C0', 'value': 0, 'links': {0: 'RL0C0', 1: 'PL0C0'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL0C0', 'value': 0, 'links': {0: 'CL0C0'}, 'gain': 1.113770460000583}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'L0C1', 'refcoll': {'0': {'type': 'EAWeightedSum', 'name': 'RL0C1', 'value': 0, 'links': {0: 'OL1C0', 1: 'OL1C1'}, 'weights': [-0.10306479537741797, -4.70425036033093]}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL0C1', 'value': 0, 'links': {0: 'IP', 1: 'IC'}, 'weights': [1, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C1', 'value': 0, 'links': {0: 'RL0C1', 1: 'PL0C1'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL0C1', 'value': 0, 'links': {0: 'CL0C1'}, 'gain': -1.8260508385738903}}}}}}, 'level1': {'level': 1, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L1C0', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL1C0', 'value': 11, 'links': {}}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL1C0', 'value': 9.659475450093897, 'links': {0: 'IV'}, 'weights': [1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL1C0', 'value': 1.3405245499061031, 'links': {0: 'RL1C0', 1: 'PL1C0'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL1C0', 'value': -2.048757431155565, 'links': {0: 'CL1C0'}, 'gain': -1.9765429835869597}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'L1C1', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL1C1', 'value': 2, 'links': {}}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL1C1', 'value': 9.659475450093897, 'links': {0: 'IF'}, 'weights': [1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL1C1', 'value': -7.659475450093897, 'links': {0: 'RL1C1', 1: 'PL1C1'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL1C1', 'value': 0.850347501808282, 'links': {0: 'CL1C1'}, 'gain': -0.03762236490061298}}}}}}}, 'post': {'post0': {'type': 'EAWeightedSum', 'name': 'Action1', 'value': 1.9539925233402755e-13, 'links': {0: 'OL0C0', 1: 'OL0C1'}, 'weights': [20.338208860383602, 48.3187717309674]}, 'post1': {'type': 'EAWeightedSum', 'name': 'Action2', 'value': 35.933492974273385, 'links': {0: 'OL0C0', 1: 'OL0C1'}, 'weights': [9.31837303800576, -10.640031362208603]}}}
-
-        # print(new_config)
+        #old_config =  {'type': 'Individual', 'name': 'pcthierarchy', 'pre': {'pre0': {'type': 'VelocityModel', 'name': 'VelocityModel', 'value': [9.659475450093897, 9.659475450093897, 9.659475450093897, 9.659475450093897], 'links': {0: 'Action1', 1: 'Action2'}, 'mass': 250}, 'pre1': {'type': 'IndexedParameter', 'name': 'IP', 'value': 9.659475450093897, 'links': {0: 'VelocityModel'}, 'index': 0}, 'pre2': {'type': 'IndexedParameter', 'name': 'IV', 'value': 9.659475450093897, 'links': {0: 'VelocityModel'}, 'index': 2}, 'pre3': {'type': 'IndexedParameter', 'name': 'IC', 'value': 9.659475450093897, 'links': {0: 'VelocityModel'}, 'index': 1}, 'pre4': {'type': 'IndexedParameter', 'name': 'IF', 'value': 9.659475450093897, 'links': {0: 'VelocityModel'}, 'index': 3}}, 'levels': {'level0': {'level': 0, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L0C0', 'refcoll': {'0': {'type': 'EAWeightedSum', 'name': 'RL0C0', 'value': 0, 'links': {0: 'OL1C0', 1: 'OL1C1'}, 'weights': [-0.6103836995543688, 0.08426488249981823]}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL0C0', 'value': 0, 'links': {0: 'IP', 1: 'IC'}, 'weights': [1, 0]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C0', 'value': 0, 'links': {0: 'RL0C0', 1: 'PL0C0'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL0C0', 'value': 0, 'links': {0: 'CL0C0'}, 'gain': 1.113770460000583}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'L0C1', 'refcoll': {'0': {'type': 'EAWeightedSum', 'name': 'RL0C1', 'value': 0, 'links': {0: 'OL1C0', 1: 'OL1C1'}, 'weights': [-0.10306479537741797, -4.70425036033093]}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL0C1', 'value': 0, 'links': {0: 'IP', 1: 'IC'}, 'weights': [1, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C1', 'value': 0, 'links': {0: 'RL0C1', 1: 'PL0C1'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL0C1', 'value': 0, 'links': {0: 'CL0C1'}, 'gain': -1.8260508385738903}}}}}}, 'level1': {'level': 1, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L1C0', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL1C0', 'value': 11, 'links': {}}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL1C0', 'value': 9.659475450093897, 'links': {0: 'IV'}, 'weights': [1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL1C0', 'value': 1.3405245499061031, 'links': {0: 'RL1C0', 1: 'PL1C0'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL1C0', 'value': -2.048757431155565, 'links': {0: 'CL1C0'}, 'gain': -1.9765429835869597}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'L1C1', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL1C1', 'value': 2, 'links': {}}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL1C1', 'value': 9.659475450093897, 'links': {0: 'IF'}, 'weights': [1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL1C1', 'value': -7.659475450093897, 'links': {0: 'RL1C1', 1: 'PL1C1'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL1C1', 'value': 0.850347501808282, 'links': {0: 'CL1C1'}, 'gain': -0.03762236490061298}}}}}}}, 'post': {'post0': {'type': 'EAWeightedSum', 'name': 'Action1', 'value': 1.9539925233402755e-13, 'links': {0: 'OL0C0', 1: 'OL0C1'}, 'weights': [20.338208860383602, 48.3187717309674]}, 'post1': {'type': 'EAWeightedSum', 'name': 'Action2', 'value': 35.933492974273385, 'links': {0: 'OL0C0', 1: 'OL0C1'}, 'weights': [9.31837303800576, -10.640031362208603]}}}
+        old_config =  {'type': 'Individual', 'name': 'pcthierarchy', 'pre': {'pre0': {'type': 'VelocityModel', 'name': 'VelocityModel', 'value': [1, 1, 1, 1], 'links': {0: 'Action1', 1: 'Action2'}, 'mass': 250}, 'pre1': {'type': 'IndexedParameter', 'name': 'IP', 'value': 0, 'links': {0: 'VelocityModel'}, 'index': 0}, 'pre2': {'type': 'IndexedParameter', 'name': 'IV', 'value': 0, 'links': {0: 'VelocityModel'}, 'index': 2}, 'pre3': {'type': 'IndexedParameter', 'name': 'IC', 'value': 0, 'links': {0: 'VelocityModel'}, 'index': 1}, 'pre4': {'type': 'IndexedParameter', 'name': 'IF', 'value': 0, 'links': {0: 'VelocityModel'}, 'index': 3}}, 'levels': {'level0': {'level': 0, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L0C0', 'refcoll': {'0': {'type': 'EAWeightedSum', 'name': 'RL0C0', 'value': 0, 'links': {0: 'OL1C0', 1: 'OL1C1'}, 'weights': [4.391670189485865, 0.5285957629296512]}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL0C0', 'value': 0, 'links': {0: 'IP', 1: 'IC'}, 'weights': [0, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C0', 'value': 0, 'links': {0: 'RL0C0', 1: 'PL0C0'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL0C0', 'value': 0, 'links': {0: 'CL0C0'}, 'gain': -0.6171983411649902}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'L0C1', 'refcoll': {'0': {'type': 'EAWeightedSum', 'name': 'RL0C1', 'value': 0, 'links': {0: 'OL1C0', 1: 'OL1C1'}, 'weights': [4.522444552911937, 4.26506623785866]}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL0C1', 'value': 0, 'links': {0: 'IP', 1: 'IC'}, 'weights': [0, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C1', 'value': 0, 'links': {0: 'RL0C1', 1: 'PL0C1'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL0C1', 'value': 0, 'links': {0: 'CL0C1'}, 'gain': -0.3352802444226155}}}}}}, 'level1': {'level': 1, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L1C0', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL1C0', 'value': 11, 'links': {}}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL1C0', 'value': 0, 'links': {0: 'IV'}, 'weights': [1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL1C0', 'value': 0, 'links': {0: 'RL1C0', 1: 'PL1C0'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL1C0', 'value': 0, 'links': {0: 'CL1C0'}, 'gain': -1.7615314121456638}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'L1C1', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL1C1', 'value': 2, 'links': {}}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL1C1', 'value': 0, 'links': {0: 'IF'}, 'weights': [1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL1C1', 'value': 0, 'links': {0: 'RL1C1', 1: 'PL1C1'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL1C1', 'value': 0, 'links': {0: 'CL1C1'}, 'gain': -0.27775448863631413}}}}}}}, 'post': {'post0': {'type': 'EAWeightedSum', 'name': 'Action1', 'value': 0, 'links': {0: 'OL0C0', 1: 'OL0C1'}, 'weights': [41.62698355052942, 42.21885624698875]}, 'post1': {'type': 'EAWeightedSum', 'name': 'Action2', 'value': 0, 'links': {0: 'OL0C0', 1: 'OL0C1'}, 'weights': [-39.99997289038728, 12.9352904800649]}}}
+        #print(new_config)
 
         for old, new in zip(old_config, new_config):
             # print(old_config[old])
@@ -185,8 +190,19 @@ class TestHPCTIndividual2Level(unittest.TestCase):
         num_actions=2
         references=[11, 2]
 
+        error_limit=100 
+        
+        nevals=1
+        debug=0
+        error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
+
         environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
+
+        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
+            'error_properties':error_properties, 'error_limit': error_limit,  'nevals':nevals,
+            'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
+
 
         hpct_architecture_properties ={
                 HPCTARCH.HIERARCHY:{
@@ -207,7 +223,7 @@ class TestHPCTIndividual2Level(unittest.TestCase):
         evolver_properties = {'environment_properties':environment_properties, 
             # 'evolve_properties':evolve_properties,
             # 'hpct_structure_properties':hpct_structure_properties,
-            # 'hpct_run_properties':hpct_run_properties,
+            'hpct_run_properties':hpct_run_properties,
             # 'individual_properties': individual_properties,
             'hpct_architecture_properties':hpct_architecture_properties}
 
@@ -243,7 +259,7 @@ class TestHPCTIndividual2Level(unittest.TestCase):
     def test_hpctind_evaluate2(self):
         self.ind.fitness.values = self.evr.toolbox.evaluate(self.ind)
         #print (self.ind.fitness)  
-        self.assertAlmostEqual(self.ind.fitness.values[0], 1.301474150823354)
+        self.assertAlmostEqual(self.ind.fitness.values[0], 0.09854161276138362)
 
     def test_hpctind_mutate2(self):
         grid = self.ind.get_grid()
@@ -332,9 +348,9 @@ class TestHPCTIndividual3Level(unittest.TestCase):
         # evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25, 'indpb':1, 'structurepb':0, 'attr_mut_pb':1, 'attr_cx_uniform_pb':0.5 }
         hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'references':references,
             'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit}    
-        # hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
-        #     'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
-        #     'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
+        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
+            'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
+            'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 
 
         hpct_architecture_properties ={
@@ -356,7 +372,7 @@ class TestHPCTIndividual3Level(unittest.TestCase):
         evolver_properties = {'environment_properties':environment_properties, 
             # 'evolve_properties':evolve_properties,
             'hpct_structure_properties':hpct_structure_properties,
-            # 'hpct_run_properties':hpct_run_properties,
+            'hpct_run_properties':hpct_run_properties,
             # 'individual_properties': individual_properties,
             'hpct_architecture_properties':hpct_architecture_properties}
 
@@ -400,7 +416,7 @@ class TestHPCTIndividual3Level(unittest.TestCase):
     def test_hpctind_evaluate3(self):
         self.ind.fitness.values = self.evr.toolbox.evaluate(self.ind)
         #print (self.ind.fitness)  
-        self.assertAlmostEqual(self.ind.fitness.values[0],  159.9871515015198)
+        self.assertAlmostEqual(self.ind.fitness.values[0],  106.29358254687388)
 
 
     def test_hpctind_mutate3(self):

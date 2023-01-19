@@ -69,7 +69,9 @@ if __name__ == "__main__":
 
     if test==1:
         
-        ind = evr.toolbox.individual()              
+        ind = evr.toolbox.individual()          
+        ind.set_name('debugRemoveLevels')
+    
         ind1, = evr.toolbox.mutate(ind)
         print('Links after mutate')
         ind1.print_links(2, 0, "reference", 1)

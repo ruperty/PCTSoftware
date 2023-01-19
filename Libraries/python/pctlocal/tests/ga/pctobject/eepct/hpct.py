@@ -930,6 +930,7 @@ class HPCTEvolver(BaseEvolver):
 
         if arch==None:
             self.arch = HPCTArchitecture(arch=hpct_architecture_properties)
+            self.arch.configure()
         else:
             self.arch = arch
 
@@ -999,8 +1000,8 @@ class HPCTEvolver(BaseEvolver):
 
         env = hpct.get_preprocessor()[0]
         for i in range(self.nevals):
-            env.reset(full=False, seed=self.seed+i)
             hpct.reset()
+            env.reset(full=False, seed=self.seed+i)
             if self.debug > 3:
                 hpct.summary()
             if i > 0:
@@ -1163,12 +1164,13 @@ class HPCTEvolver(BaseEvolver):
             mutant.summary(extra=True)
             
         # temp debug
-        print('Links before mutate')
-        mutant.print_links(2, 0, "reference", 1)
-        refL2C0 = mutant.hierarchy[2][0].get_function("reference")
-        link = refL2C0.links[0]
-        b4id = hex(id(link))
-        Memory.getInstance().add_data('b4id', b4id)
+        if mutant.get_name() == 'debugRemoveLevels':
+            print('Links before mutate')
+            mutant.print_links(2, 0, "reference", 1)
+            refL2C0 = mutant.hierarchy[2][0].get_function("reference")
+            link = refL2C0.links[0]
+            b4id = hex(id(link))
+            Memory.getInstance().add_data('b4id', b4id)
       
         
             
