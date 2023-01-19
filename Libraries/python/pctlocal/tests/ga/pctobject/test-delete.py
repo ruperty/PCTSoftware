@@ -66,7 +66,8 @@ if test == 0:
     
     FunctionsList.getInstance().remove_function(c.namespace, c.name)
     print("refs", sys.getrefcount(c))
-    r1 = gc.get_referrers(c)
+    #r1 = gc.get_referrers(c)
+    #print("refs", r1)
     del c
     FunctionsList.getInstance().report()
     list_gc_dicts('Constant')

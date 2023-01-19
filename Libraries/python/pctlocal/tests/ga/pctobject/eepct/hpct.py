@@ -21,6 +21,38 @@ from pct.putils import stringListToListOfStrings
 
 
 
+class Memory:
+    "A utility for ensuring the names of functions are unique."
+    __instance = None
+    @staticmethod 
+    def getInstance():
+        """ Static access method. """
+        if Memory.__instance == None:
+           Memory()
+        return Memory.__instance
+
+    def __init__(self):
+        """ Virtually private constructor. """
+        if Memory.__instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            Memory.__instance = self
+        self.memory = {}
+
+    def clear(self):
+        self.memory = {}
+
+            
+    def get_data(self, key=None):
+        value = None
+        if key in self.memory:
+            value = self.memory[key]
+        return value
+    
+    def add_data(self, key=None, value=None):
+        self.memory[key]=value
+
+
 
 class HPCTARCH(IntEnum):
     "List of architecture elements."
@@ -1129,8 +1161,16 @@ class HPCTEvolver(BaseEvolver):
             print('mut b4',mutant.get_parameters_list())
         if self.debug > 3:
             mutant.summary(extra=True)
+            
         # temp debug
+        print('Links before mutate')
         mutant.print_links(2, 0, "reference", 1)
+        refL2C0 = mutant.hierarchy[2][0].get_function("reference")
+        link = refL2C0.links[0]
+        b4id = hex(id(link))
+        Memory.getInstance().add_data('b4id', b4id)
+      
+        
             
         # Mutate the functions.
         mutated = mutant.mutate(self.evolve_properties)
@@ -1290,7 +1330,8 @@ class HPCTEvolver(BaseEvolver):
         num_old_columns = levels_columns_grid[level]
         individual.remove_level(level)
         levels_columns_grid = individual.get_grid()
-
+        
+        # change the nodes above the one removed
         adjust_top_perception_connections = levels_columns_grid[level-1] - num_old_columns 
         for column in range(levels_columns_grid[-1]):
             # rename top nodes
@@ -1331,12 +1372,13 @@ class HPCTEvolver(BaseEvolver):
                         perception.add_connections(adjust_top_perception_connections, level-1, parameter, 'P')
                     perception.reset_links('P', level-1)
 
-
+        # add or remove connections for the level below the one removed 
         adjust_lower_connections = levels_columns_grid[-1] - num_old_columns
         if level==0:
             # lower actions
             parameter = individual.get_arch_parameter(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION)
             for action in  individual.get_postprocessor():
+                # clear/reset links
                 if adjust_lower_connections>0:
                     action.add_connections(adjust_lower_connections, level,  parameter, 'O')
                 if adjust_lower_connections<0:
@@ -1348,7 +1390,7 @@ class HPCTEvolver(BaseEvolver):
             for column in range(levels_columns_grid[lower_level]):
                 node = individual.get_node(lower_level, column)
                 reference = node.get_function_from_collection(HPCTFUNCTION.REFERENCE)
-
+                # clear/reset links
                 if adjust_lower_connections <0:
                     reference.remove_connections(abs(adjust_lower_connections))
                 if adjust_lower_connections >0:

@@ -8,6 +8,7 @@ from eepct.hpct import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolve
 from eepct.hpct import HPCTFUNCTION
 from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTVARIABLE
+from eepct.hpct import Memory
 
 from pct.putils import FunctionsList
 
@@ -46,7 +47,7 @@ if __name__ == "__main__":
     if test==1:
         # test remove level
         seed=5
-        debug=4
+        debug=0
         
     environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'render':False, 'early_termination': False,
         'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env_name, 'num_actions':num_actions, 'references':references}
@@ -69,12 +70,24 @@ if __name__ == "__main__":
     if test==1:
         
         ind = evr.toolbox.individual()              
-        #FunctionsList.getInstance().report()
-        ind.print_links(2, 0, "reference", 1)
         ind1, = evr.toolbox.mutate(ind)
+        print('Links after mutate')
         ind1.print_links(2, 0, "reference", 1)
-        #FunctionsList.getInstance().report()
         
+        b4id = Memory.getInstance().get_data('b4id')
+        print('b4id', b4id)
+        
+        refL2C0 = ind1.hierarchy[2][0].get_function("reference")
+        link = refL2C0.links[0]
+        ##link.summary(extra=True)
+        b5id = hex(id(link))
+        print('b5id',b5id)
+        
+        if b4id == b5id:
+            print('FAIL: ids after mutate should be different')
+        else:
+            print('SUCCESS: ids after mutate are different')
+
         #print(ind1.get_parameters_list())
         #print(ind1.summary())
         
