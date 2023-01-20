@@ -438,6 +438,7 @@ class HPCTIndividual(PCTHierarchy):
         func = self.hierarchy[level][column].get_function(type)
         print(func.namespace)
         func.summary()
+        func.checklinks=True
         func.check_links(num_links)
         for link in func.links:
             link.summary()
@@ -1016,21 +1017,23 @@ class HPCTEvolver(BaseEvolver):
             
             if self.member==2 and self.gen ==5 :
                 print('$$$ debug')
-                hpct.summary()
-                print(hpct.namespace)
-                refL2C0 = hpct.hierarchy[2][0].get_function("reference")
-                print(refL2C0.namespace)
-                refL2C0.summary()
-                for link in refL2C0.links:
-                    print(link.namespace)
-                    link.summary()
-                    print("&&& ", link.name, [link])
-                    print(link)
-                FunctionsList.getInstance().report(namespace=hpct.namespace, name='RL2C0')
-                FunctionsList.getInstance().report(namespace=hpct.namespace, name='OL3C0')
+                # hpct.summary()
+                print(hpct.namespace)                
+                hpct.print_links(2, 0, "reference", 1)
+                
+                # refL2C0 = hpct.hierarchy[2][0].get_function("reference")
+                # print(refL2C0.namespace)
+                # refL2C0.summary()
+                # for link in refL2C0.links:
+                #     print(link.namespace)
+                #     link.summary()
+                #     print("&&& ", link.name, [link])
+                #     print(link)
+                # FunctionsList.getInstance().report(namespace=hpct.namespace, name='RL2C0')
+                # FunctionsList.getInstance().report(namespace=hpct.namespace, name='OL3C0')
 
-                FunctionsList.getInstance().report()
-                UniqueNamer.getInstance().report()
+                # FunctionsList.getInstance().report()
+                # UniqueNamer.getInstance().report()
             
             hpct.run(steps=self.runs, verbose=self.hpct_verbose)
             # if i==0:
@@ -1171,8 +1174,8 @@ class HPCTEvolver(BaseEvolver):
             link = refL2C0.links[0]
             b4id = hex(id(link))
             Memory.getInstance().add_data('b4id', b4id)
-      
-        
+            outL4C0 = mutant.hierarchy[4][0].get_function("output")
+            Memory.getInstance().add_data('b4IDoutL4C0', hex(id(outL4C0)))
             
         # Mutate the functions.
         mutated = mutant.mutate(self.evolve_properties)
@@ -1381,6 +1384,7 @@ class HPCTEvolver(BaseEvolver):
             parameter = individual.get_arch_parameter(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION)
             for action in  individual.get_postprocessor():
                 # clear/reset links
+                action.reset_links('O', level)
                 if adjust_lower_connections>0:
                     action.add_connections(adjust_lower_connections, level,  parameter, 'O')
                 if adjust_lower_connections<0:
@@ -1393,6 +1397,7 @@ class HPCTEvolver(BaseEvolver):
                 node = individual.get_node(lower_level, column)
                 reference = node.get_function_from_collection(HPCTFUNCTION.REFERENCE)
                 # clear/reset links
+                reference.reset_links('O', level)
                 if adjust_lower_connections <0:
                     reference.remove_connections(abs(adjust_lower_connections))
                 if adjust_lower_connections >0:

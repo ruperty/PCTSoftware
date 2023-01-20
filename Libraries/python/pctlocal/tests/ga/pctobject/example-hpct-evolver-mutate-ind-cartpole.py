@@ -73,11 +73,14 @@ if __name__ == "__main__":
         ind.set_name('debugRemoveLevels')
     
         ind1, = evr.toolbox.mutate(ind)
+        
         print('Links after mutate')
         ind1.print_links(2, 0, "reference", 1)
         
         b4id = Memory.getInstance().get_data('b4id')
         print('b4id', b4id)
+        b4IDoutL4C0= Memory.getInstance().get_data('b4IDoutL4C0')
+        print('b4IDoutL4C0', b4IDoutL4C0)
         
         refL2C0 = ind1.hierarchy[2][0].get_function("reference")
         link = refL2C0.links[0]
@@ -89,6 +92,12 @@ if __name__ == "__main__":
             print('FAIL: ids after mutate should be different')
         else:
             print('SUCCESS: ids after mutate are different')
+            
+        if b5id == b4IDoutL4C0:
+            print('SUCCESS: link from RL2C0 should equal what was OL4C0 after mutate')
+        else:
+            print('FAIL: ids after mutate should be same')
+        
 
         #print(ind1.get_parameters_list())
         #print(ind1.summary())
