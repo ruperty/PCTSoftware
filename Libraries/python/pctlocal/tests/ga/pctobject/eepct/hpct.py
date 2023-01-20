@@ -1015,11 +1015,12 @@ class HPCTEvolver(BaseEvolver):
             hpct.get_error_collector().reset()
             #print(f'after reset {hpct.get_error_collector().error()}' )
             
-            if self.member==2 and self.gen ==5 :
-                print('$$$ debug')
-                # hpct.summary()
-                print(hpct.namespace)                
-                hpct.print_links(2, 0, "reference", 1)
+            if hpct.name == 'debugRemoveLevels':
+                if self.member==2 and self.gen ==5 :
+                    print('$$$ debug')
+                    # hpct.summary()
+                    print(hpct.namespace)                
+                    hpct.print_links(2, 0, "reference", 1)
                 
                 # refL2C0 = hpct.hierarchy[2][0].get_function("reference")
                 # print(refL2C0.namespace)
