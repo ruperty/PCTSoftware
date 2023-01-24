@@ -2095,7 +2095,7 @@ class HPCTEvolveProperties(object):
             # file = delim.join((root_dir, path, file))
             file_contents =  self.get_file_contents(file)
 
-            output_file = dir+os.sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]}-{hash_num}.properties'
+            output_file = dir+os.sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{hash_num}.properties'
             if print_properties:
                 print(output_file)
             f = open(output_file, "w")

@@ -1,4 +1,5 @@
 
+import os
 
 from eepct.hpct import HPCTEvolveProperties
 from utils.paths import get_root_path, get_gdrive
@@ -32,7 +33,7 @@ print(out_dir)
 output=True
 overwrite=True
 
-draw_file= filename + '-evolve-best' + '.png'
+draw_file= 'output' + os.sep + filename + os.sep + filename + '-evolve-best' + '.png'
 
 debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 hpct_verbose= False #True # log of every control system iteration
@@ -43,7 +44,7 @@ evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 #evolve_verbose = 2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
 save_arch_gen = True #False #True
-display_env = False #True #False
+display_env = True #False
 run_gen_best = True #False #True
 
 verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
