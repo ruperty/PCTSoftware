@@ -80,7 +80,10 @@ envs = ['CartPoleV1']
 iters = 100
 
 
-hge = HPCTGenerateEvolvers(iters, envs=envs, collection=collection, configs=configs, properties=properties, varieties=varieties)
+if __name__ == "__main__":
+
+
+    hge = HPCTGenerateEvolvers(iters, envs=envs, collection=collection, configs=configs, properties=properties, varieties=varieties)
 
 # python run-dynamic-evolver-multi.py PendulumV0/InputsError-RootMeanSquareError-AllFloats-SmoothWeightedSum-Topp1.properties -i 100      
             

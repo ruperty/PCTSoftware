@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "generate_properties_file",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.generate-evolver-properties"
+        },
+        {
             "name": "evolve_from_properties_file",
             "type": "python",
             "request": "launch",

@@ -789,6 +789,7 @@ class HPCTIndividual(PCTHierarchy):
         move = {} if move == None else move
         if draw_file is not None:
             ind.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
+            print(draw_file)
         
         if history:
             import os
@@ -1639,7 +1640,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 if self.save_arch_gen:
                     fig_file = f'output/fig{gen:03}.png'
                     top_ind.write_config_to_file(self.evolver.seed, self.evolver.runs , self.evolver.early_termination, self.evolver.error_response_type, self.evolver.error_collector_type, self.evolver.error_limit, score, f'output/conf-{gen:03}.config')                
-                    ind.draw(file=fig_file + '.png', node_size=self.node_size, font_size=self.font_size, with_edge_labels=True)
+                    ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True)
 
                 
 
@@ -2080,7 +2081,9 @@ class HPCTEvolveProperties(object):
             if draw_file is not None:
                 if move == None:
                     move={}
+                print(draw_file)
                 best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size)
+
 
         # write results
         output_file = None
@@ -2138,8 +2141,8 @@ class HPCTGenerateEvolvers(object):
     def __init__(self, iters=1, envs=None, collection=None, configs=None, properties=None, varieties=None):
         import os
         for env in envs:
-            if not os.path.isdir(env):
-                os.mkdir(env)
+            if not os.path.isdir('configs' + os.sep + env):
+                os.mkdir(configs + os.sep + env)
 
         for env in envs:
             num_actions = varieties[env]['num_actions']
@@ -2174,7 +2177,7 @@ class HPCTGenerateEvolvers(object):
                         # display = f'### Display\n\ninputs_names = {inputs_names}\n'
                         
                         text = '\n'.join((desc, fpars, cpars, ppars, spars))
-                        filepath = f'{env}{os.sep}{filename}.properties'
+                        filepath = f'configs{os.sep}{env}{os.sep}{filename}.properties'
                         self.write_to_file(filepath, text)
                         cmd = f'python run-dynamic-evolver-multi.py {filepath} -i {iters}'
                         print(cmd, end='\n')

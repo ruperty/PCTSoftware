@@ -26,14 +26,16 @@ if test == 0:
 if test == 1:
     filename = 'Std-InputsError-RootMeanSquareError-Mode01'
 
-file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/CartPoleV1/'+ filename + ".properties"
+file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/CartPoleV1/'+ filename + ".properties"
 out_dir= get_gdrive() + 'data/ga/'
 print(out_dir)
 
 output=True
 overwrite=True
 
-draw_file= 'output' + os.sep + filename + os.sep + filename + '-evolve-best' + '.png'
+#draw_file= 'output' + os.sep + filename + os.sep + filename + '-evolve-best' + '.png'
+#draw_file= 'output'  + os.sep + filename + '-evolve-best' + '.png'
+draw_file= 'output/'  + filename + '/' + filename + '-evolve-best' + '.png'
 
 debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 hpct_verbose= False #True # log of every control system iteration
@@ -44,7 +46,7 @@ evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 #evolve_verbose = 2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
 save_arch_gen = True #False #True
-display_env = True #False
+display_env = False #True #False
 run_gen_best = True #False #True
 
 verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
@@ -53,8 +55,11 @@ verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': displ
 hep = HPCTEvolveProperties()
 output=True
 
+
+#if __name__ == "__main__":
+
 hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
-                                out_dir=out_dir, output=output, overwrite=overwrite, node_size=100, font_size=6)
+                                    out_dir=out_dir, output=output, overwrite=overwrite, node_size=100, font_size=6)
 # hep.load_properties(file=file, evolve=True, print_properties=True)
 
 
