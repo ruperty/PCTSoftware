@@ -62,7 +62,7 @@ properties = {'error:smooth_factor':0.9, 'error:referenced_inputs' : '0&0.45'}
 
 
 configs = {           
-          'CartPoleV1_Std': {'seed': 1,'pop_size': 20,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
+          'CartPoleV1_Std': {'seed': 1,'pop_size': 100,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 5,'max_columns_limit': 5, 'early_termination': True,
           'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
           ,

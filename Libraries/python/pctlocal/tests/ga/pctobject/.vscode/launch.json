@@ -4,17 +4,24 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "name": "generate_properties_file",
-            "type": "python",
-            "request": "launch",
-            "module": "examples.generate-evolver-properties"
-        },
+
         {
             "name": "evolve_from_properties_file",
             "type": "python",
             "request": "launch",
             "module": "examples.example-evolve_from_properties_file"
+        },
+        {
+            "name": "draw_from_properties_file",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-draw_from_properties_file"
+        },
+        {
+            "name": "generate_properties_file",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.generate-evolver-properties"
         },
         {
             "name": "example-arch",
@@ -28,6 +35,12 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "test-networkx",
+            "type": "python",
+            "request": "launch",
+            "module": "testing.test-networkx"
         }
     ]
 }

@@ -1559,7 +1559,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
     
     def __init__(self, evolver, pop_size=25, p_crossover = 0.9, p_mutation = 0.1, display_env=False, select={'selection_type':'tournament', 'tournsize':None}, 
                  processes=1, save_arch_gen=False, save_arch_all=False, toolbox=None, hpct_verbose=False, run_gen_best=False, 
-                 font_size=8, node_size=100, **cargs):
+                 font_size=8, node_size=100, local_out_dir=None, **cargs):
 
         super().__init__(evolver=evolver, pop_size=pop_size, p_crossover = p_crossover, p_mutation = p_mutation, display_env=display_env,
                  select=select, processes=processes, save_arch_gen=save_arch_gen, save_arch_all=save_arch_all, toolbox=toolbox)
@@ -1568,6 +1568,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
         self.run_gen_best=run_gen_best
         self.font_size=font_size        
         self.node_size=node_size        
+        self.local_out_dir=local_out_dir
                 
     
     def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False):
@@ -1637,9 +1638,10 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 print(f'score = {score:8.3f}' )
                 # draw ind to file ??
 
-                if self.save_arch_gen:
-                    fig_file = f'output/fig{gen:03}.png'
-                    top_ind.write_config_to_file(self.evolver.seed, self.evolver.runs , self.evolver.early_termination, self.evolver.error_response_type, self.evolver.error_collector_type, self.evolver.error_limit, score, f'output/conf-{gen:03}.config')                
+                if self.save_arch_gen:                    
+                    fig_file = f'{self.local_out_dir}/fig{gen:03}.png'
+                    top_ind.write_config_to_file(self.evolver.seed, self.evolver.runs , self.evolver.early_termination, self.evolver.error_response_type, 
+                                                 self.evolver.error_collector_type, self.evolver.error_limit, score, f'{self.local_out_dir}/conf-{gen:03}.config')                
                     ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True)
 
                 
@@ -1965,7 +1967,7 @@ class HPCTEvolveProperties(object):
 
 
     def evolve_from_properties_file(self, file=None, verbose=None, env_name=None, seed=None, 
-            test=False, gens=None, pop_size=None, nevals = None, move=None, out_dir=None, node_size=200, font_size=8,
+            test=False, gens=None, pop_size=None, nevals = None, move=None, out_dir=None, local_out_dir=None, node_size=200, font_size=8,
             parallel=False, video_wrap=False, log=False, figsize=(12,12), summary=False, draw_file=None, with_edge_labels=True,
             print_properties=False, overwrite=False, output=False, toolbox=None, processes=1):
         "Evolve from file - when is this used?"
@@ -2052,7 +2054,8 @@ class HPCTEvolveProperties(object):
         self.wrapper_properties['run_gen_best']=run_gen_best        
         self.wrapper_properties['font_size']=font_size        
         self.wrapper_properties['node_size']=node_size        
-                
+        self.wrapper_properties['local_out_dir']=local_out_dir        
+                               
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 
         if test:

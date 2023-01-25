@@ -3,7 +3,7 @@ import os
 from utils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual
 
-test = 0
+test = 1
 
 if test == 0:
       prefix = 'test-1level'
@@ -13,12 +13,12 @@ if test == 0:
       
 
 if test == 1:
-      prefix = 'ga-000.113-s001-4x3-m0-669248b3e5087c5e888ea90fe2198af4'
+      prefix = 'ga-000.115-s001-2x3-m000-669248b3e5087c5e888ea90fe2198af4'
       dir = 'Std-InputsError-RootMeanSquareError-Mode00' 
       
       filepath = dir + os.sep + prefix +'.properties'
-      move={'CartPoleV1': [-0.4, -0.4],'ICV': [0, -0.1], 'ICP': [0,  -0.1], 
-        'IPV': [-0.0, -0.1],'IPA': [0.0, 0.0], 'Action1ws': [-0.3, -0.4]}      
+      move={'CartPoleV1': [-0.6, -0.4],'ICV': [0, -0.1], 'ICP': [0,  -0.1], 
+        'IPV': [0.0, -0.1],'IPA': [0.0, -0.1], 'Action1ws': [-0.3, -0.4]}      
 
 if test == 2:
       prefix = 'ga-000.124-s001-1x1-m1-99941c2f82fb78be27551fed5488ec27'
