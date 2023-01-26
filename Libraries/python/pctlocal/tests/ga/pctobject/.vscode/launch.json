@@ -18,6 +18,12 @@
             "module": "examples.example-draw_from_properties_file"
         },
         {
+            "name": "run_from_properties_file",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-run_from_properties_file"
+        },
+        {
             "name": "generate_properties_file",
             "type": "python",
             "request": "launch",

@@ -1,7 +1,7 @@
 # https://www.namingcrisis.net/post/2019/03/11/interactive-matplotlib-ipython/
 # 
 
-import os
+from  os import sep
 
 from utils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
@@ -16,7 +16,7 @@ from pct.architectures import run_from_properties_file
 # filename = 'ga-000.117-s001-3x3-m0-669248b3e5087c5e888ea90fe2198af4'
 # filepath = 'Std-TotalError-RootMeanSquareError-Mode00/'+ filename +'.properties'
 
-test = 2
+test = 3
 
 if test == 0:
     filename = 'ga-000.117-s001-3x3-m0-669248b3e5087c5e888ea90fe2198af4'
@@ -37,6 +37,19 @@ if test == 2:
              {'plot_items': {'IPA':'pa','ICP':'cp'}, 'title':'Inputs'}
             ]
 
+
+if test == 3:
+    filename = 'ga-000.116-s001-1x1-m000-5ad8d970ae03574fa5dd00b1eb2cebb2'
+    dir = 'Std1-InputsError-RootMeanSquareError-Mode00'
+    filepath = dir + sep + filename +'.properties'
+    file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
+    move={'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0], 
+        'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}
+    # plots = [ {'plot_items': {'PL1C0ws':'PL1C0ws','PL1C0ws':'ref'}, 'title':'Goal1'},
+    #          {'plot_items': {'IPA':'pa','ICP':'cp'}, 'title':'Inputs'}]
+    plots = []
+
+
     
 hep = HPCTEvolveProperties()
 hep.load_db(file)
@@ -50,8 +63,8 @@ config = eval(hep.db['config'])
 seed = eval(hep.db['seed'])
 early_termination = eval(hep.db['early_termination'])
 
-outdir = 'output'
-draw_file = file= outdir + os.sep  + filename + '.png'
+outdir = 'output' + sep + dir
+draw_file = file= outdir + sep  + 'draw-'+ filename + '.png'
 # plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0c':'ref','IPA':'pa'}, 'title':'Goal'},
 # {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
 # plots=[]

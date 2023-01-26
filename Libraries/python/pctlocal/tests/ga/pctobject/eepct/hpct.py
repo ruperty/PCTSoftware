@@ -1,6 +1,7 @@
 
-from os import name
+
 import random, enum, time, copy
+from os import name, makedirs, sep
 from enum import IntEnum, auto
 from deap import tools, algorithms
 from dataclasses import dataclass
@@ -792,9 +793,8 @@ class HPCTIndividual(PCTHierarchy):
             print(draw_file)
         
         if history:
-            import os
             for plot in plots:
-                fig = ind.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+os.sep+plot['title']+'.png')
+                fig = ind.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
 
         score=ind.get_error_collector().error()
         
@@ -1569,6 +1569,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
         self.font_size=font_size        
         self.node_size=node_size        
         self.local_out_dir=local_out_dir
+        makedirs(local_out_dir, exist_ok=True)
                 
     
     def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False):
@@ -1948,13 +1949,10 @@ class HPCTEvolveProperties(object):
     def write_output(self, output, out_dir, env_name, desc, hash_num, overwrite):
         "Write results of GA run to file."
         if output:
-            import os
             dir1 = out_dir + env_name
-            if not os.path.isdir(dir1):
-                os.mkdir(dir1)
-            dir2 = dir1+os.sep+desc
-            if not os.path.isdir(dir2):
-                os.mkdir(dir2)
+            makedirs(dir1, exist_ok=True)
+            dir2 = dir1+sep+desc
+            makedirs(dir2, exist_ok=True)
             exists, fname = check_hash_file_exists(dir2, hash_num)
             if exists and not overwrite:
                 print(f'Skipping file {fname}')
@@ -2091,7 +2089,6 @@ class HPCTEvolveProperties(object):
         # write results
         output_file = None
         if output:
-            import os
             struct = best.get_grid()
             levels = len(struct)
             cols = max(struct)
@@ -2101,7 +2098,7 @@ class HPCTEvolveProperties(object):
             # file = delim.join((root_dir, path, file))
             file_contents =  self.get_file_contents(file)
 
-            output_file = dir+os.sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{hash_num}.properties'
+            output_file = dir+sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{hash_num}.properties'
             if print_properties:
                 print(output_file)
             f = open(output_file, "w")
@@ -2144,8 +2141,7 @@ class HPCTGenerateEvolvers(object):
     def __init__(self, iters=1, envs=None, collection=None, configs=None, properties=None, varieties=None):
         import os
         for env in envs:
-            if not os.path.isdir('configs' + os.sep + env):
-                os.mkdir(configs + os.sep + env)
+            os.makedirs('configs' + os.sep + env, exist_ok=True)
 
         for env in envs:
             num_actions = varieties[env]['num_actions']
@@ -2159,7 +2155,6 @@ class HPCTGenerateEvolvers(object):
 
     def generate_option_files(self, iters, env, num_actions, arch, config, nevals, properties, collection):
         "Generate properties file based upon architecture type."
-        import os
         arch_name = arch['name']
         # inputs_names = arch['inputs_names']
         ppars = ''
@@ -2180,7 +2175,7 @@ class HPCTGenerateEvolvers(object):
                         # display = f'### Display\n\ninputs_names = {inputs_names}\n'
                         
                         text = '\n'.join((desc, fpars, cpars, ppars, spars))
-                        filepath = f'configs{os.sep}{env}{os.sep}{filename}.properties'
+                        filepath = f'configs{sep}{env}{sep}{filename}.properties'
                         self.write_to_file(filepath, text)
                         cmd = f'python run-dynamic-evolver-multi.py {filepath} -i {iters}'
                         print(cmd, end='\n')

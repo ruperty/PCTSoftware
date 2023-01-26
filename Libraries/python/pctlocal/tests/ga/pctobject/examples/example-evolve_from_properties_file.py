@@ -22,8 +22,11 @@ root = get_root_path()
 test = 1
 
 if test == 0:
-    filename = 'Std-InputsError-RootMeanSquareError-Mode00'
+    filename = 'Std00-InputsError-RootMeanSquareError-Mode00'
 if test == 1:
+    filename = 'Std01-InputsError-RootMeanSquareError-Mode00'
+        
+if test == 10:
     filename = 'Std-InputsError-RootMeanSquareError-Mode01'
 
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/CartPoleV1/'+ filename + ".properties"
@@ -49,8 +52,8 @@ evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 #evolve_verbose = 2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
 save_arch_gen = True #False #True
-display_env = False #True #False
-run_gen_best = True #False #True
+display_env = False #True #False#
+run_gen_best = False # #False #True
 
 verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
          'save_arch_gen': save_arch_gen, 'run_gen_best':run_gen_best}
