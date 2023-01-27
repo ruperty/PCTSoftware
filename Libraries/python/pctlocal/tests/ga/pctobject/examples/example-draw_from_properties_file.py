@@ -3,13 +3,14 @@ from os import sep, makedirs
 from utils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual
 
-test = 2
+test = 5
 
 if test == 0:
       prefix = 'test-1level'
       filepath = 'Std-InputsError-RootMeanSquareError-Mode00/' + prefix +'.properties'
       move={'OL0C0p':[0.1,0]}
 
+# Mode00
 if test == 1:
       prefix = 'ga-000.115-s001-2x3-m000-4292b6128e13ac2df54fd2c05a34292e'
       dir = 'Std00-InputsError-RootMeanSquareError-Mode00' 
@@ -34,18 +35,18 @@ if test == 2:
     font_size, node_size=10, 200
     hname='Cartpole Std01 mode00 score=0.116'
 
-if test == 10:
-      prefix = 'ga-000.124-s001-1x1-m1-99941c2f82fb78be27551fed5488ec27'
-      dir = 'Std-InputsError-RootMeanSquareError-Mode01' 
+# Mode01
+if test == 5:
+      prefix = 'ga-000.115-s001-3x3-m001-8d51aa0f1ee8987d5ff5e661b62d62f7'
+      dir = 'Std00-InputsError-RootMeanSquareError-Mode01' 
       
       filepath = dir + sep + prefix +'.properties'
-      move={'CartPoleV1': [-1, -0.2],'ICV': [-0.45, 0], 'ICP': [-0.25,  0.1], 
-            'IPV': [-0.05, 0.2],'IPA': [0.1, 0.3], 'OL0C0p':[0.0,0], 
-            'RL0C0c':[-0.0,-0], 'PL0C0ws':[0.0,0.0],  
-            'Action1ws': [-1.0, 0]}
 
+      move={'CartPoleV1': [-0.4, -0.5],'ICV': [0, -0.1], 'ICP': [0,  -0.1], 
+        'IPV': [0.0, -0.1],'IPA': [0.0, -0.1], 'Action1ws': [-0.25, -0.3]}    
 
-
+      font_size, node_size=8, 150
+      hname='Cartpole Std00 mode01 score=0.115'
 
 file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
 outdir = 'output' + sep + dir
@@ -55,7 +56,7 @@ draw_file = outdir + sep + 'draw-'+prefix+'.png'
 hpct, hep = HPCTIndividual.from_properties_file(file)
 hpct.set_name(hname)
 hpct.set_suffixes()
-hpct.pretty_print()
+print(hpct.formatted_config(3))
 hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size)
 print('Image saved to '+draw_file)
 

@@ -36,6 +36,12 @@
             "module": "examples.example-arch"
         },
         {
+            "name": "general",
+            "type": "python",
+            "request": "launch",
+            "module": "testing.test-general"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

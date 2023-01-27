@@ -10,7 +10,7 @@ from pct.hierarchy import PCTHierarchy
 from pct.nodes import PCTNode
 from pct.errors import BaseErrorCollector
 from pct.functions import FunctionFactory, HPCTFUNCTION
-from pct.putils import FunctionsList, UniqueNamer
+from pct.putils import floatListsToString, FunctionsList, UniqueNamer
 
 from pct.environments import EnvironmentFactory, OpenAIGym
 
@@ -681,7 +681,8 @@ class HPCTIndividual(PCTHierarchy):
         f.write(f'error_response_type = {error_response_type} \n')
         f.write(f'error_collector_type = {error_collector_type} \n')
         f.write(f'error_limit = {error_limit} \n')
-        f.write(f'raw = {self.get_parameters_list()}'+'\n')
+        #f.write(f'raw = {self.get_parameters_list()}'+'\n')
+        f.write(f'raw = {self.formatted_config(3)}'+'\n')
         f.write(f'config = {self.get_config(zero=0)}'+'\n')
 
         f.close()
@@ -744,25 +745,39 @@ class HPCTIndividual(PCTHierarchy):
             hpct.set_suffixes()
         return hpct
 
-    def pretty_print(self):
+    def formatted_config(self, places):
+        str_list=[]
         hpct = self.get_parameters_list()
         levels = len(hpct)
         level = 0
-        print('grid: ',self.get_grid())
+        str_list.append(f'grid: {self.get_grid()}\n')
         for lvl in hpct:
             #print(lvl)
             if level==0:
-                print('env: ', lvl[0], ' act: ', lvl[1])
+                str_list.append(f'env: {lvl[0]} act: ')
+                str_list.append(floatListsToString(lvl[1],places))                
+                str_list.append('\n')                #str_list.append(f'env: {lvl[0]} act: {lvl[1]:0.3f}\n')
             else:
-                print(f'level{level-1} ', end = ' ')
+                str_list.append(f'level{level-1} \n')
                 column = 0
                 for col in lvl:
-                    print('col: ', column, end= ' ')
-                    print('ref: ', col[0], end= ' ')
-                    print('per: ', col[1], end= ' ')
-                    print('out: ', col[2])
+                    str_list.append(f'col: {column} ')
+                    str_list.append(f'ref: ')
+                    str_list.append(floatListsToString(col[0], places))
+                    str_list.append(f' per: ')
+                    str_list.append(floatListsToString(col[1], places))
+                    str_list.append(f' out: ')
+                    str_list.append(floatListsToString(col[2], places))
+                    if level < levels-1:
+                        str_list.append('\n')
                     column = column + 1
             level=level+1
+            
+        return ''.join(str_list)
+    
+    
+        
+    
 
     @classmethod
     def run_from_config(cls, config, render=False,  error_collector_type=None, error_response_type=None, 
