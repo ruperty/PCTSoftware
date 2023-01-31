@@ -5,6 +5,10 @@
     "version": "0.2.0",
     "configurations": [
 
+
+        
+        
+
         {
             "name": "evolve_from_properties_file",
             "type": "python",
@@ -34,6 +38,18 @@
             "type": "python",
             "request": "launch",
             "module": "examples.example-arch"
+        },
+        {
+            "name": "hierarchy-draw",
+            "type": "python",
+            "request": "launch",
+            "module": "testing.test-hierarchy-draw"
+        },
+        {
+            "name": "run-old-mountaincar",
+            "type": "python",
+            "request": "launch",
+            "module": "testing.run-mountaincar-from-properties_file"
         },
         {
             "name": "general",
