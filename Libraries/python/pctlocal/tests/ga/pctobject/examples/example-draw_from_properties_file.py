@@ -3,7 +3,7 @@ from os import sep, makedirs
 from utils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual
 
-test = 5
+test = 2
 
 if test == 0:
       prefix = 'test-1level'
@@ -38,8 +38,7 @@ if test == 2:
 # Mode01
 if test == 5:
       prefix = 'ga-000.115-s001-3x3-m001-8d51aa0f1ee8987d5ff5e661b62d62f7'
-      dir = 'Std00-InputsError-RootMeanSquareError-Mode01' 
-      
+      dir = 'Std00-InputsError-RootMeanSquareError-Mode01'       
       filepath = dir + sep + prefix +'.properties'
 
       move={'CartPoleV1': [-0.4, -0.5],'ICV': [0, -0.1], 'ICP': [0,  -0.1], 
@@ -47,6 +46,21 @@ if test == 5:
 
       font_size, node_size=8, 150
       hname='Cartpole Std00 mode01 score=0.115'
+      
+      
+if test == 6:
+      
+      prefix = 'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832'
+      dir = 'Std01-InputsError-RootMeanSquareError-Mode01'
+      filepath = dir + sep + prefix +'.properties'
+
+      move={'CartPoleV1': [-0.4, -0.5],'ICV': [0, -0.1], 'ICP': [0,  -0.1], 
+        'IPV': [0.0, -0.1],'IPA': [0.0, -0.1], 'Action1ws': [-0.25, -0.3]}    
+      move={'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4], 
+        'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}
+
+      font_size, node_size=8, 200
+      hname='Cartpole Std01 mode01 score=0.123'
 
 file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
 outdir = 'output' + sep + dir

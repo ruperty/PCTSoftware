@@ -745,7 +745,7 @@ class HPCTIndividual(PCTHierarchy):
             hpct.set_suffixes()
         return hpct
 
-    def formatted_config(self, places):
+    def formatted_config(self, places=3):
         str_list=[]
         hpct = self.get_parameters_list()
         levels = len(hpct)
@@ -2122,7 +2122,7 @@ class HPCTEvolveProperties(object):
             f.write(f'# Date {dateTimeObj}\n')
             f.write('# Result'+'\n')
             f.write('# Best individual'+'\n')
-            f.write(f'raw = {best.get_parameters_list()}'+'\n')
+            f.write(f'raw = {best.formatted_config()}'+'\n\n')
             f.write(f'config = {best.get_config(zero=0)}'+'\n')
             f.write(f'score = {score:0.5f}'+'\n')
             f.write(f'# Time  {meantime:0.4f}'+'\n')

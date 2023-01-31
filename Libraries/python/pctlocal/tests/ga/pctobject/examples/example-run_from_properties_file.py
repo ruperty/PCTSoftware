@@ -39,16 +39,22 @@ if test == 2:
 
 
 if test == 3:
-    filename = 'ga-000.116-s001-1x1-m000-5ad8d970ae03574fa5dd00b1eb2cebb2'
-    dir = 'Std1-InputsError-RootMeanSquareError-Mode00'
+    filename = 'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832'
+    dir = 'Std01-InputsError-RootMeanSquareError-Mode01'
     filepath = dir + sep + filename +'.properties'
     file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
     move={'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0], 
         'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}
-    # plots = [ {'plot_items': {'PL1C0ws':'PL1C0ws','PL1C0ws':'ref'}, 'title':'Goal1'},
-    #          {'plot_items': {'IPA':'pa','ICP':'cp'}, 'title':'Inputs'}]
     plots = []
 
+if test == 4:
+    filename = 'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832'
+    dir = 'Std01-InputsError-RootMeanSquareError-Mode01'
+    filepath = dir + sep + filename +'.properties'
+    file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
+    move={'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0], 
+        'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}
+    plots = []
 
     
 hep = HPCTEvolveProperties()
@@ -81,7 +87,8 @@ ind, score = HPCTIndividual.run_from_config(config, render=render,  error_collec
     
 print("Score: %0.3f" % score)
 #ind.summary()
-ind.pretty_print()
+print(ind.formatted_config())
+#ind.pretty_print()
 
 
 
