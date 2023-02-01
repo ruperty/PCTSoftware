@@ -21,7 +21,8 @@ from pct.functions import HPCTFUNCTION
 varieties ={'CartPoleV1': {'num_actions': 1, 'nevals':1, 
                            'archs':[
                                {'name': 'Std00', 'env_inputs_indexes':[1,0,3,2], 'references':[0],'env_inputs_names': '[ICV, ICP, IPV, IPA]'},
-                               {'name': 'Std01', 'env_inputs_indexes':[1,0,3,2], 'references':[0],'env_inputs_names': '[ICV, ICP, IPV, IPA]'}
+                               {'name': 'Std01', 'env_inputs_indexes':[1,0,3,2], 'references':[0],'env_inputs_names': '[ICV, ICP, IPV, IPA]'},
+                               {'name': 'Std02', 'env_inputs_indexes':[1,0,3,2], 'references':[0],'env_inputs_names': '[ICV, ICP, IPV, IPA]'}
                             #    ,
                             #    {'name': 'Topp1', 'inputs':[1,0,3,2], 'top_inputs':[2], 'references':[0],'inputs_names': '[ICV, ICP, IPV, IPA]'} 
                             ]}
@@ -37,20 +38,19 @@ collection = {
                                     'Std00' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],
                                     'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }]
-                                    # 'structs' : [{'mode': 0, 'types':[
-                                    #             [HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
-                                    #             [HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
-                                    #             [HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': -5, 'upper': 5}]]}]
                                     },
                                     'Std01' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],
                                     'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }]
-                                    # 'structs' : [{'mode': 0, 'types':[
-                                    #             [HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
-                                    #             [HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
-                                    #             [HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': -5, 'upper': 5}]]}]
+                                    },
+                                    'Std02' : {'collectors': ['InputsError' , 'TotalError'],
+                                    'responses': ['RootMeanSquareError'],
+                                    'structs' : [{'mode': 0, 'types':[[HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
+                                                    [HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary']] }, 
+                                                 {'mode': 1, 'types':[[HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary'], 
+                                                    [HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary']] }                                                 
+                                                ]
                                     }
-                                    
                                 }
                             }
                             ,
@@ -77,6 +77,10 @@ configs = {
           'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
           ,
           'CartPoleV1_Std01': {'seed': 1,'pop_size': 20,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
+          'lower_float': -1,'upper_float': 1,'max_levels_limit': 1,'max_columns_limit': 1, 'early_termination': True,
+          'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
+          ,
+          'CartPoleV1_Std02': {'seed': 1,'pop_size': 20,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 1,'max_columns_limit': 1, 'early_termination': True,
           'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
           ,
