@@ -797,7 +797,7 @@ class HPCTIndividual(PCTHierarchy):
         ind.set_error_collector(error_collector)
         if hpct_verbose:
             ind.summary()
-            ind.pretty_print()
+            print(ind.formatted_config())
         ind.run(steps, hpct_verbose)
         env.close()
         
@@ -1012,8 +1012,8 @@ class HPCTEvolver(BaseEvolver):
             # hpct.summary()
             print(f'{self.gen:03} {self.member:03} {hpct.namespace}')
             #print(hpct.get_parameters_list())
-            #hpct.summary()
-            hpct.pretty_print()
+            #hpct.summary()            
+            print(hpct.formatted_config())
 
         env = hpct.get_preprocessor()[0]
         for i in range(self.nevals):

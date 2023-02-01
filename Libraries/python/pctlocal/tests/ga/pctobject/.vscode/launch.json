@@ -27,6 +27,13 @@
             "request": "launch",
             "module": "examples.example-run_from_properties_file"
         },
+
+        {
+            "name": "remove_level",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-hpct-evolver-mutate-ind-cartpole"
+        },
         {
             "name": "generate_properties_file",
             "type": "python",

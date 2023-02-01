@@ -65,7 +65,7 @@ if __name__ == "__main__":
     random.seed(seed)
     evolver = HPCTEvolver(**evolver_properties)
     #print(evolver_properties)
-    evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True)
+    evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True, local_out_dir='output')
 
     if test==1:
         

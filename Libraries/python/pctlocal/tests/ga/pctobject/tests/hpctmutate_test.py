@@ -50,7 +50,7 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         toplevel_inputs_indexes=[2,3]
         env_inputs_names=['IP', 'IV', 'IC', 'IF']
         references=[11, 2]
-        # error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
+        error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
 
         environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
@@ -58,14 +58,14 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
 
         hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'references':references,
             'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit, 'lower_float':-100, 'upper_float':100, 'structurepb':1, }    
-        # hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
-        #     'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
-        #     'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
+        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
+            'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
+            'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 
         evolver_properties = {'environment_properties':environment_properties, 
             # 'evolve_properties':evolve_properties,  
             'hpct_structure_properties':hpct_structure_properties,
-            # 'hpct_run_properties':hpct_run_properties,
+            'hpct_run_properties':hpct_run_properties,
             # 'individual_properties': individual_properties, 
             'arch': arch}
 
@@ -110,7 +110,7 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         #     self.assertEqual(old_config[old], new_config[new])
 
 
-    def test_TopInputs_b_choice1(self):
+    def test_TopInputs_b_choice3(self):
         random.seed(6)
         ind = self.evr.toolbox.individual()
         #print(ind.get_grid())
@@ -120,7 +120,7 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         grid = ind1.get_grid()
         #print(grid)
 
-        self.assertEqual(grid, [1, 5, 3, 1, 2])
+        self.assertEqual(grid, [1, 4, 3, 2])
 
 
         # new_config = ind1.get_config()
@@ -133,7 +133,7 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         #     self.assertEqual(old_config[old], new_config[new])
 
 
-    def test_TopInputs_c_choice2(self):
+    def test_TopInputs_c_choice4(self):
         random.seed(12)
         ind = self.evr.toolbox.individual()
         #ind.draw(file='test_TopInputs_c_choice2_b4.png', node_size=200)
@@ -146,11 +146,11 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         grid = ind1.get_grid()
         #print(grid)
 
-        self.assertEqual(grid, [3, 5, 3, 2, 2])
+        self.assertEqual(grid, [3, 4, 3, 2])
 
-        link_name_0_B = ind1.get_node(4,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
+        link_name_0_B = ind1.get_node(3,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
         self.assertEqual(link_name_0_B, link_name_0_A)
-        link_name_1_B = ind1.get_node(4,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
+        link_name_1_B = ind1.get_node(3,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
         self.assertEqual(link_name_1_B, link_name_1_A)
 
 
@@ -180,7 +180,7 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         grid = ind1.get_grid()
         #print(grid)
 
-        self.assertEqual(grid,  [4, 3, 2, 3, 2])
+        self.assertEqual(grid,  [4, 3, 3, 2, 2])
 
 
         # new_config = ind1.get_config()
@@ -193,7 +193,7 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         #     self.assertEqual(old_config[old], new_config[new])
 
 
-    def test_TopInputs_e_choice1(self):
+    def test_TopInputs_e_choice2(self):
         random.seed(15)
         ind = self.evr.toolbox.individual()
         #ind.summary()
@@ -201,12 +201,12 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         grid = ind1.get_grid()
         #print(grid)
 
-        self.assertEqual(grid,  [2, 2])
+        self.assertEqual(grid,  [1, 2, 2])
 
-        rlinks = ind1.get_node(0,1).get_function_from_collection(HPCTFUNCTION.REFERENCE).get_links()
-        self.assertEqual(rlinks, ['OL1C0', 'OL1C1'])
+        rlinks = ind1.get_node(1,1).get_function_from_collection(HPCTFUNCTION.REFERENCE).get_links()
+        self.assertEqual(rlinks, ['OL2C0', 'OL2C1'])
 
-        plinks = [link.name for link in ind1.get_node(0,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()]
+        plinks = [link.name for link in ind1.get_node(0,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()]
         self.assertEqual(plinks, ['IP', 'IC'])
 
 
@@ -258,7 +258,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
         #toplevel_inputs_indexes=[2,3]
         env_inputs_names=['IP', 'IV', 'IC', 'IF']
         references=[11, 2]
-        # error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
+        error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
 
         environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
@@ -266,14 +266,14 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
         hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'references':references,
             'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit, 'lower_float':-100, 'upper_float':100, 'structurepb':1, }    
-        # hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
-        #     'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
-        #     'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
+        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
+            'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
+            'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 
         evolver_properties = {'environment_properties':environment_properties, 
             # 'evolve_properties':evolve_properties,  
             'hpct_structure_properties':hpct_structure_properties,
-            # 'hpct_run_properties':hpct_run_properties,
+            'hpct_run_properties':hpct_run_properties,
             'arch': arch}
 
         evolver = HPCTEvolver(**evolver_properties)
@@ -282,7 +282,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
 
 
-    def test_NoTopInputs_a_choice4(self):
+    def test_NoTopInputs_a_choice2(self):
         ind = self.evr.toolbox.individual()
         ind.get_preprocessor()[0].summary()
         print(ind.get_postprocessor()[0].get_links()[0])
@@ -293,7 +293,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
         grid = ind1.get_grid()
         print(grid)
-        self.assertEqual(grid, [1, 2])
+        self.assertEqual(grid, [2, 2])
 
 
         # new_config = ind1.get_config()
@@ -318,7 +318,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
         grid = ind1.get_grid()
         print(grid)
-        self.assertEqual(grid, [5, 2])
+        self.assertEqual(grid, [5, 4, 2])
 
         # new_config = ind1.get_config()
         # # print(new_config)
@@ -329,7 +329,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
         #     # print()
         #     self.assertEqual(old_config[old], new_config[new])
 
-    def test_NoTopInputs_c_choice3(self):
+    def test_NoTopInputs_c_choice1(self):
         
         random.seed(12)
         ind = self.evr.toolbox.individual()
@@ -343,7 +343,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
         grid = ind1.get_grid()
         print(grid)
         #ind1.summary()
-        self.assertEqual(grid, [3, 5, 2])
+        self.assertEqual(grid, [3, 5, 4, 2])
 
         
         # new_config = ind1.get_config()
@@ -356,7 +356,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
         #     self.assertEqual(old_config[old], new_config[new])
 
 
-    def test_NoTopInputs_d_choice2(self):
+    def test_NoTopInputs_d_choice1(self):
         
         random.seed(16)
         ind = self.evr.toolbox.individual()
@@ -373,7 +373,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
         grid = ind1.get_grid()
         print(grid)
-        self.assertEqual(grid, [4, 4, 3, 2])
+        self.assertEqual(grid, [4, 5, 2])
         #ind1.summary()
 
 

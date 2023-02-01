@@ -75,7 +75,7 @@ class TestHPCTMutateRemoveLevel(unittest.TestCase):
         random.seed(seed)
         evolver = HPCTEvolver(**evolver_properties)
         #print(evolver_properties)
-        cls.evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True)
+        cls.evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True, local_out_dir='output')
 
 
 

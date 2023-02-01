@@ -27,6 +27,7 @@ move={'MountainCarContinuousV0': [-0.6, -0.5], 'Action1ws': [-0.4, -0.4],
       'OL0C0sm': [-0.28, -0.25], 'OL0C1sm': [0.28, -0.25],  
       'OL1C0sm': [0, -0.1], 'IV': [-0.1, 0.0], 'IP': [-0.6, 0.5], 'CL1C0': [0, 0.1]}
 
+#move={}
 
 test=21
 
@@ -58,6 +59,7 @@ if test==21:
         {'plot_items': {'Action1ws':'act'}, 'title':'Action'}
         ]
     
+    plots = []
 
     
     nevals=1
