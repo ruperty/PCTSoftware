@@ -35,7 +35,11 @@ data = [
   ['ga-000.002-s001-1x1-m000-e520958366bfba4b869fe767b36f60da', 'Std00-TotalError-RootMeanSquareError-Mode00',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}],
   ['ga-000.011-s001-1x1-m000-8bd4af6075e0ed84db5abff8863e120c','Std01-TotalError-RootMeanSquareError-Mode00',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}],
   ['ga-000.063-s001-2x1-m001-a21ecb826145632a9624ba199d9e93bb','Std00-TotalError-RootMeanSquareError-Mode01',  {'CartPoleV1': [-0.6, 0],'ICV': [-0.2, 0.3], 'ICP': [0,  0.4],  'IPV': [0.2, 0.5],'IPA': [0.4, 0.6], 'Action1ws': [-0.65, 0], 'OL0C0p': [0, 0.1]}],
-  ['ga-000.065-s001-1x1-m001-a902324b273132c2a0481cc2f48e68a5','Std01-TotalError-RootMeanSquareError-Mode01',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}]
+  ['ga-000.065-s001-1x1-m001-a902324b273132c2a0481cc2f48e68a5','Std01-TotalError-RootMeanSquareError-Mode01',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}],
+  
+  ['ga-000.116-s001-1x1-m000-c046ca4614c64a3fd02baca87d33992e','Std02-InputsError-RootMeanSquareError-Mode00',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}],
+  ['ga-000.123-s001-1x1-m001-3c4731f243d746771f7cb639d8f0095a','Std02-InputsError-RootMeanSquareError-Mode01',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}]
+
 ]
 
 
@@ -45,7 +49,7 @@ if test == 100:
       
       
 if test == 0:
-    drawit(data[6])   
+    drawit(data[8])   
 
 
 

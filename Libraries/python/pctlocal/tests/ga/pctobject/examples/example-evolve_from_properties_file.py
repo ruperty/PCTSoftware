@@ -20,7 +20,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 11
+test = 10
 
 # Std00
 if test == 1:
@@ -42,7 +42,7 @@ if test == 6:
 if test == 8:
     filename = 'Std01-TotalError-RootMeanSquareError-Mode01'
         
-# Std01   
+# Std02
 if test == 10:
     filename = 'Std02-InputsError-RootMeanSquareError-Mode00'
 if test == 11:
@@ -77,9 +77,9 @@ save_arch_gen = True #False #True
 display_env = True #True #False#
 run_gen_best = True # #False #True
 
-# save_arch_gen = False #True
-# display_env = False #False#
-# run_gen_best = False # #False #True
+save_arch_gen = False #True
+display_env = False #False#
+run_gen_best = False # #False #True
 
 verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
          'save_arch_gen': save_arch_gen, 'run_gen_best':run_gen_best}
