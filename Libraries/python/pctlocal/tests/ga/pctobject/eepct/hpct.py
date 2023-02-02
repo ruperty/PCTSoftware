@@ -213,11 +213,16 @@ class HPCTArchitecture(object):
             if mode == 1:
                 arch = self.mode01(lower_float, upper_float)
 
+            if mode == 2:
+                arch = self.mode02(lower_float, upper_float)
+
         self.arch = arch
         self.levels_zerotop = None
         self.levels_zero = None
         self.levels_top = None
         self.levels_n = None
+
+        # hello
 
     def mode00(self, lower_float, upper_float):
         arch = {
@@ -260,6 +265,30 @@ class HPCTArchitecture(object):
             }
 
         return arch
+
+    def mode02(self, lower_float, upper_float):
+        arch = {
+            HPCTARCH.HIERARCHY: {
+                        # Default definition of types of functions within a hierarchy.
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTARCH.LEVELS: {
+                            # Overriding some functions at levels.
+                            HPCTLEVEL.ZERO: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.N: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: None},
+                                            HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.TOP: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: None},
+                                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}}
+                        }
+                    }
+            }
+
+        return arch
+
 
     def __repr__(self):
         "For printing."

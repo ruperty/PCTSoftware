@@ -37,7 +37,7 @@ collection = {
             'CartPoleV1': { 'arch': {
                                     'Std00' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],
-                                    'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }]
+                                    'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }, {'mode': 2, 'types':[] }]
                                     },
                                     'Std01' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],
