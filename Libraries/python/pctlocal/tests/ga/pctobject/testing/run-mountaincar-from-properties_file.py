@@ -22,12 +22,17 @@ root_dir=get_gdrive()
 prefix = 'data/ga/'
 env = 'MountainCarContinuousV0/'
 type = 'Topp1-ReferencedInputsError-RootMeanSquareError-Binary-SmoothWeightedSum/'
+funcdata = False #True #False
 
-move={'MountainCarContinuousV0': [-0.6, -0.5], 'Action1ws': [-0.4, -0.4], 
+if funcdata:
+    move={'MountainCarContinuousV0': [-0.6, -0.5], 'Action1ws': [-0.4, -0.4], 
+      'OL0C0sm\n0.93': [-0.28, -0.25], 'OL0C1sm\n0.51': [0.28, -0.25],  
+      'OL1C0sm\n0.47': [0, -0.1], 'IV': [-0.1, 0.0], 'IP': [-0.6, 0.5], 'CL1C0': [0, 0.1]}
+else:
+    move={'MountainCarContinuousV0': [-0.6, -0.5], 'Action1ws': [-0.4, -0.4], 
       'OL0C0sm': [-0.28, -0.25], 'OL0C1sm': [0.28, -0.25],  
       'OL1C0sm': [0, -0.1], 'IV': [-0.1, 0.0], 'IP': [-0.6, 0.5], 'CL1C0': [0, 0.1]}
 
-#move={}
 
 test=21
 
@@ -72,7 +77,7 @@ render = False
 draw_file="mc.png"
 hpct, score_sum, output = run_from_properties_file(root_dir=root_dir, path=file_path, file=file, 
     nevals=nevals, move=move, plots=plots, seed=seed, print_properties=True, verbose=verbose, 
-    draw=True, early_termination=True, figsize=figsize, render =render, draw_file=draw_file)
+    draw=True, early_termination=True, figsize=figsize, render =render, draw_file=draw_file, funcdata=funcdata)
 
 
 
