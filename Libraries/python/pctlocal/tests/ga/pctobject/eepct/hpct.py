@@ -371,7 +371,7 @@ class HPCTArchitecture(object):
                         self.levels_zerotop.set_function_properties(function)
 
     def get_function_properties(self, level_type, control_function_type):
-        "Get the properties of a function definition at a level type."
+        "Get the properties of a control unti function definition at a level type. E.g. HPCTLEVEL.ZERO, HPCTFUNCTION.PERCEPTION"
         if level_type == HPCTLEVEL.ZEROTOP:
             return self.levels_zerotop.get_function_properties(control_function_type)
 
@@ -716,7 +716,7 @@ class HPCTIndividual(PCTHierarchy):
 
         f.close()
         
-    
+
 
     @classmethod
     def from_properties_file(cls, file):
