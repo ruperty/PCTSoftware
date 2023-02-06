@@ -59,6 +59,12 @@
             "module": "testing.run-mountaincar-from-properties_file"
         },
         {
+            "name": " 16_evolve_mountaincar",
+            "type": "python",
+            "request": "launch",
+            "module": "testing.16_evolve_mountaincar"
+        },
+        {
             "name": "general",
             "type": "python",
             "request": "launch",
