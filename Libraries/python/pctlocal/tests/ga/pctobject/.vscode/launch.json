@@ -47,6 +47,12 @@
             "module": "examples.example-arch"
         },
         {
+            "name": "mode02-evolve",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-hpct-evolver-mode02"
+        },       
+        {
             "name": "hierarchy-draw",
             "type": "python",
             "request": "launch",

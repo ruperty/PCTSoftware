@@ -20,7 +20,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 4
+test = 1
 
 # Std00
 if test == 1:
