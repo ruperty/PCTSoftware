@@ -88,6 +88,15 @@
             "type": "python",
             "request": "launch",
             "module": "testing.test-networkx"
+        },
+        {
+            "name": "deap-aplha",
+            "type": "python",
+            "request": "launch",
+            "module": "testing.test-deap-aplha"
         }
+
+
+        
     ]
 }

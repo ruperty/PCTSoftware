@@ -603,7 +603,7 @@ class HPCTIndividual(PCTHierarchy):
             parameters['targetlevel'] = level
             parameters['targetprefix'] = 'C'
             parameters['targetcolumn'] = column
-            parameters['addlink'] = False
+            #parameters['addlink'] = False
             parameters['parameter'] = parameter
 
         return parameters, fn_class
