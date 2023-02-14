@@ -603,7 +603,7 @@ class HPCTIndividual(PCTHierarchy):
             parameters['targetlevel'] = level
             parameters['targetprefix'] = 'C'
             parameters['targetcolumn'] = column
-            #parameters['addlink'] = False
+            parameters['addlink'] = False
             parameters['parameter'] = parameter
 
         return parameters, fn_class
@@ -1636,7 +1636,8 @@ class HPCTEvolverWrapper(EvolverWrapper):
         self.font_size=font_size        
         self.node_size=node_size        
         self.local_out_dir=local_out_dir
-        makedirs(local_out_dir, exist_ok=True)
+        if not local_out_dir is None:
+            makedirs(local_out_dir, exist_ok=True)
                 
     
     def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False):
