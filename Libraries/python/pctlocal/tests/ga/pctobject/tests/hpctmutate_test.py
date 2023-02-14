@@ -54,7 +54,7 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
 
         environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
-        # evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25, 'indpb':1, 'attr_mut_pb':1}
+        # evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25,  'attr_mut_pb':1}
 
         hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'references':references,
             'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit, 'lower_float':-100, 'upper_float':100, 'structurepb':1, }    
@@ -262,7 +262,7 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
         environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
-        # evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25, 'indpb':1, 'attr_mut_pb':1}
+        # evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25,  'attr_mut_pb':1}
 
         hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'references':references,
             'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit, 'lower_float':-100, 'upper_float':100, 'structurepb':1, }    

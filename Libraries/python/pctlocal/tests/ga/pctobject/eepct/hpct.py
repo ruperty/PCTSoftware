@@ -942,7 +942,7 @@ class HPCTEvolver(BaseEvolver):
         self.evolve_properties['alpha'] = self.get_property_value('alpha', evolve_properties, 0.5)
         self.evolve_properties['mu'] = self.get_property_value('mu', evolve_properties, 0.1)
         self.evolve_properties['sigma'] = self.get_property_value('sigma', evolve_properties, 0.25)
-        #self.evolve_properties['indpb'] = self.get_property_value('indpb', evolve_properties, 1)
+
         self.evolve_properties['attr_mut_pb'] = self.get_property_value('attr_mut_pb', evolve_properties, 1)
         self.evolve_properties['attr_cx_uniform_pb'] = self.get_property_value('attr_cx_uniform_pb', evolve_properties, 0.5)
         self.evolve_properties['structurepb'] = self.get_property_value('structurepb', evolve_properties, 1)

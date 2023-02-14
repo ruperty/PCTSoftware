@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # individual_properties = {'range_limit':20, 'goal':20, 'evaluate_factor':5, 'evaluate_divisor':5, 'scale_limit':5}
     environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
         'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env_name, 'num_actions':num_actions, 'references':references}
-    # evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25, 'indpb':1, 'attr_mut_pb':1, 'attr_cx_uniform_pb':0.5, 'structurepb':1}
+    # evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25,  'attr_mut_pb':1, 'attr_cx_uniform_pb':0.5, 'structurepb':1}
     evolve_properties = {'attr_mut_pb':0.8,'structurepb':1, 'attr_cx_uniform_pb':0.5, 'alpha':0.5}
 
     hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit, 'lower_float':-100, 'upper_float':100 }    
