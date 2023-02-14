@@ -24,7 +24,7 @@ CommonToolbox.getInstance().set_toolbox(toolbox)
 if __name__ == "__main__":
 
     lower, upper = -1, 1 
-    arch = HPCTArchitecture(mode=1, lower_float=lower, upper_float=upper)
+    arch = HPCTArchitecture(mode=2, lower_float=lower, upper_float=upper)
     arch.configure()
 
     env_name = 'CartPoleV1'
