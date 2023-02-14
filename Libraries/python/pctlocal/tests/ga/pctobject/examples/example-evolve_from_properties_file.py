@@ -79,9 +79,9 @@ save_arch_gen = True #False #True
 display_env = True #True #False#
 run_gen_best = True # #False #True
 
-save_arch_gen = False #True
-display_env = False #False#
-run_gen_best = False # #False #True
+#save_arch_gen = False #True
+#display_env = False #False#
+#run_gen_best = False # #False #True
 
 verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
          'save_arch_gen': save_arch_gen, 'run_gen_best':run_gen_best}

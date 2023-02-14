@@ -38,7 +38,7 @@ if __name__ == "__main__":
     zerolevel_inputs_indexes=None
     toplevel_inputs_indexes=None
     seed=1
-    debug=0
+    debug=2
                 
         
     environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'render':False, 'early_termination': False,
@@ -64,6 +64,11 @@ if __name__ == "__main__":
     if test==1:
         ind = evr.toolbox.individual()          
         ind1, = evr.toolbox.mutate(ind)
+        #ind.summary()
+        ind1.summary()
+        
+        #print(ind.formatted_config())
+        #print(ind1.formatted_config())
         
     if test==2:
         ind1 = evr.toolbox.individual()          

@@ -16,7 +16,7 @@ from pct.architectures import run_from_properties_file
 # filename = 'ga-000.117-s001-3x3-m0-669248b3e5087c5e888ea90fe2198af4'
 # filepath = 'Std-TotalError-RootMeanSquareError-Mode00/'+ filename +'.properties'
 
-test = 3
+test = 5
 
 if test == 0:
     filename = 'ga-000.117-s001-3x3-m0-669248b3e5087c5e888ea90fe2198af4'
@@ -56,6 +56,15 @@ if test == 4:
         'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}
     plots = []
 
+if test == 5:
+    filename = 'ga-000.130-s001-2x1-m002-9729cd44431b1958b69da786b4ba4f00'
+    dir = 'Std00-InputsError-RootMeanSquareError-Mode02'
+    filepath = dir + sep + filename +'.properties'
+    file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
+    move={'CartPoleV1': [-0.6, -0.1],'ICV': [-0.3, 0.1], 'ICP': [-0.1,  0.2], 
+        'IPV': [0.1, 0.3],'IPA': [0.2, 0.4], 'Action1ws': [-0.65, 0]}
+    plots = []
+
     
 hep = HPCTEvolveProperties()
 hep.load_db(file)
@@ -88,7 +97,8 @@ ind, score = HPCTIndividual.run_from_config(config, render=render,  error_collec
 print("Score: %0.3f" % score)
 #ind.summary()
 print(ind.formatted_config())
-#ind.pretty_print()
+#print(ind.get_config())
+
 
 
 
