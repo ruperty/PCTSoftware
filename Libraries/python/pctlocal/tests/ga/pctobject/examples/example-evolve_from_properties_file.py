@@ -20,7 +20,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 4
+test = 16
 
 # Std00
 if test == 1:
@@ -39,7 +39,12 @@ if test == 12:
     filename = 'Std01-InputsError-RootMeanSquareError-Mode00'
 if test == 14:
     filename = 'Std01-InputsError-RootMeanSquareError-Mode01'
+if test == 15:
+    filename = 'Std01-InputsError-RootMeanSquareError-Mode02'
 if test == 16:
+    filename = 'Std01-InputsError-RootMeanSquareError-Mode03'
+    
+if test == 17:
     filename = 'Std01-TotalError-RootMeanSquareError-Mode00'
 if test == 18:
     filename = 'Std01-TotalError-RootMeanSquareError-Mode01'

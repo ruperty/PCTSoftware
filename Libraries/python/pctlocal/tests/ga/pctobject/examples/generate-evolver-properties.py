@@ -37,11 +37,11 @@ collection = {
             'CartPoleV1': { 'arch': {
                                     'Std00' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],
-                                    'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }, {'mode': 2, 'types':[] }]
+                                    'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }, {'mode': 2, 'types':[] }, {'mode': 3, 'types':[] }]
                                     },
                                     'Std01' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],
-                                    'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }]
+                                    'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }, {'mode': 2, 'types':[] }, {'mode': 3, 'types':[] }]
                                     },
                                     'Std02' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],
@@ -76,11 +76,11 @@ configs = {
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 5,'max_columns_limit': 5, 'early_termination': True,
           'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
           ,
-          'CartPoleV1_Std01': {'seed': 1,'pop_size': 20,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
+          'CartPoleV1_Std01': {'seed': 1,'pop_size': 100,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 1,'max_columns_limit': 1, 'early_termination': True,
           'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
           ,
-          'CartPoleV1_Std02': {'seed': 1,'pop_size': 20,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
+          'CartPoleV1_Std02': {'seed': 1,'pop_size': 100,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 1,'max_columns_limit': 1, 'early_termination': True,
           'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
           ,

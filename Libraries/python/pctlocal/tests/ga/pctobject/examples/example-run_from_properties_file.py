@@ -16,7 +16,7 @@ from pct.architectures import run_from_properties_file
 # filename = 'ga-000.117-s001-3x3-m0-669248b3e5087c5e888ea90fe2198af4'
 # filepath = 'Std-TotalError-RootMeanSquareError-Mode00/'+ filename +'.properties'
 
-test = 5
+test = 100
 
 if test == 0:
     filename = 'ga-000.117-s001-3x3-m0-669248b3e5087c5e888ea90fe2198af4'
@@ -38,6 +38,16 @@ if test == 2:
             ]
 
 
+
+
+data = [
+    [2, 'ga-000.115-s001-2x3-m000-4292b6128e13ac2df54fd2c05a34292e', 'Std00-InputsError-RootMeanSquareError-Mode00', {'CartPoleV1': [-0.4, -0.3],'ICV': [0, 0], 'ICP': [0,  -0.1],         'IPV': [-0.0, -0.1],'IPA': [0.0, 0.0], 'Action1ws': [-0.3, -0.3]}, [ {'plot_items': {'PL1C0ws':'PL1C0ws','PL1C0ws':'ref'}, 'title':'Goal1'},{'plot_items': {'IPA':'pa','ICP':'cp'}, 'title':'Inputs'}]],
+    [3, 'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832','Std01-InputsError-RootMeanSquareError-Mode01', {'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0],  'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}, []],
+    [4,'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832', 'Std01-InputsError-RootMeanSquareError-Mode01',{'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0], 'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}, []],
+    [5, 'ga-000.130-s001-2x1-m002-9729cd44431b1958b69da786b4ba4f00', 'Std00-InputsError-RootMeanSquareError-Mode02', {'CartPoleV1': [-0.6, -0.1],'ICV': [-0.3, 0.1], 'ICP': [-0.1,  0.2], 'IPV': [0.1, 0.3],'IPA': [0.2, 0.4], 'Action1ws': [-0.65, 0]}, []]
+    ]
+
+
 if test == 3:
     filename = 'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832'
     dir = 'Std01-InputsError-RootMeanSquareError-Mode01'
@@ -55,6 +65,48 @@ if test == 4:
     move={'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0], 
         'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}
     plots = []
+    
+    
+def runit(datum):
+    filename = datum[1]
+    dir = datum[2]
+    move = datum[3]
+    plots = datum[4]
+    filepath = dir + sep + filename +'.properties'
+    file = get_gdrive() + 'data/ga/CartPoleV1/' + filepath
+    
+    hep = HPCTEvolveProperties()
+    hep.load_db(file)
+    render=True
+
+    error_collector_type = hep.db['error_collector_type']
+    error_response_type = hep.db['error_response_type']
+    error_limit = eval(hep.db['error_limit'])
+    runs = eval(hep.db['runs'])
+    config = eval(hep.db['config'])
+    seed = eval(hep.db['seed'])
+    early_termination = eval(hep.db['early_termination'])
+
+    outdir = 'output' + sep + dir
+    draw_file = file= outdir + sep  + 'draw-'+ filename + '.png'
+    # plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0c':'ref','IPA':'pa'}, 'title':'Goal'},
+    # {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
+    # plots=[]
+
+    hpct_verbose= False #True
+    render=True
+
+    ind, score = HPCTIndividual.run_from_config(config, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+                                                error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=True,
+                                                seed=seed, early_termination=early_termination, draw_file=draw_file, move=move, plots=plots, suffixes=True, plots_dir=outdir)
+
+    #ind.draw(file='output/' + filename + '.png', node_size=100, font_size=5, with_edge_labels=True)
+        
+    print("Score: %0.3f" % score)
+    #ind.summary()
+    print(ind.formatted_config())
+    #print(ind.get_config())
+    
 
 if test == 5:
     filename = 'ga-000.130-s001-2x1-m002-9729cd44431b1958b69da786b4ba4f00'
@@ -65,39 +117,50 @@ if test == 5:
         'IPV': [0.1, 0.3],'IPA': [0.2, 0.4], 'Action1ws': [-0.65, 0]}
     plots = []
 
-    
-hep = HPCTEvolveProperties()
-hep.load_db(file)
-render=True
-
-error_collector_type = hep.db['error_collector_type']
-error_response_type = hep.db['error_response_type']
-error_limit = eval(hep.db['error_limit'])
-runs = eval(hep.db['runs'])
-config = eval(hep.db['config'])
-seed = eval(hep.db['seed'])
-early_termination = eval(hep.db['early_termination'])
-
-outdir = 'output' + sep + dir
-draw_file = file= outdir + sep  + 'draw-'+ filename + '.png'
-# plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0c':'ref','IPA':'pa'}, 'title':'Goal'},
-# {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
-# plots=[]
 
 
-hpct_verbose= False #True
-render=True
 
-ind, score = HPCTIndividual.run_from_config(config, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                            error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=True,
-                                            seed=seed, early_termination=early_termination, draw_file=draw_file, move=move, plots=plots, suffixes=True, plots_dir=outdir)
+if test == 100:
+    for datum in data:
+      runit(datum)   
+      
+if test == 10:
+    runit(data[0])
 
-#ind.draw(file='output/' + filename + '.png', node_size=100, font_size=5, with_edge_labels=True)
-    
-print("Score: %0.3f" % score)
-#ind.summary()
-print(ind.formatted_config())
-#print(ind.get_config())
+
+if test ==200:
+    hep = HPCTEvolveProperties()
+    hep.load_db(file)
+    render=True
+
+    error_collector_type = hep.db['error_collector_type']
+    error_response_type = hep.db['error_response_type']
+    error_limit = eval(hep.db['error_limit'])
+    runs = eval(hep.db['runs'])
+    config = eval(hep.db['config'])
+    seed = eval(hep.db['seed'])
+    early_termination = eval(hep.db['early_termination'])
+
+    outdir = 'output' + sep + dir
+    draw_file = file= outdir + sep  + 'draw-'+ filename + '.png'
+    # plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0c':'ref','IPA':'pa'}, 'title':'Goal'},
+    # {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
+    # plots=[]
+
+
+    hpct_verbose= False #True
+    render=True
+
+    ind, score = HPCTIndividual.run_from_config(config, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+                                                error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=True,
+                                                seed=seed, early_termination=early_termination, draw_file=draw_file, move=move, plots=plots, suffixes=True, plots_dir=outdir)
+
+    #ind.draw(file='output/' + filename + '.png', node_size=100, font_size=5, with_edge_labels=True)
+        
+    print("Score: %0.3f" % score)
+    #ind.summary()
+    print(ind.formatted_config())
+    #print(ind.get_config())
 
 
 
