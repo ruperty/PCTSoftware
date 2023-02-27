@@ -2045,6 +2045,9 @@ class HPCTEvolveProperties(object):
         if gens is None:
             gens = self.wrapper_properties['gens']
 
+        if pop_size is not None:
+            self.wrapper_properties['pop_size']=pop_size
+
         if seed is None:
             seed = self.hpct_run_properties['seed']
         # modes_list = properties['modes']

@@ -39,7 +39,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 0.12225133992878794)
+        self.assertAlmostEqual(score, 16.949603136533007)
         
 
     def test_std00_IE_RMS_mode01(self):
