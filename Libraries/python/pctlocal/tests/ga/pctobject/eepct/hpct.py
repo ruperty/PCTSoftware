@@ -599,6 +599,8 @@ class HPCTIndividual(PCTHierarchy):
                 parameters['parameter'] = parameter
             if level_type == HPCTLEVEL.TOP or level_type == HPCTLEVEL.ZEROTOP:
                 parameters['value'] = self.references[column]
+                parameters['parameter'] = parameter
+
             return parameters, fn_class
 
         if function_type == HPCTFUNCTION.OUTPUT:
@@ -2040,7 +2042,7 @@ class HPCTEvolveProperties(object):
             print_properties=False, overwrite=False, output=False, toolbox=None, processes=1):
         "Evolve from file - when is this used?"
         import hashlib
-        self.load_properties(file, print_properties=print_properties, evolve=True)
+        self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size)
 
         if gens is None:
             gens = self.wrapper_properties['gens']

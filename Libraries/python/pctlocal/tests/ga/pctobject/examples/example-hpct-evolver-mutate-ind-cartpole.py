@@ -40,10 +40,11 @@ if __name__ == "__main__":
         
         arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable')
         arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float')
-        arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower_float': -5,'upper_float': 5})
+        arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -5,'upper': 5})
         
-        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable')
-        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float')
+        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable')
+        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float')
+        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -100,'upper': 100})
 
     env_name = 'CartPoleV1'
     env_inputs_indexes=[1, 0, 3, 2]
@@ -58,7 +59,6 @@ if __name__ == "__main__":
     seed=1
     debug=0
                 
-    test=2
     if test==1:
         # test remove level
         seed=5
@@ -90,8 +90,11 @@ if __name__ == "__main__":
         # test top float mutate
         ind = evr.toolbox.individual()          
         print(ind.get_grid())   
+        print(ind.formatted_config())
+        #ind.summary()
         ind1, = evr.toolbox.mutate(ind)
         print(ind1.get_grid())   
+        print(ind1.formatted_config())
 
     if test==1:        
         ind = evr.toolbox.individual()          

@@ -51,7 +51,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 0.1197538059583196)
+        self.assertAlmostEqual(score, 25.052665371959325)
         
         
     def test_std00_TE_RMS_mode00(self):
@@ -63,7 +63,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 0.03428851747528329)        
+        self.assertAlmostEqual(score, 19.307275966656576)        
         
     def test_std00_TE_RMS_mode01(self):
         filename = 'Std00-TotalError-RootMeanSquareError-Mode01'        
@@ -74,7 +74,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 0.0651168150350508)        
+        self.assertAlmostEqual(score, 5.263805245212976)        
                 
                 
                 
@@ -89,7 +89,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 15.675144036712432)    
+        self.assertAlmostEqual(score, 18.79305613192372)    
         
         
             
@@ -102,7 +102,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 0.12322572537678272)    
+        self.assertAlmostEqual(score, 22.10562580760481)    
         
             
     def test_std01_TE_RMS_mode00(self):
@@ -114,7 +114,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 1.042748215320853)        
+        self.assertAlmostEqual(score, 19.56707031226311)        
         
     def test_std01_TE_RMS_mode01(self):
         filename = 'Std01-TotalError-RootMeanSquareError-Mode01'        
@@ -125,7 +125,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score,  0.0651168150350508)        
+        self.assertAlmostEqual(score,  5.263805245212976)        
         
     def test_std02_IE_RMS_mode00(self):
         filename = 'Std02-InputsError-RootMeanSquareError-Mode00'        
@@ -136,7 +136,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 0.12925778010267922)    
+        self.assertAlmostEqual(score, 18.833059591366965)    
         
             
     def test_std02_IE_RMS_mode01(self):
@@ -148,7 +148,7 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.evolve_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
         print(score)
         
-        self.assertAlmostEqual(score, 0.12322572537678272)        
+        self.assertAlmostEqual(score, 19.93341868149284)        
         
         
             
