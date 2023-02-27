@@ -29,7 +29,7 @@
         },
 
         {
-            "name": "remove_level",
+            "name": "mutate_ind",
             "type": "python",
             "request": "launch",
             "module": "examples.example-hpct-evolver-mutate-ind-cartpole"

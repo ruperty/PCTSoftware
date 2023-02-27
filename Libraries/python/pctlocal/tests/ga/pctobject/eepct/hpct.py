@@ -129,12 +129,16 @@ class HPCTControlFunctionCollection(object):
         "Set the value of property element of a control function template according to its type, for a specific position in the control unit."
         if control_function_type == HPCTFUNCTION.REFERENCE:
             self.reference.set(type, value)
+            return
         if control_function_type == HPCTFUNCTION.PERCEPTION:
             self.perception.set(type, value)
+            return
         if control_function_type == HPCTFUNCTION.COMPARATOR:
             self.comparator.set(type, value)
+            return
         if control_function_type == HPCTFUNCTION.OUTPUT:
             self.output.set(type, value)
+            return
         if control_function_type == HPCTFUNCTION.ACTION:
             self.action.set(type, value)
 
@@ -187,8 +191,10 @@ class HPCTControlFunctionProperties(object):
         "Set the value of a property according to the type of property."
         if type == HPCTVARIABLE.TYPE:
             self.var_type = value
+            return
         if type == HPCTVARIABLE.FUNCTION_CLASS:
             self.func_class = value
+            return
         if type == HPCTVARIABLE.PROPERTIES:
             self.var_properties = value
 
@@ -2290,7 +2296,10 @@ class HPCTGenerateEvolvers(object):
         types = ''
 
         for type in struct['types']:
-            types = ''.join((types, f'type{type_num} = HPCTLEVEL.{type[0].name}^HPCTFUNCTION.{type[1].name}^HPCTVARIABLE.{type[2].name}^{type[3]}\n'))
+            if len(type)>4:
+                types = ''.join((types, f'type{type_num} = HPCTLEVEL.{type[0].name}^HPCTFUNCTION.{type[1].name}^HPCTVARIABLE.{type[2].name}^{type[3]}^HPCTVARIABLE.{type[4].name}^{type[5]}^HPCTVARIABLE.{type[6].name}^{type[7]}\n'))
+            else:
+                types = ''.join((types, f'type{type_num} = HPCTLEVEL.{type[0].name}^HPCTFUNCTION.{type[1].name}^HPCTVARIABLE.{type[2].name}^{type[3]}\n'))            
             type_num += 1
 
         types = types + '\n\n\n\n'

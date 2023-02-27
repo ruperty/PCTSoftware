@@ -23,12 +23,27 @@ CommonToolbox.getInstance().set_toolbox(toolbox)
 
 if __name__ == "__main__":
 
+    test=2
+
     lower, upper = -1, 1 
     arch = HPCTArchitecture(lower_float=lower, upper_float=upper)
     arch.configure()
-    arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
-    arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
+    if test==1:
+        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
+        arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
     #print(arch)
+
+    if test==2:
+        
+        # [[HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float', HPCTVARIABLE.FUNCTION_CLASS, 'EAConstant', HPCTVARIABLE.PROPERTIES, None],
+        #  [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float', HPCTVARIABLE.FUNCTION_CLASS, 'EAConstant', HPCTVARIABLE.PROPERTIES, None]]
+        
+        arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable')
+        arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float')
+        arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower_float': -5,'upper_float': 5})
+        
+        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable')
+        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float')
 
     env_name = 'CartPoleV1'
     env_inputs_indexes=[1, 0, 3, 2]
@@ -73,8 +88,10 @@ if __name__ == "__main__":
 
     if test==2:        
         # test top float mutate
-        ind = evr.toolbox.individual()             
+        ind = evr.toolbox.individual()          
+        print(ind.get_grid())   
         ind1, = evr.toolbox.mutate(ind)
+        print(ind1.get_grid())   
 
     if test==1:        
         ind = evr.toolbox.individual()          
