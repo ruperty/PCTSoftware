@@ -37,7 +37,9 @@ collection = {
             'CartPoleV1': { 'arch': {
                                     'Std00' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],
-                                    'structs' : [{'mode': 0, 'types':[] }, {'mode': 1, 'types':[] }, {'mode': 2, 'types':[] }, {'mode': 3, 'types':[] }]
+                                    'structs' : [{'mode': 0, 'types':[[HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float'],
+                                                                      [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float']] }, 
+                                                 {'mode': 1, 'types':[] }, {'mode': 2, 'types':[] }, {'mode': 3, 'types':[] }]
                                     },
                                     'Std01' : {'collectors': ['InputsError' , 'TotalError'],
                                     'responses': ['RootMeanSquareError'],

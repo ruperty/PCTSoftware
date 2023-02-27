@@ -43,11 +43,13 @@ if __name__ == "__main__":
     seed=1
     debug=0
                 
-    test=1
+    test=2
     if test==1:
         # test remove level
         seed=5
         debug=0
+        
+
         
     environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'render':False, 'early_termination': False,
         'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env_name, 'num_actions':num_actions, 'references':references}
@@ -67,8 +69,14 @@ if __name__ == "__main__":
     #print(evolver_properties)
     evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True, local_out_dir='output')
 
-    if test==1:
-        
+
+
+    if test==2:        
+        # test top float mutate
+        ind = evr.toolbox.individual()             
+        ind1, = evr.toolbox.mutate(ind)
+
+    if test==1:        
         ind = evr.toolbox.individual()          
         ind.set_name('debugRemoveLevels')
     
