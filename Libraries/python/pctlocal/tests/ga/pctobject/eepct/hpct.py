@@ -1196,14 +1196,23 @@ class HPCTEvolver(BaseEvolver):
         for level_lists in zip(child1.hierarchy,child2.hierarchy):
             if stop_level == level:
                 break
-            #print(level_lists)
+
             for node in zip(level_lists[0], level_lists[1]):
                 ref0 = node[0].get_function_from_collection(HPCTFUNCTION.REFERENCE)
                 ref1 = node[1].get_function_from_collection(HPCTFUNCTION.REFERENCE)
                 ref0.mate(ref1, self.evolve_properties)
-                # node[0].get_function_from_collection(HPCTFUNCTION.REFERENCE).mate(node[1].get_function_from_collection(HPCTFUNCTION.REFERENCE), self.evolve_properties)
+
 
             level+=1
+
+        # references at top levels
+        child1_toplevel = child1.hierarchy[-1]
+        child2_toplevel = child2.hierarchy[-1]
+        for node in zip(child1_toplevel, child2_toplevel):
+            ref0 = node[0].get_function_from_collection(HPCTFUNCTION.REFERENCE)
+            ref1 = node[1].get_function_from_collection(HPCTFUNCTION.REFERENCE)
+            ref0.mate(ref1, self.evolve_properties)
+        
 
 
         if self.debug > 1:
@@ -1685,6 +1694,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 print('pop ***')
                 for pop in self.pop:
                     print(pop)
+                    print(pop.formatted_config())
 
             top_ind = tools.selBest(self.pop, k=1)[0]
             if evolve_verbose>1:

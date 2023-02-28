@@ -95,6 +95,12 @@ if __name__ == "__main__":
         ind1, = evr.toolbox.mutate(ind)
         print(ind1.get_grid())   
         print(ind1.formatted_config())
+        
+        ind2 = evr.toolbox.individual()          
+        print(ind2.get_grid())   
+        
+        ind21,ind22 = evr.toolbox.mate(ind, ind2)
+        
 
     if test==1:        
         ind = evr.toolbox.individual()          

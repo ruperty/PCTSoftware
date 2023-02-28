@@ -42,10 +42,10 @@ collection = {
                                     # },
                                     'structs' : [{'mode': 0, 'types':[[HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float'], 
                                                                       [HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable'], 
-                                                                      [HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -100,'upper': 100}],
+                                                                      [HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -1,'upper': 1}],
                                                                       [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float'], 
                                                                       [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable'],
-                                                                      [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -5,'upper': 5}]] }, 
+                                                                      [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -1,'upper': 1}]] }, 
                                                  {'mode': 1, 'types':[] }, {'mode': 2, 'types':[] }, {'mode': 3, 'types':[] }]
                                     },
                                     'Std01' : {'collectors': ['InputsError' , 'TotalError'],
