@@ -76,16 +76,16 @@ debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 hpct_verbose= False #True # log of every control system iteration
 evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 
-#debug= 4 #0 #3 # details of population in each gen, inc. mutate and merge
+debug= 3 #0 #3 # details of population in each gen, inc. mutate and merge
 #hpct_verbose= 1 #True # log of every control system iteration
 #evolve_verbose = 2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
 save_arch_gen = True #False #True
-display_env = True #True #False#
+#display_env = True #True #False#
 run_gen_best = True # #False #True
 
 #save_arch_gen = False #True
-#display_env = False #False#
+display_env = False #False#
 #run_gen_best = False # #False #True
 
 verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
