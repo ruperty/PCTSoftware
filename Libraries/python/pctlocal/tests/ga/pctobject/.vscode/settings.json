@@ -19,5 +19,8 @@
     // Modify PYTHONPATH to add current folder
     "terminal.integrated.env.linux": {
         "PYTHONPATH": "/mnt/c/Program Files/Webots/lib/controller/python"
+    },
+    "objectscript.conn": {
+        "active": false
     }
 }
