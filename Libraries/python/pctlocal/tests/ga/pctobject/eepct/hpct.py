@@ -998,7 +998,7 @@ class HPCTEvolver(BaseEvolver):
         self.seed = self.get_property_value('seed', hpct_run_properties, 2)
         self.hpct_verbose = self.get_property_value('hpct_verbose', hpct_run_properties, False)
         self.debug = self.get_property_value('debug', hpct_run_properties, 0)
-        self.flip_error_response = self.get_property_value('flip_error_response', hpct_run_properties, 1)
+        self.flip_error_response = self.get_property_value('flip_error_response', hpct_run_properties, 0)
             
         #self.individual_properties = individual_properties
 
