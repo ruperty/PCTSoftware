@@ -839,7 +839,7 @@ class HPCTIndividual(PCTHierarchy):
     def run_from_config(cls, config, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
-        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None):
+        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False):
         "Run an individual from a provided configuration."
         #if hpct_verbose:
         #    print(config)
@@ -848,7 +848,7 @@ class HPCTIndividual(PCTHierarchy):
         env.set_render(render)
         env.early_termination = early_termination
         env.reset(full=False, seed=seed)
-        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, properties=error_properties)
+        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, properties=error_properties, flip_error_response=flip_error_response)
 
         ind.set_error_collector(error_collector)
         if hpct_verbose:
@@ -998,7 +998,8 @@ class HPCTEvolver(BaseEvolver):
         self.seed = self.get_property_value('seed', hpct_run_properties, 2)
         self.hpct_verbose = self.get_property_value('hpct_verbose', hpct_run_properties, False)
         self.debug = self.get_property_value('debug', hpct_run_properties, 0)
-
+        self.flip_error_response = self.get_property_value('flip_error_response', hpct_run_properties, 1)
+            
         #self.individual_properties = individual_properties
 
         if arch==None:
@@ -1126,7 +1127,7 @@ class HPCTEvolver(BaseEvolver):
     def create(self, cls, grid=None):
         "Create a hierarchy individual."
         #print(f'gen {self.gen} # {self.member}' )
-        error_collector = BaseErrorCollector.collector(self.error_response_type, self.error_collector_type, self.error_limit, properties=self.error_properties)
+        error_collector = BaseErrorCollector.collector(self.error_response_type, self.error_collector_type, self.error_limit, properties=self.error_properties, flip_error_response=self.flip_error_response)
         levels_columns_grid = self.get_grid(grid)
         if levels_columns_grid[-1] != len(self.references):
             raise Exception(
@@ -1716,7 +1717,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     
                 ind, score = HPCTIndividual.run_from_config(top_ind.get_config(zero=0), render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
-                    steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed)
+                    steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, flip_error_response=self.evolver.flip_error_response)
 
                 print(f'score = {score:8.3f}' )
                 # draw ind to file ??
@@ -2046,7 +2047,7 @@ class HPCTEvolveProperties(object):
         return False, None
 
 
-    def evolve_from_properties_file(self, file=None, verbose=None, env_name=None, seed=None, 
+    def evolve_from_properties_file(self, file=None, verbose=None, env_name=None, seed=None, flip_error_response=False,
             test=False, gens=None, pop_size=None, nevals = None, move=None, out_dir=None, local_out_dir=None, node_size=200, font_size=8,
             parallel=False, video_wrap=False, log=False, figsize=(12,12), summary=False, draw_file=None, with_edge_labels=True,
             print_properties=False, overwrite=False, output=False, toolbox=None, processes=1):
@@ -2090,6 +2091,9 @@ class HPCTEvolveProperties(object):
 
         self.hpct_run_properties['hpct_verbose']=hpct_verbose
         self.hpct_run_properties['debug']= debug  
+        self.hpct_run_properties['flip_error_response']= flip_error_response  
+        
+        
 
         save_arch_all = self.get_verbose_property( 'save_arch_all', verbose)
         save_arch_gen = self.get_verbose_property( 'save_arch_gen', verbose)

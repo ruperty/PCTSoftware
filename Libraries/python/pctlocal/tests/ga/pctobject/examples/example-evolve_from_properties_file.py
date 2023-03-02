@@ -10,8 +10,14 @@ from epct.evolvers import CommonToolbox
 
 from eepct.hpct import HPCTIndividual
 
-creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
-creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
+max = True
+
+if max:
+    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+    creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
+else:
+    creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+    creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
 
 toolbox = base.Toolbox()
 CommonToolbox.getInstance().set_toolbox(toolbox)
@@ -62,8 +68,6 @@ file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobje
 out_dir= get_gdrive() + 'data/ga/'
 #print(out_dir)
 
-output=True
-overwrite=True
 
 #draw_file= 'output' + os.sep + filename + os.sep + filename + '-evolve-best' + '.png'
 #draw_file= 'output'  + os.sep + filename + '-evolve-best' + '.png'
@@ -93,11 +97,12 @@ verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': displ
 
 hep = HPCTEvolveProperties()
 output=True
-
+overwrite=True
+flip=True
 
 #if __name__ == "__main__":
 
-hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
+hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, flip_error_response=flip,
                                     out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size)
 # hep.load_properties(file=file, evolve=True, print_properties=True)
 
