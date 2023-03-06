@@ -16,6 +16,7 @@
    Demonstrates how to play a simple motion file."""
 
 import numpy as np
+from pct.functions import BaseFunction
 #from pct.putils import FunctionsList
 from epct.functions import EAConstant
 
