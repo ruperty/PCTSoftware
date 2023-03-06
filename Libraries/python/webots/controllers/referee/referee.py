@@ -28,8 +28,8 @@ class Referee (Supervisor):
                 self.digit[j][i] = self.getDevice('digit ' + str(j) + str(i))
         self.current_digit = [0, 0, 0]  # 0:00
         self.robot = [0] * 2
-        self.robot[0] = self.getFromDef('WRESTLER_RED').getFromProtoDef('HEAD_SLOT')
         self.robot[1] = self.getFromDef('WRESTLER_BLUE').getFromProtoDef('HEAD_SLOT')
+        self.robot[0] = self.getFromDef('WRESTLER_RED').getFromProtoDef('HEAD_SLOT')
         self.min = [[0] * 3 for i in range(2)]
         self.max = [[0] * 3 for i in range(2)]
         for i in range(2):
