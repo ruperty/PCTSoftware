@@ -30,6 +30,8 @@ class Referee (Supervisor):
         self.robot = [0] * 2
         self.robot[1] = self.getFromDef('WRESTLER_BLUE').getFromProtoDef('HEAD_SLOT')
         self.robot[0] = self.getFromDef('WRESTLER_RED').getFromProtoDef('HEAD_SLOT')
+        print(self.getFromDef('WRESTLER_RED'))
+
         self.min = [[0] * 3 for i in range(2)]
         self.max = [[0] * 3 for i in range(2)]
         for i in range(2):
@@ -89,6 +91,8 @@ class Referee (Supervisor):
                             coverage += box[j] * box[j]
                         coverage = math.sqrt(coverage)
                         self.coverage[i] = coverage
+                        # if i==0:
+                        #     self.robot[0].ROBOT.set_coverage(coverage)
                         self.indicator[i].setPosition(self.coverage[i] / 7)
                         string = '{:.3f}'.format(coverage)
                         if string != coverage_labels[i]:
