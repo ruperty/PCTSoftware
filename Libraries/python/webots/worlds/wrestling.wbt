@@ -112,7 +112,8 @@ RubberDuck {
   rotation 0 0 1 1.5707996938995747
   name "rubber duck 2"
 }
-DEF WRESTLER_RED Nao {
+DEF WRESTLER_RED Nao {	
+  #supervisor True
   translation -0.88 0 0.834
   name "participant"
   controller "<extern>"

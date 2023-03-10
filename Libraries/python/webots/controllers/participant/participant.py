@@ -15,9 +15,11 @@
 """Minimalist controller example for the Robot Wrestling Tournament.
    Demonstrates how to play a simple motion file."""
 
+from abc import ABC
+
 import numpy as np
 from pct.functions import BaseFunction
-#from pct.putils import FunctionsList
+from pct.putils import FunctionsList
 from epct.functions import EAConstant
 
 from controller import Robot
@@ -36,18 +38,52 @@ from utils.camera import Camera
 from utilities.robot import RobotReadings
 
 
-class Wrestler(Robot, BaseFunction):
+class Wrestler (Robot):
+    
+    def __init__(self):
+        Robot.__init__(self)
+        self.rr = RobotReadings(self)
+        # to load all the motions from the motions folder, we use the MotionLibrary class:
+        self.motion_library = MotionLibrary()
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        self.time_step = int(self.getBasicTimeStep())
+        self.coverage = 0
+        
+    def __call__(self, verbose=False):
+        out = self.step(self.time_step)
+        print(out)
+        self.motion_library.play('Forwards')
+        self.rr.readLegs()
+        print("coverage=",self.get_coverage())
+    
+    def set_coverage(self, coverage):
+        self.coverage = coverage
+
+    def get_coverage(self):
+        return self.coverage 
+
+    def run(self):
+        while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
+            #print("b4")
+            self.motion_library.play('Forwards')
+            self.rr.readLegs()
+            #print("b5")
+
+
+class WebotsWrestler(BaseFunction):
     "A function that creates and runs a Webots Wrestler robot."
     
     def __init__(self, render=False, value=0, name="Wrestler", seed=None, links=None, new_name=True, 
-                 early_termination=True, namespace=None, **cargs):        
-        BaseFunction.__init__('Wrestler', value=value, name=name, links=links, new_name=new_name, namespace=namespace, **cargs)
-        Robot.__init__(self)
+                 early_termination=True, namespace=None):    
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
+        self.robot = Wrestler()
         self.early_termination=early_termination
         
         
     def __call__(self, verbose=False):        
         super().__call__(verbose)
+
+        self.robot()
                 
         return self.value
 
@@ -114,32 +150,24 @@ class Wrestler(Robot, BaseFunction):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return Wrestler(namespace=namespace, seed=seed)          
 
+import os
+CI = os.environ.get("CI")
+print(CI)
 
-wrestler = Wrestler()
+wrestler = WebotsWrestler()
+for _ in range(100):
+    wrestler()
 
-# class Wrestler (Robot):
-    
-#     def __init__(self):
-#         Robot.__init__(self)
-#         self.rr = RobotReadings(self)
-        
-#     def run(self):
-#         # to load all the motions from the motions folder, we use the MotionLibrary class:
-#         motion_library = MotionLibrary()
-#         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-#         time_step = int(self.getBasicTimeStep())
-#         while self.step(time_step) != -1:  # mandatory function to make the simulation run
-#             #print("b4")
-#             motion_library.play('Forwards')
-#             self.rr.readLegs()
-#             #print("b5")
+
+
+
 
 
 # create the Robot instance and run main loop
 
-print("hello")
-wrestler = Wrestler()
-wrestler.run()
+# print("hello")
+# wrestler = Wrestler()
+# wrestler.run()
 
 
 # class Fatima (Robot):
