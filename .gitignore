@@ -6,3 +6,4 @@ Libraries/python/pctlocal/tests/ga/pctobject/examples/__pycache__/example-draw_f
 Libraries/python/pctlocal/tests/ga/pctobject/examples/__pycache__/example-evolve_from_properties_file.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/examples/__pycache__/example-run_from_properties_file.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/examples/__pycache__/generate-evolver-properties.cpython-39.pyc
+Libraries/python/webots/controllers/participant/__pycache__/*.cpython-39.pyc
