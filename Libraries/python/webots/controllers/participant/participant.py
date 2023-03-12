@@ -66,81 +66,160 @@ class Wrestler (Robot):
             #print("b5")
 
 
+from pct.functions import BaseFunction
+from pct.putils import FunctionsList
 
 
-# import os
-# CI = os.environ.get("CI")
-# print(CI)
+class WebotsWrestler(BaseFunction):
+    "A function that creates and runs a Webots Wrestler robot."
+    
+    def __init__(self, render=False, value=0, name="Wrestler", seed=None, links=None, new_name=True, 
+                 early_termination=True, namespace=None):    
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
+        self.robot = Wrestler()
+        self.early_termination=early_termination
+        
+        
+    def __call__(self, verbose=False):        
+        super().__call__(verbose)
 
-# wrestler = WebotsWrestler()
-# for _ in range(100):
-#     wrestler()
+        self.robot()
+                
+        return self.value
+
+    def early_terminate(self):
+        if self.early_termination:
+            if self.really_done:
+                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
+            if self.done:
+                self.reward = 0
+                self.really_done = True
+                
+    def process_input(self):
+        force = min(max(self.input, self.min_action), self.max_action)
+        self.input=[force]
+        
+    def process_values(self):
+        reward = self.obs[1]
+        if reward > 90:
+            reward = 0
+        self.reward = - reward
+        pos = self.value[0] + 1.2
+        self.value = np.append(self.value, pos)
+
+    def summary(self, extra=False):
+        super().summary("", extra=extra)
+        
+    def get_graph_name(self):
+        return super().get_graph_name() 
+
+    def get_config(self, zero=1):
+        "Return the JSON  configuration of the function."
+        config = {"type": type(self).__name__,
+                    "name": self.name}
+        
+        if isinstance(self.value, np.ndarray):
+            config["value"] = self.value.tolist() * zero
+        else:
+            config["value"] = self.value * zero
+        
+        ctr=0
+        links={}
+        for link in self.links:
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
+            try:
+                links[ctr]=func.get_name()
+            except AttributeError:
+                #raise Exception(f' there is no function called {link}, ensure it exists first.')            
+                print(f'WARN: there is no function called {link}, ensure it exists first.')            
+                links[ctr]=func
+                
+            ctr+=1
+        
+        config['links']=links
+
+        config["env_name"] = self.env_name
+        #config["values"] = self.value
+        config["reward"] = self.reward
+        config["done"] = self.done
+        config["info"] = self.info
+    
+    
+    class Factory:
+        def create(self, seed=None): return WebotsWrestler(seed=seed)
+    class FactoryWithNamespace:
+        def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
+
+
+from pct.environments import EnvironmentFactory
+
+env = EnvironmentFactory.createEnvironment("WebotsWrestler")
+
+print("hello")
+
+#from webots.environments import WebotsWrestler
+
+
+import random
+from eepct.hpct import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolverWrapper
+from eepct.hpct import HPCTFUNCTION, HPCTLEVEL, HPCTVARIABLE
+
+
+from epct.evolvers import CommonToolbox
+from deap import base, creator
 
 
 
+creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
+
+toolbox = base.Toolbox()
+CommonToolbox.getInstance().set_toolbox(toolbox)
+
+lower, upper = -1, 1 
+arch = HPCTArchitecture(lower_float=lower, upper_float=upper)
+arch.configure()
+arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
+arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
+print(arch)
+
+env_name = 'WebotsWrestler'
+env_inputs_indexes=[1, 0, 3, 2]
+env_inputs_names=['ICV', 'ICP', 'IPV', 'IPA']
+references=[0]
+
+error_collector_type , error_response_type = 'InputsError', 'RootMeanSquareError'
+seed, debug, pop_size, processes, runs, nevals, num_actions=1, 0, 10, 1, 500, 1, 1
+min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
+zerolevel_inputs_indexes=None
+toplevel_inputs_indexes=None
+
+environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'render':False, 'early_termination': False,
+    'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env_name, 'num_actions':num_actions, 'references':references}
+hpct_run_properties ={ 'hpct_verbose':False, 'debug':debug , 'runs':runs, 'nevals':nevals, 'seed':seed,  'error_collector_type' :  'InputsError', 'error_response_type' : 'RootMeanSquareError'}   
+evolve_properties = {'attr_mut_pb':0.8,'structurepb':1} #, 'attr_cx_uniform_pb':0.5, 'alpha':0.5} 
+hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit }    
 
 
-
-# create the Robot instance and run main loop
-
-# print("hello")
-# wrestler = Wrestler()
-# wrestler.run()
-
-
-# class Fatima (Robot):
-#     SMALLEST_TURNING_RADIUS = 0.1
-#     SAFE_ZONE = 0.75
-#     TIME_BEFORE_DIRECTION_CHANGE = 200  # 8000 ms / 40 ms
-
-#     def __init__(self):
-#         Robot.__init__(self)
-#         self.time_step = int(self.getBasicTimeStep())
-
-#         self.camera = Camera(self)
-#         self.fall_detector = FallDetection(self.time_step, self)
-#         self.gait_manager = GaitManager(self, self.time_step)
-#         self.heading_angle = 3.14 / 2
-#         # Time before changing direction to stop the robot from falling off the ring
-#         self.counter = 0
-
-#     def run(self):
-#         while self.step(self.time_step) != -1:
-#             # We need to update the internal theta value of the gait manager at every step:
-#             t = self.getTime()
-#             self.gait_manager.update_theta()
-#             if 0.3 < t < 2:
-#                 self.start_sequence()
-#             elif t > 2:
-#                 self.fall_detector.check()
-#                 self.walk()
-
-#     def start_sequence(self):
-#         """At the beginning of the match, the robot walks forwards to move away from the edges."""
-#         self.gait_manager.command_to_motors(heading_angle=0)
-
-#     def walk(self):
-#         """Dodge the opponent robot by taking side steps."""
-#         normalized_x = self._get_normalized_opponent_x()
-#         # We set the desired radius such that the robot walks towards the opponent.
-#         # If the opponent is close to the middle, the robot walks straight.
-#         desired_radius = (self.SMALLEST_TURNING_RADIUS / normalized_x) if abs(normalized_x) > 1e-3 else None
-#         # TODO: position estimation so that if the robot is close to the edge, it switches dodging direction
-#         if self.counter > self.TIME_BEFORE_DIRECTION_CHANGE:
-#             self.heading_angle = - self.heading_angle
-#             self.counter = 0
-#         self.counter += 1
-#         self.gait_manager.command_to_motors(desired_radius=desired_radius, heading_angle=self.heading_angle)
-
-#     def _get_normalized_opponent_x(self):
-#         """Locate the opponent in the image and return its horizontal position in the range [-1, 1]."""
-#         img = self.camera.get_image()
-#         _, _, horizontal_coordinate = IP.locate_opponent(img)
-#         if horizontal_coordinate is None:
-#             return 0
-#         return horizontal_coordinate * 2 / img.shape[1] - 1
+evolver_properties = {'environment_properties':environment_properties, 
+    'evolve_properties':evolve_properties,  
+    'hpct_structure_properties':hpct_structure_properties,
+    'hpct_run_properties':hpct_run_properties,
+    'arch': arch}
 
 
-# # create the Robot instance and run main loop
-# wrestler = Fatima()
-# wrestler.run()
+random.seed(seed)
+evolver = HPCTEvolver(**evolver_properties)
+#print(evolver_properties)
+evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True)
+
+test=1
+if test==1:
+    
+    loops = 10
+    for _ in range(loops):
+        ind1 = evr.toolbox.individual()        
+        print()
+        print(ind1.get_parameters_list())
+
+

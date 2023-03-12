@@ -1,16 +1,16 @@
 
 
-from controller import Robot
+#from controller import Robot
 
 
 # from utilities.robot import RobotReadings
 # from participant.participant import Wrestler
+
 from webots.environments import WebotsWrestler
 
 
-from eepct.hpct import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolverWrapper
-
-from eepct.hpct import HPCTFUNCTION, HPCTLEVEL, HPCTVARIABLE
+# from eepct.hpct import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolverWrapper
+# from eepct.hpct import HPCTFUNCTION, HPCTLEVEL, HPCTVARIABLE
 
 from epct.evolvers import CommonToolbox
 from deap import base, creator
@@ -23,6 +23,7 @@ creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
 toolbox = base.Toolbox()
 CommonToolbox.getInstance().set_toolbox(toolbox)
 
+print("hi")
 
 
 if __name__ == "__main__":

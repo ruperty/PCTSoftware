@@ -82,6 +82,6 @@ class WebotsWrestler(BaseFunction):
     
     
     class Factory:
-        def create(self, seed=None): return Wrestler(seed=seed)
+        def create(self, seed=None): return WebotsWrestler(seed=seed)
     class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return Wrestler(namespace=namespace, seed=seed)          
+        def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
