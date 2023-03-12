@@ -24,7 +24,7 @@ if test ==1:
 
 if test ==2:
     # seed 3 circles anti-clockwise
-    cp = CartPoleV1(render=False, seed=1) 
+    cp = CartPoleV1(render=True, seed=1) 
     cp.add_link(Constant(0))
     print(cp.get_config())
 
