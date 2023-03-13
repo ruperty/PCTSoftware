@@ -32,36 +32,17 @@ from utils.fall_detection import FallDetection
 from utils.gait_manager import GaitManager
 from utils.camera import Camera
 
-# from utilities.robot import RobotReadings
+from utilities.robot import RobotReadings
 
 
+from  pct.network import Server
 from controller import Supervisor
 
 class WrestlerSupervisor(Supervisor):
-    
-    def __init__(self):
-        # Robot.__init__(self)
-        self.initSupervisor()
-        # self.rr = RobotReadings(self)
-        # to load all the motions from the motions folder, we use the MotionLibrary class:
-        self.motion_library = MotionLibrary()
-        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        self.time_step = int(self.getBasicTimeStep())
-        self.coverage = 0
-        
-        
     def initSupervisor(self):
-        # create an array of size [3][10] filled in with zeros
-        self.digit = [[0] * 10 for i in range(3)]
-        for j in range(3):
-            for i in range(10):
-                self.digit[j][i] = self.getDevice('digit ' + str(j) + str(i))
-        self.current_digit = [0, 0, 0]  # 0:00
         self.robot = [0] * 2
         self.robot[1] = self.getFromDef('WRESTLER_BLUE').getFromProtoDef('HEAD_SLOT')
         self.robot[0] = self.getFromDef('WRESTLER_RED').getFromProtoDef('HEAD_SLOT')
-        #print(self.getFromDef('WRESTLER_RED'))
-
         self.min = [[0] * 3 for i in range(2)]
         self.max = [[0] * 3 for i in range(2)]
         for i in range(2):
@@ -69,40 +50,34 @@ class WrestlerSupervisor(Supervisor):
             self.max[i] = self.robot[i].getPosition()
         self.coverage = [0] * 2
         self.ko_count = [0] * 2
-        # linear motors on the side of the ring to display the coverage visually
-        self.indicator = [0] * 2
-        self.indicator[0] = self.getDevice('red indicator')
-        self.indicator[1] = self.getDevice('blue indicator')                
 
     def run(self, CI):
+        self.initSupervisor()
+        self.motion_library = MotionLibrary()
+        self.time_step = int(self.getBasicTimeStep())
+        ko_labels = ['', '']
+        coverage_labels = ['', '']
         # Performance output used by automated CI script
         game_duration = 3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
+        print(time_step)
         time = 0
         seconds = -1
         ko = -1
-        participant = os.environ['PARTICIPANT_NAME'] if 'PARTICIPANT_NAME' in os.environ else 'Participant'
-        opponent = os.environ['OPPONENT_NAME'] if 'OPPONENT_NAME' in os.environ else 'Opponent'
-        self.setLabel(0, '█' * 100, 0, 0, 0.1, 0xffffff, 0.3, 'Lucida Console')
-        self.setLabel(1, '█' * 100, 0, 0.048, 0.1, 0xffffff, 0.3, 'Lucida Console')
-        self.setLabel(2, participant, 0.01, 0.003, 0.08, 0xff0000, 0, 'Arial')
-        self.setLabel(3, opponent, 0.01, 0.051, 0.08, 0x0000ff, 0, 'Arial')
-        ko_labels = ['', '']
-        coverage_labels = ['', '']
         
         while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
-            #print("b4")
-            self.motion_library.play('Forwards')
-            # self.rr.readLegs()
-        
-        # while True:
+            if time > 22000:
+                self.motion_library.play('Backwards')
+            else:
+                self.motion_library.play('Forwards')
+                
             if time % 200 == 0:
                 s = int(time / 1000) % 60
                 if seconds != s:
                     seconds = s
                     minutes = int(time / 60000)
-                    self.display_time(minutes, seconds)
+                    print(f'{time} {minutes:02}:{seconds:02}')
                 box = [0] * 3
                 for i in range(2):
                     position = self.robot[i].getPosition()
@@ -118,12 +93,9 @@ class WrestlerSupervisor(Supervisor):
                             coverage += box[j] * box[j]
                         coverage = math.sqrt(coverage)
                         self.coverage[i] = coverage
-                        # if i==0:
-                        #     self.robot[0].ROBOT.set_coverage(coverage)
-                        self.indicator[i].setPosition(self.coverage[i] / 7)
                         string = '{:.3f}'.format(coverage)
                         if string != coverage_labels[i]:
-                            self.setLabel(4 + i, string, 0.8, 0.003 + 0.048 * i, 0.08, color, 0, 'Arial')
+                            print(f'coverage for robot {i}: {string}')
                         coverage_labels[i] = string
                     if position[2] < 0.9:  # low position threshold
                         self.ko_count[i] = self.ko_count[i] + 200
@@ -133,8 +105,8 @@ class WrestlerSupervisor(Supervisor):
                         self.ko_count[i] = 0
                     counter = 10 - self.ko_count[i] // 1000
                     string = '' if self.ko_count[i] == 0 else str(counter) if counter > 0 else 'KO'
-                    if string != ko_labels[i]:
-                        self.setLabel(6 + i, string, 0.7 - len(string) * 0.01, 0.003 + 0.048 * i, 0.08, color, 0, 'Arial')
+                    if string != ko_labels[i] and string:
+                        print(f'robot {i}: {string}')
                     ko_labels[i] = string
 
             if self.step(time_step) == -1 or time > game_duration or ko != -1:
@@ -153,31 +125,7 @@ class WrestlerSupervisor(Supervisor):
         else:
             print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
             performance = 0
-        self.setLabel(7 - performance, 'WIN', 0.673, 0.051 - 0.048 * performance,
-                      0.08, 0x0000ff if performance == 0 else 0xff0000, 0, 'Arial')
-        if CI:
-            self.step(3000)  # wait 3 seconds to display the result
-            self.animationStopRecording()  # stop the recording of the animation
-            self.step(time_step)
-            print(f'performance:{performance}')
 
-
-    def display_time(self, minutes, seconds):
-        for j in range(3):
-            self.digit[j][self.current_digit[j]].setPosition(1000)  # far away, not visible
-        self.current_digit[0] = minutes
-        self.current_digit[1] = seconds // 10
-        self.current_digit[2] = seconds % 10
-        for j in range(3):
-            self.digit[j][self.current_digit[j]].setPosition(0)  # visible
-
-
-# create the referee instance and run main loop
-CI = os.environ.get("CI")
-wrestler = WrestlerSupervisor()
-wrestler.run(CI)
-if CI:
-    wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
 
 
 
@@ -190,14 +138,17 @@ class Wrestler (Robot):
         self.motion_library = MotionLibrary()
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         self.time_step = int(self.getBasicTimeStep())
+        print(f'time_step={self.time_step}')
         self.coverage = 0
         
-    def __call__(self, verbose=False):
-        out = self.step(self.time_step)
-        print(out)
-        self.motion_library.play('Forwards')
-        self.rr.readLegs()
-        print("coverage=",self.get_coverage())
+        self.server = Server()
+        rec = self.server.get_dict()
+        print(rec)
+        dict = {'msg': 'initial', 'leg': 0.1}
+        self.server.put_dict(dict)
+        print("finished init")
+
+
     
     def set_coverage(self, coverage):
         self.coverage = coverage
@@ -209,8 +160,28 @@ class Wrestler (Robot):
         while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
             #print("b4")
             self.motion_library.play('Forwards')
-            self.rr.readLegs()
-            #print("b5")
+            legs = self.rr.readLegs()
+            print(legs)            
+            rec = self.server.get_dict()
+            print(rec)
+            if rec['msg'] == 'close':
+                self.server.finish()
+                break
+            self.server.put_dict(legs)
+            
+        self.server.close()
 
-# wrestler = Wrestler()
-# wrestler.run()
+
+test = 1
+
+if test == 1:
+    # create the referee instance and run main loop
+    CI = os.environ.get("CI")
+    wrestler = WrestlerSupervisor()
+    wrestler.run(CI)
+    if CI:
+        wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
+
+if test == 2:
+    wrestler = Wrestler()
+    wrestler.run()

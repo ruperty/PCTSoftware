@@ -28,4 +28,9 @@ class RobotReadings(object):
     def readLegs(self):
         lkp = self.LKneePitch.getTargetPosition()
         rkp = self.RKneePitch.getTargetPosition()
-        print(f'rkp {rkp} lkp {lkp}')
+        
+        legs = {'LKneePitch': round(lkp,3), 'RKneePitch': round(rkp, 3)}
+        
+        #print(f'rkp {rkp} lkp {lkp}')
+        
+        return legs
