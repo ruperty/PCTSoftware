@@ -17,7 +17,8 @@
 
 
 import numpy as np
-
+import os
+import math
 from controller import Robot
 import sys
 
@@ -31,7 +32,153 @@ from utils.fall_detection import FallDetection
 from utils.gait_manager import GaitManager
 from utils.camera import Camera
 
-from utilities.robot import RobotReadings
+# from utilities.robot import RobotReadings
+
+
+from controller import Supervisor
+
+class WrestlerSupervisor(Supervisor):
+    
+    def __init__(self):
+        # Robot.__init__(self)
+        self.initSupervisor()
+        # self.rr = RobotReadings(self)
+        # to load all the motions from the motions folder, we use the MotionLibrary class:
+        self.motion_library = MotionLibrary()
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        self.time_step = int(self.getBasicTimeStep())
+        self.coverage = 0
+        
+        
+    def initSupervisor(self):
+        # create an array of size [3][10] filled in with zeros
+        self.digit = [[0] * 10 for i in range(3)]
+        for j in range(3):
+            for i in range(10):
+                self.digit[j][i] = self.getDevice('digit ' + str(j) + str(i))
+        self.current_digit = [0, 0, 0]  # 0:00
+        self.robot = [0] * 2
+        self.robot[1] = self.getFromDef('WRESTLER_BLUE').getFromProtoDef('HEAD_SLOT')
+        self.robot[0] = self.getFromDef('WRESTLER_RED').getFromProtoDef('HEAD_SLOT')
+        #print(self.getFromDef('WRESTLER_RED'))
+
+        self.min = [[0] * 3 for i in range(2)]
+        self.max = [[0] * 3 for i in range(2)]
+        for i in range(2):
+            self.min[i] = self.robot[i].getPosition()
+            self.max[i] = self.robot[i].getPosition()
+        self.coverage = [0] * 2
+        self.ko_count = [0] * 2
+        # linear motors on the side of the ring to display the coverage visually
+        self.indicator = [0] * 2
+        self.indicator[0] = self.getDevice('red indicator')
+        self.indicator[1] = self.getDevice('blue indicator')                
+
+    def run(self, CI):
+        # Performance output used by automated CI script
+        game_duration = 3 * 60 * 1000  # a game lasts 3 minutes
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        time_step = int(self.getBasicTimeStep())
+        time = 0
+        seconds = -1
+        ko = -1
+        participant = os.environ['PARTICIPANT_NAME'] if 'PARTICIPANT_NAME' in os.environ else 'Participant'
+        opponent = os.environ['OPPONENT_NAME'] if 'OPPONENT_NAME' in os.environ else 'Opponent'
+        self.setLabel(0, '█' * 100, 0, 0, 0.1, 0xffffff, 0.3, 'Lucida Console')
+        self.setLabel(1, '█' * 100, 0, 0.048, 0.1, 0xffffff, 0.3, 'Lucida Console')
+        self.setLabel(2, participant, 0.01, 0.003, 0.08, 0xff0000, 0, 'Arial')
+        self.setLabel(3, opponent, 0.01, 0.051, 0.08, 0x0000ff, 0, 'Arial')
+        ko_labels = ['', '']
+        coverage_labels = ['', '']
+        
+        while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
+            #print("b4")
+            self.motion_library.play('Forwards')
+            # self.rr.readLegs()
+        
+        # while True:
+            if time % 200 == 0:
+                s = int(time / 1000) % 60
+                if seconds != s:
+                    seconds = s
+                    minutes = int(time / 60000)
+                    self.display_time(minutes, seconds)
+                box = [0] * 3
+                for i in range(2):
+                    position = self.robot[i].getPosition()
+                    color = 0xff0000 if i == 0 else 0x0000ff
+                    if abs(position[0]) < 1 and abs(position[1]) < 1:  # inside the ring
+                        coverage = 0
+                        for j in range(2):
+                            if position[j] < self.min[i][j]:
+                                self.min[i][j] = position[j]
+                            elif position[j] > self.max[i][j]:
+                                self.max[i][j] = position[j]
+                            box[j] = self.max[i][j] - self.min[i][j]
+                            coverage += box[j] * box[j]
+                        coverage = math.sqrt(coverage)
+                        self.coverage[i] = coverage
+                        # if i==0:
+                        #     self.robot[0].ROBOT.set_coverage(coverage)
+                        self.indicator[i].setPosition(self.coverage[i] / 7)
+                        string = '{:.3f}'.format(coverage)
+                        if string != coverage_labels[i]:
+                            self.setLabel(4 + i, string, 0.8, 0.003 + 0.048 * i, 0.08, color, 0, 'Arial')
+                        coverage_labels[i] = string
+                    if position[2] < 0.9:  # low position threshold
+                        self.ko_count[i] = self.ko_count[i] + 200
+                        if self.ko_count[i] > 10000:  # 10 seconds
+                            ko = i
+                    else:
+                        self.ko_count[i] = 0
+                    counter = 10 - self.ko_count[i] // 1000
+                    string = '' if self.ko_count[i] == 0 else str(counter) if counter > 0 else 'KO'
+                    if string != ko_labels[i]:
+                        self.setLabel(6 + i, string, 0.7 - len(string) * 0.01, 0.003 + 0.048 * i, 0.08, color, 0, 'Arial')
+                    ko_labels[i] = string
+
+            if self.step(time_step) == -1 or time > game_duration or ko != -1:
+                break
+            time += time_step
+        if ko == 0:
+            print('Red is KO. Blue wins!')
+            performance = 0
+        elif ko == 1:
+            print('Blue is KO. Red wins!')
+            performance = 1
+        # in case of coverage equality, blue wins
+        elif self.coverage[0] > self.coverage[1]:
+            print('Red wins coverage: %s > %s' % (self.coverage[0], self.coverage[1]))
+            performance = 1
+        else:
+            print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
+            performance = 0
+        self.setLabel(7 - performance, 'WIN', 0.673, 0.051 - 0.048 * performance,
+                      0.08, 0x0000ff if performance == 0 else 0xff0000, 0, 'Arial')
+        if CI:
+            self.step(3000)  # wait 3 seconds to display the result
+            self.animationStopRecording()  # stop the recording of the animation
+            self.step(time_step)
+            print(f'performance:{performance}')
+
+
+    def display_time(self, minutes, seconds):
+        for j in range(3):
+            self.digit[j][self.current_digit[j]].setPosition(1000)  # far away, not visible
+        self.current_digit[0] = minutes
+        self.current_digit[1] = seconds // 10
+        self.current_digit[2] = seconds % 10
+        for j in range(3):
+            self.digit[j][self.current_digit[j]].setPosition(0)  # visible
+
+
+# create the referee instance and run main loop
+CI = os.environ.get("CI")
+wrestler = WrestlerSupervisor()
+wrestler.run(CI)
+if CI:
+    wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
+
 
 
 class Wrestler (Robot):
@@ -65,161 +212,5 @@ class Wrestler (Robot):
             self.rr.readLegs()
             #print("b5")
 
-
-from pct.functions import BaseFunction
-from pct.putils import FunctionsList
-
-
-class WebotsWrestler(BaseFunction):
-    "A function that creates and runs a Webots Wrestler robot."
-    
-    def __init__(self, render=False, value=0, name="Wrestler", seed=None, links=None, new_name=True, 
-                 early_termination=True, namespace=None):    
-        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
-        self.robot = Wrestler()
-        self.early_termination=early_termination
-        
-        
-    def __call__(self, verbose=False):        
-        super().__call__(verbose)
-
-        self.robot()
-                
-        return self.value
-
-    def early_terminate(self):
-        if self.early_termination:
-            if self.really_done:
-                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
-            if self.done:
-                self.reward = 0
-                self.really_done = True
-                
-    def process_input(self):
-        force = min(max(self.input, self.min_action), self.max_action)
-        self.input=[force]
-        
-    def process_values(self):
-        reward = self.obs[1]
-        if reward > 90:
-            reward = 0
-        self.reward = - reward
-        pos = self.value[0] + 1.2
-        self.value = np.append(self.value, pos)
-
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
-        
-    def get_graph_name(self):
-        return super().get_graph_name() 
-
-    def get_config(self, zero=1):
-        "Return the JSON  configuration of the function."
-        config = {"type": type(self).__name__,
-                    "name": self.name}
-        
-        if isinstance(self.value, np.ndarray):
-            config["value"] = self.value.tolist() * zero
-        else:
-            config["value"] = self.value * zero
-        
-        ctr=0
-        links={}
-        for link in self.links:
-            func = FunctionsList.getInstance().get_function(self.namespace, link)
-            try:
-                links[ctr]=func.get_name()
-            except AttributeError:
-                #raise Exception(f' there is no function called {link}, ensure it exists first.')            
-                print(f'WARN: there is no function called {link}, ensure it exists first.')            
-                links[ctr]=func
-                
-            ctr+=1
-        
-        config['links']=links
-
-        config["env_name"] = self.env_name
-        #config["values"] = self.value
-        config["reward"] = self.reward
-        config["done"] = self.done
-        config["info"] = self.info
-    
-    
-    class Factory:
-        def create(self, seed=None): return WebotsWrestler(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
-
-
-from pct.environments import EnvironmentFactory
-
-env = EnvironmentFactory.createEnvironment("WebotsWrestler")
-
-print("hello")
-
-#from webots.environments import WebotsWrestler
-
-
-import random
-from eepct.hpct import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolverWrapper
-from eepct.hpct import HPCTFUNCTION, HPCTLEVEL, HPCTVARIABLE
-
-
-from epct.evolvers import CommonToolbox
-from deap import base, creator
-
-
-
-creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
-creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
-
-toolbox = base.Toolbox()
-CommonToolbox.getInstance().set_toolbox(toolbox)
-
-lower, upper = -1, 1 
-arch = HPCTArchitecture(lower_float=lower, upper_float=upper)
-arch.configure()
-arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
-arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
-print(arch)
-
-env_name = 'WebotsWrestler'
-env_inputs_indexes=[1, 0, 3, 2]
-env_inputs_names=['ICV', 'ICP', 'IPV', 'IPA']
-references=[0]
-
-error_collector_type , error_response_type = 'InputsError', 'RootMeanSquareError'
-seed, debug, pop_size, processes, runs, nevals, num_actions=1, 0, 10, 1, 500, 1, 1
-min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
-zerolevel_inputs_indexes=None
-toplevel_inputs_indexes=None
-
-environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'render':False, 'early_termination': False,
-    'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env_name, 'num_actions':num_actions, 'references':references}
-hpct_run_properties ={ 'hpct_verbose':False, 'debug':debug , 'runs':runs, 'nevals':nevals, 'seed':seed,  'error_collector_type' :  'InputsError', 'error_response_type' : 'RootMeanSquareError'}   
-evolve_properties = {'attr_mut_pb':0.8,'structurepb':1} #, 'attr_cx_uniform_pb':0.5, 'alpha':0.5} 
-hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit }    
-
-
-evolver_properties = {'environment_properties':environment_properties, 
-    'evolve_properties':evolve_properties,  
-    'hpct_structure_properties':hpct_structure_properties,
-    'hpct_run_properties':hpct_run_properties,
-    'arch': arch}
-
-
-random.seed(seed)
-evolver = HPCTEvolver(**evolver_properties)
-#print(evolver_properties)
-evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True)
-
-test=1
-if test==1:
-    
-    loops = 10
-    for _ in range(loops):
-        ind1 = evr.toolbox.individual()        
-        print()
-        print(ind1.get_parameters_list())
-
-
+# wrestler = Wrestler()
+# wrestler.run()

@@ -113,7 +113,7 @@ RubberDuck {
   name "rubber duck 2"
 }
 DEF WRESTLER_RED Nao {	
-  #supervisor TRUE
+  supervisor TRUE
   translation -0.88 0 0.834
   name "participant"
   controller "<extern>"

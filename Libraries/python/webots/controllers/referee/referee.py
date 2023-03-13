@@ -30,7 +30,7 @@ class Referee (Supervisor):
         self.robot = [0] * 2
         self.robot[1] = self.getFromDef('WRESTLER_BLUE').getFromProtoDef('HEAD_SLOT')
         self.robot[0] = self.getFromDef('WRESTLER_RED').getFromProtoDef('HEAD_SLOT')
-        print(self.getFromDef('WRESTLER_RED'))
+        #print(self.getFromDef('WRESTLER_RED'))
 
         self.min = [[0] * 3 for i in range(2)]
         self.max = [[0] * 3 for i in range(2)]
