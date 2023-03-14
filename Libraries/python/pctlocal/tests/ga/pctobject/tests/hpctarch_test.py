@@ -9,7 +9,6 @@ from eepct.hpct import HPCTFUNCTION
 from eepct.hpct import HPCTVARIABLE
 
 
-
 class TestHPCTArchConfig(unittest.TestCase):
 
     @classmethod

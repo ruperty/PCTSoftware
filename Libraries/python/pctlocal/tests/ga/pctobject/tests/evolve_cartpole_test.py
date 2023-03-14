@@ -2,7 +2,7 @@
 
 
 import unittest
-
+import os
 
 from eepct.hpct import HPCTEvolveProperties
 from utils.paths import get_root_path, get_gdrive
@@ -26,7 +26,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hpct_verbose= False #True # log of every control system iteration
         evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
         cls.verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'hpct_verbose':hpct_verbose}
-        cls.prefix = get_root_path() + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/CartPoleV1/'
+        cls.prefix = get_root_path() + 'Versioning'+os.sep+'PCTSoftware'+os.sep+'Libraries'+os.sep+'python'+os.sep+'pctlocal'+os.sep+'tests'+os.sep+'ga'+os.sep+'pctobject'+os.sep+'configs'+os.sep+'CartPoleV1'+os.sep+''
         cls.suffix = ".properties"
 
 

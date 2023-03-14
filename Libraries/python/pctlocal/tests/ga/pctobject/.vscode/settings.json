@@ -2,8 +2,7 @@
     "python.analysis.extraPaths": [
         "./epkg",
         "./utils",
-        "./eepct",
-        "/mnt/c/Program Files/Webots/lib/controller/python"
+        "./eepct"
     ],
     "python.testing.pytestEnabled": false,
     "python.testing.nosetestsEnabled": false,
