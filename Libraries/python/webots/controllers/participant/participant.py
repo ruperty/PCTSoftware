@@ -18,6 +18,7 @@
 
 import numpy as np
 import os
+import time
 import math
 from controller import Robot
 import sys
@@ -183,15 +184,15 @@ class WrestlerSupervisor(Supervisor):
         ko_labels = ['', '']
         coverage_labels = ['', '']
         # Performance output used by automated CI script
-        game_duration = 3 * 60 * 1000  # a game lasts 3 minutes
+        game_duration = 5000 # 3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
-        print(time_step)
+        #print(time_step)
         time = 0
         seconds = -1
         ko = -1
         
-        while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
+        while True: # self.step(self.time_step) != -1:  # mandatory function to make the simulation run
             if time > 22000:
                 self.motion_library.play('Backwards')
             else:
@@ -222,7 +223,7 @@ class WrestlerSupervisor(Supervisor):
             if seconds != s:
                 seconds = s
                 minutes = int(time / 60000)
-                print(f'{time} {minutes:02}:{seconds:02}')
+                #print(f'{time} {minutes:02}:{seconds:02}')
             box = [0] * 3
             for i in range(2):
                 position = self.robot[i].getPosition()
@@ -239,8 +240,8 @@ class WrestlerSupervisor(Supervisor):
                     coverage = math.sqrt(coverage)
                     self.coverage[i] = coverage
                     string = '{:.3f}'.format(coverage)
-                    if string != coverage_labels[i]:
-                        print(f'coverage for robot {i}: {string}')
+                    # if string != coverage_labels[i]:
+                    #     print(f'coverage for robot {i}: {string}')
                     coverage_labels[i] = string
                 if position[2] < 0.9:  # low position threshold
                     self.ko_count[i] = self.ko_count[i] + 200
@@ -300,15 +301,35 @@ class Wrestler (Robot):
         self.server.close()
 
 
-test = 3
+test = 1
 
 if test == 1:
     # create the referee instance and run main loop
     CI = os.environ.get("CI")
-    wrestler = WrestlerSupervisor()
+    
+    wrestler = WrestlerSupervisor()    
+    tic = time.perf_counter()
     wrestler.run(CI)
-    if CI:
-        wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
+    toc = time.perf_counter()
+    elapsed = toc-tic
+    print(f'Elapsed time: {elapsed:4.4f}')
+    
+    # if CI:
+    wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
+    #wrestler.worldReload()
+    wrestler.simulationReset()
+    
+    print("reset")
+    # wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
+    
+    wrestler.simulationSetMode(wrestler.WB_SUPERVISOR_SIMULATION_MODE_FAST)
+
+    #wrestler = WrestlerSupervisor()    
+    wrestler.run(CI)
+    toc = time.perf_counter()
+    elapsed = toc-tic
+    print(f'Elapsed time: {elapsed:4.4f}')
+
 
 if test == 2:
     wrestler = Wrestler()
