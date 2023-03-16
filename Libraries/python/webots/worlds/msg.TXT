@@ -1,0 +1,23 @@
+
+Reducing loop delay
+
+
+I was trying to reduce the time of each iteration. Here are results of some tests with different settings in the world file and the code and running the application as normal as from cmd line in fast mode.
+
+
+Is it the case that the smallest loop time attainable is around 10 ms?
+
+Why is the actual loop time 26 ms when run from cmd line with file setting of 5 ms but code setting of 20 ms? Whereas the last line is 10 ms.
+
+Here is the top level code:
+
+     wrestler = WrestlerSupervisor()    
+    time_step=20
+    max_loops=500
+    
+    wrestler.simulationReset()
+    tic = time.perf_counter()
+    wrestler.run(CI, time_step=time_step, max_loops=max_loops)
+    toc = time.perf_counter()
+    elapsed = 1000 * (toc-tic)
+    print(f'Elapsed time: {elapsed:4.0f}')  

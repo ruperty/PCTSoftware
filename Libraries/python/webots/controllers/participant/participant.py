@@ -177,7 +177,7 @@ class WrestlerSupervisor(Supervisor):
         self.coverage = [0] * 2
         self.ko_count = [0] * 2
 
-    def run(self, CI):
+    def run(self, CI, time_step=None, max_loops=None):
         self.initSupervisor()
         self.motion_library = MotionLibrary()
         self.time_step = int(self.getBasicTimeStep())
@@ -186,11 +186,17 @@ class WrestlerSupervisor(Supervisor):
         # Performance output used by automated CI script
         game_duration = 5000 # 3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        time_step = int(self.getBasicTimeStep())
+        if time_step==None:
+            time_step = int(self.getBasicTimeStep())
         #print(time_step)
+        
+        if max_loops==None:
+            max_loops = game_duration/time_step
+        
         time = 0
         seconds = -1
         ko = -1
+        loops=0
         
         while True: # self.step(self.time_step) != -1:  # mandatory function to make the simulation run
             if time > 22000:
@@ -200,9 +206,13 @@ class WrestlerSupervisor(Supervisor):
                 
             ko = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
-            if self.step(time_step) == -1 or time > game_duration or ko != -1:
+            # if self.step(time_step) == -1 or time > game_duration or ko != -1 or loops==max_loops:
+            if self.step(time_step) == -1 or ko != -1 or loops==max_loops:
                 break
             time += time_step
+            loops = loops+1
+            
+        print(f'Time={time} loops={loops} time_step={time_step}')
         if ko == 0:
             print('Red is KO. Blue wins!')
             performance = 0
@@ -258,7 +268,37 @@ class WrestlerSupervisor(Supervisor):
         return ko
 
 
+
 class Wrestler (Robot):
+    
+    def __init__(self):
+        Robot.__init__(self)
+        self.rr = RobotReadings(self)
+        # self.RShoulderPitch = self.getDevice("RShoulderPitch")
+        # self.LShoulderPitch = self.getDevice("LShoulderPitch")
+        
+    def run(self, time_step=None, max_loops=None):
+        # to load all the motions from the motions folder, we use the MotionLibrary class:
+        motion_library = MotionLibrary()
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        if time_step==None:
+            time_step = int(self.getBasicTimeStep())
+        print(time_step)
+        game_duration = 5000
+        time=0
+        loops=0
+        while self.step(time_step) != -1:  # mandatory function to make the simulation run
+            motion_library.play('Forwards')
+            #print(self.rr.readLegs())
+            # if time > game_duration:
+            #     break
+            time += time_step
+            if loops==max_loops:
+                break
+            loops+=1
+        print(f'Time={time} loops={loops}')
+        
+class WrestlerServer (Robot):
     
     def __init__(self):
         Robot.__init__(self)
@@ -306,37 +346,41 @@ test = 1
 if test == 1:
     # create the referee instance and run main loop
     CI = os.environ.get("CI")
-    
     wrestler = WrestlerSupervisor()    
-    tic = time.perf_counter()
-    wrestler.run(CI)
-    toc = time.perf_counter()
-    elapsed = toc-tic
-    print(f'Elapsed time: {elapsed:4.4f}')
+    time_step=20
+    max_loops=500
     
-    # if CI:
-    wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
-    #wrestler.worldReload()
     wrestler.simulationReset()
-    
-    print("reset")
-    # wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
-    
-    wrestler.simulationSetMode(wrestler.WB_SUPERVISOR_SIMULATION_MODE_FAST)
-
-    #wrestler = WrestlerSupervisor()    
-    wrestler.run(CI)
+    #wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
+    tic = time.perf_counter()
+    wrestler.run(CI, time_step=time_step, max_loops=max_loops)
     toc = time.perf_counter()
-    elapsed = toc-tic
-    print(f'Elapsed time: {elapsed:4.4f}')
+    elapsed = 1000 * (toc-tic)
+    print(f'Elapsed time: {elapsed:4.0f}')   
+    
+    # wrestler.simulationReset()        
+    # wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
+    # tic = time.perf_counter()
+    # wrestler.run(CI)
+    # toc = time.perf_counter()
+    # elapsed = toc-tic
+    # print(f'Elapsed time: {elapsed:4.4f}')
+
 
 
 if test == 2:
-    wrestler = Wrestler()
+    wrestler = WrestlerServer()
     wrestler.run()
     
-    
 if test == 3:
+    wrestler = Wrestler()    
+    tic = time.perf_counter()
+    wrestler.run(time_step=20, max_loops=1000)    
+    toc = time.perf_counter()
+    elapsed = toc-tic
+    print(f'Elapsed time: {elapsed:4.4f}')   
+    
+if test == 4:
     # create the referee instance and run main loop
     CI = os.environ.get("CI")
     wrestler = WrestlerSupervisorServer()
