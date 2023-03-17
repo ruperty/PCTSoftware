@@ -8,7 +8,7 @@ from eepct.hpct import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolve
 from eepct.hpct import HPCTFUNCTION
 from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTVARIABLE
-from utils.webots import WebotsHelper
+from pct.webots import WebotsHelper
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
@@ -64,12 +64,13 @@ if __name__ == "__main__":
         
         loops = 1
         for _ in range(loops):
-            ind1 = evr.toolbox.individual()        
+            ind = evr.toolbox.individual()        
             print()
-            print(ind1.get_parameters_list())
-            ind1.summary()
-        
-            print(ind1.get_config())
+            print(ind.get_parameters_list())
+            ind.summary()
+            print(ind.get_config())
+            print(ind.formatted_config())
+
         
 
         
