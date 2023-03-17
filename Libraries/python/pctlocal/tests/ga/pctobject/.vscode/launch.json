@@ -5,9 +5,21 @@
     "version": "0.2.0",
     "configurations": [
 
+        {
+            "name": "webots_ind",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-hpct-evolver-create-ind-wrestler"
+        },
+        {
+            "name": "cartpole_ind",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-hpct-evolver-create-ind-cartpole"
+        },
 
         
-        
+                
 
         {
             "name": "evolve_from_properties_file",

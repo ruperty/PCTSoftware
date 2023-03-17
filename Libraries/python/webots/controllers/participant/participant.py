@@ -186,8 +186,9 @@ class WrestlerSupervisor(Supervisor):
         # Performance output used by automated CI script
         game_duration = 5000 # 3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        fileTimeStep=int(self.getBasicTimeStep())
         if time_step==None:
-            time_step = int(self.getBasicTimeStep())
+            time_step = fileTimeStep
         #print(time_step)
         
         if max_loops==None:
@@ -212,7 +213,7 @@ class WrestlerSupervisor(Supervisor):
             time += time_step
             loops = loops+1
             
-        print(f'Time={time} loops={loops} time_step={time_step}')
+        print(f'Time={time} loops={loops} time_step={time_step} ftime_step={fileTimeStep}')
         if ko == 0:
             print('Red is KO. Blue wins!')
             performance = 0
@@ -281,8 +282,9 @@ class Wrestler (Robot):
         # to load all the motions from the motions folder, we use the MotionLibrary class:
         motion_library = MotionLibrary()
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        fileTimeStep=int(self.getBasicTimeStep())
         if time_step==None:
-            time_step = int(self.getBasicTimeStep())
+            time_step = fileTimeStep
         print(time_step)
         game_duration = 5000
         time=0
@@ -347,7 +349,7 @@ if test == 1:
     # create the referee instance and run main loop
     CI = os.environ.get("CI")
     wrestler = WrestlerSupervisor()    
-    time_step=20
+    time_step=5
     max_loops=500
     
     wrestler.simulationReset()

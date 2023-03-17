@@ -8,10 +8,10 @@ from eepct.hpct import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolve
 from eepct.hpct import HPCTFUNCTION
 from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTVARIABLE
+from utils.webots import WebotsHelper
 
-
-creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
-creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
+creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 CommonToolbox.getInstance().set_toolbox(toolbox)
@@ -28,14 +28,15 @@ if __name__ == "__main__":
     arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.TYPE, 'Binary')
     print(arch)
 
-    env_name = 'CartPoleV1'
-    env_inputs_indexes=[1, 0, 3, 2]
-    env_inputs_names=['ICV', 'ICP', 'IPV', 'IPA']
-    references=[0]
+    env_name = 'WebotsWrestler'
+    helper = WebotsHelper(name=env_name, mode=1)
+    env_inputs_indexes=helper.get_inputs_indexes() 
+    env_inputs_names=helper.get_inputs_names()
+    references=helper.get_references()
 
     error_collector_type , error_response_type = 'InputsError', 'RootMeanSquareError'
     seed, debug, pop_size, processes, runs, nevals, num_actions=1, 0, 10, 1, 500, 1, 1
-    min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
+    min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 1, 1, 1, 100
     zerolevel_inputs_indexes=None
     toplevel_inputs_indexes=None
 
