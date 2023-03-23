@@ -35,7 +35,7 @@ class RobotReadings(object):
         rkp = self.RKneePitch.getTargetPosition()
         rap = self.RAnklePitch.getTargetPosition()
         
-        legs = {'LHipPitch': round(lhp, 3), 'LKneePitch': round(lkp,3), 'LAnklePitch': round(lap, 3), 'RHipPitch': round(rhp, 3), 'RKneePitch': round(rkp, 3), 'RAnklePitch': round(rhp, 3)}
+        legs = {'LHipPitch': round(lhp, 3), 'LKneePitch': round(lkp,3), 'LAnklePitch': round(lap, 3), 'RHipPitch': round(rhp, 3), 'RKneePitch': round(rkp, 3), 'RAnklePitch': round(rap, 3)}
         
         #print(f'rkp {rkp} lkp {lkp}')
         

@@ -54,17 +54,18 @@ class WrestlerSupervisorServer(Supervisor):
         self.ko_count = [0] * 2
 
     def initServer(self):        
+        self.rr = RobotReadings(self)
         self.server = Server()
         rec = self.server.get_dict()
         print(rec)
-        dict = {'msg': 'initial', 'leg': 0.1}
-        self.server.put_dict(dict)
+        # dict = {'msg': 'initial', 'leg': 0.1}
+        legs = self.rr.readLegs()
+        self.server.put_dict(legs)
         print("finished init")
 
     def run(self, CI):
         self.initSupervisor()
         self.initServer()
-        self.rr = RobotReadings(self)
         self.motion_library = MotionLibrary()
         self.time_step = int(self.getBasicTimeStep())
         ko_labels = ['', '']
