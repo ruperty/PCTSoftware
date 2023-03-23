@@ -85,8 +85,6 @@ class WrestlerSupervisorServer(Supervisor):
             else:
                 self.motion_library.play('Forwards')
                 
-            legs = self.rr.readLegs()
-            print(legs)            
             rec = self.server.get_dict()
             print(rec)
             if rec['msg'] == 'close':
@@ -95,12 +93,13 @@ class WrestlerSupervisorServer(Supervisor):
 
             ko = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
-
             if self.step(time_step) == -1 or time > game_duration or ko != -1:
                 done = {'msg':'done'}
                 self.server.put_dict(done)
                 break
             
+            legs = self.rr.readLegs()
+            print(legs)            
             self.server.put_dict(legs)
 
             time += time_step
@@ -344,7 +343,7 @@ class WrestlerServer (Robot):
         self.server.close()
 
 
-test = 1
+test = 4
 
 if test == 1:
     # create the referee instance and run main loop
