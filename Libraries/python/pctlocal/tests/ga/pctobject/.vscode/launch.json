@@ -83,6 +83,12 @@
             "module": "testing.16_evolve_mountaincar"
         },
         {
+            "name": " 14_evolve_pendulum",
+            "type": "python",
+            "request": "launch",
+            "module": "testing.14_evolve_pendulum"
+        },
+        {
             "name": "general",
             "type": "python",
             "request": "launch",
