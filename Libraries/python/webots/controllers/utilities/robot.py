@@ -1,7 +1,8 @@
 
 
-class RobotReadings(object):
-    def __init__(self, robot):
+class RobotAccess(object):
+    def __init__(self, robot, mode=1):
+        self.mode=mode
         self.RShoulderPitch = robot.getDevice("RShoulderPitch")
         self.LShoulderPitch = robot.getDevice("LShoulderPitch")
         
@@ -21,9 +22,13 @@ class RobotReadings(object):
         
         
     def read(self):
-        rsp = self.RShoulderPitch.getTargetPosition()
-        lsp = self.LShoulderPitch.getTargetPosition()
-        print(f'rsp {rsp} lsp {lsp}')
+        if self.mode == 1:
+            return self.readLegs()
+        
+        if self.mode == 2:
+            rsp = self.RShoulderPitch.getTargetPosition()
+            lsp = self.LShoulderPitch.getTargetPosition()
+            print(f'rsp {rsp} lsp {lsp}')
 
     def readLegs(self):
         
@@ -36,7 +41,5 @@ class RobotReadings(object):
         rap = self.RAnklePitch.getTargetPosition()
         
         legs = {'LHipPitch': round(lhp, 3), 'LKneePitch': round(lkp,3), 'LAnklePitch': round(lap, 3), 'RHipPitch': round(rhp, 3), 'RKneePitch': round(rkp, 3), 'RAnklePitch': round(rap, 3)}
-        
-        #print(f'rkp {rkp} lkp {lkp}')
         
         return legs

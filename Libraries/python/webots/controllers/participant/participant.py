@@ -33,7 +33,7 @@ from utils.fall_detection import FallDetection
 from utils.gait_manager import GaitManager
 from utils.camera import Camera
 
-from utilities.robot import RobotReadings
+from utilities.robot import RobotAccess
 
 
 from  pct.network import Server
@@ -54,30 +54,66 @@ class WrestlerSupervisorServer(Supervisor):
         self.ko_count = [0] * 2
 
     def initServer(self):        
-        self.rr = RobotReadings(self)
         self.server = Server()
-        rec = self.server.get_dict()
-        print(rec)
-        # dict = {'msg': 'initial', 'leg': 0.1}
-        legs = self.rr.readLegs()
-        self.server.put_dict(legs)
-        print("finished init")
+        recv = self.server.get_dict()
+        print(recv)
+        if 'msg' in recv and recv['msg']=='init':
+            print('Initialisation recevied from client.')
+            if 'mode' in recv:
+                mode =  recv['mode']
+            else:                
+                self.close()    
+                raise Exception('Mode not received in initialisation.')
+        else:
+            self.close()    
+            raise Exception('Initialisation not recevied from client.')
 
+        # dict = {'msg': 'initial', 'leg': 0.1}
+        self.rr = RobotAccess(self, mode)
+        # send sensor data
+        self.send_sensors()
+        print("finished initServer")
+
+    def send(self, data):
+        self.server.put_dict(data)
+
+    def receive(self):
+        recv = self.server.get_dict()
+        return recv
+        
+    def send_sensors(self, performance):        
+        sensors = self.rr.read()
+        msg = {'done':self.done, 'performance':performance, 'sensors': sensors}
+        self.send(msg)
+
+    def get_actions(self):
+        self.actions = self.receive()
+        if self.actions['msg'] == 'close':
+            self.server.finish()
+            return False
+        return True
+        
+    def apply_actions(self):
+        pass
+
+    def close(self):
+        self.server.close()
+        
     def run(self, CI):
         self.initSupervisor()
-        self.initServer()
         self.motion_library = MotionLibrary()
         self.time_step = int(self.getBasicTimeStep())
         ko_labels = ['', '']
         coverage_labels = ['', '']
         # Performance output used by automated CI script
-        game_duration = 3 * 60 * 1000  # a game lasts 3 minutes
+        game_duration = 5000 #3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         print(time_step)
         time = 0
         seconds = -1
         ko = -1
+        self.initServer()
         
         while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
             if time > 22000:
@@ -85,27 +121,26 @@ class WrestlerSupervisorServer(Supervisor):
             else:
                 self.motion_library.play('Forwards')
                 
-            rec = self.server.get_dict()
-            print(rec)
-            if rec['msg'] == 'close':
-                self.server.finish()
+            # receive action data from client
+            if not self.get_actions():
                 break
 
-            ko = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
+            # apply action data
+            self.apply_actions()
+            ko, performance = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
             if self.step(time_step) == -1 or time > game_duration or ko != -1:
                 done = {'msg':'done'}
-                self.server.put_dict(done)
+                self.send(done)
                 break
             
-            legs = self.rr.readLegs()
-            print(legs)            
-            self.server.put_dict(legs)
+            # send sensor data
+            self.send_sensors(performance)
 
             time += time_step
             
             
-        self.server.close()
+        self.close()
 
         if ko == 0:
             print('Red is KO. Blue wins!')
@@ -131,7 +166,7 @@ class WrestlerSupervisorServer(Supervisor):
             box = [0] * 3
             for i in range(2):
                 position = self.robot[i].getPosition()
-                color = 0xff0000 if i == 0 else 0x0000ff
+                #color = 0xff0000 if i == 0 else 0x0000ff
                 if abs(position[0]) < 1 and abs(position[1]) < 1:  # inside the ring
                     coverage = 0
                     for j in range(2):
@@ -159,7 +194,7 @@ class WrestlerSupervisorServer(Supervisor):
                     print(f'robot {i}: {string}')
                 ko_labels[i] = string
 
-        return ko
+        return ko, self.coverage[0]
 
 
 
@@ -274,7 +309,7 @@ class Wrestler (Robot):
     
     def __init__(self):
         Robot.__init__(self)
-        self.rr = RobotReadings(self)
+        self.rr = RobotAccess(self)
         # self.RShoulderPitch = self.getDevice("RShoulderPitch")
         # self.LShoulderPitch = self.getDevice("LShoulderPitch")
         
@@ -304,7 +339,7 @@ class WrestlerServer (Robot):
     
     def __init__(self):
         Robot.__init__(self)
-        self.rr = RobotReadings(self)
+        self.rr = RobotAccess(self)
         # to load all the motions from the motions folder, we use the MotionLibrary class:
         self.motion_library = MotionLibrary()
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
