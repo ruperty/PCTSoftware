@@ -19,7 +19,7 @@ WorldInfo {
   ]
   title "Humanoid Robot Wrestling Competition"
   window "competition_description"
-  basicTimeStep 5
+  basicTimeStep 20
 }
 Viewpoint {
   orientation 0.1777691171174525 -0.27280408003171913 -0.9455030803320151 5.441229634710951

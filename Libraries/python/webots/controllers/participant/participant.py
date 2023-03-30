@@ -53,10 +53,10 @@ class WrestlerSupervisorServer(Supervisor):
         self.coverage = [0] * 2
         self.ko_count = [0] * 2
 
-    def initServer(self):        
+    def initServer(self):     
+        self.done = False   
         self.server = Server()
-        recv = self.server.get_dict()
-        print(recv)
+        recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
             print('Initialisation recevied from client.')
             if 'mode' in recv:
@@ -71,7 +71,7 @@ class WrestlerSupervisorServer(Supervisor):
         # dict = {'msg': 'initial', 'leg': 0.1}
         self.rr = RobotAccess(self, mode)
         # send sensor data
-        self.send_sensors()
+        self.send_sensors(0)
         print("finished initServer")
 
     def send(self, data):
@@ -79,11 +79,16 @@ class WrestlerSupervisorServer(Supervisor):
 
     def receive(self):
         recv = self.server.get_dict()
+        print(recv)
         return recv
         
     def send_sensors(self, performance):        
         sensors = self.rr.read()
-        msg = {'done':self.done, 'performance':performance, 'sensors': sensors}
+        if self.done:
+            msg = {'msg':'done', 'performance':performance, 'sensors': sensors}
+        else:
+            msg = {'msg':'values', 'performance':performance, 'sensors': sensors}
+            
         self.send(msg)
 
     def get_actions(self):
@@ -102,11 +107,11 @@ class WrestlerSupervisorServer(Supervisor):
     def run(self, CI):
         self.initSupervisor()
         self.motion_library = MotionLibrary()
-        self.time_step = int(self.getBasicTimeStep())
+        # self.time_step = int(self.getBasicTimeStep())
         ko_labels = ['', '']
         coverage_labels = ['', '']
         # Performance output used by automated CI script
-        game_duration = 5000 #3 * 60 * 1000  # a game lasts 3 minutes
+        game_duration = 100 #3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         print(time_step)
@@ -115,7 +120,7 @@ class WrestlerSupervisorServer(Supervisor):
         ko = -1
         self.initServer()
         
-        while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
+        while self.step(time_step) != -1:  # mandatory function to make the simulation run
             if time > 22000:
                 self.motion_library.play('Backwards')
             else:
@@ -130,7 +135,8 @@ class WrestlerSupervisorServer(Supervisor):
             ko, performance = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
             if self.step(time_step) == -1 or time > game_duration or ko != -1:
-                done = {'msg':'done'}
+                self.done = 1
+                done = {'msg': 'done'}
                 self.send(done)
                 break
             
@@ -138,8 +144,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.send_sensors(performance)
 
             time += time_step
-            
-            
+                        
         self.close()
 
         if ko == 0:
@@ -155,6 +160,8 @@ class WrestlerSupervisorServer(Supervisor):
         else:
             print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
             performance = 0
+            
+        del self.motion_library
 
     def evaluation(self, time, seconds, ko_labels, coverage_labels, ko):
         if time % 200 == 0:
