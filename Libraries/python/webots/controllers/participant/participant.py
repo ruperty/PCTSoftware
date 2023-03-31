@@ -72,7 +72,7 @@ class WrestlerSupervisorServer(Supervisor):
         # dict = {'msg': 'initial', 'leg': 0.1}
         self.rr = RobotAccess(self, mode)
         # send sensor data
-        self.send_sensors(0)
+        self.initial_sensors = self.send_sensors(0)
         print("finished initServer")
 
     def send(self, data):
@@ -91,15 +91,20 @@ class WrestlerSupervisorServer(Supervisor):
             msg = {'msg':'values', 'performance':round(performance, 3), 'sensors': sensors}
             
         self.send(msg)
+        
+        return sensors
 
     def get_actions(self):
-        self.actions = self.receive()
-        if self.actions['msg'] == 'close':
+        recv = self.receive()
+        self.actions = recv['actions']
+        if recv['msg'] == 'close':
             self.server.finish()
             return False
         return True
         
     def apply_actions(self):
+        # add self.actions to self.initial_sensors
+        # apply to devices
         pass
 
     def close(self):
@@ -122,10 +127,10 @@ class WrestlerSupervisorServer(Supervisor):
         self.initServer()
         
         while True: 
-            if time > 22000:
-                self.motion_library.play('Backwards')
-            else:
-                self.motion_library.play('Forwards')
+            # if time > 22000:
+            #     self.motion_library.play('Backwards')
+            # else:
+            #     self.motion_library.play('Forwards')
                 
             # receive action data from client
             if not self.get_actions():

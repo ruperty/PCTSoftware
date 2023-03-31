@@ -30,13 +30,13 @@ if __name__ == "__main__":
 
     env_name = 'WebotsWrestler'
     helper = WebotsHelper(name=env_name, mode=1)
-    env_inputs_indexes=helper.get_inputs_indexes() 
-    env_inputs_names=helper.get_inputs_names()
+    env_inputs_indexes=helper.get_sensor_indexes() 
+    env_inputs_names=helper.get_sensor_names()
     references=helper.get_references()
 
     error_collector_type , error_response_type = 'InputsError', 'RootMeanSquareError'
-    seed, debug, pop_size, processes, runs, nevals, num_actions=1, 0, 10, 1, 500, 1, 1
-    min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 1, 1, 1, 100
+    seed, debug, pop_size, processes, runs, nevals, num_actions=1, 0, 10, 1, 500, 1, helper.get_num_links()
+    min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 6, 6, 6, 100
     zerolevel_inputs_indexes=None
     toplevel_inputs_indexes=None
 
@@ -68,7 +68,19 @@ if __name__ == "__main__":
             print()
             print(ind.get_parameters_list())
             ind.summary()
-            print(ind.get_config())
+            #print(ind.get_config())
+            print(ind.formatted_config())
+            
+            while True:
+                try:
+                    out = ind()
+                    #print(out)
+                    loops+=1
+                except Exception as ex:
+                    print(f'loops={loops}')    
+                    break
+                
+            # print(ind.get_config(zero=1))
             print(ind.formatted_config())
 
         
