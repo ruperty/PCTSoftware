@@ -10,14 +10,17 @@ from epct.evolvers import CommonToolbox
 
 from eepct.hpct import HPCTIndividual
 
-max = True
+max = False #True
 
 if max:
     creator.create("FitnessMax", base.Fitness, weights=(1.0,))
     creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
+    flip=True
 else:
     creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
     creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
+    flip=False
+
 
 toolbox = base.Toolbox()
 CommonToolbox.getInstance().set_toolbox(toolbox)
@@ -98,7 +101,6 @@ verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': displ
 hep = HPCTEvolveProperties()
 output=True
 overwrite=True
-flip=True
 
 #if __name__ == "__main__":
 
