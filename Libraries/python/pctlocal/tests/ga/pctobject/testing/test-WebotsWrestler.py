@@ -22,4 +22,4 @@ while True:
         print(f'loops={loops}')    
         break
         
-print(wrestler.get_config(zero=0))
+print(wrestler.get_config(zero=1))

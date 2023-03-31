@@ -86,9 +86,9 @@ class WrestlerSupervisorServer(Supervisor):
     def send_sensors(self, performance):        
         sensors = self.rr.read()
         if self.done:
-            msg = {'msg':'done', 'performance':performance, 'sensors': sensors}
+            msg = {'msg':'done', 'performance':round(performance, 3), 'sensors': sensors}
         else:
-            msg = {'msg':'values', 'performance':performance, 'sensors': sensors}
+            msg = {'msg':'values', 'performance':round(performance, 3), 'sensors': sensors}
             
         self.send(msg)
 
