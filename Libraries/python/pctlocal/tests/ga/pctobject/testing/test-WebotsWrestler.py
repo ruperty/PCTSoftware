@@ -11,10 +11,15 @@ wrestler.add_link(Constant(0.4, name='mycon4'))
 wrestler.add_link(Constant(0.5, name='mycon5'))
 wrestler.add_link(Constant(0.6, name='mycon6'))
 
-loops=100
-for i in range(loops):
-    if i==loops-1:
-        wrestler.done=True
-    wrestler()
-    
-print(wrestler.get_config())
+loops=1
+while True:
+    # if i==loops-1:
+    #     wrestler.done=True
+    try:
+        wrestler()
+        loops+=1
+    except Exception as ex:
+        print(f'loops={loops}')    
+        break
+        
+print(wrestler.get_config(zero=0))

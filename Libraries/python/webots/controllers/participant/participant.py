@@ -68,6 +68,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.close()    
             raise Exception('Initialisation not recevied from client.')
 
+        self.simulationReset()
         # dict = {'msg': 'initial', 'leg': 0.1}
         self.rr = RobotAccess(self, mode)
         # send sensor data
@@ -104,14 +105,14 @@ class WrestlerSupervisorServer(Supervisor):
     def close(self):
         self.server.close()
         
-    def run(self, CI):
+    def run(self):
         self.initSupervisor()
         self.motion_library = MotionLibrary()
         # self.time_step = int(self.getBasicTimeStep())
         ko_labels = ['', '']
         coverage_labels = ['', '']
-        # Performance output used by automated CI script
-        game_duration = 100 #3 * 60 * 1000  # a game lasts 3 minutes
+
+        game_duration = 5000 #3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         print(time_step)
@@ -120,7 +121,7 @@ class WrestlerSupervisorServer(Supervisor):
         ko = -1
         self.initServer()
         
-        while self.step(time_step) != -1:  # mandatory function to make the simulation run
+        while True: 
             if time > 22000:
                 self.motion_library.play('Backwards')
             else:
@@ -136,7 +137,7 @@ class WrestlerSupervisorServer(Supervisor):
 
             if self.step(time_step) == -1 or time > game_duration or ko != -1:
                 self.done = 1
-                done = {'msg': 'done'}
+                done = {'msg': 'done', 'performance':performance}
                 self.send(done)
                 break
             
@@ -426,8 +427,11 @@ if test == 3:
     
 if test == 4:
     # create the referee instance and run main loop
-    CI = os.environ.get("CI")
+    # CI = os.environ.get("CI")
+    
     wrestler = WrestlerSupervisorServer()
-    wrestler.run(CI)
-    if CI:
-        wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
+    while True:
+        wrestler.run()
+
+    # if CI:
+    #     wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
