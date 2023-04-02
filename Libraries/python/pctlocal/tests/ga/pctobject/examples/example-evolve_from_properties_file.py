@@ -10,16 +10,18 @@ from epct.evolvers import CommonToolbox
 
 from eepct.hpct import HPCTIndividual
 
-max = False #True
+max = True # False #
 
 if max:
     creator.create("FitnessMax", base.Fitness, weights=(1.0,))
     creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
     flip=True
+    min=False
 else:
     creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
     creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
     flip=False
+    min=True
 
 
 toolbox = base.Toolbox()
@@ -105,7 +107,7 @@ overwrite=True
 #if __name__ == "__main__":
 
 hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, flip_error_response=flip,
-                                    out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size)
+                                    out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, min=min)
 # hep.load_properties(file=file, evolve=True, print_properties=True)
 
 

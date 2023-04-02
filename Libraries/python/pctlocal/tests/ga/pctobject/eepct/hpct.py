@@ -836,7 +836,7 @@ class HPCTIndividual(PCTHierarchy):
     
 
     @classmethod
-    def run_from_config(cls, config, render=False,  error_collector_type=None, error_response_type=None, 
+    def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False):
@@ -848,7 +848,7 @@ class HPCTIndividual(PCTHierarchy):
         env.set_render(render)
         env.early_termination = early_termination
         env.reset(full=False, seed=seed)
-        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, properties=error_properties, flip_error_response=flip_error_response)
+        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
 
         ind.set_error_collector(error_collector)
         if hpct_verbose:
@@ -991,6 +991,8 @@ class HPCTEvolver(BaseEvolver):
         if self.error_response_type == None:
             raise Exception(f'Error response not specified {self.__class__.__name__}.')
 
+        self.min = hpct_run_properties['min']
+
         self.error_limit = self.get_property_value('error_limit', hpct_run_properties, 100)
         self.nevals = self.get_property_value('nevals', hpct_run_properties, 2)
         self.history = self.get_property_value('history', hpct_run_properties, False)
@@ -1127,7 +1129,7 @@ class HPCTEvolver(BaseEvolver):
     def create(self, cls, grid=None):
         "Create a hierarchy individual."
         #print(f'gen {self.gen} # {self.member}' )
-        error_collector = BaseErrorCollector.collector(self.error_response_type, self.error_collector_type, self.error_limit, properties=self.error_properties, flip_error_response=self.flip_error_response)
+        error_collector = BaseErrorCollector.collector(self.error_response_type, self.error_collector_type, self.error_limit, self.min, properties=self.error_properties, flip_error_response=self.flip_error_response)
         levels_columns_grid = self.get_grid(grid)
         if levels_columns_grid[-1] != len(self.references):
             raise Exception(
@@ -1638,7 +1640,7 @@ class HPCTEvolver(BaseEvolver):
 class HPCTEvolverWrapper(EvolverWrapper):
     "Class that runs the genetic algorithm using DEAP."
     
-    def __init__(self, evolver, pop_size=25, p_crossover = 0.9, p_mutation = 0.1, display_env=False, select={'selection_type':'tournament', 'tournsize':None}, 
+    def __init__(self, evolver, min, pop_size=25, p_crossover = 0.9, p_mutation = 0.1, display_env=False, select={'selection_type':'tournament', 'tournsize':None}, 
                  processes=1, save_arch_gen=False, save_arch_all=False, toolbox=None, hpct_verbose=False, run_gen_best=False, 
                  font_size=8, node_size=100, local_out_dir=None, **cargs):
 
@@ -1650,6 +1652,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
         self.font_size=font_size        
         self.node_size=node_size        
         self.local_out_dir=local_out_dir
+        self.min=min
         if not local_out_dir is None:
             makedirs(local_out_dir, exist_ok=True)
                 
@@ -1715,7 +1718,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 else:
                     print(f'Running gen {gen:03}', end = ' ')
                     
-                ind, score = HPCTIndividual.run_from_config(top_ind.get_config(zero=0), render=render,  error_collector_type=self.evolver.error_collector_type, 
+                ind, score = HPCTIndividual.run_from_config(top_ind.get_config(zero=0), self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
                     steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, flip_error_response=self.evolver.flip_error_response)
 
@@ -2050,11 +2053,11 @@ class HPCTEvolveProperties(object):
     def evolve_from_properties_file(self, file=None, verbose=None, env_name=None, seed=None, flip_error_response=False,
             test=False, gens=None, pop_size=None, nevals = None, move=None, out_dir=None, local_out_dir=None, node_size=200, font_size=8,
             parallel=False, video_wrap=False, log=False, figsize=(12,12), summary=False, draw_file=None, with_edge_labels=True,
-            print_properties=False, overwrite=False, output=False, toolbox=None, processes=1):
+            print_properties=False, overwrite=False, output=False, toolbox=None, processes=1, min=True):
         "Evolve from file - when is this used?"
         import hashlib
         self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size)
-
+        self.hpct_run_properties['min']=min
         if gens is None:
             gens = self.wrapper_properties['gens']
 
@@ -2131,6 +2134,7 @@ class HPCTEvolveProperties(object):
         # print(evolver_properties)
         
         self.wrapper_properties['evolver']=evolver
+        self.wrapper_properties['min']=min
         self.wrapper_properties['save_arch_all']=save_arch_all
         self.wrapper_properties['save_arch_gen']=save_arch_gen
         self.wrapper_properties['display_env']=display_env
