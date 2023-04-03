@@ -12,7 +12,7 @@ from eepct.hpct import HPCTVARIABLE
 
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
-
+min = True
 toolbox = base.Toolbox()
 CommonToolbox.getInstance().set_toolbox(toolbox)
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'render':False, 'early_termination': False,
         'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env_name, 'num_actions':num_actions, 'references':references}
-    hpct_run_properties ={'min':True, 'hpct_verbose':False, 'debug':debug , 'runs':runs, 'nevals':nevals, 'seed':seed,  'error_collector_type' :  'InputsError', 'error_response_type' : 'RootMeanSquareError'}   
+    hpct_run_properties ={'min':min, 'hpct_verbose':False, 'debug':debug , 'runs':runs, 'nevals':nevals, 'seed':seed,  'error_collector_type' :  'InputsError', 'error_response_type' : 'RootMeanSquareError'}   
     evolve_properties = {'attr_mut_pb':0.8,'structurepb':1} #, 'attr_cx_uniform_pb':0.5, 'alpha':0.5} 
     hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit }    
   
