@@ -127,10 +127,10 @@ class WrestlerSupervisorServer(Supervisor):
         self.initServer()
         
         while True: 
-            # if time > 22000:
-            #     self.motion_library.play('Backwards')
-            # else:
-            #     self.motion_library.play('Forwards')
+            if time > 22000:
+                self.motion_library.play('Backwards')
+            else:
+                self.motion_library.play('Forwards')
                 
             # receive action data from client
             if not self.get_actions():
