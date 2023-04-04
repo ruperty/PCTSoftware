@@ -26,15 +26,8 @@ if test == 1:
     filename = 'WW01-RewardError-SmoothError-Mode00'
 
 
-
-
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/WebotsWrestler/'+ filename + ".properties"
 out_dir= get_gdrive() + 'data/ga/'
-#print(out_dir)
-
-
-#draw_file= 'output' + os.sep + filename + os.sep + filename + '-evolve-best' + '.png'
-#draw_file= 'output'  + os.sep + filename + '-evolve-best' + '.png'
 
 local_out_dir = 'output/'  + filename 
 
