@@ -63,6 +63,13 @@ collection = {
                                 }
                             }
                             ,
+            'WebotsWrestler': { 'arch': {
+                                'Std00' : {'collectors': ['RewardError' ],
+                                'responses': ['SmoothError'],
+                                'structs' : [{'mode': 0, 'types':[]}]}
+                                }
+                            }
+                            ,
             'MountainCarContinuousV0': { 'arch': {
                                 'Topp1' : {'collectors': ['ReferencedInputsError', 'TopError', 'RewardError' ],
                                 'responses': ['RootMeanSquareError', 'SmoothError', 'CurrentError'],
@@ -92,6 +99,11 @@ configs = {
           'CartPoleV1_Std02': {'seed': 1,'pop_size': 100,'gens': 10,'attr_mut_pb':0.8,'structurepb':1,'runs':500, 
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 1,'max_columns_limit': 1, 'early_termination': True,
           'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
+          ,
+          'WebotsWrestler_Std00': 
+          {'seed': 1,'pop_size': 100,'gens': 10,'attr_mut_pb':1,'structurepb':0.75,'runs':500, 
+          'lower_float': -1,'upper_float': 1,'max_levels_limit': 3,'max_columns_limit': 3, 'early_termination': True,
+          'min_levels_limit': 2,'min_columns_limit': 1, 'error_limit': 10,'p_crossover': 0.9,'p_mutation': 0.5}           
           ,
           'MountainCarContinuousV0_Topp1': 
           {'seed': 1,'pop_size': 100,'gens': 10,'attr_mut_pb':1,'structurepb':0.75,'runs':500, 
