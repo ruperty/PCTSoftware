@@ -17,15 +17,17 @@
             "request": "launch",
             "module": "examples.example-hpct-evolver-create-ind-cartpole"
         },
-
-        
-                
-
         {
-            "name": "evolve_from_properties_file",
+            "name": "evolve_cp",
             "type": "python",
             "request": "launch",
-            "module": "examples.example-evolve_from_properties_file"
+            "module": "examples.example-evolve_cp_from_properties_file_minimise"
+        },
+        {
+            "name": "evolve_ww",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-evolve_ww_from_properties_file_maximise"
         },
         {
             "name": "draw_from_properties_file",

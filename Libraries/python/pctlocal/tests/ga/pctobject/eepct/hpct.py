@@ -1,6 +1,6 @@
 
 
-import random, enum, time, copy
+import random, enum, time, copy, math
 from os import name, makedirs, sep
 from enum import IntEnum, auto
 from deap import tools, algorithms
@@ -1804,7 +1804,10 @@ class HPCTEvolveProperties(object):
                 elif float_convert:
                     properties_var[property_name] = float(self.db[property_name])                    
                 elif int_convert:
-                    properties_var[property_name] = int(self.db[property_name])
+                    if property_name == 'runs' and eval(self.db[property_name]) is None:                            
+                            properties_var[property_name] = math.inf
+                    else:
+                        properties_var[property_name] = int(self.db[property_name])
                 else:
                     properties_var[property_name] = self.db[property_name]
             else:

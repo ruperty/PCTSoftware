@@ -27,6 +27,11 @@ varieties ={'CartPoleV1': {'num_actions': 1, 'nevals':1,
                             #    {'name': 'Topp1', 'inputs':[1,0,3,2], 'top_inputs':[2], 'references':[0],'inputs_names': '[ICV, ICP, IPV, IPA]'} 
                             ]}
                             ,
+            'WebotsWrestler': {'num_actions': 6, 'nevals':1,
+                           'archs':[
+                               {'name': 'WW01', 'env_inputs_indexes':[0,1,2,3,4,5], 'references':[0], 'env_inputs_names': '[ LHipPitch, LKneePitch, LAnklePitch, RHipPitch, RKneePitch, RAnklePitch]'}
+                               ]}
+                            ,
             'MountainCarContinuousV0': {'num_actions': 1, 'nevals':5,
                            'archs':[
                                {'name': 'Topp1', 'env_inputs_indexes':[0,1], 'top_inputs':[0], 'references':[0.45], 'env_inputs_names': '[IP, IV]'}
@@ -64,7 +69,7 @@ collection = {
                             }
                             ,
             'WebotsWrestler': { 'arch': {
-                                'Std00' : {'collectors': ['RewardError' ],
+                                'WW01' : {'collectors': ['RewardError' ],
                                 'responses': ['SmoothError'],
                                 'structs' : [{'mode': 0, 'types':[]}]}
                                 }
@@ -100,8 +105,7 @@ configs = {
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 1,'max_columns_limit': 1, 'early_termination': True,
           'min_levels_limit': 1,'min_columns_limit': 1, 'error_limit': 100,'p_crossover': 0.8,'p_mutation': 0.5}
           ,
-          'WebotsWrestler_Std00': 
-          {'seed': 1,'pop_size': 100,'gens': 10,'attr_mut_pb':1,'structurepb':0.75,'runs':500, 
+          'WebotsWrestler_WW01': {'seed': 1,'pop_size': 100,'gens': 10,'attr_mut_pb':1,'structurepb':0.75,'runs':1000000, 
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 3,'max_columns_limit': 3, 'early_termination': True,
           'min_levels_limit': 2,'min_columns_limit': 1, 'error_limit': 10,'p_crossover': 0.9,'p_mutation': 0.5}           
           ,
@@ -114,6 +118,9 @@ configs = {
 
 envs = ['CartPoleV1', 'MountainCarContinuousV0']
 envs = ['CartPoleV1']
+envs = ['WebotsWrestler']
+
+
             
             
 iters = 100
