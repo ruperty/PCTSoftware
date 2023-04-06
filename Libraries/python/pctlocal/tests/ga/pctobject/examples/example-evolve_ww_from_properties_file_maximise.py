@@ -9,7 +9,7 @@ from eepct.hpct import HPCTIndividual
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
-flip=True
+
 min=False
 
 toolbox = base.Toolbox()
@@ -37,8 +37,8 @@ debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 hpct_verbose= False #True # log of every control system iteration
 evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 
-#debug= 3 #0 #3 # details of population in each gen, inc. mutate and merge
-#hpct_verbose= 1 #True # log of every control system iteration
+debug= 2 #3 #0 #3 # details of population in each gen, inc. mutate and merge
+hpct_verbose= 1 #True # log of every control system iteration
 #evolve_verbose = 3 #2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
 save_arch_gen = True #False #True
@@ -58,8 +58,9 @@ overwrite=True
 
 #if __name__ == "__main__":
 
-hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, flip_error_response=flip,
-                                    out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, min=min)
+hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
+                                    out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, 
+                                    node_size=node_size, font_size=font_size, min=min)
 # hep.load_properties(file=file, evolve=True, print_properties=True)
 
 

@@ -117,7 +117,7 @@ class WrestlerSupervisorServer(Supervisor):
         ko_labels = ['', '']
         coverage_labels = ['', '']
 
-        game_duration = 5000 #3 * 60 * 1000  # a game lasts 3 minutes
+        game_duration = 1000 #5000 #3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         print(time_step)
@@ -142,8 +142,7 @@ class WrestlerSupervisorServer(Supervisor):
 
             if self.step(time_step) == -1 or time > game_duration or ko != -1:
                 self.done = 1
-                done = {'msg': 'done', 'performance':performance}
-                self.send(done)
+                self.send_sensors(performance)
                 break
             
             # send sensor data

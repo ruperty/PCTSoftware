@@ -842,7 +842,7 @@ class HPCTIndividual(PCTHierarchy):
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False):
         "Run an individual from a provided configuration."
         #if hpct_verbose:
-        #    print(config)
+        #print(config)
         ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
         env = ind.get_preprocessor()[0]
         env.set_render(render)
