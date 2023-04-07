@@ -30,6 +30,21 @@ class RobotAccess(object):
             lsp = self.LShoulderPitch.getTargetPosition()
             print(f'rsp {rsp} lsp {lsp}')
 
+
+    def set(self, initial_sensors, actions):        
+        if self.mode == 1:
+            self.setLegs(initial_sensors, actions)
+
+    def setLegs(self, initial_sensors, actions):
+        print(actions)
+        position = initial_sensors['LHipPitch'] + actions['LHipPitch']
+        self.LHipPitch.setPosition(position)           
+        self.LKneePitch.setPosition(initial_sensors['LKneePitch'] + actions['LKneePitch'])
+        self.LAnklePitch.setPosition(initial_sensors['LAnklePitch'] + actions['LAnklePitch'])
+        self.RHipPitch.setPosition(initial_sensors['RHipPitch'] + actions['RHipPitch'])        
+        self.RKneePitch.setPosition(initial_sensors['RKneePitch'] + actions['RKneePitch'])
+        self.RAnklePitch.setPosition(initial_sensors['RAnklePitch'] + actions['RAnklePitch'])
+
     def readLegs(self):
         
         lhp = self.LHipPitch.getTargetPosition()        

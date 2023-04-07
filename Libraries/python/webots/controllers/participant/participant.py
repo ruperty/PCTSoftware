@@ -73,14 +73,16 @@ class WrestlerSupervisorServer(Supervisor):
         self.rr = RobotAccess(self, mode)
         # send sensor data
         self.initial_sensors = self.send_sensors(0)
-        print("finished initServer")
+        print('initial:', self.initial_sensors)
+        # {'LHipPitch': -0.394, 'LKneePitch': 1.021, 'LAnklePitch': -0.626, 'RHipPitch': -0.71, 'RKneePitch': 1.087, 'RAnklePitch': -0.376}
+        # print("finished initServer")
 
     def send(self, data):
         self.server.put_dict(data)
 
     def receive(self):
         recv = self.server.get_dict()
-        print(recv)
+        #print(recv)
         return recv
         
     def send_sensors(self, performance):        
@@ -103,9 +105,11 @@ class WrestlerSupervisorServer(Supervisor):
         return True
         
     def apply_actions(self):
-        # add self.actions to self.initial_sensors
-        # apply to devices
-        pass
+        # actions= {'LHipPitch': 0, 'LKneePitch': 0, 'LAnklePitch': 0, 'RHipPitch': 0, 'RKneePitch': 0, 'RAnklePitch': 0}
+        # self.rr.set( self.initial_sensors,actions)
+
+        self.rr.set( self.initial_sensors,self.actions)
+
 
     def close(self):
         self.server.close()
@@ -120,17 +124,17 @@ class WrestlerSupervisorServer(Supervisor):
         game_duration = 1000 #5000 #3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
-        print(time_step)
+        # print(time_step)
         time = 0
         seconds = -1
         ko = -1
         self.initServer()
         
         while True: 
-            if time > 22000:
-                self.motion_library.play('Backwards')
-            else:
-                self.motion_library.play('Forwards')
+            # if time > 22000:
+            #     self.motion_library.play('Backwards')
+            # else:
+            #     self.motion_library.play('Forwards')
                 
             # receive action data from client
             if not self.get_actions():
@@ -166,7 +170,9 @@ class WrestlerSupervisorServer(Supervisor):
             print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
             performance = 0
             
-        del self.motion_library
+        #del self.motion_library
+        #del self.motion_library
+        #in my own timedel self.motion_library
 
     def evaluation(self, time, seconds, ko_labels, coverage_labels, ko):
         if time % 200 == 0:
@@ -174,7 +180,7 @@ class WrestlerSupervisorServer(Supervisor):
             if seconds != s:
                 seconds = s
                 minutes = int(time / 60000)
-                print(f'{time} {minutes:02}:{seconds:02}')
+                # print(f'{time} {minutes:02}:{seconds:02}')
             box = [0] * 3
             for i in range(2):
                 position = self.robot[i].getPosition()
@@ -191,8 +197,8 @@ class WrestlerSupervisorServer(Supervisor):
                     coverage = math.sqrt(coverage)
                     self.coverage[i] = coverage
                     string = '{:.3f}'.format(coverage)
-                    if string != coverage_labels[i]:
-                        print(f'coverage for robot {i}: {string}')
+                    # if string != coverage_labels[i]:
+                    #     print(f'coverage for robot {i}: {string}')
                     coverage_labels[i] = string
                 if position[2] < 0.9:  # low position threshold
                     self.ko_count[i] = self.ko_count[i] + 200
@@ -390,6 +396,20 @@ class WrestlerServer (Robot):
         self.server.close()
 
 
+
+def get_root_path():
+    import socket
+    import os
+    if socket.gethostname() == 'DESKTOP-5O07H5P':
+        root_dir='/mnt/c/Users/ruper/'
+        if os.name == 'nt' :
+            root_dir='C:\\Users\\ruper\\'
+    else:
+        root_dir='/mnt/c/Users/ryoung/'        
+        if os.name == 'nt' :
+            root_dir='C:\\Users\\ryoung\\'
+    return root_dir
+
 test = 4
 
 if test == 1:
@@ -429,13 +449,19 @@ if test == 3:
     elapsed = toc-tic
     print(f'Elapsed time: {elapsed:4.4f}')   
     
+
+def start_webots():
+    import subprocess
+    exe = "C:\\Program Files\\Webots\\msys64\\mingw64\\bin\\webotsw.exe"
+    batfile = "run.bat"
+    worldfile = get_root_path() + 'Versioning'+os.sep+'PCTSoftware'+os.sep+'Libraries'+os.sep+'python'+os.sep+'webots'+os.sep+'worlds' +os.sep+"wrestling.wbt"
+    subprocess.Popen([exe, "--batch", "--stdout",  "--stderr", worldfile])
+
 if test == 4:
     # create the referee instance and run main loop
-    # CI = os.environ.get("CI")
-    
+    #start_webots()
+
     wrestler = WrestlerSupervisorServer()
     while True:
         wrestler.run()
 
-    # if CI:
-    #     wrestler.simulationSetMode(wrestler.SIMULATION_MODE_PAUSE)
