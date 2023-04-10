@@ -39,9 +39,11 @@ from utilities.robot import RobotAccess
 from  pct.network import Server
 from controller import Supervisor
 
+test = 4
 
 class WrestlerSupervisorServer(Supervisor):
     def initSupervisor(self):
+        print('******************************************')
         self.robot = [0] * 2
         self.robot[1] = self.getFromDef('WRESTLER_BLUE').getFromProtoDef('HEAD_SLOT')
         self.robot[0] = self.getFromDef('WRESTLER_RED').getFromProtoDef('HEAD_SLOT')
@@ -52,6 +54,8 @@ class WrestlerSupervisorServer(Supervisor):
             self.max[i] = self.robot[i].getPosition()
         self.coverage = [0] * 2
         self.ko_count = [0] * 2
+        self.robot_down = False
+
 
     def initServer(self):     
         self.done = False   
@@ -68,8 +72,8 @@ class WrestlerSupervisorServer(Supervisor):
             self.close()    
             raise Exception('Initialisation not recevied from client.')
 
-        self.simulationReset()
-        # dict = {'msg': 'initial', 'leg': 0.1}
+        # self.simulationReset()
+
         self.rr = RobotAccess(self, mode)
         # send sensor data
         self.initial_sensors = self.send_sensors(0)
@@ -105,9 +109,9 @@ class WrestlerSupervisorServer(Supervisor):
         return True
         
     def apply_actions(self):
-        # actions= {'LHipPitch': 0, 'LKneePitch': 0, 'LAnklePitch': 0, 'RHipPitch': 0, 'RKneePitch': 0, 'RAnklePitch': 0}
-        # self.rr.set( self.initial_sensors,actions)
-
+        #actions= {'LHipPitch': 0, 'LKneePitch': 0, 'LAnklePitch': 0, 'RHipPitch': 0, 'RKneePitch': 0, 'RAnklePitch': 0}
+        #self.rr.set( self.initial_sensors,actions)
+        #print('actions',self.actions)
         self.rr.set( self.initial_sensors,self.actions)
 
 
@@ -117,11 +121,12 @@ class WrestlerSupervisorServer(Supervisor):
     def run(self):
         self.initSupervisor()
         self.motion_library = MotionLibrary()
+        #self.motion_library.play('Forwards')
         # self.time_step = int(self.getBasicTimeStep())
         ko_labels = ['', '']
         coverage_labels = ['', '']
 
-        game_duration = 1000 #5000 #3 * 60 * 1000  # a game lasts 3 minutes
+        game_duration = 5000 #3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         # print(time_step)
@@ -130,7 +135,7 @@ class WrestlerSupervisorServer(Supervisor):
         ko = -1
         self.initServer()
         
-        while True: 
+        while  self.step(time_step) != -1: 
             # if time > 22000:
             #     self.motion_library.play('Backwards')
             # else:
@@ -144,7 +149,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.apply_actions()
             ko, performance = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
-            if self.step(time_step) == -1 or time > game_duration or ko != -1:
+            if time > game_duration or ko != -1 or self.robot_down:
                 self.done = 1
                 self.send_sensors(performance)
                 break
@@ -161,15 +166,15 @@ class WrestlerSupervisorServer(Supervisor):
             performance = 0
         elif ko == 1:
             print('Blue is KO. Red wins!')
-            performance = 1
+            performance = 10
         # in case of coverage equality, blue wins
         elif self.coverage[0] > self.coverage[1]:
             print('Red wins coverage: %s > %s' % (self.coverage[0], self.coverage[1]))
-            performance = 1
+            #performance = 1
         else:
             print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
-            performance = 0
-            
+            #performance = 0
+        print(f'Final performance: {performance}')    
         #del self.motion_library
         #del self.motion_library
         #in my own timedel self.motion_library
@@ -201,6 +206,7 @@ class WrestlerSupervisorServer(Supervisor):
                     #     print(f'coverage for robot {i}: {string}')
                     coverage_labels[i] = string
                 if position[2] < 0.9:  # low position threshold
+                    self.robot_down = True
                     self.ko_count[i] = self.ko_count[i] + 200
                     if self.ko_count[i] > 10000:  # 10 seconds
                         ko = i
@@ -212,7 +218,12 @@ class WrestlerSupervisorServer(Supervisor):
                     print(f'robot {i}: {string}')
                 ko_labels[i] = string
 
-        return ko, self.coverage[0]
+        if self.robot_down:
+            performance = self.coverage[0]/10
+        else:
+            performance = self.coverage[0]
+            
+        return ko, performance
 
 
 
@@ -231,13 +242,14 @@ class WrestlerSupervisor(Supervisor):
         self.ko_count = [0] * 2
 
     def run(self, CI, time_step=None, max_loops=None):
+        self.rr = RobotAccess(self)
         self.initSupervisor()
         self.motion_library = MotionLibrary()
         self.time_step = int(self.getBasicTimeStep())
         ko_labels = ['', '']
         coverage_labels = ['', '']
         # Performance output used by automated CI script
-        game_duration = 5000 # 3 * 60 * 1000  # a game lasts 3 minutes
+        game_duration = 1000 # 5000 # 3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         fileTimeStep=int(self.getBasicTimeStep())
         if time_step==None:
@@ -252,16 +264,19 @@ class WrestlerSupervisor(Supervisor):
         ko = -1
         loops=0
         
-        while True: # self.step(self.time_step) != -1:  # mandatory function to make the simulation run
+        while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
             if time > 22000:
                 self.motion_library.play('Backwards')
             else:
                 self.motion_library.play('Forwards')
                 
+            legs = self.rr.readLegs()
+            print(legs)            
+
             ko = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
             # if self.step(time_step) == -1 or time > game_duration or ko != -1 or loops==max_loops:
-            if self.step(time_step) == -1 or ko != -1 or loops==max_loops:
+            if ko != -1 or loops==max_loops:
                 break
             time += time_step
             loops = loops+1
@@ -410,14 +425,14 @@ def get_root_path():
             root_dir='C:\\Users\\ryoung\\'
     return root_dir
 
-test = 4
+
 
 if test == 1:
     # create the referee instance and run main loop
     CI = os.environ.get("CI")
     wrestler = WrestlerSupervisor()    
-    time_step=5
-    max_loops=500
+    time_step=None
+    max_loops=None
     
     wrestler.simulationReset()
     #wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
@@ -463,5 +478,6 @@ if test == 4:
 
     wrestler = WrestlerSupervisorServer()
     while True:
+        wrestler.simulationReset()
         wrestler.run()
 

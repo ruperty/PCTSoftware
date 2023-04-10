@@ -36,14 +36,17 @@ class RobotAccess(object):
             self.setLegs(initial_sensors, actions)
 
     def setLegs(self, initial_sensors, actions):
-        print(actions)
-        position = initial_sensors['LHipPitch'] + actions['LHipPitch']
-        self.LHipPitch.setPosition(position)           
-        self.LKneePitch.setPosition(initial_sensors['LKneePitch'] + actions['LKneePitch'])
-        self.LAnklePitch.setPosition(initial_sensors['LAnklePitch'] + actions['LAnklePitch'])
-        self.RHipPitch.setPosition(initial_sensors['RHipPitch'] + actions['RHipPitch'])        
-        self.RKneePitch.setPosition(initial_sensors['RKneePitch'] + actions['RKneePitch'])
-        self.RAnklePitch.setPosition(initial_sensors['RAnklePitch'] + actions['RAnklePitch'])
+        #print(actions)
+        #position = initial_sensors['LHipPitch'] + actions['LHipPitch']
+        self.setMotorPosition(self.LHipPitch,initial_sensors['LHipPitch'] + actions['LHipPitch'])           
+        self.setMotorPosition(self.LKneePitch,initial_sensors['LKneePitch'] + actions['LKneePitch'])
+        self.setMotorPosition(self.LAnklePitch,initial_sensors['LAnklePitch'] + actions['LAnklePitch'])
+        self.setMotorPosition(self.RHipPitch,initial_sensors['RHipPitch'] + actions['RHipPitch'])        
+        self.setMotorPosition(self.RKneePitch,initial_sensors['RKneePitch'] + actions['RKneePitch'])
+        self.setMotorPosition(self.RAnklePitch,initial_sensors['RAnklePitch'] + actions['RAnklePitch'])
+
+    def setMotorPosition(self, motor, position):
+        motor.setPosition(min(max(position, motor.min_position),motor.max_position))
 
     def readLegs(self):
         

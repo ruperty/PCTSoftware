@@ -19,18 +19,19 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 1
+test = 2
 
 # WW01
 if test == 1:
     filename = 'WW01-RewardError-SmoothError-Mode00'
+if test == 2:
+    filename = 'WW01-RewardError-CurrentError-Mode01'
 
 
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/WebotsWrestler/'+ filename + ".properties"
 out_dir= get_gdrive() + 'data/ga/'
 
 local_out_dir = 'output/'  + filename 
-
 draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
 
 debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
@@ -38,7 +39,7 @@ hpct_verbose= False #True # log of every control system iteration
 evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 
 # debug= 2 #3 #0 #3 # details of population in each gen, inc. mutate and merge
-# hpct_verbose= 1 #True # log of every control system iteration
+#hpct_verbose= 1 #True # log of every control system iteration
 #evolve_verbose = 3 #2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
 save_arch_gen = True #False #True
