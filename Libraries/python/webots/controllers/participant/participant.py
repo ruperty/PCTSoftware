@@ -55,6 +55,8 @@ class WrestlerSupervisorServer(Supervisor):
         self.coverage = [0] * 2
         self.ko_count = [0] * 2
         self.robot_down = False
+        self.outside_ring = False 
+        #self.robot_backwards = False
 
 
     def initServer(self):     
@@ -205,8 +207,14 @@ class WrestlerSupervisorServer(Supervisor):
                     # if string != coverage_labels[i]:
                     #     print(f'coverage for robot {i}: {string}')
                     coverage_labels[i] = string
-                if position[2] < 0.9:  # low position threshold
+                else:
+                    self.outside_ring = True
+
+                if position[2] < 0.6:  # low position threshold
+                    print(position)
                     self.robot_down = True
+                    # if position[0] < -0.1:
+                    #     self.robot_backwards = True
                     self.ko_count[i] = self.ko_count[i] + 200
                     if self.ko_count[i] > 10000:  # 10 seconds
                         ko = i
@@ -220,6 +228,8 @@ class WrestlerSupervisorServer(Supervisor):
 
         if self.robot_down:
             performance = self.coverage[0]/10
+            if self.outside_ring:
+                performance = -performance 
         else:
             performance = self.coverage[0]
             
