@@ -210,7 +210,7 @@ class WrestlerSupervisorServer(Supervisor):
                 else:
                     self.outside_ring = True
 
-                if position[2] < 0.6:  # low position threshold
+                if position[2] < 0.9 or self.outside_ring:  # low position threshold
                     print(position)
                     self.robot_down = True
                     # if position[0] < -0.1:

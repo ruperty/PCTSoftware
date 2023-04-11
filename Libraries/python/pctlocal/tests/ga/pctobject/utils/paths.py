@@ -5,11 +5,11 @@ def get_gdrive():
     if socket.gethostname() == 'DESKTOP-5O07H5P':
         root_dir='/mnt/c/Users/ruper/My Drive/'
         if os.name == 'nt' :
-            root_dir='C:\\Users\\ruper\\Google Drive\\'
+            root_dir='C:\\Users\\ruper\\My Drive\\'
     else:
-        root_dir='/mnt/c/Users/ryoung/Google Drive/'        
+        root_dir='/mnt/c/Users/ryoung/My Drive/'        
         if os.name == 'nt' :
-            root_dir='C:\\Users\\ryoung\\Google Drive\\'
+            root_dir='C:\\Users\\ryoung\\My Drive\\'
     return root_dir
 
 
