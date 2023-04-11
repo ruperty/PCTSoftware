@@ -2,7 +2,12 @@
 from pct.putils import FunctionsList
 from pct.functions import Constant
 
-test = 2
+test = 3
+
+if test == 3:
+    import os
+    print(os.user)
+
 if test == 0:
     str_list = ['a', 'b']
     formatted = ' '.join(str_list)

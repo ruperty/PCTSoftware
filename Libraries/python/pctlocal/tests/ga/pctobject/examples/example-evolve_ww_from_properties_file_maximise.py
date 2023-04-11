@@ -1,6 +1,8 @@
 
 import os
+import logging
 
+logging.basicConfig(    filename="ww-evolve.log",    level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s-%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 from eepct.hpct import HPCTEvolveProperties
 from utils.paths import get_root_path, get_gdrive
 from deap import base, creator
