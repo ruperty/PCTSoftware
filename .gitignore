@@ -10,3 +10,6 @@ Libraries/python/webots/controllers/participant/__pycache__/*.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/eepct/__pycache__/*.cpython-39.pyc
 Libraries/python/webots/controllers/utilities/__pycache__/*.cpython-39.pyc
 Libraries/python/webots/worlds/.wrestling.wbproj
+Libraries/python/pctlocal/tests/ga/pctobject/eepct/__pycache__/hpct.cpython-39.pyc
+Libraries/python/pctlocal/tests/ga/pctobject/utils/__pycache__/paths.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/*.cpython-39.pyc
