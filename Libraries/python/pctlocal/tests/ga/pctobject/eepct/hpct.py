@@ -1,6 +1,6 @@
 
 
-import random, enum, time, copy, math
+import random, enum, time, copy, math, logging
 from os import name, makedirs, sep
 from enum import IntEnum, auto
 from deap import tools, algorithms
@@ -1729,6 +1729,8 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     log_string = ''.join((log_string, log_stats, '\n'))
 
             self.best_of_gens.append(top_ind)
+            top_config=top_ind.get_config(zero=0)
+            logging.info(f'TOP config gen {gen:03} \n{top_config}')
             # if self.display_env and gen == gens:
             if self.run_gen_best:
                 render = True if self.display_env else False
@@ -1737,7 +1739,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 else:
                     print(f'Running gen {gen:03}', end = ' ')
                     
-                ind, score = HPCTIndividual.run_from_config(top_ind.get_config(zero=0), self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
+                ind, score = HPCTIndividual.run_from_config(top_config, self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
                     steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, flip_error_response=self.evolver.flip_error_response)
 

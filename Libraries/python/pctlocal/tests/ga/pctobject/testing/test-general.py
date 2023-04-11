@@ -5,9 +5,15 @@ from pct.functions import Constant
 test = 3
 
 if test == 3:
-    import os
-    print(os.user)
-
+    import os    
+    home_dir = os.path.expanduser( '~' )
+    print(home_dir)
+    
+    from datetime import datetime
+    now = datetime.now() # current date and time
+    date_time = now.strftime("%Y%m%d-%H%M%S")
+    print("date and time:",date_time)
+    
 if test == 0:
     str_list = ['a', 'b']
     formatted = ' '.join(str_list)

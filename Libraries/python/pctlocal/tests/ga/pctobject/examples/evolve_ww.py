@@ -2,12 +2,22 @@
 import os
 import logging
 
-logging.basicConfig(    filename="ww-evolve.log",    level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s-%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+from datetime import datetime
 from eepct.hpct import HPCTEvolveProperties
 from utils.paths import get_root_path, get_gdrive
 from deap import base, creator
 from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
+
+out_dir= get_gdrive() + 'data/ga/'
+env_name = 'WebotsWrestler'
+
+now = datetime.now() # current date and time
+date_time = now.strftime("%Y%m%d-%H%M%S")
+#print("date and time:",date_time)
+log_file=os.sep.join((out_dir, env_name, "ww-evolve-"+date_time+".log"))
+
+logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
@@ -29,9 +39,9 @@ if test == 1:
 if test == 2:
     filename = 'WW01-RewardError-CurrentError-Mode01'
 
+logging.info("Evolving {} ".format(env_name))
 
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/WebotsWrestler/'+ filename + ".properties"
-out_dir= get_gdrive() + 'data/ga/'
 
 local_out_dir = 'output/'  + filename 
 draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
