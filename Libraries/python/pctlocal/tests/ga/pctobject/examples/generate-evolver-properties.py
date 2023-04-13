@@ -67,7 +67,7 @@ collection = {
                                                 ]
                                     }
                                 }
-                            
+                        }
                             ,
             'WebotsWrestler': { 'arch': {
                                     'WW01-01' : {'collectors': ['RewardError' ],
@@ -80,7 +80,7 @@ collection = {
                                                                         [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable'],
                                                                         [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -1,'upper': 1}]]
                                                 }]}
-                                    },
+                                    ,
                                     'WW01-02' : {'collectors': ['RewardError' ],
                                     'responses': ['CurrentError'],
                                     'structs' : [{'mode': 1, 'types':[]  }]}
