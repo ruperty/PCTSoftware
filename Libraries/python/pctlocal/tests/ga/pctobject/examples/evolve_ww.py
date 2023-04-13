@@ -14,8 +14,7 @@ env_name = 'WebotsWrestler'
 
 now = datetime.now() # current date and time
 date_time = now.strftime("%Y%m%d-%H%M%S")
-#print("date and time:",date_time)
-log_file=os.sep.join((out_dir, env_name, "ww-evolve-"+date_time+".log"))
+log_file=os.sep.join((out_dir, env_name, "ww-evolve-client"+date_time+".log"))
 
 logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 

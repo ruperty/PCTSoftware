@@ -34,12 +34,37 @@ from utils.gait_manager import GaitManager
 from utils.camera import Camera
 
 from utilities.robot import RobotAccess
-
-
 from  pct.network import Server
 from controller import Supervisor
+import logging
+
+from datetime import datetime
+
+
+def get_gdrive():
+    import socket
+    import os
+    if socket.gethostname() == 'DESKTOP-5O07H5P':
+        root_dir='/mnt/c/Users/ruper/My Drive/'
+        if os.name == 'nt' :
+            root_dir='C:\\Users\\ruper\\My Drive\\'
+    else:
+        root_dir='/mnt/c/Users/ryoung/My Drive/'        
+        if os.name == 'nt' :
+            root_dir='C:\\Users\\ryoung\\Google Drive\\'
+    return root_dir
 
 test = 4
+
+out_dir= get_gdrive() + 'data/ga/'
+env_name = 'WebotsWrestler'
+
+now = datetime.now() # current date and time
+date_time = now.strftime("%Y%m%d-%H%M%S")
+log_file=os.sep.join((out_dir, env_name, "ww-evolve-server"+date_time+".log"))
+
+logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+
 
 class WrestlerSupervisorServer(Supervisor):
     def initSupervisor(self):
@@ -65,6 +90,7 @@ class WrestlerSupervisorServer(Supervisor):
         recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
             print('Initialisation recevied from client.')
+            logging.info(f'Initialisation recevied from client. {recv}')
             if 'mode' in recv:
                 mode =  recv['mode']
             else:                
@@ -75,10 +101,13 @@ class WrestlerSupervisorServer(Supervisor):
             raise Exception('Initialisation not recevied from client.')
 
         # self.simulationReset()
-
-        self.rr = RobotAccess(self, mode)
+        return mode
+    
+    def initMotors(self, mode, samplingperiod):
+        self.rr = RobotAccess(self, mode, samplingperiod)
+        self.rr.setShoulders(2,2)
         # send sensor data
-        self.initial_sensors = self.send_sensors(0)
+        self.initial_sensors = self.send_sensors(performance=0)
         print('initial:', self.initial_sensors)
         # {'LHipPitch': -0.394, 'LKneePitch': 1.021, 'LAnklePitch': -0.626, 'RHipPitch': -0.71, 'RKneePitch': 1.087, 'RAnklePitch': -0.376}
         # print("finished initServer")
@@ -114,6 +143,8 @@ class WrestlerSupervisorServer(Supervisor):
         #actions= {'LHipPitch': 0, 'LKneePitch': 0, 'LAnklePitch': 0, 'RHipPitch': 0, 'RKneePitch': 0, 'RAnklePitch': 0}
         #self.rr.set( self.initial_sensors,actions)
         #print('actions',self.actions)
+        logging.info(f'actions {self.actions}')
+
         self.rr.set( self.initial_sensors,self.actions)
 
 
@@ -124,7 +155,6 @@ class WrestlerSupervisorServer(Supervisor):
         self.initSupervisor()
         self.motion_library = MotionLibrary()
         #self.motion_library.play('Forwards')
-        # self.time_step = int(self.getBasicTimeStep())
         ko_labels = ['', '']
         coverage_labels = ['', '']
 
@@ -135,7 +165,8 @@ class WrestlerSupervisorServer(Supervisor):
         time = 0
         seconds = -1
         ko = -1
-        self.initServer()
+        mode = self.initServer()
+        self.initMotors(mode=mode, samplingperiod=time_step)
         
         while  self.step(time_step) != -1: 
             # if time > 22000:
