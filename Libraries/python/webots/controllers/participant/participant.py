@@ -143,7 +143,7 @@ class WrestlerSupervisorServer(Supervisor):
         #actions= {'LHipPitch': 0, 'LKneePitch': 0, 'LAnklePitch': 0, 'RHipPitch': 0, 'RKneePitch': 0, 'RAnklePitch': 0}
         #self.rr.set( self.initial_sensors,actions)
         #print('actions',self.actions)
-        logging.info(f'actions {self.actions}')
+        #logging.info(f'actions {self.actions}')
 
         self.rr.set( self.initial_sensors,self.actions)
 
