@@ -137,7 +137,7 @@ configs = {
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 10,'max_columns_limit': 10, 'early_termination': True,
           'min_levels_limit': 2,'min_columns_limit': 2, 'error_limit': 100,'p_crossover': 0.9,'p_mutation': 0.75}           
           ,
-          'WebotsWrestler_WW01-03': {'seed': 1,'pop_size': 1000,'gens': 10,'attr_mut_pb':1,'structurepb':1,'runs':1000000, 
+          'WebotsWrestler_WW01-03': {'seed': 1,'pop_size': 500,'gens': 10,'attr_mut_pb':1,'structurepb':1,'runs':1000000, 
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 10,'max_columns_limit': 10, 'early_termination': True,
           'min_levels_limit': 2,'min_columns_limit': 2, 'error_limit': 100,'p_crossover': 0.9,'p_mutation': 0.75}           
           ,

@@ -41,7 +41,7 @@ if test == 2:
 if test == 3:
     filename = 'WW01-02-RewardError-CurrentError-Mode01'
 
-if test == 3:
+if test == 4:
     filename = 'WW01-03-RewardError-CurrentError-Mode01'
 
 
