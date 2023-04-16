@@ -108,7 +108,7 @@ class WrestlerSupervisorServer(Supervisor):
         self.rr.setShoulders(2,2)
         # send sensor data
         self.initial_sensors = self.send_sensors(performance=0)
-        print('initial:', self.initial_sensors)
+        #print('initial:', self.initial_sensors)
         # {'LHipPitch': -0.394, 'LKneePitch': 1.021, 'LAnklePitch': -0.626, 'RHipPitch': -0.71, 'RKneePitch': 1.087, 'RAnklePitch': -0.376}
         # print("finished initServer")
 
