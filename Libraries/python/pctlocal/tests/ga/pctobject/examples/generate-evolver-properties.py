@@ -30,7 +30,8 @@ varieties ={'CartPoleV1': {'num_actions': 1, 'nevals':1,
             'WebotsWrestler': {'num_actions': 6, 'nevals':1,
                            'archs':[
                                {'name': 'WW01-01', 'env_inputs_indexes':[0,1,2,3,4,5], 'references':[0], 'env_inputs_names': '[ LHipPitch, LKneePitch, LAnklePitch, RHipPitch, RKneePitch, RAnklePitch]'},
-                               {'name': 'WW01-02', 'env_inputs_indexes':[0,1,2,3,4,5], 'references':[0.5], 'env_inputs_names': '[ LHipPitch, LKneePitch, LAnklePitch, RHipPitch, RKneePitch, RAnklePitch]'}                               
+                               {'name': 'WW01-02', 'env_inputs_indexes':[0,1,2,3,4,5], 'references':[0.5], 'env_inputs_names': '[ LHipPitch, LKneePitch, LAnklePitch, RHipPitch, RKneePitch, RAnklePitch]'},                               
+                               {'name': 'WW01-03', 'env_inputs_indexes':[0,1,2,3,4,5], 'references':[0, 0], 'env_inputs_names': '[ LHipPitch, LKneePitch, LAnklePitch, RHipPitch, RKneePitch, RAnklePitch]'}
                                ]}
                             ,
             'MountainCarContinuousV0': {'num_actions': 1, 'nevals':5,
@@ -67,7 +68,7 @@ collection = {
                                                 ]
                                     }
                                 }
-                            
+                        }
                             ,
             'WebotsWrestler': { 'arch': {
                                     'WW01-01' : {'collectors': ['RewardError' ],
@@ -79,11 +80,21 @@ collection = {
                                                                         [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float'], 
                                                                         [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable'],
                                                                         [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -1,'upper': 1}]]
-                                                }]}
-                                    },
+                                                }]} ,
                                     'WW01-02' : {'collectors': ['RewardError' ],
                                     'responses': ['CurrentError'],
-                                    'structs' : [{'mode': 1, 'types':[]  }]}
+                                    'structs' : [{'mode': 1, 'types':[]  }]},
+                                    'WW01-03' : {'collectors': ['RewardError' ],
+                                    'responses': ['CurrentError'],
+                                    'structs' : [{'mode': 1, 
+                                                'types':[[HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float'], 
+                                                                        [HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable'], 
+                                                                        [HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -1,'upper': 1}],
+                                                                        [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float'], 
+                                                                        [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable'],
+                                                                        [HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -1,'upper': 1}]]
+                                                }]} 
+                                    
                                     }
 
                             }
@@ -123,6 +134,10 @@ configs = {
           'min_levels_limit': 2,'min_columns_limit': 2, 'error_limit': 100,'p_crossover': 0.9,'p_mutation': 0.5}           
           ,
           'WebotsWrestler_WW01-02': {'seed': 1,'pop_size': 1000,'gens': 10,'attr_mut_pb':1,'structurepb':1,'runs':1000000, 
+          'lower_float': -1,'upper_float': 1,'max_levels_limit': 10,'max_columns_limit': 10, 'early_termination': True,
+          'min_levels_limit': 2,'min_columns_limit': 2, 'error_limit': 100,'p_crossover': 0.9,'p_mutation': 0.75}           
+          ,
+          'WebotsWrestler_WW01-03': {'seed': 1,'pop_size': 500,'gens': 10,'attr_mut_pb':1,'structurepb':1,'runs':1000000, 
           'lower_float': -1,'upper_float': 1,'max_levels_limit': 10,'max_columns_limit': 10, 'early_termination': True,
           'min_levels_limit': 2,'min_columns_limit': 2, 'error_limit': 100,'p_crossover': 0.9,'p_mutation': 0.75}           
           ,

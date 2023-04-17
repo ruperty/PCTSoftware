@@ -1731,6 +1731,8 @@ class HPCTEvolverWrapper(EvolverWrapper):
             self.best_of_gens.append(top_ind)
             top_config=top_ind.get_config(zero=0)            
             top_config_formatted = top_ind.formatted_config()
+            
+            logging.info(f'TOP config gen {gen:03} score {top_ind.get_error_collector().error()}')            
             logging.info(f'TOP config gen {gen:03} \n{top_config_formatted}')            
             logging.info(f'TOP config gen {gen:03} \n{top_config}')
             # if self.display_env and gen == gens:

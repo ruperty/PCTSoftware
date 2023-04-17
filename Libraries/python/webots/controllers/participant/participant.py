@@ -108,7 +108,7 @@ class WrestlerSupervisorServer(Supervisor):
         self.rr.setShoulders(2,2)
         # send sensor data
         self.initial_sensors = self.send_sensors(performance=0)
-        print('initial:', self.initial_sensors)
+        #print('initial:', self.initial_sensors)
         # {'LHipPitch': -0.394, 'LKneePitch': 1.021, 'LAnklePitch': -0.626, 'RHipPitch': -0.71, 'RKneePitch': 1.087, 'RAnklePitch': -0.376}
         # print("finished initServer")
 
@@ -143,7 +143,7 @@ class WrestlerSupervisorServer(Supervisor):
         #actions= {'LHipPitch': 0, 'LKneePitch': 0, 'LAnklePitch': 0, 'RHipPitch': 0, 'RKneePitch': 0, 'RAnklePitch': 0}
         #self.rr.set( self.initial_sensors,actions)
         #print('actions',self.actions)
-        logging.info(f'actions {self.actions}')
+        #logging.info(f'actions {self.actions}')
 
         self.rr.set( self.initial_sensors,self.actions)
 
@@ -158,7 +158,7 @@ class WrestlerSupervisorServer(Supervisor):
         ko_labels = ['', '']
         coverage_labels = ['', '']
 
-        game_duration = 5000 #3 * 60 * 1000  # a game lasts 3 minutes
+        game_duration = 10000 #3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         # print(time_step)
