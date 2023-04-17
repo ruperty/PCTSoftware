@@ -1,6 +1,7 @@
 
 
 import random, enum, time, copy, math, logging
+import csv
 from os import name, makedirs, sep
 from enum import IntEnum, auto
 from deap import tools, algorithms
@@ -2277,6 +2278,7 @@ class HPCTGenerateEvolvers(object):
 
     def generate_option_files(self, iters, env, num_actions, arch, config, nevals, properties, collection):
         "Generate properties file based upon architecture type."
+        #print('arch', arch)
         arch_name = arch['name']
         # inputs_names = arch['inputs_names']
         ppars = ''
@@ -2285,8 +2287,9 @@ class HPCTGenerateEvolvers(object):
         responses=collection[env]['arch'][arch_name]['responses']
         structs=collection[env]['arch'][arch_name]['structs']
 
-        print('collection', collection)
+        #print('collection', collection)
 
+        #print('config', config)
 
         for collector in collectors:
             for response in responses:
@@ -2303,6 +2306,70 @@ class HPCTGenerateEvolvers(object):
                         self.write_to_file(filepath, text)
                         cmd = f'python run-dynamic-evolver-multi.py {filepath} -i {iters}'
                         print(cmd, end='\n')
+
+
+    def process_csv(self, file):
+        with open(file, 'r', encoding='utf-16') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                # print(row)
+                if reader.line_num==1:
+                    header = row
+                else:
+                    record = {}
+                    for ctr, item in enumerate(header):
+                        record[item] = row[ctr]
+                        
+                    #print(record)
+                    arch_props = {}
+                    arch_props['collectors']=[record['error_collector']]
+                    arch_props['responses']=[record['error_response']]
+                    structs = {}
+                    if record['arch_types'] == '':
+                        structs['types'] = []
+                    else:
+                        structs['types'] = eval(record['arch_types'])
+                    structs['mode'] = eval(record['arch_mode'])  
+                    arch_props['structs']=[structs]
+                    arch_config={}
+                    arch_config[record['arch_name']]=arch_props
+                    archs={}
+                    archs['arch']=arch_config                
+                    collection={}
+                    collection[record['env']]=archs
+                    #print()
+                    #print(collection)
+                    
+                    config={}
+                    config['seed']=eval(record['seed']) 
+                    config['pop_size']=eval(record['pop_size']) 
+                    config['gens']=eval(record['gens']) 
+                    config['attr_mut_pb']=eval(record['attr_mut_pb']) 
+                    config['structurepb']=eval(record['structurepb']) 
+                    config['runs']=eval(record['runs']) 
+                    config['lower_float']=eval(record['lower_float']) 
+                    config['upper_float']=eval(record['upper_float']) 
+                    config['max_levels_limit']=eval(record['max_levels_limit']) 
+                    config['max_columns_limit']=eval(record['max_columns_limit']) 
+                    if record['early_termination'] == 'TRUE':
+                        config['early_termination']=True 
+                    else:
+                        config['early_termination']=False
+                    config['min_levels_limit']=eval(record['min_levels_limit']) 
+                    config['min_columns_limit']=eval(record['min_columns_limit']) 
+                    config['error_limit']=eval(record['error_limit']) 
+                    config['p_crossover']=eval(record['p_crossover']) 
+                    config['p_mutation']=eval(record['p_mutation']) 
+                    
+                    properties=eval(record['error_properties']) 
+                    
+                    arch={}
+                    arch['name']=record['arch_name']
+                    arch['env_inputs_indexes']=eval(record['env_inputs_indexes'])
+                    arch['references']=eval(record['references'])
+                    arch['env_inputs_names']=record['env_inputs_names']
+                    
+                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], properties, collection)
 
     def additional_properties(self, properties, response, collector):
         "Add additional properties such as error function parameters."

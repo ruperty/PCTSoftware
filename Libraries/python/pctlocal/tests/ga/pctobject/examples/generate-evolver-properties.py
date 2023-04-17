@@ -8,10 +8,9 @@ Created on Thu Feb 25 20:20:48 2021
 from eepct.hpct import HPCTGenerateEvolvers
 
 
-from eepct.hpct import HPCTARCH
+
 from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTVARIABLE
-
 from pct.functions import HPCTFUNCTION
 
 # removed RootSumSquaredError

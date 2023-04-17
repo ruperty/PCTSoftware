@@ -5,15 +5,25 @@ Created on Mon Apr 17 2023
 @author: ryoung
 """
 
-import csv
+import os
+
+from eepct.hpct import HPCTGenerateEvolvers
+
+from eepct.hpct import HPCTLEVEL
+from eepct.hpct import HPCTVARIABLE
+from pct.functions import HPCTFUNCTION
+
+test = 1
+
+if test == 1:
+    file = 'configs'+ os.sep + 'configs-cp.csv'
+
+if test == 2:
+    file = 'configs'+ os.sep + 'configs-ww.csv'
 
 
-def read_data():
-    file = 'configs.csv'
-    with open(file, 'r', encoding='utf-16') as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            print(row)
-            
-            
-read_data()
+
+
+hge = HPCTGenerateEvolvers()  
+
+hge.process_csv(file)
