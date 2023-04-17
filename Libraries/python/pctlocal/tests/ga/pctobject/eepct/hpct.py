@@ -2285,14 +2285,14 @@ class HPCTGenerateEvolvers(object):
         responses=collection[env]['arch'][arch_name]['responses']
         structs=collection[env]['arch'][arch_name]['structs']
 
+        print('collection', collection)
+
 
         for collector in collectors:
             for response in responses:
                     for struct in structs:
                         desc, filename = self.description(collector,response,  f'Mode{struct["mode"]:02}', arch_name)
                         fpars = self.fixed_parameters(env, arch, num_actions)
-                        print(collector)
-                        print(response)
                         cpars = self.configurable_parameters( config, collector, response, nevals)
                         ppars = self.additional_properties(properties, response, collector)
                         spars = self.structure_parameters(collector,response,  struct, arch_name)

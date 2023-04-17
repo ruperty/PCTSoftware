@@ -10,7 +10,7 @@ import csv
 
 def read_data():
     file = 'configs.csv'
-    with open(file, 'r') as csvfile:
+    with open(file, 'r', encoding='utf-16') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             print(row)
