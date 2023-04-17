@@ -2,7 +2,12 @@
 from pct.putils import FunctionsList
 from pct.functions import Constant
 
-test = 3
+test = 4
+
+
+if test == 4:
+    import platform
+    print(platform.node())
 
 if test == 3:
     import os    

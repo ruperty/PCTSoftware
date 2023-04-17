@@ -2257,20 +2257,21 @@ class HPCTEvolveProperties(object):
 
 class HPCTGenerateEvolvers(object):
     "Generate files of evolver properties, from array of options."
-    def __init__(self, iters=1, envs=None, collection=None, configs=None, properties=None, varieties=None):
-        import os
-        for env in envs:
-            os.makedirs('configs' + os.sep + env, exist_ok=True)
+    def __init__(self, iters=0, envs=None, collection=None, configs=None, properties=None, varieties=None):
+        if iters>0:
+            import os
+            for env in envs:
+                os.makedirs('configs' + os.sep + env, exist_ok=True)
 
-        for env in envs:
-            num_actions = varieties[env]['num_actions']
-            nevals = varieties[env]['nevals']
-            archs = varieties[env]['archs']
-            for arch in archs:
-                key = '_'.join((env,arch['name']))
-                print(key)
-                config = configs[key]
-                self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
+            for env in envs:
+                num_actions = varieties[env]['num_actions']
+                nevals = varieties[env]['nevals']
+                archs = varieties[env]['archs']
+                for arch in archs:
+                    key = '_'.join((env,arch['name']))
+                    print(key)
+                    config = configs[key]
+                    self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
 
     def generate_option_files(self, iters, env, num_actions, arch, config, nevals, properties, collection):
         "Generate properties file based upon architecture type."
@@ -2288,6 +2289,8 @@ class HPCTGenerateEvolvers(object):
                     for struct in structs:
                         desc, filename = self.description(collector,response,  f'Mode{struct["mode"]:02}', arch_name)
                         fpars = self.fixed_parameters(env, arch, num_actions)
+                        print(collector)
+                        print(response)
                         cpars = self.configurable_parameters( config, collector, response, nevals)
                         ppars = self.additional_properties(properties, response, collector)
                         spars = self.structure_parameters(collector,response,  struct, arch_name)

@@ -1,7 +1,9 @@
 
 import os
 import logging
-
+import platform
+    
+    
 from datetime import datetime
 from eepct.hpct import HPCTEvolveProperties
 from utils.paths import get_root_path, get_gdrive
@@ -12,11 +14,13 @@ from eepct.hpct import HPCTIndividual
 out_dir= get_gdrive() + 'data/ga/'
 env_name = 'WebotsWrestler'
 
+# logging info
 now = datetime.now() # current date and time
 date_time = now.strftime("%Y%m%d-%H%M%S")
-log_file=os.sep.join((out_dir, env_name, "ww-evolve-client"+date_time+".log"))
-
+log_file=os.sep.join((out_dir, env_name, "ww-evolve-client-"+platform.node()+"-"+date_time+".log"))
 logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+
+
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
