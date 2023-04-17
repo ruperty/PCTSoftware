@@ -101,6 +101,8 @@ class WrestlerSupervisorServer(Supervisor):
             raise Exception('Initialisation not recevied from client.')
 
         # self.simulationReset()
+        self.game_duration =  240000 #3 * 60 * 1000  # a game lasts 3 minutes
+
         return mode
     
     def initMotors(self, mode, samplingperiod):
@@ -158,7 +160,6 @@ class WrestlerSupervisorServer(Supervisor):
         ko_labels = ['', '']
         coverage_labels = ['', '']
 
-        game_duration = 10000 #3 * 60 * 1000  # a game lasts 3 minutes
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         # print(time_step)
@@ -182,7 +183,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.apply_actions()
             ko, performance = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
-            if time > game_duration or ko != -1 or self.robot_down:
+            if time > self.game_duration or ko != -1 or self.robot_down:
                 self.done = 1
                 self.send_sensors(performance)
                 break
@@ -473,7 +474,7 @@ if test == 1:
     CI = os.environ.get("CI")
     wrestler = WrestlerSupervisor()    
     time_step=None
-    max_loops=None
+    max_loops=10
     
     wrestler.simulationReset()
     #wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
