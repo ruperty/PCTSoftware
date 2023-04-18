@@ -81,7 +81,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.max[i] = self.robot[i].getPosition()
         self.coverage = [0] * 2
         self.ko_count = [0] * 2
-        self.robot_down = False
+        self.robot_down= [0] * 2
         self.outside_ring = False 
         #self.robot_backwards = False
 
@@ -103,7 +103,7 @@ class WrestlerSupervisorServer(Supervisor):
             raise Exception('Initialisation not recevied from client.')
 
         # self.simulationReset()
-        self.game_duration =  240000 #3 * 60 * 1000  # a game lasts 3 minutes
+        self.game_duration =  60000 #3 * 60 * 1000  # a game lasts 3 minutes
 
         return mode
     
@@ -156,14 +156,15 @@ class WrestlerSupervisorServer(Supervisor):
         self.server.close()
         
     def run(self):
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        time_step = int(self.getBasicTimeStep())
+        self.step(time_step)
         self.initSupervisor()
         self.motion_library = MotionLibrary()
         #self.motion_library.play('Forwards')
         ko_labels = ['', '']
         coverage_labels = ['', '']
 
-        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        time_step = int(self.getBasicTimeStep())
         # print(time_step)
         time = 0
         seconds = -1
@@ -185,7 +186,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.apply_actions()
             ko, performance = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
-            if time > self.game_duration or ko != -1 or self.robot_down:
+            if time > self.game_duration or ko != -1 or self.robot_down[0]:
                 self.done = 1
                 self.send_sensors(performance)
                 break
@@ -242,11 +243,12 @@ class WrestlerSupervisorServer(Supervisor):
                     #     print(f'coverage for robot {i}: {string}')
                     coverage_labels[i] = string
                 else:
-                    self.outside_ring = True
+                    if i==0:
+                        self.outside_ring = True
 
                 if position[2] < 0.9 or self.outside_ring:  # low position threshold
-                    print(position)
-                    self.robot_down = True
+                    print(i, position)
+                    self.robot_down[i] = True
                     # if position[0] < -0.1:
                     #     self.robot_backwards = True
                     self.ko_count[i] = self.ko_count[i] + 200
@@ -260,7 +262,7 @@ class WrestlerSupervisorServer(Supervisor):
                     print(f'robot {i}: {string}')
                 ko_labels[i] = string
 
-        if self.robot_down:
+        if self.robot_down[0]:
             performance = self.coverage[0]/10
             if self.outside_ring:
                 performance = -performance 
