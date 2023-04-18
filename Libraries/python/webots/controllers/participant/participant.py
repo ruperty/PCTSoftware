@@ -22,6 +22,7 @@ import time
 import math
 from controller import Robot
 import sys
+import platform
 
 # We provide a set of utilities to help you with the development of your controller. You can find them in the utils folder.
 # If you want to see a list of examples that use them, you can go to https://github.com/cyberbotics/wrestling#demo-robot-controllers
@@ -29,14 +30,14 @@ sys.path.append('..')
 from utils.motion_library import MotionLibrary
 
 from utils.image_processing import ImageProcessing as IP
-from utils.fall_detection import FallDetection
-from utils.gait_manager import GaitManager
-from utils.camera import Camera
+# from utils.fall_detection import FallDetection
+# from utils.gait_manager import GaitManager
+# from utils.camera import Camera
 
 from utilities.robot import RobotAccess
 from  pct.network import Server
 from controller import Supervisor
-import logging
+
 
 from datetime import datetime
 
@@ -59,12 +60,13 @@ test = 4
 out_dir= get_gdrive() + 'data/ga/'
 env_name = 'WebotsWrestler'
 
+import logging
 now = datetime.now() # current date and time
 date_time = now.strftime("%Y%m%d-%H%M%S")
-log_file=os.sep.join((out_dir, env_name, "ww-evolve-server"+date_time+".log"))
-
+log_file=os.sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
 logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
+logger = logging.getLogger(__name__)
 
 class WrestlerSupervisorServer(Supervisor):
     def initSupervisor(self):
@@ -79,7 +81,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.max[i] = self.robot[i].getPosition()
         self.coverage = [0] * 2
         self.ko_count = [0] * 2
-        self.robot_down = False
+        self.robot_down= [0] * 2
         self.outside_ring = False 
         #self.robot_backwards = False
 
@@ -90,7 +92,7 @@ class WrestlerSupervisorServer(Supervisor):
         recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
             print('Initialisation recevied from client.')
-            logging.info(f'Initialisation recevied from client. {recv}')
+            logger.info(f'Initialisation recevied from client. {recv}')
             if 'mode' in recv:
                 mode =  recv['mode']
             else:                
@@ -101,7 +103,7 @@ class WrestlerSupervisorServer(Supervisor):
             raise Exception('Initialisation not recevied from client.')
 
         # self.simulationReset()
-        self.game_duration =  240000 #3 * 60 * 1000  # a game lasts 3 minutes
+        self.game_duration =  60000 #3 * 60 * 1000  # a game lasts 3 minutes
 
         return mode
     
@@ -154,14 +156,15 @@ class WrestlerSupervisorServer(Supervisor):
         self.server.close()
         
     def run(self):
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        time_step = int(self.getBasicTimeStep())
+        self.step(time_step)
         self.initSupervisor()
         self.motion_library = MotionLibrary()
         #self.motion_library.play('Forwards')
         ko_labels = ['', '']
         coverage_labels = ['', '']
 
-        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        time_step = int(self.getBasicTimeStep())
         # print(time_step)
         time = 0
         seconds = -1
@@ -183,7 +186,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.apply_actions()
             ko, performance = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
 
-            if time > self.game_duration or ko != -1 or self.robot_down:
+            if time > self.game_duration or ko != -1 or self.robot_down[0]:
                 self.done = 1
                 self.send_sensors(performance)
                 break
@@ -240,11 +243,12 @@ class WrestlerSupervisorServer(Supervisor):
                     #     print(f'coverage for robot {i}: {string}')
                     coverage_labels[i] = string
                 else:
-                    self.outside_ring = True
+                    if i==0:
+                        self.outside_ring = True
 
                 if position[2] < 0.9 or self.outside_ring:  # low position threshold
-                    print(position)
-                    self.robot_down = True
+                    print(i, position)
+                    self.robot_down[i] = True
                     # if position[0] < -0.1:
                     #     self.robot_backwards = True
                     self.ko_count[i] = self.ko_count[i] + 200
@@ -258,7 +262,7 @@ class WrestlerSupervisorServer(Supervisor):
                     print(f'robot {i}: {string}')
                 ko_labels[i] = string
 
-        if self.robot_down:
+        if self.robot_down[0]:
             performance = self.coverage[0]/10
             if self.outside_ring:
                 performance = -performance 

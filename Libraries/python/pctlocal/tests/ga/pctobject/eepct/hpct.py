@@ -21,7 +21,7 @@ from epct.functions import EAFunctionFactory
 from epct.structure import ParameterFactory
 from pct.putils import stringListToListOfStrings
 
-
+logger = logging.getLogger(__name__)
 
 class Memory:
     "A utility for ensuring the names of functions are unique."
@@ -1733,9 +1733,9 @@ class HPCTEvolverWrapper(EvolverWrapper):
             top_config=top_ind.get_config(zero=0)            
             top_config_formatted = top_ind.formatted_config()
             
-            logging.info(f'TOP config gen {gen:03} score {top_ind.get_error_collector().error()}')            
-            logging.info(f'TOP config gen {gen:03} \n{top_config_formatted}')            
-            logging.info(f'TOP config gen {gen:03} \n{top_config}')
+            logger.info(f'TOP config gen {gen:03} score {top_ind.get_error_collector().error()}')            
+            logger.info(f'TOP config gen {gen:03} \n{top_config_formatted}')            
+            logger.info(f'TOP config gen {gen:03} \n{top_config}')
             # if self.display_env and gen == gens:
             if self.run_gen_best:
                 render = True if self.display_env else False
@@ -2084,6 +2084,7 @@ class HPCTEvolveProperties(object):
             parallel=False, video_wrap=False, log=False, figsize=(12,12), summary=False, draw_file=None, with_edge_labels=True,
             print_properties=False, overwrite=False, output=False, toolbox=None, processes=1, min=True):
         "Evolve from file - when is this used?"
+        logger.info('Start evolve_from_properties_file')
         import hashlib
         self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size)
         self.hpct_run_properties['min']=min
