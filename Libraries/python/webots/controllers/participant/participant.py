@@ -22,6 +22,7 @@ import time
 import math
 from controller import Robot
 import sys
+import platform
 
 # We provide a set of utilities to help you with the development of your controller. You can find them in the utils folder.
 # If you want to see a list of examples that use them, you can go to https://github.com/cyberbotics/wrestling#demo-robot-controllers
@@ -29,14 +30,14 @@ sys.path.append('..')
 from utils.motion_library import MotionLibrary
 
 from utils.image_processing import ImageProcessing as IP
-from utils.fall_detection import FallDetection
-from utils.gait_manager import GaitManager
-from utils.camera import Camera
+# from utils.fall_detection import FallDetection
+# from utils.gait_manager import GaitManager
+# from utils.camera import Camera
 
 from utilities.robot import RobotAccess
 from  pct.network import Server
 from controller import Supervisor
-import logging
+
 
 from datetime import datetime
 
@@ -59,12 +60,13 @@ test = 4
 out_dir= get_gdrive() + 'data/ga/'
 env_name = 'WebotsWrestler'
 
+import logging
 now = datetime.now() # current date and time
 date_time = now.strftime("%Y%m%d-%H%M%S")
-log_file=os.sep.join((out_dir, env_name, "ww-evolve-server"+date_time+".log"))
-
+log_file=os.sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
 logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
+logger = logging.getLogger(__name__)
 
 class WrestlerSupervisorServer(Supervisor):
     def initSupervisor(self):
@@ -90,7 +92,7 @@ class WrestlerSupervisorServer(Supervisor):
         recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
             print('Initialisation recevied from client.')
-            logging.info(f'Initialisation recevied from client. {recv}')
+            logger.info(f'Initialisation recevied from client. {recv}')
             if 'mode' in recv:
                 mode =  recv['mode']
             else:                

@@ -20,6 +20,12 @@ date_time = now.strftime("%Y%m%d-%H%M%S")
 log_file=os.sep.join((out_dir, env_name, "ww-evolve-client-"+platform.node()+"-"+date_time+".log"))
 logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
+logger = logging.getLogger(__name__)
+# logger.setLevel(level=logging.DEBUG)
+# fh = logging.FileHandler(log_file)
+# fh_formatter = logging.Formatter("%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s-%(lineno)d %(message)s",datefmt= '%H:%M:%S')
+# fh.setFormatter(fh_formatter)
+# logger.addHandler(fh)
 
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
@@ -49,7 +55,7 @@ if test == 4:
     filename = 'WW01-03-RewardError-CurrentError-Mode01'
 
 
-logging.info("Evolving {} ".format(env_name))
+logger.info("Evolving {} ".format(env_name))
 
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/WebotsWrestler/'+ filename + ".properties"
 
@@ -80,7 +86,7 @@ output=True
 overwrite=True
 
 #if __name__ == "__main__":
-
+logger.info('Start evolve_ww')
 hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
                                     out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, 
                                     node_size=node_size, font_size=font_size, min=min)
