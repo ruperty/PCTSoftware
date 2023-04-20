@@ -103,7 +103,7 @@ class WrestlerSupervisorServer(Supervisor):
             raise Exception('Initialisation not recevied from client.')
 
         # self.simulationReset()
-        self.game_duration =  60000 #3 * 60 * 1000  # a game lasts 3 minutes
+        self.game_duration = 5000 # 60000 #3 * 60 * 1000  # a game lasts 3 minutes
 
         return mode
     

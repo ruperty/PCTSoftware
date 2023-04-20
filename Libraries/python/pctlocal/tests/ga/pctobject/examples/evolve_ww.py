@@ -40,7 +40,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 4
+test = 6
 
 # WW01
 if test == 1:
@@ -54,6 +54,11 @@ if test == 3:
 if test == 4:
     filename = 'WW01-03-RewardError-CurrentError-Mode01'
 
+if test == 5:
+    filename = 'WW01-04-RewardError-CurrentError-Mode01'
+
+if test == 6:
+    filename = 'WW01-05-RewardError-CurrentError-Mode01'
 
 logger.info("Evolving {} ".format(env_name))
 

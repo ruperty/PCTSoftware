@@ -13,7 +13,7 @@ from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTVARIABLE
 from pct.functions import HPCTFUNCTION
 
-test = 1
+test = 2
 
 if test == 1:
     file = 'configs'+ os.sep + 'configs-cp.csv'
