@@ -40,7 +40,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 6
+test = 5
 
 # WW01
 if test == 1:
