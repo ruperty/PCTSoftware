@@ -46,7 +46,7 @@ test = 5
 if test == 1:
     filename = 'WW01-RewardError-SmoothError-Mode00'
 if test == 2:
-    filename = 'WW01-RewardError-CurrentError-Mode01'
+    filename = 'WW01-01-RewardError-CurrentError-Mode01'
 
 if test == 3:
     filename = 'WW01-02-RewardError-CurrentError-Mode01'
