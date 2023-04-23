@@ -67,7 +67,8 @@ data = [
     [5, 'WebotsWrestler', '', 'WW01-03-RewardError-CurrentError-Mode01', {}, [], False],
     [6, 'WebotsWrestler', 'ga-001.012-s001-8x7-m001-c589fa85b67d512975680f7265d52149', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False],
     [7, 'WebotsWrestler', 'ga-000.023-s001-5x6-m001-a0025b57841f3289e33101bcd2c7c21f', 'WW01-01-RewardError-CurrentError-Mode01', {}, [], False],
-    [8, 'WebotsWrestler', 'ga-000.554-s001-3x5-m001-396442a24782fbf5d945531d302e886c', 'WW01-05-RewardError-CurrentError-Mode01', {}, [], False]
+    [8, 'WebotsWrestler', 'ga-000.554-s001-3x5-m001-396442a24782fbf5d945531d302e886c', 'WW01-05-RewardError-CurrentError-Mode01', {}, [], False],
+    [9, 'WebotsWrestler', 'ga-001.848-s001-4x8-m001-c589fa85b67d512975680f7265d52149', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False]
 
 
     ]
@@ -79,7 +80,7 @@ if test == 100:
       
 if test == 10:
     #runit(data[4]) # good one
-    runit(data[8])
+    runit(data[9])
 
 
 
