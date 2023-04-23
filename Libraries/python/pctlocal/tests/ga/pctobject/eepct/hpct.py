@@ -2263,9 +2263,8 @@ class HPCTGenerateEvolvers(object):
     "Generate files of evolver properties, from array of options."
     def __init__(self, iters=0, envs=None, collection=None, configs=None, properties=None, varieties=None):
         if iters>0:
-            import os
             for env in envs:
-                os.makedirs('configs' + os.sep + env, exist_ok=True)
+                makedirs('configs' + sep + env, exist_ok=True)
 
             for env in envs:
                 num_actions = varieties[env]['num_actions']
@@ -2280,6 +2279,7 @@ class HPCTGenerateEvolvers(object):
     def generate_option_files(self, iters, env, num_actions, arch, config, nevals, properties, collection):
         "Generate properties file based upon architecture type."
         #print('arch', arch)
+        import os
         arch_name = arch['name']
         # inputs_names = arch['inputs_names']
         ppars = ''
@@ -2305,7 +2305,7 @@ class HPCTGenerateEvolvers(object):
                         text = '\n'.join((desc, fpars, cpars, ppars, spars))
                         filepath = f'configs{sep}{env}{sep}{filename}.properties'
                         self.write_to_file(filepath, text)
-                        cmd = f'python run-dynamic-evolver-multi.py {filepath} -i {iters}'
+                        cmd = f'python examples{sep}evolve.py {env} {filename}' # -i {iters}'
                         print(cmd, end='\n')
 
 
