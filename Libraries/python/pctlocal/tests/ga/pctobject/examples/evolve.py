@@ -12,79 +12,87 @@ from deap import base, creator
 from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
 
+from pct.network import ConnectionManager
 
 
 
 if __name__ == '__main__':
     
-    parser = argparse.ArgumentParser()
-    parser.add_argument("env_name", help="the environment name")
-    parser.add_argument("file", help="the properties file name")
-    args = parser.parse_args()
-    env_name = args.env_name 
-    filename = args.file
+        parser = argparse.ArgumentParser()
+        parser.add_argument("env_name", help="the environment name")
+        parser.add_argument("file", help="the properties file name")
+        parser.add_argument('-p', '--port', type=int, help="port number")
+        args = parser.parse_args()
+        env_name = args.env_name 
+        filename = args.file
+        port = args.port 
 
-    # env_name = 'WebotsWrestler' 
-    # filename = 'WW01-02-RewardError-CurrentError-Mode01'
+        if port == None:
+                port = 6666
+        cm = ConnectionManager.getInstance()
+        cm.set_port(port)
 
-    out_dir= get_gdrive() + 'data/ga/'
+        # env_name = 'WebotsWrestler' 
+        # filename = 'WW01-02-RewardError-CurrentError-Mode01'
 
-    # logging info
-    now = datetime.now() # current date and time
-    date_time = now.strftime("%Y%m%d-%H%M%S")
-    log_file=os.sep.join((out_dir, env_name, filename, "evolve-client-"+platform.node()+"-"+date_time+".log"))
-    logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+        out_dir= get_gdrive() + 'data/ga/'
 
-    logger = logging.getLogger(__name__)
+        # logging info
+        now = datetime.now() # current date and time
+        date_time = now.strftime("%Y%m%d-%H%M%S")
+        log_file=os.sep.join((out_dir, env_name, filename, "evolve-client-"+platform.node()+"-"+date_time+".log"))
+        logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
-    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-    creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
+        logger = logging.getLogger(__name__)
 
-    min=False
+        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
 
-    toolbox = base.Toolbox()
-    CommonToolbox.getInstance().set_toolbox(toolbox)
+        min=False
 
-    node_size, font_size=150, 10
+        toolbox = base.Toolbox()
+        CommonToolbox.getInstance().set_toolbox(toolbox)
 
-    root = get_root_path()
+        node_size, font_size=150, 10
 
-    logger.info("Evolving {} ".format(env_name))
+        root = get_root_path()
 
-    file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/' + env_name +'/'+ filename + ".properties"
+        logger.info("Evolving {} ".format(env_name))
 
-    local_out_dir = 'output/'  + filename 
-    draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
+        file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/' + env_name +'/'+ filename + ".properties"
 
-    debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
-    hpct_verbose= False #True # log of every control system iteration
-    evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
+        local_out_dir = 'output/'  + filename 
+        draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
 
-    # debug= 2 #3 #0 #3 # details of population in each gen, inc. mutate and merge
-    #hpct_verbose= 1 #True # log of every control system iteration
-    #evolve_verbose = 3 #2# 1 #2 # output of evolve iterations, 2 for best of each gen
+        debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
+        hpct_verbose= False #True # log of every control system iteration
+        evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 
-    save_arch_gen = True #False #True
-    display_env = True #True #False#
-    run_gen_best = True # #False #True
+        # debug= 2 #3 #0 #3 # details of population in each gen, inc. mutate and merge
+        #hpct_verbose= 1 #True # log of every control system iteration
+        #evolve_verbose = 3 #2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
-    #save_arch_gen = False #True
-    #display_env = False #False#
-    #run_gen_best = False # #False #True
+        save_arch_gen = True #False #True
+        display_env = True #True #False#
+        run_gen_best = True # #False #True
 
-    verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
-            'save_arch_gen': save_arch_gen, 'run_gen_best':run_gen_best}
+        #save_arch_gen = False #True
+        #display_env = False #False#
+        #run_gen_best = False # #False #True
 
-    hep = HPCTEvolveProperties()
-    output=True
-    overwrite=True
+        verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
+                'save_arch_gen': save_arch_gen, 'run_gen_best':run_gen_best}
 
-    #if __name__ == "__main__":
-    logger.info('Start evolve_ww')
-    hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
-                                        out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, 
-                                        node_size=node_size, font_size=font_size, min=min)
-    # hep.load_properties(file=file, evolve=True, print_properties=True)
+        hep = HPCTEvolveProperties()
+        output=True
+        overwrite=True
+
+        #if __name__ == "__main__":
+        logger.info('Start evolve_ww')
+        hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
+                                                out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, 
+                                                node_size=node_size, font_size=font_size, min=min)
+        # hep.load_properties(file=file, evolve=True, print_properties=True)
 
 
 

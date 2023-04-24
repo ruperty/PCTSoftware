@@ -23,6 +23,7 @@ import math
 from controller import Robot
 import sys
 import platform
+import argparse
 
 # We provide a set of utilities to help you with the development of your controller. You can find them in the utils folder.
 # If you want to see a list of examples that use them, you can go to https://github.com/cyberbotics/wrestling#demo-robot-controllers
@@ -86,9 +87,9 @@ class WrestlerSupervisorServer(Supervisor):
         #self.robot_backwards = False
 
 
-    def initServer(self):     
+    def initServer(self, port=None):     
         self.done = False   
-        self.server = Server()
+        self.server = Server(port=port)
         recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
             print('Initialisation recevied from client.')
@@ -112,9 +113,6 @@ class WrestlerSupervisorServer(Supervisor):
         self.rr.setShoulders(2,2)
         # send sensor data
         self.initial_sensors = self.send_sensors(performance=0)
-        #print('initial:', self.initial_sensors)
-        # {'LHipPitch': -0.394, 'LKneePitch': 1.021, 'LAnklePitch': -0.626, 'RHipPitch': -0.71, 'RKneePitch': 1.087, 'RAnklePitch': -0.376}
-        # print("finished initServer")
 
     def send(self, data):
         self.server.put_dict(data)
@@ -155,7 +153,7 @@ class WrestlerSupervisorServer(Supervisor):
     def close(self):
         self.server.close()
         
-    def run(self):
+    def run(self, port=None):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         self.step(time_step)
@@ -169,7 +167,7 @@ class WrestlerSupervisorServer(Supervisor):
         time = 0
         seconds = -1
         ko = -1
-        mode = self.initServer()
+        mode = self.initServer(port=port)
         self.initMotors(mode=mode, samplingperiod=time_step)
         
         while  self.step(time_step) != -1: 
@@ -471,45 +469,7 @@ def get_root_path():
             root_dir='C:\\Users\\ryoung\\'
     return root_dir
 
-
-
-if test == 1:
-    # create the referee instance and run main loop
-    CI = os.environ.get("CI")
-    wrestler = WrestlerSupervisor()    
-    time_step=None
-    max_loops=10
-    
-    wrestler.simulationReset()
-    #wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
-    tic = time.perf_counter()
-    wrestler.run(CI, time_step=time_step, max_loops=max_loops)
-    toc = time.perf_counter()
-    elapsed = 1000 * (toc-tic)
-    print(f'Elapsed time: {elapsed:4.0f}')   
-    
-    # wrestler.simulationReset()        
-    # wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
-    # tic = time.perf_counter()
-    # wrestler.run(CI)
-    # toc = time.perf_counter()
-    # elapsed = toc-tic
-    # print(f'Elapsed time: {elapsed:4.4f}')
-
-
-
-if test == 2:
-    wrestler = WrestlerServer()
-    wrestler.run()
-    
-if test == 3:
-    wrestler = Wrestler()    
-    tic = time.perf_counter()
-    wrestler.run(time_step=20, max_loops=1000)    
-    toc = time.perf_counter()
-    elapsed = toc-tic
-    print(f'Elapsed time: {elapsed:4.4f}')   
-    
+ 
 
 def start_webots():
     import subprocess
@@ -518,12 +478,62 @@ def start_webots():
     worldfile = get_root_path() + 'Versioning'+os.sep+'PCTSoftware'+os.sep+'Libraries'+os.sep+'python'+os.sep+'webots'+os.sep+'worlds' +os.sep+"wrestling.wbt"
     subprocess.Popen([exe, "--batch", "--stdout",  "--stderr", worldfile])
 
-if test == 4:
-    # create the referee instance and run main loop
-    #start_webots()
 
-    wrestler = WrestlerSupervisorServer()
-    while True:
+
+
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--port', type=int, help="port number")
+    args = parser.parse_args()
+    port = args.port 
+
+
+    if test == 1:
+        # create the referee instance and run main loop
+        CI = os.environ.get("CI")
+        wrestler = WrestlerSupervisor()    
+        time_step=None
+        max_loops=10
+        
         wrestler.simulationReset()
+        #wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
+        tic = time.perf_counter()
+        wrestler.run(CI, time_step=time_step, max_loops=max_loops)
+        toc = time.perf_counter()
+        elapsed = 1000 * (toc-tic)
+        print(f'Elapsed time: {elapsed:4.0f}')   
+        
+        # wrestler.simulationReset()        
+        # wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
+        # tic = time.perf_counter()
+        # wrestler.run(CI)
+        # toc = time.perf_counter()
+        # elapsed = toc-tic
+        # print(f'Elapsed time: {elapsed:4.4f}')
+
+
+
+    if test == 2:
+        wrestler = WrestlerServer()
         wrestler.run()
+        
+    if test == 3:
+        wrestler = Wrestler()    
+        tic = time.perf_counter()
+        wrestler.run(time_step=20, max_loops=1000)    
+        toc = time.perf_counter()
+        elapsed = toc-tic
+        print(f'Elapsed time: {elapsed:4.4f}')   
+    
+    if test == 4:
+        # create the referee instance and run main loop
+        #start_webots()
+        if port==None:
+            port = 6667
+        wrestler = WrestlerSupervisorServer()
+        while True:
+            wrestler.simulationReset()
+            wrestler.run(port=port)
 

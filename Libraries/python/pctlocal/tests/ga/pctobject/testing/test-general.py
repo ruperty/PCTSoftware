@@ -1,8 +1,14 @@
 
 from pct.putils import FunctionsList
 from pct.functions import Constant
+from pct.network import ConnectionManager
+test = 5
 
-test = 4
+if test == 5:
+    cm = ConnectionManager.getInstance()
+    cm.set_port(6667)
+    cm.connect()
+
 
 
 if test == 4:
