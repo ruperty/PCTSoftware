@@ -61,6 +61,12 @@
             "module": "examples.example-arch"
         },
         {
+            "name": "from-config",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-hpct-from-config"
+        },
+        {
             "name": "mode02-evolve",
             "type": "python",
             "request": "launch",

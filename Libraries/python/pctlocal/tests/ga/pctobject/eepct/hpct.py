@@ -916,40 +916,40 @@ class HPCTNode(PCTNode):
             collection.append(func)
 
 
-    @classmethod
-    def from_config(cls, config=None, namespace=None, node=None, reference=False, comparator=False, perception=False, output=False, history=False):
-        "Create a node from JSON dictionary configuration."
-        if node is None:
-            node = PCTNode(default=False, name=config['name'], namespace=namespace, history=history)
+    # @classmethod
+    # def from_config(cls, config=None, namespace=None, node=None, reference=False, comparator=False, perception=False, output=False, history=False):
+    #     "Create a node from JSON dictionary configuration."
+    #     if node is None:
+    #         node = PCTNode(default=False, name=config['name'], namespace=namespace, history=history)
 
-        namespace= node.namespace
+    #     namespace= node.namespace
 
-        if reference:
-            node.referenceCollection = []
-            collection = node.referenceCollection
-            coll_dict = config['refcoll']
-            HPCTNode.collection_from_config(collection, coll_dict, namespace)
+    #     if reference:
+    #         node.referenceCollection = []
+    #         collection = node.referenceCollection
+    #         coll_dict = config['refcoll']
+    #         HPCTNode.collection_from_config(collection, coll_dict, namespace)
 
-        if perception:
-            node.perceptionCollection = []
-            collection = node.perceptionCollection
-            coll_dict = config['percoll']
-            HPCTNode.collection_from_config(collection, coll_dict, namespace)
+    #     if perception:
+    #         node.perceptionCollection = []
+    #         collection = node.perceptionCollection
+    #         coll_dict = config['percoll']
+    #         HPCTNode.collection_from_config(collection, coll_dict, namespace)
 
-        if comparator:
-            node.comparatorCollection = []
-            collection = node.comparatorCollection
-            coll_dict = config['comcoll']
-            HPCTNode.collection_from_config(collection, coll_dict, namespace)
+    #     if comparator:
+    #         node.comparatorCollection = []
+    #         collection = node.comparatorCollection
+    #         coll_dict = config['comcoll']
+    #         HPCTNode.collection_from_config(collection, coll_dict, namespace)
 
-        if output:
-            node.outputCollection = []
-            collection = node.outputCollection
-            coll_dict = config['outcoll']
-            HPCTNode.collection_from_config(collection, coll_dict, namespace)
+    #     if output:
+    #         node.outputCollection = []
+    #         collection = node.outputCollection
+    #         coll_dict = config['outcoll']
+    #         HPCTNode.collection_from_config(collection, coll_dict, namespace)
 
-        node.links_built = True
-        return node
+    #     node.links_built = True
+    #     return node
 
 
 class HPCTEvolver(BaseEvolver):
