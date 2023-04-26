@@ -29,13 +29,14 @@ class RobotAccess(object):
         self.RHipPitchS = robot.getDevice("RHipPitchS")
 
         #print('getSamplingPeriod=',self.LAnklePitchS.getSamplingPeriod())
-        robot.step(samplingPeriod)
+        print(f'samplingPeriod={samplingPeriod}')
         self.LAnklePitchS.enable(samplingPeriod)
         self.LKneePitchS.enable(samplingPeriod)
         self.LHipPitchS.enable(samplingPeriod)
         self.RAnklePitchS.enable(samplingPeriod)
         self.RKneePitchS.enable(samplingPeriod)
         self.RHipPitchS.enable(samplingPeriod)
+        robot.step(samplingPeriod)
 
 
         

@@ -68,7 +68,9 @@ data = [
     [6, 'WebotsWrestler', 'ga-001.012-s001-8x7-m001-c589fa85b67d512975680f7265d52149', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False],
     [7, 'WebotsWrestler', 'ga-000.023-s001-5x6-m001-a0025b57841f3289e33101bcd2c7c21f', 'WW01-01-RewardError-CurrentError-Mode01', {}, [], False],
     [8, 'WebotsWrestler', 'ga-000.554-s001-3x5-m001-396442a24782fbf5d945531d302e886c', 'WW01-05-RewardError-CurrentError-Mode01', {}, [], False],
-    [9, 'WebotsWrestler', 'ga-001.848-s001-4x8-m001-c589fa85b67d512975680f7265d52149', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False]
+    [9, 'WebotsWrestler', 'ga-001.848-s001-4x8-m001-c589fa85b67d512975680f7265d52149', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False],
+    [10, 'WebotsWrestler', 'ga-001.884-s001-2x4-m001-d63ec5dffda565b2c064458630f1643d', 'WW01-06-RewardError-CurrentError-Mode01', {}, [], False],
+    [11, 'WebotsWrestler', 'ga-002.149-s001-2x7-m001-a71b1e63499693a10f3adff35f0bb04d', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False]
 
 
     ]
@@ -79,7 +81,7 @@ if test == 100:
       runit(datum)   
       
 if test == 10:
-    #runit(data[4]) # good one
+    # good ones 4, 9, 11, weird 10
     runit(data[9])
 
 

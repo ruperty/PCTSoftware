@@ -61,13 +61,12 @@ test = 4
 out_dir= get_gdrive() + 'data/ga/'
 env_name = 'WebotsWrestler'
 
-import logging
-now = datetime.now() # current date and time
-date_time = now.strftime("%Y%m%d-%H%M%S")
-log_file=os.sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
-logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
-
-logger = logging.getLogger(__name__)
+# import logging
+# now = datetime.now() # current date and time
+# date_time = now.strftime("%Y%m%d-%H%M%S")
+# log_file=os.sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
+# logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+# logger = logging.getLogger(__name__)
 
 class WrestlerSupervisorServer(Supervisor):
     def initSupervisor(self):
@@ -93,7 +92,7 @@ class WrestlerSupervisorServer(Supervisor):
         recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
             print('Initialisation recevied from client.')
-            logger.info(f'Initialisation recevied from client. {recv}')
+            #logger.info(f'Initialisation recevied from client. {recv}')
             if 'mode' in recv:
                 mode =  recv['mode']
             else:                
@@ -245,7 +244,7 @@ class WrestlerSupervisorServer(Supervisor):
                         self.outside_ring = True
 
                 if position[2] < 0.9 or self.outside_ring:  # low position threshold
-                    print(i, position)
+                    #print(i, position)
                     self.robot_down[i] = True
                     # if position[0] < -0.1:
                     #     self.robot_backwards = True
@@ -531,7 +530,7 @@ if __name__ == '__main__':
         # create the referee instance and run main loop
         #start_webots()
         if port==None:
-            port = 6667
+            port = 6666
         wrestler = WrestlerSupervisorServer()
         while True:
             wrestler.simulationReset()
