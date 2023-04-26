@@ -40,6 +40,7 @@ if __name__ == '__main__':
         # logging info
         now = datetime.now() # current date and time
         date_time = now.strftime("%Y%m%d-%H%M%S")
+        os.makedirs(os.sep.join((out_dir, env_name, filename)),  exist_ok = True) 
         log_file=os.sep.join((out_dir, env_name, filename, "evolve-client-"+platform.node()+"-"+date_time+".log"))
         logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 

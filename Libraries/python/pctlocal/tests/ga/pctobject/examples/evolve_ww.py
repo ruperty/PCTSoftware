@@ -11,6 +11,10 @@ from deap import base, creator
 from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
 
+
+from pct.network import ConnectionManager
+
+
 out_dir= get_gdrive() + 'data/ga/'
 env_name = 'WebotsWrestler'
 
@@ -40,7 +44,10 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 5
+test = 7
+
+cm = ConnectionManager.getInstance()
+cm.set_port(6668)
 
 # WW01
 if test == 1:
@@ -59,6 +66,9 @@ if test == 5:
 
 if test == 6:
     filename = 'WW01-05-RewardError-CurrentError-Mode01'
+
+if test == 7:
+    filename = 'WW01-11-RewardError-CurrentError-Mode04'
 
 logger.info("Evolving {} ".format(env_name))
 

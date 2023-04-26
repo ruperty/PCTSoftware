@@ -226,6 +226,9 @@ class HPCTArchitecture(object):
             if mode == 3:
                 arch = self.mode03(lower_float, upper_float)
 
+            if mode == 4:
+                arch = self.mode04(lower_float, upper_float)
+
         self.arch = arch
         self.levels_zerotop = None
         self.levels_zero = None
