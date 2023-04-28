@@ -824,35 +824,35 @@ class HPCTIndividual(PCTHierarchy):
             hpct.set_suffixes()
         return hpct
 
-    def formatted_config(self, places=3):
-        str_list=[]
-        hpct = self.get_parameters_list()
-        levels = len(hpct)
-        level = 0
-        str_list.append(f'grid: {self.get_grid()}\n')
-        for lvl in hpct:
-            #print(lvl)
-            if level==0:
-                str_list.append(f'env: {lvl[0]} act: ')
-                str_list.append(floatListsToString(lvl[1],places))                
-                str_list.append('\n')                #str_list.append(f'env: {lvl[0]} act: {lvl[1]:0.3f}\n')
-            else:
-                str_list.append(f'level{level-1} \n')
-                column = 0
-                for col in lvl:
-                    str_list.append(f'col: {column} ')
-                    str_list.append(f'ref: ')
-                    str_list.append(floatListsToString(col[0], places))
-                    str_list.append(f' per: ')
-                    str_list.append(floatListsToString(col[1], places))
-                    str_list.append(f' out: ')
-                    str_list.append(floatListsToString(col[2], places))
-                    if level < levels-1:
-                        str_list.append('\n')
-                    column = column + 1
-            level=level+1
+    # def formatted_config(self, places=3):
+    #     str_list=[]
+    #     hpct = self.get_parameters_list()
+    #     levels = len(hpct)
+    #     level = 0
+    #     str_list.append(f'grid: {self.get_grid()}\n')
+    #     for lvl in hpct:
+    #         #print(lvl)
+    #         if level==0:
+    #             str_list.append(f'env: {lvl[0]} act: ')
+    #             str_list.append(floatListsToString(lvl[1],places))                
+    #             str_list.append('\n')                #str_list.append(f'env: {lvl[0]} act: {lvl[1]:0.3f}\n')
+    #         else:
+    #             str_list.append(f'level{level-1} \n')
+    #             column = 0
+    #             for col in lvl:
+    #                 str_list.append(f'col: {column} ')
+    #                 str_list.append(f'ref: ')
+    #                 str_list.append(floatListsToString(col[0], places))
+    #                 str_list.append(f' per: ')
+    #                 str_list.append(floatListsToString(col[1], places))
+    #                 str_list.append(f' out: ')
+    #                 str_list.append(floatListsToString(col[2], places))
+    #                 if level < levels-1:
+    #                     str_list.append('\n')
+    #                 column = column + 1
+    #         level=level+1
             
-        return ''.join(str_list)
+    #     return ''.join(str_list)
     
     
         
