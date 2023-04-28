@@ -18,8 +18,8 @@
 
 import numpy as np
 import os
-import time
-import math
+from time import sleep
+import math, time
 from controller import Robot
 import sys
 import platform
@@ -36,7 +36,7 @@ from utils.image_processing import ImageProcessing as IP
 # from utils.camera import Camera
 
 from utilities.robot import RobotAccess
-from  pct.network import Server
+from pct.network import Server
 from controller import Supervisor
 
 
@@ -381,35 +381,6 @@ class WrestlerSupervisor(Supervisor):
 
 
 
-class Wrestler (Robot):
-    
-    def __init__(self):
-        Robot.__init__(self)
-        self.rr = RobotAccess(self)
-        # self.RShoulderPitch = self.getDevice("RShoulderPitch")
-        # self.LShoulderPitch = self.getDevice("LShoulderPitch")
-        
-    def run(self, time_step=None, max_loops=None):
-        # to load all the motions from the motions folder, we use the MotionLibrary class:
-        motion_library = MotionLibrary()
-        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        fileTimeStep=int(self.getBasicTimeStep())
-        if time_step==None:
-            time_step = fileTimeStep
-        print(time_step)
-        game_duration = 5000
-        time=0
-        loops=0
-        while self.step(time_step) != -1:  # mandatory function to make the simulation run
-            motion_library.play('Forwards')
-            #print(self.rr.readLegs())
-            # if time > game_duration:
-            #     break
-            time += time_step
-            if loops==max_loops:
-                break
-            loops+=1
-        print(f'Time={time} loops={loops}')
         
 class WrestlerServer (Robot):
     
@@ -477,8 +448,60 @@ def start_webots():
     worldfile = get_root_path() + 'Versioning'+os.sep+'PCTSoftware'+os.sep+'Libraries'+os.sep+'python'+os.sep+'webots'+os.sep+'worlds' +os.sep+"wrestling.wbt"
     subprocess.Popen([exe, "--batch", "--stdout",  "--stderr", worldfile])
 
+from utilities.hpct import HPCTHelper
 
+class Wrestler (Robot):
+    
+    def __init__(self):
+        Robot.__init__(self)
+        self.rr = RobotAccess(self)
+        self.rmode=1
+        self.hpcthelper = HPCTHelper(config_num=2, mode=self.rmode)
+        
+        
+    def run(self, time_step=None, max_loops=None):
+        # to load all the motions from the motions folder, we use the MotionLibrary class:
+        motion_library = MotionLibrary()
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        fileTimeStep=int(self.getBasicTimeStep())
+        if time_step==None:
+            time_step = fileTimeStep
+        #print(time_step)
+        game_duration = 60000
+        time=0
+        loops=0
+        # hpct = self.hpcthelper.get_controller()
+        # environment = hpct.get_environment()
+        self.initMotors(mode=self.rmode, samplingperiod=time_step)
+        sensors = self.rr.read()    
+        self.hpcthelper.set_obs(sensors)
+        while self.step(time_step) != -1 and time < game_duration:  # mandatory function to make the simulation run
+            #motion_library.play('Forwards')
+            
+            self.actions = self.hpcthelper.get_actions()
+            self.apply_actions()
 
+            out = self.hpcthelper.step()
+            
+            #sleep(.005)
+            
+            sensors = self.rr.read()    
+            self.hpcthelper.set_obs(sensors)
+            
+            time += time_step
+            if loops==max_loops:
+                break
+            loops+=1
+        print(f'Time={time} loops={loops}')
+
+    def apply_actions(self):
+        self.rr.set( self.initial_sensors,self.actions)
+
+    def initMotors(self, mode, samplingperiod):
+        self.rr = RobotAccess(self, mode, samplingperiod)
+        self.rr.setShoulders(2,2)
+        # send sensor data
+        self.initial_sensors =  self.rr.read()
 
 
 if __name__ == '__main__':
@@ -521,7 +544,9 @@ if __name__ == '__main__':
     if test == 3:
         wrestler = Wrestler()    
         tic = time.perf_counter()
-        wrestler.run(time_step=20, max_loops=1000)    
+        # wrestler.run(time_step=20, max_loops=1000)    
+        
+        wrestler.run()    
         toc = time.perf_counter()
         elapsed = toc-tic
         print(f'Elapsed time: {elapsed:4.4f}')   
