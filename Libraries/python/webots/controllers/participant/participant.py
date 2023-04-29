@@ -93,22 +93,41 @@ class WrestlerSupervisorServer(Supervisor):
         if 'msg' in recv and recv['msg']=='init':
             print('Initialisation recevied from client.')
             #logger.info(f'Initialisation recevied from client. {recv}')
-            if 'mode' in recv:
-                mode =  recv['mode']
+            if 'rmode' in recv:
+                rmode =  recv['rmode']
             else:                
                 self.close()    
                 raise Exception('Mode not received in initialisation.')
+            
+            if 'game_duration' in recv:
+                self.game_duration =  recv['game_duration']
+            else:                
+                self.close()    
+                raise Exception('Game duration not received in initialisation.')
+
+            if 'sync' in recv:
+                sync =  recv['sync']
+                if sync != self.synchronization:
+                    self.close()    
+                    raise Exception('Sync is not the same as world file.')
+                    
+                
+            else:                
+                self.close()    
+                raise Exception('Sync not received in initialisation.')
+            
+            
         else:
             self.close()    
             raise Exception('Initialisation not recevied from client.')
 
         # self.simulationReset()
-        self.game_duration = 10000 # 60000 #3 * 60 * 1000  # a game lasts 3 minutes
+        # self.game_duration = 10000 # 60000 #3 * 60 * 1000  # a game lasts 3 minutes
 
-        return mode
+        return rmode
     
-    def initMotors(self, mode, samplingperiod):
-        self.rr = RobotAccess(self, mode, samplingperiod)
+    def initMotors(self, rmode, samplingperiod):
+        self.rr = RobotAccess(self, rmode, samplingperiod)
         self.rr.setShoulders(2,2)
         # send sensor data
         self.initial_sensors = self.send_sensors(performance=0)
@@ -163,12 +182,12 @@ class WrestlerSupervisorServer(Supervisor):
         coverage_labels = ['', '']
 
         # print(time_step)
-        time = 0
+        ttime,loops=0,0
         seconds = -1
         ko = -1
-        mode = self.initServer(port=port)
-        self.initMotors(mode=mode, samplingperiod=time_step)
-        
+        rmode = self.initServer(port=port)
+        self.initMotors(rmode=rmode, samplingperiod=time_step)
+        tic = time.perf_counter()
         while  self.step(time_step) != -1: 
             # if time > 22000:
             #     self.motion_library.play('Backwards')
@@ -181,9 +200,9 @@ class WrestlerSupervisorServer(Supervisor):
 
             # apply action data
             self.apply_actions()
-            ko, performance = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
+            ko, performance = self.evaluation(ttime, seconds, ko_labels, coverage_labels, ko)            
 
-            if time > self.game_duration or ko != -1 or self.robot_down[0]:
+            if ttime > self.game_duration or ko != -1 or self.robot_down[0]:
                 self.done = 1
                 self.send_sensors(performance)
                 break
@@ -191,7 +210,13 @@ class WrestlerSupervisorServer(Supervisor):
             # send sensor data
             self.send_sensors(performance)
 
-            time += time_step
+            ttime += time_step            
+            loops+=1
+
+        toc = time.perf_counter()
+        elapsed = 1000 * (toc-tic)
+        loop_time = elapsed/loops
+        print(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
                         
         self.close()
 
@@ -456,7 +481,7 @@ class Wrestler (Robot):
         Robot.__init__(self)
         self.rr = RobotAccess(self)
         self.rmode=1
-        self.hpcthelper = HPCTHelper(config_num=2, mode=self.rmode)
+        self.hpcthelper = HPCTHelper(config_num=1, mode=self.rmode)
         
         
     def run(self, time_step=None, max_loops=None):
@@ -468,31 +493,33 @@ class Wrestler (Robot):
             time_step = fileTimeStep
         #print(time_step)
         game_duration = 60000
-        time=0
+        ttime=0
         loops=0
         # hpct = self.hpcthelper.get_controller()
         # environment = hpct.get_environment()
         self.initMotors(mode=self.rmode, samplingperiod=time_step)
         sensors = self.rr.read()    
         self.hpcthelper.set_obs(sensors)
-        while self.step(time_step) != -1 and time < game_duration:  # mandatory function to make the simulation run
+        tic = time.perf_counter()
+        while self.step(time_step) != -1 and ttime < game_duration:  # mandatory function to make the simulation run
             #motion_library.play('Forwards')
-            
             self.actions = self.hpcthelper.get_actions()
             self.apply_actions()
-
             out = self.hpcthelper.step()
-            
             #sleep(.005)
-            
             sensors = self.rr.read()    
             self.hpcthelper.set_obs(sensors)
-            
-            time += time_step
+            ttime += time_step
             if loops==max_loops:
                 break
             loops+=1
-        print(f'Time={time} loops={loops}')
+        
+        toc = time.perf_counter()
+        elapsed = 1000 * (toc-tic)
+        loop_time = elapsed/loops
+        print(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
+        
+        
 
     def apply_actions(self):
         self.rr.set( self.initial_sensors,self.actions)
@@ -546,7 +573,7 @@ if __name__ == '__main__':
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         
-        wrestler.run()    
+        wrestler.run(time_step=10)    
         toc = time.perf_counter()
         elapsed = toc-tic
         print(f'Elapsed time: {elapsed:4.4f}')   

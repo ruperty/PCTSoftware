@@ -1169,6 +1169,7 @@ class HPCTEvolver(BaseEvolver):
             env.render=self.render
             env.set_name(self.env_name)
             env.early_termination = self.early_termination
+            env.set_properties(self.environment_properties['environment_properties'])
         # env=copy.deepcopy(self.env_name)
         # namespace = uuid.uuid1()
         #print(namespace)
@@ -1908,6 +1909,7 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.evolve_properties, property_name='attr_mut_pb', float_convert=True)
         self.set_property_value(properties_var=self.evolve_properties, property_name='structurepb', float_convert=True)
 
+    
 
         # if evolve:
         #     raw = None
@@ -1937,6 +1939,10 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.environment_properties, property_name='env_inputs_names', stringList=True)
         self.set_property_value(properties_var=self.environment_properties, property_name='env_name')
         self.set_property_value(properties_var=self.environment_properties, property_name='num_actions', int_convert=True)
+        self.set_property_value(properties_var=self.environment_properties, property_name='environment_properties', eval_convert=True)
+        
+        
+        
         # structure properties
         self.set_property_value(properties_var=self.hpct_structure_properties, property_name='min_levels_limit', int_convert=True, default=1)
         self.set_property_value(properties_var=self.hpct_structure_properties, property_name='min_columns_limit', int_convert=True, default=1)
@@ -1958,6 +1964,7 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.hpct_run_properties, existing_var=True, var=seed, property_name='seed', int_convert=True)
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_limit', float_convert=True)
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='runs', int_convert=True)
+
 
 
         if print_properties:
@@ -2046,7 +2053,7 @@ class HPCTEvolveProperties(object):
 
     def create_hash_string(self, properties_string, types_string):
         "Create an unique hash ID defined by the properties of this GA instance."
-        hs = ''.join((f'{self.environment_properties["env_inputs_indexes"]}{self.environment_properties["references"]}{self.environment_properties["toplevel_inputs_indexes"]}',
+        hs = ''.join((f'{self.environment_properties["environment_properties"]}{self.environment_properties["env_inputs_indexes"]}{self.environment_properties["references"]}{self.environment_properties["toplevel_inputs_indexes"]}',
             f'{properties_string}{self.file_properties["desc"]}{self.hpct_run_properties["error_response_type"]}{self.hpct_run_properties["error_collector_type"]}',
             f'{types_string}{self.hpct_structure_properties["mode"]}{self.hpct_run_properties["seed"]}{self.wrapper_properties["pop_size"]}',
             f'{self.wrapper_properties["gens"]}{self.evolve_properties["attr_mut_pb"]}{self.evolve_properties["structurepb"]}',
@@ -2279,7 +2286,7 @@ class HPCTGenerateEvolvers(object):
                     config = configs[key]
                     self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
 
-    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, properties, collection):
+    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection):
         "Generate properties file based upon architecture type."
         #print('arch', arch)
         import os
@@ -2299,9 +2306,9 @@ class HPCTGenerateEvolvers(object):
             for response in responses:
                     for struct in structs:
                         desc, filename = self.description(collector,response,  f'Mode{struct["mode"]:02}', arch_name)
-                        fpars = self.fixed_parameters(env, arch, num_actions)
+                        fpars = self.fixed_parameters(env, arch, num_actions, environment_properties)
                         cpars = self.configurable_parameters( config, collector, response, nevals)
-                        ppars = self.additional_properties(properties, response, collector)
+                        ppars = self.additional_properties(error_properties, response, collector)
                         spars = self.structure_parameters(collector,response,  struct, arch_name)
                         # display = f'### Display\n\ninputs_names = {inputs_names}\n'
                         
@@ -2365,7 +2372,18 @@ class HPCTGenerateEvolvers(object):
                     config['p_crossover']=eval(record['p_crossover']) 
                     config['p_mutation']=eval(record['p_mutation']) 
                     
-                    properties=eval(record['error_properties']) 
+                    ep = record['error_properties']
+                    if ep == '':
+                        error_properties=None
+                    else:
+                        error_properties=eval(record['error_properties']) 
+
+                    envp = record['environment_properties']
+                    if envp == '':
+                        environment_properties=None
+                    else:
+                        environment_properties=eval(record['environment_properties']) 
+
                     
                     arch={}
                     arch['name']=record['arch_name']
@@ -2373,18 +2391,22 @@ class HPCTGenerateEvolvers(object):
                     arch['references']=eval(record['references'])
                     arch['env_inputs_names']=record['env_inputs_names']
                     
-                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], properties, collection)
+                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection)
 
-    def additional_properties(self, properties, response, collector):
+    def additional_properties(self, error_properties, response, collector):
         "Add additional properties such as error function parameters."
         ppars = ''
+
+        if error_properties is None:
+            return ppars                        
+            
         
-        if len(properties)>0:
+        if len(error_properties)>0:
             ppars='### Additional properties\n\n'
 
         ctr = 1
-        for  prop in properties:
-            value = properties[prop]
+        for  prop in error_properties:
+            value = error_properties[prop]
             if response == 'SmoothError' and prop == 'error:smooth_factor':
                 propstr = f'property{ctr} = {prop},{value}'        
                 ppars = ''.join((ppars, propstr, '\n'))
@@ -2397,6 +2419,17 @@ class HPCTGenerateEvolvers(object):
                 
 
         return ppars                        
+
+    def environment_properties(self, environment_properties):
+        "Add additional environment properties."
+        epars = ''
+
+        if environment_properties is None:
+            return epars                        
+            
+        epars=f'### Environment properties\n\nenvironment_properties={environment_properties}'
+
+        return epars                        
 
 
     def write_to_file(self, file, text):
@@ -2459,9 +2492,10 @@ class HPCTGenerateEvolvers(object):
         rtn = ''.join(('\n### Description:\n\n','desc = ', filename,'\n'))
         return rtn, filename
 
-    def fixed_parameters(self, env, option, num_actions):  
+    def fixed_parameters(self, env, option, num_actions, environment_properties):  
         "List the fixed parameters of the environment."
         header = '### Environment parameters\n\n# Full list of input indexes from environment\n# List of input indexes from environment for zero level if not full\n# List of input indexes from environment for top level# List of reference values\n# Number of actions\n# Display names for environment inputs\n\n'
+        
         text1 = f'env_name = {env}\n' 
         text1 = text1 + f'env_inputs_indexes = {self.get_parameter(option, "env_inputs_indexes")}\n'
         text1 = text1 + f'zerolevel_inputs_indexes = {self.get_parameter(option, "zerolevel_inputs_indexes")}\n'
@@ -2469,7 +2503,10 @@ class HPCTGenerateEvolvers(object):
         text1 = text1 + f'references = {self.get_parameter(option, "references")}\n'
         text1 = text1 + f'num_actions = {num_actions}\n'
         text1 = text1 + f'env_inputs_names = {self.get_parameter(option, "env_inputs_names")}\n'
-
+        
+        if environment_properties is not None:
+            text1 = text1 + f'environment_properties={environment_properties}\n'
+        
         return ''.join((header,text1))    
 
     def get_parameter(self, pdict, name, default=None):
