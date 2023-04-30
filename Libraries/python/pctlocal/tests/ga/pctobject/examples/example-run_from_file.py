@@ -64,7 +64,7 @@ data = [
     [2, 'CartPoleV1', 'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832', 'Std01-InputsError-RootMeanSquareError-Mode01',{'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0], 'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}, [], True],
     [3, 'CartPoleV1', 'ga-000.130-s001-2x1-m002-9729cd44431b1958b69da786b4ba4f00', 'Std00-InputsError-RootMeanSquareError-Mode02', {'CartPoleV1': [-0.6, -0.1],'ICV': [-0.3, 0.1], 'ICP': [-0.1,  0.2], 'IPV': [0.1, 0.3],'IPA': [0.2, 0.4], 'Action1ws': [-0.65, 0]}, [], True],
     [4, 'WebotsWrestler', 'ga-000.870-s001-3x6-m001-e8993f3235b484cd5a869600d6d5a374', 'WW01-RewardError-CurrentError-Mode01', {}, [], True],
-    [5, 'WebotsWrestler', '', 'WW01-03-RewardError-CurrentError-Mode01', {}, [], False],
+    [5, 'WebotsWrestler', 'ga-002.039-s001-3x9-m002-1557e1adc59a7ef0c50cc2b8080f4265', 'WW01-08-RewardError-CurrentError-Mode02', {}, [], False],
     [6, 'WebotsWrestler', 'ga-001.012-s001-8x7-m001-c589fa85b67d512975680f7265d52149', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False],
     [7, 'WebotsWrestler', 'ga-000.023-s001-5x6-m001-a0025b57841f3289e33101bcd2c7c21f', 'WW01-01-RewardError-CurrentError-Mode01', {}, [], False],
     [8, 'WebotsWrestler', 'ga-000.554-s001-3x5-m001-396442a24782fbf5d945531d302e886c', 'WW01-05-RewardError-CurrentError-Mode01', {}, [], False],
@@ -82,7 +82,7 @@ if test == 100:
       
 if test == 10:
     # good ones 4, 9, 11, weird 10
-    runit(data[9])
+    runit(data[8])
 
 
 
