@@ -44,7 +44,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 7
+test = 2
 
 cm = ConnectionManager.getInstance()
 cm.set_port(6668)
