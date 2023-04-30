@@ -1,6 +1,5 @@
-
-python examples\evolve.py WebotsWrestler WW01-07-RewardError-CurrentError-Mode02 -p 6666
-python examples\evolve.py WebotsWrestler WW01-08-RewardError-CurrentError-Mode02 -p 6666
+python examples\evolve.py WebotsWrestler WW01-01-RewardError-CurrentError-Mode01
+python examples\evolve.py WebotsWrestler WW01-02-RewardError-CurrentError-Mode01
 
 
 pause

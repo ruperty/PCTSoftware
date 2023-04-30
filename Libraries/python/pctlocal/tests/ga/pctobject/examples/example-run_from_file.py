@@ -34,7 +34,8 @@ def runit(datum):
     config = eval(hep.db['config'])
     seed = eval(hep.db['seed'])
     early_termination = eval(hep.db['early_termination'])
-
+    env_props={'game_duration':30000, 'rmode' : 1, 'sync': 'false'}
+    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'true'}
     outdir = 'output' + sep + dir
     makedirs(outdir, exist_ok=True)
     draw_file = file= outdir + sep  + 'draw-'+ filename + '.png'
@@ -46,7 +47,7 @@ def runit(datum):
     render=True
 
     ind, score = HPCTIndividual.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                                error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=True,
+                                                error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=True, environment_properties=env_props,
                                                 seed=seed, early_termination=early_termination, draw_file=draw_file, move=move, plots=plots, suffixes=True, plots_dir=outdir)
 
     #ind.draw(file='output/' + filename + '.png', node_size=100, font_size=5, with_edge_labels=True)
@@ -69,9 +70,9 @@ data = [
     [7, 'WebotsWrestler', 'ga-001.559-s001-3x7-m002-6a329c48b9f246288ff944df11e21a98', 'WW01-07-RewardError-CurrentError-Mode02', {}, [], False], # 1.631 (10) good, dragging right leg but looks stable, 2 ref *
     [8, 'WebotsWrestler', 'ga-000.554-s001-3x5-m001-396442a24782fbf5d945531d302e886c', 'WW01-05-RewardError-CurrentError-Mode01', {}, [], False], # 0.554 (10) jittery, 1 ref
     [9, 'WebotsWrestler', 'ga-001.848-s001-4x8-m001-c589fa85b67d512975680f7265d52149', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False], # 1.547 (10) good, dragging left leg, 2 ref *
-    [10, 'WebotsWrestler', 'ga-001.884-s001-2x4-m001-d63ec5dffda565b2c064458630f1643d', 'WW01-06-RewardError-CurrentError-Mode01', {}, [], False], # 1.620 (10) weird, kneeling on right leg, though could be stable, 4 ref
+    [10, 'WebotsWrestler', 'ga-001.884-s001-2x4-m001-d63ec5dffda565b2c064458630f1643d', 'WW01-06-RewardError-CurrentError-Mode01', {}, [], False], # 1.620 (10) good weird, kneeling on right leg, though could be stable, 4 ref
     [11, 'WebotsWrestler', 'ga-002.149-s001-2x7-m001-a71b1e63499693a10f3adff35f0bb04d', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False], # 2.033 (10) jittery, not too stable, 2 ref *
-    [12, 'WebotsWrestler', 'ga-002.039-s001-3x9-m002-1557e1adc59a7ef0c50cc2b8080f4265', 'WW01-08-RewardError-CurrentError-Mode02', {}, [], False] # 2.033 (10) jittery, not too stable, 2 ref *
+    [12, 'WebotsWrestler', 'ga-002.039-s001-3x9-m002-1557e1adc59a7ef0c50cc2b8080f4265', 'WW01-08-RewardError-CurrentError-Mode02', {}, [], False] # 2.033 (10) good, hopping on two feet, 2 ref *
 
     ]
 
@@ -82,7 +83,7 @@ if test == 100:
       
 if test == 10:
     # good ones 4, 9, 11, weird 10
-    runit(data[5])
+    runit(data[12])
 
 
 

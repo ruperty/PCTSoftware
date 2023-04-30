@@ -862,12 +862,13 @@ class HPCTIndividual(PCTHierarchy):
     def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
-        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False):
+        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, environment_properties=None):
         "Run an individual from a provided configuration."
         #if hpct_verbose:
         #print(config)
         ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
         env = ind.get_preprocessor()[0]
+        env.set_properties(environment_properties)
         env.set_render(render)
         env.early_termination = early_termination
         env.reset(full=False, seed=seed)
@@ -992,6 +993,7 @@ class HPCTEvolver(BaseEvolver):
         self.toplevel_inputs_indexes = environment_properties['toplevel_inputs_indexes'] 
         self.zerolevel_inputs_indexes = environment_properties['zerolevel_inputs_indexes']
         self.num_actions = environment_properties['num_actions']
+        self.environment_properties = environment_properties['environment_properties']
         self.render  = self.get_property_value('render', environment_properties, False)
         self.early_termination   = self.get_property_value('early_termination', environment_properties, False)
 
@@ -1169,7 +1171,7 @@ class HPCTEvolver(BaseEvolver):
             env.render=self.render
             env.set_name(self.env_name)
             env.early_termination = self.early_termination
-            env.set_properties(self.environment_properties['environment_properties'])
+            env.set_properties(self.environment_properties)
         # env=copy.deepcopy(self.env_name)
         # namespace = uuid.uuid1()
         #print(namespace)

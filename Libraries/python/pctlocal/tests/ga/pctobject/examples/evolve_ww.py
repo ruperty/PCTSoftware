@@ -47,7 +47,7 @@ root = get_root_path()
 test = 2
 
 cm = ConnectionManager.getInstance()
-cm.set_port(6668)
+cm.set_port(6666)
 
 # WW01
 if test == 1:

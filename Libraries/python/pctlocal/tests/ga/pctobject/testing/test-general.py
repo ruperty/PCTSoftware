@@ -1,8 +1,19 @@
+import json
 
 from pct.putils import FunctionsList
 from pct.functions import Constant
 from pct.network import ConnectionManager
-test = 5
+
+test = 6
+
+
+if test == 6:
+    dict = {'sync': 'true'}
+    json_object = json.dumps(dict) 
+    print(json_object)
+    init = {'a':1}
+    init.update(dict)
+    print(init)
 
 if test == 5:
     cm = ConnectionManager.getInstance()

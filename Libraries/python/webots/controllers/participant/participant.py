@@ -107,6 +107,11 @@ class WrestlerSupervisorServer(Supervisor):
 
             if 'sync' in recv:
                 sync =  recv['sync']
+                if sync == 'true':
+                    sync = True
+                if sync == 'false':
+                    sync = False
+
                 if sync != self.synchronization:
                     self.close()    
                     raise Exception('Sync is not the same as world file.')
@@ -477,11 +482,11 @@ from utilities.hpct import HPCTHelper
 
 class Wrestler (Robot):
     
-    def __init__(self):
+    def __init__(self, config_num=None):
         Robot.__init__(self)
         self.rr = RobotAccess(self)
         self.rmode=1
-        self.hpcthelper = HPCTHelper(config_num=1, mode=self.rmode)
+        self.hpcthelper = HPCTHelper(config_num=config_num, mode=self.rmode)
         
         
     def run(self, time_step=None, max_loops=None):
@@ -492,7 +497,7 @@ class Wrestler (Robot):
         if time_step==None:
             time_step = fileTimeStep
         #print(time_step)
-        game_duration = 60000
+        game_duration = 120000
         ttime=0
         loops=0
         # hpct = self.hpcthelper.get_controller()
@@ -569,11 +574,12 @@ if __name__ == '__main__':
         wrestler.run()
         
     if test == 3:
-        wrestler = Wrestler()    
+        # 4, 9, 12 works on nosync
+        wrestler = Wrestler(config_num=12)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         
-        wrestler.run(time_step=10)    
+        wrestler.run(time_step=20)    
         toc = time.perf_counter()
         elapsed = toc-tic
         print(f'Elapsed time: {elapsed:4.4f}')   
