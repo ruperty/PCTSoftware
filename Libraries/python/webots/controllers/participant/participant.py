@@ -36,7 +36,7 @@ from utils.image_processing import ImageProcessing as IP
 from utilities.robot import RobotAccess
 from pct.network import Server
 from controller import Supervisor
-
+from pct.network import ServerConnectionManager
 
 from datetime import datetime
 
@@ -84,9 +84,9 @@ class WrestlerSupervisorServer(Supervisor):
         #self.robot_backwards = False
 
 
-    def initServer(self, port=None):     
+    def initServer(self):     
         self.done = False   
-        self.server = Server(port=port)
+        # self.server = Server(port=port)
         recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
             print(f'Initialisation recevied from client. {recv}')
@@ -94,13 +94,13 @@ class WrestlerSupervisorServer(Supervisor):
             if 'rmode' in recv:
                 rmode =  recv['rmode']
             else:                
-                self.close()    
+                # self.close()    
                 raise Exception('Mode not received in initialisation.')
             
             if 'game_duration' in recv:
                 self.game_duration =  recv['game_duration']
             else:                
-                self.close()    
+                # self.close()    
                 raise Exception('Game duration not received in initialisation.')
 
             if 'sync' in recv:
@@ -111,17 +111,15 @@ class WrestlerSupervisorServer(Supervisor):
                     sync = False
 
                 if sync != self.synchronization:
-                    self.close()    
+                    # self.close()    
                     raise Exception('Sync is not the same as world file.')
                     
                 
             else:                
-                self.close()    
+                # self.close()    
                 raise Exception('Sync not received in initialisation.')
-            
-            
         else:
-            self.close()    
+            # self.close()    
             raise Exception('Initialisation not recevied from client.')
 
         # self.simulationReset()
@@ -136,10 +134,12 @@ class WrestlerSupervisorServer(Supervisor):
         self.initial_sensors = self.send_sensors(performance=0)
 
     def send(self, data):
-        self.server.put_dict(data)
+        ServerConnectionManager.getInstance().send(data)
+        # self.server.put_dict(data)
 
     def receive(self):
-        recv = self.server.get_dict()
+        recv = ServerConnectionManager.getInstance().receive()
+        # recv = self.server.get_dict()
         #print(recv)
         return recv
         
@@ -171,8 +171,8 @@ class WrestlerSupervisorServer(Supervisor):
         self.rr.set( self.initial_sensors,self.actions)
 
 
-    def close(self):
-        self.server.close()
+    # def close(self):
+    #     self.server.close()
         
     def run(self, port=None):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
@@ -188,7 +188,7 @@ class WrestlerSupervisorServer(Supervisor):
         ttime,loops=0,0
         seconds = -1
         ko = -1
-        rmode = self.initServer(port=port)
+        rmode = self.initServer()
         self.initMotors(rmode=rmode, samplingperiod=time_step)
         tic = time.perf_counter()
         while  self.step(time_step) != -1: 
@@ -221,7 +221,7 @@ class WrestlerSupervisorServer(Supervisor):
         loop_time = elapsed/loops
         print(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
                         
-        self.close()
+        # self.close()
 
         if ko == 0:
             print('Red is KO. Blue wins!')
@@ -587,6 +587,8 @@ if __name__ == '__main__':
         #start_webots()
         if port==None:
             port = 6666
+            
+        ServerConnectionManager.getInstance().set_port(port=port)
         wrestler = WrestlerSupervisorServer()
         while True:
             wrestler.simulationReset()
