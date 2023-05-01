@@ -12,7 +12,7 @@ from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
 
 
-from pct.network import ConnectionManager
+from pct.network import ClientConnectionManager
 
 
 out_dir= get_gdrive() + 'data/ga/'
@@ -46,8 +46,8 @@ root = get_root_path()
 
 test = 4
 
-cm = ConnectionManager.getInstance()
-cm.set_port(6667)
+cm = ClientConnectionManager.getInstance()
+cm.set_port(6666)
 
 # WW01
 if test == 1:
