@@ -12,7 +12,7 @@ from deap import base, creator
 from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
 
-from pct.network import ConnectionManager
+from pct.network import ClientConnectionManager
 
 
 
@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
         if port == None:
                 port = 6666
-        cm = ConnectionManager.getInstance()
+        cm = ClientConnectionManager.getInstance()
         cm.set_port(port)
 
         # env_name = 'WebotsWrestler' 
