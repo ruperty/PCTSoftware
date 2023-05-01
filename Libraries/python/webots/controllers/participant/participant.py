@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Minimalist controller example for the Robot Wrestling Tournament.
-   Demonstrates how to play a simple motion file."""
 
 
 import numpy as np
@@ -91,7 +89,7 @@ class WrestlerSupervisorServer(Supervisor):
         self.server = Server(port=port)
         recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
-            print('Initialisation recevied from client.')
+            print(f'Initialisation recevied from client. {recv}')
             #logger.info(f'Initialisation recevied from client. {recv}')
             if 'rmode' in recv:
                 rmode =  recv['rmode']

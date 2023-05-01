@@ -44,10 +44,10 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 2
+test = 4
 
 cm = ConnectionManager.getInstance()
-cm.set_port(6666)
+cm.set_port(6667)
 
 # WW01
 if test == 1:
