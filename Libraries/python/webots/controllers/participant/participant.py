@@ -454,27 +454,7 @@ class WrestlerServer (Robot):
 
 
 
-def get_root_path():
-    import socket
-    import os
-    if socket.gethostname() == 'DESKTOP-5O07H5P':
-        root_dir='/mnt/c/Users/ruper/'
-        if os.name == 'nt' :
-            root_dir='C:\\Users\\ruper\\'
-    else:
-        root_dir='/mnt/c/Users/ryoung/'        
-        if os.name == 'nt' :
-            root_dir='C:\\Users\\ryoung\\'
-    return root_dir
-
  
-
-def start_webots():
-    import subprocess
-    exe = "C:\\Program Files\\Webots\\msys64\\mingw64\\bin\\webotsw.exe"
-    batfile = "run.bat"
-    worldfile = get_root_path() + 'Versioning'+os.sep+'PCTSoftware'+os.sep+'Libraries'+os.sep+'python'+os.sep+'webots'+os.sep+'worlds' +os.sep+"wrestling.wbt"
-    subprocess.Popen([exe, "--batch", "--stdout",  "--stderr", worldfile])
 
 from utilities.hpct import HPCTHelper
 
