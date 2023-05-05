@@ -11,3 +11,4 @@ Libraries/python/webots/controllers/utils/__pycache__/*.cpython-39.pyc
 Libraries/python/webots/worlds/.wrestling.wbproj
 Libraries/python/pctlocal/tests/ga/pctobject/utils/__pycache__/*.cpython-39.pyc
 Libraries/python/webots/worlds/.wrestling-nosync.wbproj
+Libraries/python/pctlocal/tests/ga/pctobject/cutils/__pycache__/*.cpython-39.pyc

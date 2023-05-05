@@ -7,7 +7,7 @@ import platform
 import argparse
 from datetime import datetime
 from eepct.hpct import HPCTEvolveProperties
-from utils.paths import get_root_path, get_gdrive
+from cutils.paths import get_root_path, get_gdrive
 from deap import base, creator
 from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual

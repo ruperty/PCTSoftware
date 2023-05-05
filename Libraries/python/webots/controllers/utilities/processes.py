@@ -1,3 +1,4 @@
+import subprocess
 from os import sep
 
 
@@ -26,17 +27,23 @@ class Executor():
             self.worldfile = "wrestling.wbt"
         else:
             self.worldfile = "wrestling-nosync.wbt"
+        self.bat = get_root_path() + f'Versioning\\PCTSoftware\\Libraries\\python\\pctlocal\\tests\\ga\\pctobject\\evolve-{port}.bat'
         
         
     def start_webots(self):
-        import subprocess
         worldfilepath = self.webotspath +sep+'worlds' +sep+ self.worldfile
         subprocess.Popen([self.exe, f'--port={self.wport}', "--no-rendering", "--batch", "--mode=fast", "--stdout",  "--stderr", worldfilepath])
 
+    def start_evolver(self):
+        subprocess.Popen([self.bat])
 
-ex = Executor(port=9999, wport=1235, sync=False)
+        
+        
+ex = Executor(port=6666, wport=1235, sync=False)
 
-ex.start_webots()
+#ex.start_webots()
+ex.start_evolver()
+
 
 print("h")
 

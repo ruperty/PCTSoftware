@@ -1,5 +1,4 @@
 set PYTHONPATH=%PYTHONPATH%;%USERPROFILE%\Versioning\PCTSoftware\Libraries\python\webots\controllers;C:\Program Files\Webots\lib\controller\python
-
 ::echo %PYTHONPATH%
 
 
