@@ -1,12 +1,12 @@
 
-import os
 import logging
 import platform
     
+from os import sep
     
 from datetime import datetime
 from eepct.hpct import HPCTEvolveProperties
-from utils.paths import get_root_path, get_gdrive
+from cutils.paths import get_root_path, get_gdrive
 from deap import base, creator
 from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
@@ -15,16 +15,6 @@ from eepct.hpct import HPCTIndividual
 from pct.network import ClientConnectionManager
 
 
-out_dir= get_gdrive() + 'data/ga/'
-env_name = 'WebotsWrestler'
-
-# logging info
-now = datetime.now() # current date and time
-date_time = now.strftime("%Y%m%d-%H%M%S")
-log_file=os.sep.join((out_dir, env_name, "ww-evolve-client-"+platform.node()+"-"+date_time+".log"))
-logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
-
-logger = logging.getLogger(__name__)
 # logger.setLevel(level=logging.DEBUG)
 # fh = logging.FileHandler(log_file)
 # fh_formatter = logging.Formatter("%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s-%(lineno)d %(message)s",datefmt= '%H:%M:%S')
@@ -44,7 +34,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 4
+test = 2
 
 cm = ClientConnectionManager.getInstance()
 cm.set_port(6666)
@@ -70,12 +60,10 @@ if test == 6:
 if test == 7:
     filename = 'WW01-11-RewardError-CurrentError-Mode04'
 
-logger.info("Evolving {} ".format(env_name))
+
 
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/WebotsWrestler/'+ filename + ".properties"
 
-local_out_dir = 'output/'  + filename 
-draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
 
 debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 hpct_verbose= False #True # log of every control system iteration
@@ -99,12 +87,28 @@ verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': displ
 hep = HPCTEvolveProperties()
 output=True
 overwrite=True
+out_dir= get_gdrive() + f'data{sep}ga{sep}'
+env_name = 'WebotsWrestler'
 
 #if __name__ == "__main__":
+hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
+
+# logging info
+now = datetime.now() # current date and time
+date_time = now.strftime("%Y%m%d-%H%M%S")
+log_file=sep.join((out_dir, env_name, desc, hash_num, "output", "evolve-client-"+platform.node()+"-"+date_time+".log"))
+logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+logger = logging.getLogger(__name__)
 logger.info('Start evolve_ww')
-hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
-                                    out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, 
-                                    node_size=node_size, font_size=font_size, min=min)
+
+hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
+                           output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
+
+# hash = hep.configure_evolver_from_properties_file()
+
+
+
+
 # hep.load_properties(file=file, evolve=True, print_properties=True)
 
 

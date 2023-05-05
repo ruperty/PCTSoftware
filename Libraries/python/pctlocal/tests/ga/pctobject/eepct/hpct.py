@@ -1697,8 +1697,10 @@ class HPCTEvolverWrapper(EvolverWrapper):
             logs = 'gen   pop   min       mean      max        mut  muts  timing'
             print(logs)
         if log:
-            logs = 'gen   pop   min       mean      max        mut  muts  timing'
+            # logs = '###  gen   pop    min       mean      max        mut  muts  timing'
+            logs = '###  gen  pop      min       mean        max   mut muts  timing'
             log_string = ''.join((log_string, '# ', logs, '\n'))
+            logger.info(logs)
 
         self.best_of_gens=[]
         top_ind = tools.selBest(self.pop, k=1)[0]
@@ -1716,6 +1718,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
             if gen == 1:
                 log_stats = self.collect_stats( 0, 0, logbook, timeperpop, evolve_verbose, log)
                 if log:
+                    logger.info(log_stats)
                     log_string = ''.join((log_string, log_stats))
 
             log_stats = self.collect_stats( gen, 1, logbook, timeperpop, evolve_verbose, log)
@@ -1733,16 +1736,17 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 if evolve_verbose>0:
                     print()
                 if log:
+                    logger.info(log_stats)
                     log_string = ''.join((log_string, log_stats, '\n'))
 
             self.best_of_gens.append(top_ind)
             top_config=top_ind.get_config(zero=0)            
             top_config_formatted = top_ind.formatted_config()
             
-            logger.info(f'TOP config gen {gen:03} score {top_ind.get_error_collector().error()}')            
-            logger.info(f'TOP config gen {gen:03} \n{top_config_formatted}')            
-            logger.info(f'TOP config gen {gen:03} \n{top_config}')
-            # if self.display_env and gen == gens:
+            # logger.info(f'TOP config gen {gen:03} score {top_ind.get_error_collector().error()}')            
+            # logger.info(f'TOP config gen {gen:03} \n{top_config_formatted}')            
+            # logger.info(f'TOP config gen {gen:03} \n{top_config}')
+
             if self.run_gen_best:
                 render = True if self.display_env else False
                 if render:
@@ -2074,12 +2078,12 @@ class HPCTEvolveProperties(object):
             value = verbose[key]
         return value
 
-    def write_output(self, output, out_dir, env_name, desc, hash_num, overwrite):
-        "Write results of GA run to file."
+    def create_output_directories(self, output, out_dir, env_name, desc, hash_num, overwrite):
+        "Create output directories."
         if output:
             dir1 = out_dir + env_name
             makedirs(dir1, exist_ok=True)
-            dir2 = dir1+sep+desc
+            dir2 = dir1+sep+desc+sep+hash_num
             makedirs(dir2, exist_ok=True)
             exists, fname = check_hash_file_exists(dir2, hash_num)
             if exists and not overwrite:
@@ -2092,10 +2096,8 @@ class HPCTEvolveProperties(object):
         return False, None
 
 
-    def evolve_from_properties_file(self, file=None, verbose=None, env_name=None, seed=None, flip_error_response=False,
-            test=False, gens=None, pop_size=None, nevals = None, move=None, out_dir=None, local_out_dir=None, node_size=200, font_size=8,
-            parallel=False, video_wrap=False, log=False, figsize=(12,12), summary=False, draw_file=None, with_edge_labels=True,
-            print_properties=False, overwrite=False, output=False, toolbox=None, processes=1, min=True):
+    def configure_evolver_from_properties_file(self, file=None, verbose=None, seed=None, flip_error_response=False,
+            gens=None, pop_size=None, print_properties=False, toolbox=None, processes=1, min=True):
         "Evolve from file - when is this used?"
         logger.info('Start evolve_from_properties_file')
         import hashlib
@@ -2109,6 +2111,8 @@ class HPCTEvolveProperties(object):
 
         if seed is None:
             seed = self.hpct_run_properties['seed']
+        else:
+            self.hpct_run_properties['seed']=seed
         # modes_list = properties['modes']
        
         #configs_string= self.get_configs_string()
@@ -2119,16 +2123,8 @@ class HPCTEvolveProperties(object):
             property_string = property[0]+property[1]
             properties_string+=property_string
 
-        #print(structure.get_config())
-        # env factory
-        env_name = self.environment_properties['env_name']
-        # env = EnvironmentFactory.createEnvironment(env_name, seed=seed)
-        # env.set_name(env_name)
-        # namespace=env.namespace
 
-        # if video_wrap:
-        #     env.set_video_wrap(video_wrap)
-        #     env.create_env(seed)
+        # env_name = self.environment_properties['env_name']
 
         debug = self.get_verbose_property( 'debug', verbose, default=0)
         hpct_verbose = self.get_verbose_property ('hpct_verbose', verbose)
@@ -2139,31 +2135,23 @@ class HPCTEvolveProperties(object):
         self.hpct_run_properties['debug']= debug  
         self.hpct_run_properties['flip_error_response']= flip_error_response  
         
-        
-
         save_arch_all = self.get_verbose_property( 'save_arch_all', verbose)
         save_arch_gen = self.get_verbose_property( 'save_arch_gen', verbose)
         display_env = self.get_verbose_property( 'display_env', verbose)
-        evolve_verbose = self.get_verbose_property( 'evolve_verbose', verbose)
-        deap_verbose = self.get_verbose_property( 'deap_verbose', verbose)
+        self.evolve_verbose = self.get_verbose_property( 'evolve_verbose', verbose)
+        self.deap_verbose = self.get_verbose_property( 'deap_verbose', verbose)
 
         arch = HPCTArchitecture(mode=self.hpct_structure_properties["mode"], lower_float=self.hpct_structure_properties["lower_float"], upper_float=self.hpct_structure_properties["upper_float"])
         arch.configure()
         types_string = self.get_types_string(arch) 
 
-        desc = self.file_properties['desc']
+       
         # create hash
         #print(modes_list)
         hash_string = self.create_hash_string(properties_string, types_string)
         #print(hash_string)
         hash_num = hashlib.md5(hash_string.encode()).hexdigest()
         #print(hash_num)
-
-
-        skip, dir = self.write_output(output, out_dir, env_name, desc, hash_num, overwrite)
-        if skip:
-            return None,None,None
-
 
         
         evolver_properties = {'environment_properties':self.environment_properties, 
@@ -2186,12 +2174,25 @@ class HPCTEvolveProperties(object):
         self.wrapper_properties['toolbox']=toolbox        
         self.wrapper_properties['hpct_verbose']=hpct_verbose        
         self.wrapper_properties['run_gen_best']=run_gen_best        
+        #self.wrapper_properties['local_out_dir']=local_out_dir        
+
+        return hash_num, self.file_properties['desc']
+
+    def run_configured_evolver(self, file=None, out_dir=None, output=False, hash_num=None, overwrite=False, test=False, log=False, draw_file=False, 
+                               with_edge_labels=True,figsize=(12,12), node_size=200, font_size=8, print_properties=False, move=None):
+        
+        desc = self.file_properties['desc']
+        skip, dir = self.create_output_directories(output, out_dir, self.environment_properties['env_name'], desc, hash_num, overwrite)
+        if skip:
+            return None,None,None
+
         self.wrapper_properties['font_size']=font_size        
         self.wrapper_properties['node_size']=node_size        
-        self.wrapper_properties['local_out_dir']=local_out_dir        
-                               
+        self.wrapper_properties['local_out_dir']=dir+sep+'output'        
+
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 
+        gens=self.wrapper_properties['gens']
         if test:
             #meantime = evr.run(gens=int(db['MAX_GENERATIONS']), verbose=verbose['evolve_verbose'], deap_verbose=verbose['deap_verbose'])
             raw= [777] #evr.best()
@@ -2201,7 +2202,7 @@ class HPCTEvolveProperties(object):
             #print(f'Mean time: {meantime:6.3f}')
 
         else:
-            meantime, log_string = evr.run(gens=gens, evolve_verbose=evolve_verbose, deap_verbose=deap_verbose, log=log)
+            meantime, log_string = evr.run(gens=gens, evolve_verbose=self.evolve_verbose, deap_verbose=self.deap_verbose, log=log)
             best= evr.best()
             score = evr.best_score()
             s1 = f'Best Score: {score:0.5f}'
@@ -2209,13 +2210,17 @@ class HPCTEvolveProperties(object):
             s3 = f'Mean time: {meantime:6.3f}'
             if log:
                 log_string = ''.join((log_string, '# ', s1, '\n# ', s2, '\n# ', s3, '\n'))
-            if evolve_verbose:
+                logger.info(s1)
+                logger.info(s2)
+                logger.info(s3)
+            if self.evolve_verbose:
                 print(s1)
                 print(s2)
                 print(s3)
 
             # draw architecture
-            if draw_file is not None:
+            if draw_file:
+                draw_file= self.wrapper_properties['local_out_dir'] + sep + desc + '-evolve-best' + '.png'
                 if move == None:
                     move={}
                 print(draw_file)
@@ -2228,10 +2233,7 @@ class HPCTEvolveProperties(object):
             struct = best.get_grid()
             levels = len(struct)
             cols = max(struct)
-            if seed == None:
-                seed = 'N'
-            # delim = os.sep
-            # file = delim.join((root_dir, path, file))
+            seed = self.hpct_run_properties['seed']
             file_contents =  self.get_file_contents(file)
 
             output_file = dir+sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{hash_num}.properties'
@@ -2240,16 +2242,13 @@ class HPCTEvolveProperties(object):
             f = open(output_file, "w")
             from datetime import datetime   
             dateTimeObj = datetime.now()
-            f.write(f'# Date {dateTimeObj}\n')
-            f.write('# Result'+'\n')
-            f.write('# Best individual'+'\n')
-            f.write(f'raw = {best.formatted_config()}'+'\n\n')
-            f.write(f'config = {best.get_config(zero=0)}'+'\n')
-            f.write(f'score = {score:0.5f}'+'\n')
-            f.write(f'# Time  {meantime:0.4f}'+'\n')
+            results = f'# Date {dateTimeObj}\n' + '# Result'+'\n' + '# Best individual'+'\n' + f'raw = {best.formatted_config()}'+'\n\n' + f'config = {best.get_config(zero=0)}'+'\n' + f'score = {score:0.5f}'+'\n' + f'# Time  {meantime:0.4f}'+'\n'
+            
+            f.write(results)
             f.write(file_contents.replace(f'seed = {int(self.hpct_run_properties["seed"])}', f'seed = {seed}')+'\n')
             if log:
                 f.write(log_string)
+                logger.info(results)
 
             f.close()
         #env.close()

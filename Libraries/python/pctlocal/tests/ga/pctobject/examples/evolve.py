@@ -1,10 +1,10 @@
 
-import os
 import logging
 import platform
     
     
 import argparse
+from os import sep
 from datetime import datetime
 from eepct.hpct import HPCTEvolveProperties
 from cutils.paths import get_root_path, get_gdrive
@@ -26,24 +26,16 @@ if __name__ == '__main__':
         filename = args.file
         port = args.port 
 
+        # env_name = 'WebotsWrestler' 
+        # filename = 'WW01-01-RewardError-CurrentError-Mode01'
+        # port = 6666
+        
         if port == None:
                 port = 6666
         cm = ClientConnectionManager.getInstance()
         cm.set_port(port)
 
-        # env_name = 'WebotsWrestler' 
-        # filename = 'WW01-02-RewardError-CurrentError-Mode01'
-
-        out_dir= get_gdrive() + 'data/ga/'
-
-        # logging info
-        now = datetime.now() # current date and time
-        date_time = now.strftime("%Y%m%d-%H%M%S")
-        os.makedirs(os.sep.join((out_dir, env_name, filename)),  exist_ok = True) 
-        log_file=os.sep.join((out_dir, env_name, filename, "evolve-client-"+platform.node()+"-"+date_time+".log"))
-        logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
-
-        logger = logging.getLogger(__name__)
+        out_dir= get_gdrive() + f'data{sep}ga{sep}'
 
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
         creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
@@ -57,7 +49,7 @@ if __name__ == '__main__':
 
         root = get_root_path()
 
-        logger.info("Evolving {} ".format(env_name))
+
 
         file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/' + env_name +'/'+ filename + ".properties"
 
@@ -87,12 +79,26 @@ if __name__ == '__main__':
         output=True
         overwrite=True
 
-        #if __name__ == "__main__":
-        logger.info('Start evolve_ww')
-        hep.evolve_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
-                                                out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, 
-                                                node_size=node_size, font_size=font_size, min=min)
-        # hep.load_properties(file=file, evolve=True, print_properties=True)
 
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
+
+        # logging info
+        now = datetime.now() # current date and time
+        date_time = now.strftime("%Y%m%d-%H%M%S")
+        log_file=sep.join((out_dir, env_name, desc, hash_num, "output", "evolve-client-"+platform.node()+"-"+date_time+".log"))
+        logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+        logger = logging.getLogger(__name__)
+        logger.info("Evolving {} ".format(env_name))
+
+        hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
+                                output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
+
+
+
+        # logger.info('Start evolve_ww')
+        # hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, 
+        #                                         out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, 
+        #                                         node_size=node_size, font_size=font_size, min=min)
+        
 
 

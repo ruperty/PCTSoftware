@@ -2,10 +2,19 @@ import json
 
 from pct.putils import FunctionsList
 from pct.functions import Constant
-from pct.network import ConnectionManager
+#from pct.network import ConnectionManager
 
-test = 6
+test = 7
 
+
+if test == 7:
+    dateTimeObj=1
+    results = f'# Date {dateTimeObj}\n' + '# Result'+'\n'
+    print(results)
+    
+    logs = '###  gen  pop      min       mean        max   mut muts  timing'
+    print(logs)
+    print('###    1    4   -0.006      0.004      0.023   75%  75%   1.345')
 
 if test == 6:
     dict = {'sync': 'true'}
