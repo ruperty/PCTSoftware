@@ -1,4 +1,5 @@
-import subprocess
+import subprocess, psutil
+
 from os import sep
 
 
@@ -38,13 +39,19 @@ class Executor():
         subprocess.Popen([self.bat])
 
         
+    def webots_ram(self):
+        for p in psutil.process_iter():
+            port_text = f'--port={self.wport}'
+            if 'webots-bin' in p.name() and port_text in p.cmdline() :
+                #print(p.memory_info().rss, p.cmdline(), p.name())   
+                return p.memory_info().rss
         
-ex = Executor(port=6666, wport=1235, sync=False)
+ex = Executor(port=6666, wport=1234, sync=False)
 
 #ex.start_webots()
-ex.start_evolver()
+#ex.start_evolver()
+ram = ex.webots_ram()
+print(ram)
 
-
-print("h")
 
 

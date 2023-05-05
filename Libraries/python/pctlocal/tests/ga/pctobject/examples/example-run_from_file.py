@@ -4,7 +4,7 @@
 from os import makedirs
 from  os import sep
 
-from utils.paths import  get_gdrive
+from cutils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
 from pct.architectures import run_from_properties_file
    

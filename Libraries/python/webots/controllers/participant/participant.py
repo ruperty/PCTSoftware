@@ -573,4 +573,7 @@ if __name__ == '__main__':
         while True:
             wrestler.simulationReset()
             wrestler.run(port=port)
+            
+            # simulationQuit(status) EXIT_SUCCESS or EXIT_FAILURE
+            # del wrestler
 

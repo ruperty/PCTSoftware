@@ -15,7 +15,6 @@ from eepct.hpct import HPCTIndividual
 from pct.network import ClientConnectionManager
 
 
-
 if __name__ == '__main__':
     
         parser = argparse.ArgumentParser()
