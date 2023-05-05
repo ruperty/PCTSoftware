@@ -46,12 +46,12 @@ class Executor():
                 #print(p.memory_info().rss, p.cmdline(), p.name())   
                 return p.memory_info().rss
         
-ex = Executor(port=6666, wport=1234, sync=False)
-
+        
+# ex = Executor(port=6666, wport=1234, sync=False)
 #ex.start_webots()
 #ex.start_evolver()
-ram = ex.webots_ram()
-print(ram)
+# ram = ex.webots_ram()
+# print(ram)
 
 
 

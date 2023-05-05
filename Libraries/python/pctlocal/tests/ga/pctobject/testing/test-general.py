@@ -1,11 +1,14 @@
-import json
+import json, socket
 
 from pct.putils import FunctionsList
 from pct.functions import Constant
 #from pct.network import ConnectionManager
 
-test = 7
+test = 8
 
+
+if test == 8:
+    print(socket.getdefaulttimeout())
 
 if test == 7:
     dateTimeObj=1

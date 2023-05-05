@@ -15,7 +15,7 @@
 
 
 import numpy as np
-import os
+from os import sep
 from time import sleep
 import math, time
 from controller import Robot
@@ -56,15 +56,16 @@ def get_gdrive():
 
 test = 4
 
-out_dir= get_gdrive() + 'data/ga/'
+out_dir= get_gdrive() + f'data{sep}ga'
 env_name = 'WebotsWrestler'
 
-# import logging
-# now = datetime.now() # current date and time
-# date_time = now.strftime("%Y%m%d-%H%M%S")
-# log_file=os.sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
-# logging.basicConfig(filename=log_file, level=logging.DEBUG,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
-# logger = logging.getLogger(__name__)
+import logging
+now = datetime.now() # current date and time
+date_time = now.strftime("%Y%m%d-%H%M%S")
+log_file=sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
+print('log_file=',log_file)
+logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+logger = logging.getLogger(__name__)
 
 class WrestlerSupervisorServer(Supervisor):
     def initSupervisor(self):
@@ -517,9 +518,16 @@ class Wrestler (Robot):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--port', type=int, help="port number")
+    parser.add_argument('-p', '--port', type=int, help="controller port number")
+    parser.add_argument('-wp', '--wport', type=int, help="webots port number")
+    parser.add_argument('-s', '--sync', help="webots port number", action="store_true")
+
     args = parser.parse_args()
     port = args.port 
+    wport = args.wport
+    sync = args.sync
+    
+    print(sync)
 
 
     if test == 1:
@@ -567,13 +575,31 @@ if __name__ == '__main__':
         #start_webots()
         if port==None:
             port = 6666
+        if wport==None:
+            wport = 1234
+        if sync==None:
+            sync=False
+
+        ram_limit=20 * 1000 * 1000 * 1000
+        from utilities.processes import Executor
+        ex = Executor(port=port, wport=wport, sync=sync)
             
         ServerConnectionManager.getInstance().set_port(port=port)
-        wrestler = WrestlerSupervisorServer()
+        ex.start_evolver()
+        
         while True:
-            wrestler.simulationReset()
-            wrestler.run(port=port)
-            
-            # simulationQuit(status) EXIT_SUCCESS or EXIT_FAILURE
-            # del wrestler
+            ex.start_webots()
+            wrestler = WrestlerSupervisorServer()
+            while True:
+                wrestler.simulationReset()
+                wrestler.run(port=port)
+                ram = ex.webots_ram()
+                if ram > ram_limit:
+                    logger.info(f'Ram={ram} exceeds limit {ram_limit}, restarting webots')
+                    status = 1 #EXIT_SUCCESS
+                    wrestler.simulationQuit(status) 
+                    del wrestler
+                    break
+                
+                
 
