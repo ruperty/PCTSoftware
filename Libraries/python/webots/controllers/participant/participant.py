@@ -591,7 +591,7 @@ if __name__ == '__main__':
         while True:
             ex.start_webots()
             wrestler = WrestlerSupervisorServer()
-            logger.info('Basic time step=',wrestler.getBasicTimeStep())
+            logger.info(f'Basic time step={wrestler.getBasicTimeStep()}')
             while True:
                 wrestler.simulationReset()
                 wrestler.run(port=port)

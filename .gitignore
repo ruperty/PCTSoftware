@@ -13,3 +13,6 @@ Libraries/python/pctlocal/tests/ga/pctobject/utils/__pycache__/*.cpython-39.pyc
 Libraries/python/webots/worlds/.wrestling-nosync.wbproj
 Libraries/python/pctlocal/tests/ga/pctobject/cutils/__pycache__/*.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/utils/__pycache__/paths.cpython-37.pyc
+Libraries/python/webots/controllers/utils/__pycache__/__init__.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/image_processing.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/motion_library.cpython-39.pyc
