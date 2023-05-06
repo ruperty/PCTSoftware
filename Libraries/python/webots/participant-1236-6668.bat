@@ -1,9 +1,10 @@
 set PYTHONPATH=%PYTHONPATH%;%USERPROFILE%\Versioning\PCTSoftware\Libraries\python\webots\controllers;C:\Program Files\Webots\lib\controller\python
 
-::echo %PYTHONPATH%
+set WP=1236
+set PORT=6668
 
-set WEBOTS_CONTROLLER_URL=ipc://1236
+set WEBOTS_CONTROLLER_URL=ipc://%WP%
 
-python controllers\participant\participant.py -p 6668
+python controllers\participant\participant.py -p %PORT% -wp %WP%
 
 pause
