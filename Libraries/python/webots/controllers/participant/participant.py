@@ -48,6 +48,9 @@ def get_gdrive():
         root_dir='/mnt/c/Users/ruper/My Drive/'
         if os.name == 'nt' :
             root_dir='C:\\Users\\ruper\\My Drive\\'
+    elif socket.gethostname() == 'UKM5570RYOUNG2':
+        if os.name == 'nt' :
+            root_dir='G:\\My Drive\\'
     else:
         root_dir='/mnt/c/Users/ryoung/My Drive/'        
         if os.name == 'nt' :
