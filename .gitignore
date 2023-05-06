@@ -16,3 +16,7 @@ Libraries/python/pctlocal/tests/ga/pctobject/utils/__pycache__/paths.cpython-37.
 Libraries/python/webots/controllers/utils/__pycache__/__init__.cpython-39.pyc
 Libraries/python/webots/controllers/utils/__pycache__/image_processing.cpython-39.pyc
 Libraries/python/webots/controllers/utils/__pycache__/motion_library.cpython-39.pyc
+Libraries/python/pctlocal/tests/ga/pctobject/tests/__pycache__/evolve_cartpole_test.cpython-39.pyc
+Libraries/python/pctlocal/tests/ga/pctobject/tests/__pycache__/hpctarch_test.cpython-39.pyc
+Libraries/python/pctlocal/tests/ga/pctobject/tests/__pycache__/hpctind_test.cpython-39.pyc
+Libraries/python/pctlocal/tests/ga/pctobject/tests/__pycache__/hpctmutate_test.cpython-39.pyc
