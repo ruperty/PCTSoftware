@@ -69,7 +69,7 @@ logger = logging.getLogger(__name__)
 
 class WrestlerSupervisorServer(Supervisor):
     def initSupervisor(self):
-        print('******************************************')
+        #print('******************************************')
         self.robot = [0] * 2
         self.robot[1] = self.getFromDef('WRESTLER_BLUE').getFromProtoDef('HEAD_SLOT')
         self.robot[0] = self.getFromDef('WRESTLER_RED').getFromProtoDef('HEAD_SLOT')
@@ -90,7 +90,7 @@ class WrestlerSupervisorServer(Supervisor):
         # self.server = Server(port=port)
         recv = self.receive()
         if 'msg' in recv and recv['msg']=='init':
-            print(f'Initialisation recevied from client. {recv}')
+            # print(f'Initialisation recevied from client. {recv}')
             #logger.info(f'Initialisation recevied from client. {recv}')
             if 'rmode' in recv:
                 rmode =  recv['rmode']
@@ -220,24 +220,25 @@ class WrestlerSupervisorServer(Supervisor):
         toc = time.perf_counter()
         elapsed = 1000 * (toc-tic)
         loop_time = elapsed/loops
-        print(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
+        logger.info(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
                         
         # self.close()
 
         if ko == 0:
-            print('Red is KO. Blue wins!')
+            # print('Red is KO. Blue wins!')
             performance = 0
         elif ko == 1:
-            print('Blue is KO. Red wins!')
+            # print('Blue is KO. Red wins!')
             performance = 10
         # in case of coverage equality, blue wins
-        elif self.coverage[0] > self.coverage[1]:
-            print('Red wins coverage: %s > %s' % (self.coverage[0], self.coverage[1]))
-            #performance = 1
-        else:
-            print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
-            #performance = 0
-        print(f'Final performance: {performance}')    
+        
+        # elif self.coverage[0] > self.coverage[1]:
+        #     print('Red wins coverage: %s > %s' % (self.coverage[0], self.coverage[1]))
+        #     #performance = 1
+        # else:
+        #     print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
+        #     #performance = 0
+        logger.info(f'Final performance: {performance}')    
         #del self.motion_library
         #del self.motion_library
         #in my own timedel self.motion_library
@@ -590,6 +591,7 @@ if __name__ == '__main__':
         while True:
             ex.start_webots()
             wrestler = WrestlerSupervisorServer()
+            logger.info('Basic time step=',wrestler.getBasicTimeStep())
             while True:
                 wrestler.simulationReset()
                 wrestler.run(port=port)
