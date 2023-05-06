@@ -285,8 +285,8 @@ class WrestlerSupervisorServer(Supervisor):
                     self.ko_count[i] = 0
                 counter = 10 - self.ko_count[i] // 1000
                 string = '' if self.ko_count[i] == 0 else str(counter) if counter > 0 else 'KO'
-                if string != ko_labels[i] and string:
-                    print(f'robot {i}: {string}')
+                # if string != ko_labels[i] and string:
+                #     print(f'robot {i}: {string}')
                 ko_labels[i] = string
 
         if self.robot_down[0]:
