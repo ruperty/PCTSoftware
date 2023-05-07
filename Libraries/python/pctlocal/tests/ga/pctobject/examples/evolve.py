@@ -96,8 +96,18 @@ if __name__ == '__main__':
         logger = logging.getLogger(__name__)
         logger.info("Evolving {} ".format(env_name))
 
-        hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
+        try:
+                hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
                                 output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
+
+        except Exception as e:
+                if hasattr(e, 'message'):
+                        print(e.message)
+                        logger.info(e.message)
+                else:
+                        print(e)
+                        logger.info(e)
+
 
 
 
