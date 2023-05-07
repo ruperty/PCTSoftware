@@ -130,7 +130,7 @@ class WrestlerSupervisorServer(Supervisor):
     def initMotors(self, rmode, samplingperiod):
         self.rr = RobotAccess(self, rmode, samplingperiod)
         if self.upper_body == 'guardup':
-            self.rr.GuardUp()
+            self.rr.setGuardup()
         else:
             self.rr.setShoulders()
         # send sensor data
@@ -208,7 +208,7 @@ class WrestlerSupervisorServer(Supervisor):
             self.apply_actions()
             ko, performance = self.evaluation(ttime, seconds, ko_labels, coverage_labels, ko)            
 
-            if ttime > self.game_duration or ko != -1 or self.robot_down[0]:
+            if ttime > self.game_duration or ko != -1 or self.robot_down[0] :# or self.outside_ring:
                 self.done = 1
                 self.send_sensors(performance)
                 break
@@ -274,6 +274,7 @@ class WrestlerSupervisorServer(Supervisor):
                 else:
                     if i==0:
                         self.outside_ring = True
+                        print(f'outside_ring')
 
                 if position[2] < 0.9 or self.outside_ring:  # low position threshold
                     #print(i, position)
@@ -292,6 +293,7 @@ class WrestlerSupervisorServer(Supervisor):
                 ko_labels[i] = string
 
         if self.robot_down[0]:
+            print(f'robot_down')
             performance = self.coverage[0]/10
             if self.outside_ring:
                 performance = -performance 
@@ -566,7 +568,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port', type=int, help="controller port number")
     parser.add_argument('-wp', '--wport', type=int, help="webots port number")
-    parser.add_argument('-s', '--sync', help="webots port number", action="store_true")
+    parser.add_argument('-s', '--sync', help="webots port number")#, action="store_true")
 
     args = parser.parse_args()
     port = args.port 
@@ -630,7 +632,8 @@ if __name__ == '__main__':
         if sync==None:
             sync=True
 
-        ram_limit= 500 * 1000 * 1000 # 20 * 1000 * 1000 * 1000
+        # ram_limit= 500 * 1000 * 1000 # 20 * 1000 * 1000 * 1000
+        ram_limit= 10 * 1000 * 1000 * 1000
         from utilities.processes import Executor
         ex = Executor(port=port, wport=wport, sync=sync)
             

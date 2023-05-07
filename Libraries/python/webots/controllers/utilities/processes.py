@@ -40,7 +40,10 @@ class Executor():
         
     def start_webots(self):
         worldfilepath = self.webotspath +sep+'worlds' +sep+ self.worldfile
-        subprocess.Popen([self.exe, f'--port={self.wport}', "--no-rendering", "--batch", "--mode=fast", "--stdout",  "--stderr", worldfilepath])
+        if self.port==9999:
+            subprocess.Popen([self.exe, f'--port={self.wport}', "--batch", "--stdout",  "--stderr", worldfilepath])
+        else:        
+            subprocess.Popen([self.exe, f'--port={self.wport}', "--no-rendering", "--batch", "--mode=fast", "--stdout",  "--stderr", worldfilepath])
         logger.info(f'Started webots {worldfilepath} on port {self.wport}')
 
 
