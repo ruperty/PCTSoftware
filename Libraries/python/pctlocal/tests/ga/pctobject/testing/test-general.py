@@ -1,11 +1,21 @@
-import json, socket
+import json, socket, psutil
 
 from pct.putils import FunctionsList
 from pct.functions import Constant
 #from pct.network import ConnectionManager
 
-test = 8
+test = 9
 
+
+if test == 9:
+
+    for p in psutil.process_iter():
+        #    if 'webots-bin' in p.name() and port_text in p.cmdline() :
+        # print(p.memory_info().rss, p.cmdline(), p.name())   
+        print(p.memory_info().rss,  p.name())   
+                # return p.memory_info().rss
+        
+        
 
 if test == 8:
     print(socket.getdefaulttimeout())

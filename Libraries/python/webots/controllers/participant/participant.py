@@ -15,9 +15,9 @@
 
 
 import numpy as np
-from os import sep
+from os import sep, environ, getpid
 from time import sleep
-import math, time
+import math, time, logging
 from controller import Robot
 import sys
 import platform
@@ -62,7 +62,7 @@ test = 4
 out_dir= get_gdrive() + f'data{sep}ga'
 env_name = 'WebotsWrestler'
 
-import logging
+
 now = datetime.now() # current date and time
 date_time = now.strftime("%Y%m%d-%H%M%S")
 log_file=sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
@@ -98,14 +98,17 @@ class WrestlerSupervisorServer(Supervisor):
             if 'rmode' in recv:
                 rmode =  recv['rmode']
             else:                
-                # self.close()    
                 raise Exception('Mode not received in initialisation.')
             
             if 'game_duration' in recv:
                 self.game_duration =  recv['game_duration']
             else:                
-                # self.close()    
                 raise Exception('Game duration not received in initialisation.')
+
+            if 'upper_body' in recv:
+                self.upper_body =  recv['upper_body']
+            else:                
+                raise Exception('Upper body not received in initialisation.')
 
             if 'sync' in recv:
                 sync =  recv['sync']
@@ -115,19 +118,11 @@ class WrestlerSupervisorServer(Supervisor):
                     sync = False
 
                 if sync != self.synchronization:
-                    # self.close()    
                     raise Exception('Sync is not the same as world file.')
-                    
-                
             else:                
-                # self.close()    
                 raise Exception('Sync not received in initialisation.')
         else:
-            # self.close()    
             raise Exception('Initialisation not recevied from client.')
-
-        # self.simulationReset()
-        # self.game_duration = 10000 # 60000 #3 * 60 * 1000  # a game lasts 3 minutes
 
         return rmode
     
@@ -578,33 +573,52 @@ if __name__ == '__main__':
         # create the referee instance and run main loop
         #start_webots()
         if port==None:
-            port = 6666
+            port = 9999
         if wport==None:
-            wport = 1234
+            wport = 1300
         if sync==None:
-            sync=False
+            sync=True
 
-        ram_limit=20 * 1000 * 1000 * 1000
+        ram_limit= 500 * 1000 * 1000 # 20 * 1000 * 1000 * 1000
         from utilities.processes import Executor
         ex = Executor(port=port, wport=wport, sync=sync)
             
         ServerConnectionManager.getInstance().set_port(port=port)
         ex.start_evolver()
-        
+        ctr=1
+    
         while True:
-            ex.start_webots()
+            try:
+                ex.start_webots()
+            except Exception as e:
+                print(e.message)
+                logger.info(e.message)
+                break
+
+            logger.info(ex.get_process_info_by_name('python.exe', 'evolve', '9999'))
+            logger.info(ex.get_process_info_by_pid(getpid()))
+            logger.info(ex.get_process_info_webots())
+
             wrestler = WrestlerSupervisorServer()
             logger.info(f'Basic time step={wrestler.getBasicTimeStep()}')
+            logger.info(f'Memory={ex.webots_ram()}')
+            
             while True:
                 wrestler.simulationReset()
                 wrestler.run(port=port)
-                ram = ex.webots_ram()
-                if ram > ram_limit:
-                    logger.info(f'Ram={ram} exceeds limit {ram_limit}, restarting webots')
-                    status = 1 #EXIT_SUCCESS
-                    wrestler.simulationQuit(status) 
-                    del wrestler
-                    break
+                if ctr % 10:
+                    logger.info(ex.get_process_info_by_name('python.exe', 'evolve.py', '9999'))
+                    logger.info(ex.get_process_info_by_pid(getpid()))
+                    logger.info(ex.get_process_info_webots())
+                    ram = ex.webots_ram()
+                    if ram > ram_limit :
+                        logger.info(f'Ctr={ctr}')             
+                        logger.info(f'Ram={ram} exceeds limit {ram_limit}, restarting webots')
+                        status = 1 #EXIT_SUCCESS
+                        wrestler.simulationQuit(status) 
+                        del wrestler
+                        break
+                ctr+=1
                 
                 
 
