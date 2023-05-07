@@ -29,7 +29,7 @@ sys.path.append('..')
 from utils.motion_library import MotionLibrary
 
 from utils.image_processing import ImageProcessing as IP
-# from utils.fall_detection import FallDetection
+from utils.fall_detection import FallDetection
 # from utils.gait_manager import GaitManager
 # from utils.camera import Camera
 
@@ -57,7 +57,7 @@ def get_gdrive():
             root_dir='C:\\Users\\ryoung\\Google Drive\\'
     return root_dir
 
-test = 4
+test = 3
 
 out_dir= get_gdrive() + f'data{sep}ga'
 env_name = 'WebotsWrestler'
@@ -463,17 +463,35 @@ class Wrestler (Robot):
     def __init__(self, config_num=None):
         Robot.__init__(self)
         self.rr = RobotAccess(self)
+        self.fileTimeStep = int(self.getBasicTimeStep())
         self.rmode=1
         self.hpcthelper = HPCTHelper(config_num=config_num, mode=self.rmode)
+        self.fall_detector = FallDetection(self.fileTimeStep, self)
+    
+    def change_action(self, type):
+        config_num = self.hpcthelper.getConfigNum()
+        if type == 0:
+            if config_num == 10:         
+               self.hpcthelper.set_new_references()
+            elif config_num == 4:         
+               self.hpcthelper.set_new_references()
+            elif config_num == 12:         
+               self.hpcthelper.set_new_references()
         
-        
+        if type == 1:
+            if config_num == 10:         
+               self.hpcthelper.reset_reference_values()
+            elif config_num == 4:         
+               self.hpcthelper.reset_reference_values()
+
+
     def run(self, time_step=None, max_loops=None):
         # to load all the motions from the motions folder, we use the MotionLibrary class:
         motion_library = MotionLibrary()
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        fileTimeStep=int(self.getBasicTimeStep())
+        self.fileTimeStep=int(self.getBasicTimeStep())
         if time_step==None:
-            time_step = fileTimeStep
+            time_step = self.fileTimeStep
         #print(time_step)
         game_duration = 120000
         ttime=0
@@ -485,6 +503,12 @@ class Wrestler (Robot):
         self.hpcthelper.set_obs(sensors)
         tic = time.perf_counter()
         while self.step(time_step) != -1 and ttime < game_duration:  # mandatory function to make the simulation run
+            self.check_fallen()
+            if ttime % 10000 == 0:
+                self.change_action(1)
+            elif ttime % 5000 == 0:
+                self.change_action(0)
+
             #motion_library.play('Forwards')
             self.actions = self.hpcthelper.get_actions()
             self.apply_actions()
@@ -502,14 +526,33 @@ class Wrestler (Robot):
         loop_time = elapsed/loops
         print(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
         
-        
+    def check_fallen(self):
+        if self.fall_detector.detect_fall():
+            self.fall_detector.check()    
+            #self.hpcthelper.reset_hierarchy()
+            self.hpcthelper.reset_reference_values()
+            self.reset_upper_body(self.hpcthelper.getConfigNum())
 
     def apply_actions(self):
         self.rr.set( self.initial_sensors,self.actions)
+        
+    def reset_upper_body(self, config_num):         
+        if config_num == 4:         
+            self.rr.setGuardup(0.33, -1.5, -0.2, -0.33, 1.5, -0.2)
+        elif config_num == 10:         
+            self.rr.setShoulders(2,2)   
+        elif config_num == 12:         
+            self.rr.setShoulders(2,2)   
+        else:
+            self.rr.setGuardup(0.33, -1.5, -0.2, -0.33, 1.5, -0.2)
+
+        # if self.config_num == 10:
+
 
     def initMotors(self, mode, samplingperiod):
         self.rr = RobotAccess(self, mode, samplingperiod)
-        self.rr.setShoulders(2,2)
+        self.reset_upper_body(self.hpcthelper.getConfigNum())
+        
         # send sensor data
         self.initial_sensors =  self.rr.read()
 
@@ -526,7 +569,7 @@ if __name__ == '__main__':
     wport = args.wport
     sync = args.sync
     
-    print(sync)
+    # print(sync)
 
 
     if test == 1:
@@ -559,8 +602,12 @@ if __name__ == '__main__':
         wrestler.run()
         
     if test == 3:
-        # 4, 9, 12 works on nosync
-        wrestler = Wrestler(config_num=12)    
+        # on nosync
+        # 4 - ok with guard position 
+        # 9 - ok with guard position
+        # 10 - right leg behind, good with reversing 5 secs, not good with guard position 
+        # 12 - not good with guard position
+        wrestler = Wrestler(config_num=9)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         

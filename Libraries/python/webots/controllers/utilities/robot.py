@@ -15,6 +15,14 @@ class RobotAccess(object):
         self.RAnklePitchM = robot.getDevice("RAnklePitch")
         self.RKneePitchM = robot.getDevice("RKneePitch")
         self.RHipPitchM = robot.getDevice("RHipPitch")
+        
+        self.LShoulderRollM = robot.getDevice("LShoulderRoll")
+        self.LElbowRollM = robot.getDevice("LElbowRoll")
+        self.LElbowYawM = robot.getDevice("LElbowYaw")
+        
+        self.RShoulderRollM = robot.getDevice("RShoulderRoll")
+        self.RElbowRollM = robot.getDevice("RElbowRoll")
+        self.RElbowYawM = robot.getDevice("RElbowYaw")
 
         # sensors
         self.RShoulderPitchS = robot.getDevice("RShoulderPitchS")
@@ -57,6 +65,17 @@ class RobotAccess(object):
     def setShoulders(self, left, right):
         self.setMotorPosition(self.LShoulderPitchM,left)           
         self.setMotorPosition(self.RShoulderPitchM,right)           
+
+    # setGuardup(0.33, -1.5, -0.2, -0.33, 1.5, -0.2)
+    def setGuardup(self, lsr, ler, ley, rsr,rer,rey ):
+        self.setMotorPosition(self.LShoulderRollM,lsr)    # 0.33
+        self.setMotorPosition(self.LElbowRollM,ler)    # -1.5
+        self.setMotorPosition(self.LElbowYawM,ley)    # -0.2
+        
+        self.setMotorPosition(self.RShoulderRollM,rsr)    # -0.33
+        self.setMotorPosition(self.RElbowRollM,rer)    # 1.5
+        self.setMotorPosition(self.RElbowYawM,rey)    # -0.2
+
 
     def setLegs(self, initial_sensors, actions):
         self.setMotorPosition(self.LHipPitchM,initial_sensors['LHipPitch'] + actions['LHipPitch'])           
