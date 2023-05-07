@@ -105,10 +105,11 @@ class WrestlerSupervisorServer(Supervisor):
             else:                
                 raise Exception('Game duration not received in initialisation.')
 
+            self.upper_body='shoulders'
             if 'upper_body' in recv:
                 self.upper_body =  recv['upper_body']
-            else:                
-                raise Exception('Upper body not received in initialisation.')
+            # else:                
+            #     raise Exception('Upper body not received in initialisation.')
 
             if 'sync' in recv:
                 sync =  recv['sync']
@@ -128,7 +129,10 @@ class WrestlerSupervisorServer(Supervisor):
     
     def initMotors(self, rmode, samplingperiod):
         self.rr = RobotAccess(self, rmode, samplingperiod)
-        self.rr.setShoulders(2,2)
+        if self.upper_body == 'guardup':
+            self.rr.GuardUp()
+        else:
+            self.rr.setShoulders()
         # send sensor data
         self.initial_sensors = self.send_sensors(performance=0)
 
@@ -538,13 +542,13 @@ class Wrestler (Robot):
         
     def reset_upper_body(self, config_num):         
         if config_num == 4:         
-            self.rr.setGuardup(0.33, -1.5, -0.2, -0.33, 1.5, -0.2)
-        elif config_num == 10:         
-            self.rr.setShoulders(2,2)   
-        elif config_num == 12:         
-            self.rr.setShoulders(2,2)   
+            self.rr.setGuardup()
+        elif config_num == 10:
+            self.rr.setShoulders()   
+        elif config_num == 12: 
+            self.rr.setShoulders()   
         else:
-            self.rr.setGuardup(0.33, -1.5, -0.2, -0.33, 1.5, -0.2)
+            self.rr.setGuardup()
 
         # if self.config_num == 10:
 

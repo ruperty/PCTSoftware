@@ -62,19 +62,21 @@ class RobotAccess(object):
         if self.mode == 1:
             self.setLegs(initial_sensors, actions)
 
-    def setShoulders(self, left, right):
-        self.setMotorPosition(self.LShoulderPitchM,left)           
-        self.setMotorPosition(self.RShoulderPitchM,right)           
+    def setShoulders(self):
+        cmds = {'lsp': 2, 'rsp': 2}        
+        self.setMotorPosition(self.LShoulderPitchM, cmds['lsp'])           
+        self.setMotorPosition(self.RShoulderPitchM, cmds['rsp'])           
 
     # setGuardup(0.33, -1.5, -0.2, -0.33, 1.5, -0.2)
-    def setGuardup(self, lsr, ler, ley, rsr,rer,rey ):
-        self.setMotorPosition(self.LShoulderRollM,lsr)    # 0.33
-        self.setMotorPosition(self.LElbowRollM,ler)    # -1.5
-        self.setMotorPosition(self.LElbowYawM,ley)    # -0.2
+    def setGuardup(self):
+        cmds = {'lsr': 0.33, 'ler': -1.5, 'ley': -0.2, 'rsr': -0.33, 'rer': 1.5, 'rey': -0.2}
+        self.setMotorPosition(self.LShoulderRollM,cmds['lsr'])    # 0.33
+        self.setMotorPosition(self.LElbowRollM,cmds['ler'])    # -1.5
+        self.setMotorPosition(self.LElbowYawM,cmds['ley'])    # -0.2
         
-        self.setMotorPosition(self.RShoulderRollM,rsr)    # -0.33
-        self.setMotorPosition(self.RElbowRollM,rer)    # 1.5
-        self.setMotorPosition(self.RElbowYawM,rey)    # -0.2
+        self.setMotorPosition(self.RShoulderRollM,cmds['rsr'])    # -0.33
+        self.setMotorPosition(self.RElbowRollM,cmds['rer'])    # 1.5
+        self.setMotorPosition(self.RElbowYawM,cmds['rey'])    # -0.2
 
 
     def setLegs(self, initial_sensors, actions):
