@@ -568,14 +568,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port', type=int, help="controller port number")
     parser.add_argument('-wp', '--wport', type=int, help="webots port number")
-    parser.add_argument('-s', '--sync', help="webots port number")#, action="store_true")
+    parser.add_argument('-s', '--sync', help="webots port number", action="store_true")
 
     args = parser.parse_args()
     port = args.port 
     wport = args.wport
     sync = args.sync
     
-    # print(sync)
+    print(sync)
 
 
     if test == 1:
@@ -630,7 +630,7 @@ if __name__ == '__main__':
         if wport==None:
             wport = 1300
         if sync==None:
-            sync=True
+            sync=False
 
         # ram_limit= 500 * 1000 * 1000 # 20 * 1000 * 1000 * 1000
         ram_limit= 10 * 1000 * 1000 * 1000
