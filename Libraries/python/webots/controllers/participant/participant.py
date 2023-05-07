@@ -57,7 +57,7 @@ def get_gdrive():
             root_dir='C:\\Users\\ryoung\\Google Drive\\'
     return root_dir
 
-test = 3
+test = 4
 
 out_dir= get_gdrive() + f'data{sep}ga'
 env_name = 'WebotsWrestler'
