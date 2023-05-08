@@ -274,7 +274,7 @@ class WrestlerSupervisorServer(Supervisor):
                 else:
                     if i==0:
                         self.outside_ring = True
-                        print(f'outside_ring')
+                        #print(f'outside_ring')
 
                 if position[2] < 0.9 or self.outside_ring:  # low position threshold
                     #print(i, position)
@@ -293,7 +293,7 @@ class WrestlerSupervisorServer(Supervisor):
                 ko_labels[i] = string
 
         if self.robot_down[0]:
-            print(f'robot_down')
+            #print(f'robot_down')
             performance = self.coverage[0]/10
             if self.outside_ring:
                 performance = -performance 
