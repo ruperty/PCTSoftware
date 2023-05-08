@@ -20,3 +20,9 @@ Libraries/python/pctlocal/tests/ga/pctobject/tests/__pycache__/evolve_cartpole_t
 Libraries/python/pctlocal/tests/ga/pctobject/tests/__pycache__/hpctarch_test.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/tests/__pycache__/hpctind_test.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/tests/__pycache__/hpctmutate_test.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/accelerometer.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/current_motion_manager.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/fall_detection.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/finite_state_machine.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/running_average.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/current_motion_manager.cpython-39.pyc

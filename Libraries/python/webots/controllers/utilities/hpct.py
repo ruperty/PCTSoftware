@@ -41,6 +41,8 @@ class HPCTHelper(object):
         self.hpct = PCTHierarchy.from_config_with_environment(config, seed=seed, environment_properties=env_props)
         #self.hpct.build_links()        
         print(f'Grid={self.hpct.get_grid()}')
+        
+        self.hpct.summary()
         self.get_initial_references()
         self.environment = self.hpct.get_environment()
         num_links = self.environment.get_num_links()
@@ -52,7 +54,9 @@ class HPCTHelper(object):
 
     def reset_hierarchy(self):
         self.hpct.reset()
-        self.hpct.build_links()
+        self.hpct.reset_checklinks()
+        # self.hpct.build_links()
+        self.hpct.summary()
         
     def get_environment_value(self):
         return self.environment.get_value()
@@ -78,6 +82,13 @@ class HPCTHelper(object):
         
         self.set_references(new_refs)
         
+
+    def sum(self, msg):
+        sum = 0
+        for v in msg.values():
+            sum += abs(v)
+        return sum
+
     def get_initial_references(self):
         top_level = self.hpct.get_top_level()
         self.references = [ 0 for _ in range(len(top_level)) ]
@@ -87,24 +98,39 @@ class HPCTHelper(object):
             self.initial_references_values[ctr]= top_level[ctr].get_reference_function().get_value()
         print(f'initial_references_values={self.initial_references_values}')
 
+
+    def change_action(self, type):
+        if type == 0:
+            if self.config_num == 10:         
+               self.set_new_references()
+            elif self.config_num == 4:         
+               self.set_new_references()
+            elif self.config_num == 12:         
+               self.set_new_references()
         
+        if type == 1:
+            if self.config_num == 10:         
+               self.reset_reference_values()
+            elif self.config_num == 4:         
+               self.reset_reference_values()
+
     def reset_reference_values(self):
         for ctr in range(len(self.references)):
             self.references[ctr].set_value(self.initial_references_values[ctr])
-        print(f'reset={self.initial_references_values}')
+        #print(f'reset={self.initial_references_values}')
         
     def set_references(self, new_refs):
         top_level = self.hpct.get_top_level()
         refs = [ 0 for _ in range(len(top_level)) ]
         for ctr in range(len(top_level)):
             refs[ctr]= top_level[ctr].get_reference_function().get_value()
-        print(f'refs={refs}')
+        #print(f'refs={refs}')
         for ctr in range(len(new_refs)):
             top_level[ctr].get_reference_function().set_value(new_refs[ctr])
     
         for ctr in range(len(top_level)):
             refs[ctr]= top_level[ctr].get_reference_function().get_value()
-        print(f'newrefs={refs}')
+        #print(f'newrefs={refs}')
 
     def getConfigNum(self):
         return self.config_num
