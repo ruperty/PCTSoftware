@@ -80,7 +80,7 @@ if __name__ == '__main__':
         output=True
         overwrite=True
 
-        for i in range(10):
+        for i in range(20):
                 print(f'Sleeping for {10-i} seconds')
                 sleep(1)
 
