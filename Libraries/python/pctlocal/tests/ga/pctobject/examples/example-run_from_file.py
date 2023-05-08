@@ -16,11 +16,13 @@ test = 10
 def runit(datum):
     env  = datum[1]
     filename = datum[2]
-    dir = datum[3]
-    move = datum[4]
-    plots = datum[5]
-    min = datum[6]
-    filepath = dir + sep + filename +'.properties'
+    hash = datum[3]
+
+    dir = datum[4]
+    move = datum[5]
+    plots = datum[6]
+    min = datum[7]
+    filepath = dir + sep + hash + sep + filename  + hash +'.properties'
     file = get_gdrive() + 'data/ga/'+ env +'/' + filepath
     
     hep = HPCTEvolveProperties()
@@ -35,10 +37,10 @@ def runit(datum):
     seed = eval(hep.db['seed'])
     early_termination = eval(hep.db['early_termination'])
     env_props={'game_duration':30000, 'rmode' : 1, 'sync': 'false'}
-    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'true'}
+    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false'}
     outdir = 'output' + sep + dir
     makedirs(outdir, exist_ok=True)
-    draw_file = file= outdir + sep  + 'draw-'+ filename + '.png'
+    draw_file = file= outdir + sep  + 'draw-'+ filename + hash + '.png'
     # plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0c':'ref','IPA':'pa'}, 'title':'Goal'},
     # {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
     # plots=[]
@@ -72,7 +74,8 @@ data = [
     [9, 'WebotsWrestler', 'ga-001.848-s001-4x8-m001-c589fa85b67d512975680f7265d52149', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False], # 1.547 (10) good, dragging left leg, 2 ref *
     [10, 'WebotsWrestler', 'ga-001.884-s001-2x4-m001-d63ec5dffda565b2c064458630f1643d', 'WW01-06-RewardError-CurrentError-Mode01', {}, [], False], # 1.620 (10) good weird, kneeling on right leg, though could be stable, 4 ref
     [11, 'WebotsWrestler', 'ga-002.149-s001-2x7-m001-a71b1e63499693a10f3adff35f0bb04d', 'WW01-04-RewardError-CurrentError-Mode01', {}, [], False], # 2.033 (10) jittery, not too stable, 2 ref *
-    [12, 'WebotsWrestler', 'ga-002.039-s001-3x9-m002-1557e1adc59a7ef0c50cc2b8080f4265', 'WW01-08-RewardError-CurrentError-Mode02', {}, [], False] # 2.033 (10) good, hopping on two feet, 2 ref *
+    [12, 'WebotsWrestler', 'ga-002.039-s001-3x9-m002-1557e1adc59a7ef0c50cc2b8080f4265', 'WW01-08-RewardError-CurrentError-Mode02', {}, [], False], # 2.033 (10) good, hopping on two feet, 2 ref *
+    [13, 'WebotsWrestler', 'ga-001.237-s001-2x10-m002-', '4cc6f7a44200996b66974152c48749ad', 'WW01-07-RewardError-CurrentError-Mode02', {}, [], False] # 2.033 (10) good, hopping on two feet, 2 ref *
 
     ]
 
@@ -83,7 +86,7 @@ if test == 100:
       
 if test == 10:
     # good ones 4, 9, 11, weird 10
-    runit(data[12])
+    runit(data[13])
 
 
 

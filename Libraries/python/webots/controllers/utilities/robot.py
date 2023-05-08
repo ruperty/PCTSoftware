@@ -79,6 +79,30 @@ class RobotAccess(object):
         self.setMotorPosition(self.RElbowYawM,cmds['rey'])    # -0.2
 
 
+
+    def reset_lower_body(self):
+        self.actions = {'LHipPitch': 0.0, 'LKneePitch': 0.0, 'LAnklePitch': 0.0, 'RHipPitch': 0.0, 'RKneePitch': 0.0, 'RAnklePitch': 0.0}
+        self.apply_actions()
+        sensors = self.rr.read()
+        sum = self.hpcthelper.sum(sensors)
+        while not sum==0:
+            self.apply_actions()
+            sensors = self.rr.read()
+            print('Sensors=', sensors)
+            sum = self.hpcthelper.sum(sensors)
+
+    def reset_upper_body(self, config_num):         
+        if config_num == 4:         
+            self.setGuardup()
+        elif config_num == 10:
+            self.setShoulders()   
+        elif config_num == 12: 
+            self.setShoulders()   
+        else:
+            self.setGuardup()
+
+        # if self.config_num == 10:
+
     def setLegs(self, initial_sensors, actions):
         self.setMotorPosition(self.LHipPitchM,initial_sensors['LHipPitch'] + actions['LHipPitch'])           
         self.setMotorPosition(self.LKneePitchM,initial_sensors['LKneePitch'] + actions['LKneePitch'])
