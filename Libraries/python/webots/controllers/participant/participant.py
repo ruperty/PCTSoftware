@@ -37,6 +37,7 @@ from utilities.robot import RobotAccess
 from pct.network import Server
 from controller import Supervisor
 from pct.network import ServerConnectionManager
+from utilities.processes import Executor
 
 from datetime import datetime
 
@@ -57,7 +58,7 @@ def get_gdrive():
             root_dir='C:\\Users\\ryoung\\Google Drive\\'
     return root_dir
 
-test = 4
+test = 5
 
 out_dir= get_gdrive() + f'data{sep}ga'
 env_name = 'WebotsWrestler'
@@ -474,21 +475,7 @@ class Wrestler (Robot):
         self.hpcthelper = HPCTHelper(config_num=config_num, mode=self.rmode)
         self.fall_detector = FallDetection(self.fileTimeStep, self)
     
-    def change_action(self, type):
-        config_num = self.hpcthelper.getConfigNum()
-        if type == 0:
-            if config_num == 10:         
-               self.hpcthelper.set_new_references()
-            elif config_num == 4:         
-               self.hpcthelper.set_new_references()
-            elif config_num == 12:         
-               self.hpcthelper.set_new_references()
-        
-        if type == 1:
-            if config_num == 10:         
-               self.hpcthelper.reset_reference_values()
-            elif config_num == 4:         
-               self.hpcthelper.reset_reference_values()
+
 
 
     def run(self, time_step=None, max_loops=None):
@@ -511,16 +498,18 @@ class Wrestler (Robot):
         while self.step(time_step) != -1 and ttime < game_duration:  # mandatory function to make the simulation run
             self.check_fallen()
             if ttime % 10000 == 0:
-                self.change_action(1)
+                self.hpcthelper.change_action(1)
             elif ttime % 5000 == 0:
-                self.change_action(0)
+                self.hpcthelper.change_action(0)
 
             #motion_library.play('Forwards')
             self.actions = self.hpcthelper.get_actions()
+            #print('A',self.actions)
             self.apply_actions()
             out = self.hpcthelper.step()
             #sleep(.005)
             sensors = self.rr.read()    
+            #print('S',sensors)
             self.hpcthelper.set_obs(sensors)
             ttime += time_step
             if loops==max_loops:
@@ -533,34 +522,31 @@ class Wrestler (Robot):
         print(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
         
     def check_fallen(self):
+        fallen = False
         if self.fall_detector.detect_fall():
+            fallen = True
             self.fall_detector.check()    
-            #self.hpcthelper.reset_hierarchy()
+
+        if fallen:
+            self.hpcthelper.reset_hierarchy()
             self.hpcthelper.reset_reference_values()
-            self.reset_upper_body(self.hpcthelper.getConfigNum())
+            self.rr.reset_upper_body(self.hpcthelper.getConfigNum())
+            #self.reset_lower_body()
+    
+            # self.initial_sensors =  self.rr.read()
+            # print('InitialS=', self.initial_sensors)
 
     def apply_actions(self):
         self.rr.set( self.initial_sensors,self.actions)
-        
-    def reset_upper_body(self, config_num):         
-        if config_num == 4:         
-            self.rr.setGuardup()
-        elif config_num == 10:
-            self.rr.setShoulders()   
-        elif config_num == 12: 
-            self.rr.setShoulders()   
-        else:
-            self.rr.setGuardup()
-
-        # if self.config_num == 10:
-
 
     def initMotors(self, mode, samplingperiod):
         self.rr = RobotAccess(self, mode, samplingperiod)
-        self.reset_upper_body(self.hpcthelper.getConfigNum())
+        self.rr.reset_upper_body(self.hpcthelper.getConfigNum())
         
         # send sensor data
         self.initial_sensors =  self.rr.read()
+        #print('InitialS=', self.initial_sensors)
+
 
 
 if __name__ == '__main__':
@@ -580,7 +566,7 @@ if __name__ == '__main__':
 
     if test == 1:
         # create the referee instance and run main loop
-        CI = os.environ.get("CI")
+        CI = environ.get("CI")
         wrestler = WrestlerSupervisor()    
         time_step=None
         max_loops=10
@@ -609,11 +595,11 @@ if __name__ == '__main__':
         
     if test == 3:
         # on nosync
-        # 4 - ok with guard position 
-        # 9 - ok with guard position
+        # 4 - ok with guard position, does not reset 
+        # 9 - ok with guard position, does not reset
         # 10 - right leg behind, good with reversing 5 secs, not good with guard position 
         # 12 - not good with guard position
-        wrestler = Wrestler(config_num=9)    
+        wrestler = Wrestler(config_num=12)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         
@@ -634,7 +620,6 @@ if __name__ == '__main__':
 
         # ram_limit= 500 * 1000 * 1000 # 20 * 1000 * 1000 * 1000
         ram_limit= 10 * 1000 * 1000 * 1000
-        from utilities.processes import Executor
         ex = Executor(port=port, wport=wport, sync=sync)
             
         ServerConnectionManager.getInstance().set_port(port=port)
@@ -674,5 +659,29 @@ if __name__ == '__main__':
                         break
                 ctr+=1
                 
-                
+    if test == 5:
+        # create the referee instance and run main loop
+        #start_webots()
+        if port==None:
+            port = 6666
+        if wport==None:
+            wport = 1234
+        if sync==None:
+            sync=False
+        ServerConnectionManager.getInstance().set_port(port=port)            
+        ctr=1
+        ex = Executor(port=port, wport=wport, sync=sync)
+        wrestler = WrestlerSupervisorServer()
+        print(f'Basic time step={wrestler.getBasicTimeStep()}')
+        print(f'Memory={ex.webots_ram()}')
+
+        while True:
+            wrestler.simulationReset()
+            wrestler.run(port=port)
+            if ctr % 10 == 0:
+                print(ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}'))
+                print(ex.get_process_info_by_pid(getpid()))
+                print(ex.get_process_info_webots())
+            ctr+=1
+
 
