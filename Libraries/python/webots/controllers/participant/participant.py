@@ -120,7 +120,8 @@ class WrestlerSupervisorServer(Supervisor):
                     sync = False
 
                 if sync != self.synchronization:
-                    raise Exception('Sync is not the same as world file.')
+                    print(f'Sync {sync} is not the same as world file {self.synchronization}.')
+                    raise Exception(f'Sync {sync} is not the same as world file {self.synchronization}.')
             else:                
                 raise Exception('Sync not received in initialisation.')
         else:
@@ -223,7 +224,8 @@ class WrestlerSupervisorServer(Supervisor):
         toc = time.perf_counter()
         elapsed = 1000 * (toc-tic)
         loop_time = elapsed/loops
-        logger.info(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
+        if ttime >= self.game_duration:
+            logger.info(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
                         
         # self.close()
 
@@ -241,7 +243,9 @@ class WrestlerSupervisorServer(Supervisor):
         # else:
         #     print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
         #     #performance = 0
-        logger.info(f'Final performance: {performance}')    
+        
+        # logger.info(f'Final performance: {performance}')    
+
         #del self.motion_library
         #del self.motion_library
         #in my own timedel self.motion_library
@@ -678,10 +682,16 @@ if __name__ == '__main__':
         while True:
             wrestler.simulationReset()
             wrestler.run(port=port)
-            if ctr % 10 == 0:
-                print(ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}'))
-                print(ex.get_process_info_by_pid(getpid()))
-                print(ex.get_process_info_webots())
+            if ctr % 100 == 0:
+                estr=ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}')
+                pstr=ex.get_process_info_by_pid(getpid())
+                wstr=ex.get_process_info_webots()
+                memory = '\n'.join((f'Memory: {ctr}', estr, pstr, wstr))
+                logger.info(memory)
+                print(memory)
+                # print(ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}'))
+                # print(ex.get_process_info_by_pid(getpid()))
+                # print(ex.get_process_info_webots())
             ctr+=1
 
 

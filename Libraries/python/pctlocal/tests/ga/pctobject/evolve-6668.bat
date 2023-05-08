@@ -9,3 +9,4 @@ set PYTHONPATH=%PYTHONPATH%;%USERPROFILE%\Versioning\PCTSoftware\Libraries\pytho
 
 
 
+pause

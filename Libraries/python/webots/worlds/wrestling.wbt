@@ -116,7 +116,7 @@ DEF WRESTLER_RED Nao {
   supervisor TRUE
   translation -0.88 0 0.834
   name "participant"
-  controller "<extern>"
+  controller "participant"
   window "competition_description"
   synchronization TRUE
   selfCollision TRUE

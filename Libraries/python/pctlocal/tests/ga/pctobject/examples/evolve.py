@@ -80,9 +80,9 @@ if __name__ == '__main__':
         output=True
         overwrite=True
 
-        for i in range(10):
-                print(f'Sleeping for {10-i} seconds')
-                sleep(1)
+        # for i in range(10):
+        #         print(f'Sleeping for {10-i} seconds')
+        #         sleep(1)
 
         hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
 
