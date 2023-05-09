@@ -1760,6 +1760,9 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties)
 
                 print(f'score = {score:8.3f}' )
+                
+                logger.info(f'Running gen {gen:03} score = {score:8.3f}')
+                
                 # draw ind to file ??
 
                 if self.save_arch_gen:                    

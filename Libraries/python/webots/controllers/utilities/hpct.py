@@ -42,7 +42,7 @@ class HPCTHelper(object):
         #self.hpct.build_links()        
         print(f'Grid={self.hpct.get_grid()}')
         
-        self.hpct.summary()
+        #self.hpct.summary()
         self.get_initial_references()
         self.environment = self.hpct.get_environment()
         num_links = self.environment.get_num_links()
@@ -56,7 +56,7 @@ class HPCTHelper(object):
         self.hpct.reset()
         self.hpct.reset_checklinks()
         # self.hpct.build_links()
-        self.hpct.summary()
+        #self.hpct.summary()
         
     def get_environment_value(self):
         return self.environment.get_value()
@@ -72,11 +72,17 @@ class HPCTHelper(object):
     
     def set_new_references(self):
         if self.config_num == 10:
-             new_refs = [0,0,0,0]
+            #  new_refs = [0,0,0,0] # reverses
+            # new_refs = [0.6,0.1,0,0.3] # stops
+            # new_refs = [0,0.1,-1.6,0.3] # turns right
+            new_refs = [0,0.1,-1.6,0.3] # turns right
         elif self.config_num == 4:
              new_refs = [0.5]
         elif self.config_num == 12:
-             new_refs = [0.4,0.2]
+            #  new_refs = [0.4,0.2]
+            new_refs = [-1,-0.2]
+        elif self.config_num == 9:
+            new_refs = [0, 0]
         else:
             return
         
@@ -101,23 +107,15 @@ class HPCTHelper(object):
 
     def change_action(self, type):
         if type == 0:
-            if self.config_num == 10:         
-               self.set_new_references()
-            elif self.config_num == 4:         
-               self.set_new_references()
-            elif self.config_num == 12:         
-               self.set_new_references()
+            self.set_new_references()
         
         if type == 1:
-            if self.config_num == 10:         
-               self.reset_reference_values()
-            elif self.config_num == 4:         
-               self.reset_reference_values()
+            self.reset_reference_values()
 
     def reset_reference_values(self):
         for ctr in range(len(self.references)):
             self.references[ctr].set_value(self.initial_references_values[ctr])
-        #print(f'reset={self.initial_references_values}')
+        print(f'reset={self.initial_references_values}')
         
     def set_references(self, new_refs):
         top_level = self.hpct.get_top_level()
@@ -130,7 +128,7 @@ class HPCTHelper(object):
     
         for ctr in range(len(top_level)):
             refs[ctr]= top_level[ctr].get_reference_function().get_value()
-        #print(f'newrefs={refs}')
+        print(f'newrefs={refs}')
 
-    def getConfigNum(self):
+    def get_config_num(self):
         return self.config_num
