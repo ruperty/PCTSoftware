@@ -7,11 +7,13 @@ from  os import sep
 from cutils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
 from pct.architectures import run_from_properties_file
-   
+from pct.network import ClientConnectionManager   
 
 test = 10
 
 
+cm = ClientConnectionManager.getInstance()
+cm.set_port(6667)
   
 def runit(datum):
     env  = datum[1]
@@ -37,7 +39,7 @@ def runit(datum):
     seed = eval(hep.db['seed'])
     early_termination = eval(hep.db['early_termination'])
     env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false'}
-    # env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'true'}
+    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'true'}
     outdir = 'output' + sep + dir
     makedirs(outdir, exist_ok=True)
     #draw_file = file= outdir + sep  + 'draw-'+ filename + hash + '.png'
@@ -79,8 +81,9 @@ data = [
     [12, 'WebotsWrestler', 'ga-002.039-s001-3x9-m002-1557e1adc59a7ef0c50cc2b8080f4265.properties', '1557e1adc59a7ef0c50cc2b8080f4265','WW01-08-RewardError-CurrentError-Mode02', {}, [], False], # 1.908 (10) good, hopping on two feet, 2 ref *
     [13, 'WebotsWrestler', 'ga-001.237-s001-2x10-m002-4cc6f7a44200996b66974152c48749ad.properties', '4cc6f7a44200996b66974152c48749ad', 'WW01-07-RewardError-CurrentError-Mode02', {}, [], False], # 0.322 (30) moves very slowly
     [14, 'WebotsWrestler', 'output\conf-018.config', '8310ba064d95eee8c3347389c6f74628', 'WW01-03-RewardError-CurrentError-Mode01', {}, [], False], # 0.024 (10) dud, does nothing
-    [15, 'WebotsWrestler', 'output\conf-020.config', '6fca917053fd90d970824b5d63021dbc', 'WW01-10-RewardError-CurrentError-Mode03', {}, [], False] # 0.024 (10) dud, does nothing
-
+    [15, 'WebotsWrestler', 'output\conf-020.config', '6fca917053fd90d970824b5d63021dbc', 'WW01-10-RewardError-CurrentError-Mode03', {}, [], False], # 0.073 (10) dud, does nothing
+    [16, 'WebotsWrestler', 'ga-001.864-s001-6x6-m001-198353167ff8dc603079da89b6bbd041.properties', '198353167ff8dc603079da89b6bbd041', 'WW01-02-RewardError-CurrentError-Mode01', {}, [], False], # 0.322 (30) moves very slowly
+   
     ]
 
 
@@ -95,7 +98,7 @@ if test == 100:
       
 if test == 10:
     # good ones 4, 9, 11, weird 10
-    runit(data[12])
+    runit(data[16])
 
 
 
