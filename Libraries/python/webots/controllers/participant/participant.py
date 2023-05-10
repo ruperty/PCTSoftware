@@ -600,7 +600,7 @@ if __name__ == '__main__':
         # 9 - ok with guard position, does not reset
         # 10 - right leg behind, good with reversing 5 secs, not good with guard position 
         # 12 - not good with guard position
-        wrestler = Wrestler(config_num=9)    
+        wrestler = Wrestler(config_num=17)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         
@@ -664,7 +664,7 @@ if __name__ == '__main__':
         # create the referee instance and run main loop
         #start_webots()
         if port==None:
-            port = 6667
+            port = 6666
         if wport==None:
             wport = 1234
         if sync==None:

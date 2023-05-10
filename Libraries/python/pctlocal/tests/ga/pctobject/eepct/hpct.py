@@ -1,7 +1,7 @@
 
 
 import random, enum, time, copy, math, logging, csv
-from memory_profiler import profile
+# from memory_profiler import profile
 
 from os import name, makedirs, sep
 from enum import IntEnum, auto
@@ -1683,7 +1683,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
         if not local_out_dir is None:
             makedirs(local_out_dir, exist_ok=True)
                 
-    @profile
+    # @profile
     def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False):
         log_string = ''
         
@@ -1755,9 +1755,12 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 else:
                     print(f'Running gen {gen:03}', end = ' ')
                     
+                print('temp setting of hpct_verbose to True')
+                # hpct_verbose=self.hpct_verbose,
+                hpct_verbose=True
                 ind, score = HPCTIndividual.run_from_config(top_config, self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
-                    steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
+                    steps=self.evolver.runs, hpct_verbose=hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
                     flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties)
 
                 print(f'score = {score:8.3f}' )
