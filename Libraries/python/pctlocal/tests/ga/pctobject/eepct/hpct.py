@@ -1,7 +1,8 @@
 
 
-import random, enum, time, copy, math, logging
-import csv
+import random, enum, time, copy, math, logging, csv
+from memory_profiler import profile
+
 from os import name, makedirs, sep
 from enum import IntEnum, auto
 from deap import tools, algorithms
@@ -1682,7 +1683,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
         if not local_out_dir is None:
             makedirs(local_out_dir, exist_ok=True)
                 
-    
+    @profile
     def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False):
         log_string = ''
         
@@ -2095,11 +2096,15 @@ class HPCTEvolveProperties(object):
 
 
     def configure_evolver_from_properties_file(self, file=None, verbose=None, seed=None, flip_error_response=False,
-            gens=None, pop_size=None, print_properties=False, toolbox=None, processes=1, min=True):
+            gens=None, pop_size=None, print_properties=False, toolbox=None, processes=1, min=True, environment_properties=None):
         "Evolve from file - when is this used?"
         logger.info('Start evolve_from_properties_file')
         import hashlib
         self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size)
+        
+        if self.environment_properties['environment_properties'] is None:
+            self.environment_properties['environment_properties'] = environment_properties
+        
         self.hpct_run_properties['min']=min
         if gens is None:
             gens = self.wrapper_properties['gens']
@@ -2186,7 +2191,8 @@ class HPCTEvolveProperties(object):
 
         self.wrapper_properties['font_size']=font_size        
         self.wrapper_properties['node_size']=node_size        
-        self.wrapper_properties['local_out_dir']=dir+sep+'output'        
+        if output:
+            self.wrapper_properties['local_out_dir']=dir+sep+'output'        
 
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 
