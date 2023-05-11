@@ -12,7 +12,7 @@ test = 7
 
 if test==7:
     cm = ClientConnectionManager.getInstance()
-    cm.set_port(6667)
+    cm.set_port(6666)
 
     seed=1
     performance=False
@@ -28,7 +28,7 @@ if test==7:
     hpct_verbose=False
     early_termination=True
     config_num = 17
-    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'true', 'upper_body':'guardup'}
+    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false', 'upper_body':'guardup'}
 
     if config_num == 1:
         # WW01-04-RewardError-CurrentError-Mode01 ga-001.848-s001-4x8-m001-c589fa85b67d512975680f7265d52149
@@ -59,9 +59,11 @@ if test==7:
         ref0.set_value(1.8)
         ref1.set_value(-0.2)
 
-    if config_num == 18:
-        ref0.set_value(-0.5)
-        ref1.set_value(0.8)
+    if config_num == 17:
+        # ref0.set_value(-0.9) work in fast mode
+        # ref1.set_value(0.8)
+        ref0.set_value(0.5)
+        ref1.set_value(.1)
 
 
     # ref1.set_value(-0.2)

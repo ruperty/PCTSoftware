@@ -182,6 +182,8 @@ class WrestlerSupervisorServer(Supervisor):
     def run(self, port=None):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
+        # time_step=5
+        # print('time_step=',time_step)
         self.step(time_step)
         self.initSupervisor()
         self.motion_library = MotionLibrary()
