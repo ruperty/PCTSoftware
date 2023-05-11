@@ -182,6 +182,8 @@ class WrestlerSupervisorServer(Supervisor):
     def run(self, port=None):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
+        # time_step=5
+        # print('time_step=',time_step)
         self.step(time_step)
         self.initSupervisor()
         self.motion_library = MotionLibrary()
@@ -600,7 +602,7 @@ if __name__ == '__main__':
         # 9 - ok with guard position, does not reset
         # 10 - right leg behind, good with reversing 5 secs, not good with guard position 
         # 12 - not good with guard position
-        wrestler = Wrestler(config_num=9)    
+        wrestler = Wrestler(config_num=17)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         

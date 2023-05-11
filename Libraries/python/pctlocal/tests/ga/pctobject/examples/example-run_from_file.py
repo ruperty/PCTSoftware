@@ -13,7 +13,7 @@ test = 10
 
 
 cm = ClientConnectionManager.getInstance()
-cm.set_port(6667)
+cm.set_port(6666)
   
 def runit(datum):
     env  = datum[1]
@@ -29,7 +29,6 @@ def runit(datum):
     
     hep = HPCTEvolveProperties()
     hep.load_db(file)
-    render=True
 
     error_collector_type = hep.db['error_collector_type']
     error_response_type = hep.db['error_response_type']
@@ -39,7 +38,7 @@ def runit(datum):
     seed = eval(hep.db['seed'])
     early_termination = eval(hep.db['early_termination'])
     env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false'}
-    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'true'}
+    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false', 'upper_body':'guardup'}
     outdir = 'output' + sep + dir
     makedirs(outdir, exist_ok=True)
     #draw_file = file= outdir + sep  + 'draw-'+ filename + hash + '.png'
@@ -47,8 +46,8 @@ def runit(datum):
     # {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
     # plots=[]
 
-    hpct_verbose= False #True
-    render=True
+    hpct_verbose= False #True #False #
+    render=False
 
     ind, score = HPCTIndividual.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=True, environment_properties=env_props,
@@ -83,6 +82,11 @@ data = [
     [14, 'WebotsWrestler', 'output\conf-018.config', '8310ba064d95eee8c3347389c6f74628', 'WW01-03-RewardError-CurrentError-Mode01', {}, [], False], # 0.024 (10) dud, does nothing
     [15, 'WebotsWrestler', 'output\conf-020.config', '6fca917053fd90d970824b5d63021dbc', 'WW01-10-RewardError-CurrentError-Mode03', {}, [], False], # 0.073 (10) dud, does nothing
     [16, 'WebotsWrestler', 'ga-001.864-s001-6x6-m001-198353167ff8dc603079da89b6bbd041.properties', '198353167ff8dc603079da89b6bbd041', 'WW01-02-RewardError-CurrentError-Mode01', {}, [], False], # 0.322 (30) moves very slowly
+    [17, 'WebotsWrestler', 'ga-001.938-s001-3x5-m003-9d4d2585c69a1678f06d75f9767678aa.properties', '9d4d2585c69a1678f06d75f9767678aa', 'WW01-10-RewardError-CurrentError-Mode03', {}, [], False], # ??? (10) 
+    [18, 'WebotsWrestler', 'ga-001.952-s001-5x5-m003-9d4d2585c69a1678f06d75f9767678aa.properties', '9d4d2585c69a1678f06d75f9767678aa', 'WW01-10-RewardError-CurrentError-Mode03', {}, [], False] # ??? (10) 
+   
+   
+   
    
     ]
 
@@ -98,7 +102,7 @@ if test == 100:
       
 if test == 10:
     # good ones 4, 9, 11, weird 10
-    runit(data[16])
+    runit(data[18])
 
 
 
