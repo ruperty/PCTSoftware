@@ -1764,7 +1764,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
 
                 ind, score = HPCTIndividual.run_from_config(top_config, self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
-                    steps=self.evolver.runs, hpct_verbose=elf.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
+                    steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
                     flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties)
 
                 print(f'score = {score:8.3f}' )
