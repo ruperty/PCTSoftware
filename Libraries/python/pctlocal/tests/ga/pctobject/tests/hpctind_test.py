@@ -48,13 +48,13 @@ class TestHPCTIndividual1Level(unittest.TestCase):
         nevals=1
         debug=0
 
-        environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
+        environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'environment_properties':{},
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
         #evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25, 'attr_mut_pb':1, 'attr_cx_uniform_pb':0.5}
 
         # hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit,
         #     'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit, 'lower_float':-100, 'upper_float':100, 'structurepb':1, }    
-        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
+        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type, 'min': True,
             'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
             'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 
@@ -196,10 +196,10 @@ class TestHPCTIndividual2Level(unittest.TestCase):
         debug=0
         error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
 
-        environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
+        environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'environment_properties':{},
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
 
-        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
+        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,'min': True,
             'error_properties':error_properties, 'error_limit': error_limit,  'nevals':nevals,
             'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 
@@ -343,12 +343,12 @@ class TestHPCTIndividual3Level(unittest.TestCase):
         error_limit = 100
         min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit=1,3,1,3
 
-        environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes,
+        environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'environment_properties':{},
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
         # evolve_properties = {'alpha':0.5, 'mu':0.1, 'sigma':0.25, 'structurepb':0, 'attr_mut_pb':1, 'attr_cx_uniform_pb':0.5 }
         hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'references':references,
             'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit}    
-        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
+        hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,'min': True,
             'error_properties':error_properties, 'error_limit': error_limit, 'runs':runs, 'nevals':nevals,
             'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 

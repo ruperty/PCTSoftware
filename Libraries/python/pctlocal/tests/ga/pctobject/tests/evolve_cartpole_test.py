@@ -5,7 +5,7 @@ import unittest
 import os
 
 from eepct.hpct import HPCTEvolveProperties
-from utils.paths import get_root_path, get_gdrive
+from cutils.paths import get_root_path, get_gdrive
 from deap import base, creator
 from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
@@ -28,6 +28,7 @@ class TestEvolveCartpole(unittest.TestCase):
         cls.verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'hpct_verbose':hpct_verbose}
         cls.prefix = get_root_path() + 'Versioning'+os.sep+'PCTSoftware'+os.sep+'Libraries'+os.sep+'python'+os.sep+'pctlocal'+os.sep+'tests'+os.sep+'ga'+os.sep+'pctobject'+os.sep+'configs'+os.sep+'CartPoleV1'+os.sep+''
         cls.suffix = ".properties"
+        cls.environment_properties={}
 
 
     def test_std00_IE_RMS_mode00(self):
@@ -36,7 +37,9 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        
         print(score)
         
         self.assertAlmostEqual(score, 16.949603136533007)
@@ -48,7 +51,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 25.052665371959325)
@@ -60,7 +64,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 19.307275966656576)        
@@ -71,7 +76,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 5.263805245212976)        
@@ -86,7 +92,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 18.79305613192372)    
@@ -99,7 +106,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 22.10562580760481)    
@@ -111,7 +119,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 19.56707031226311)        
@@ -122,7 +131,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score,  5.263805245212976)        
@@ -133,7 +143,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 18.833059591366965)    
@@ -145,7 +156,8 @@ class TestEvolveCartpole(unittest.TestCase):
 
         hep = HPCTEvolveProperties()
 
-        output_file, evr, score = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens)
+        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
+        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 19.93341868149284)        
