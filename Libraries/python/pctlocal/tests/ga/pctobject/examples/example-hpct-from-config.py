@@ -25,7 +25,7 @@ if test==7:
     else:
         error_collector_type=None
     steps=1000000 
-    hpct_verbose=False
+    hpct_verbose=True
     early_termination=True
     config_num = 17
     env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false', 'upper_body':'guardup'}

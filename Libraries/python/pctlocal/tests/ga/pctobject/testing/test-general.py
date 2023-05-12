@@ -1,12 +1,17 @@
 import json, socket, psutil
 
 from pct.putils import FunctionsList
+from pct.putils import floatListsToString
 from pct.functions import Constant
 #from pct.network import ConnectionManager
 
-test = 9
+test = 10
 
 
+if test == 10:
+    fl = [[[-0.125555], 0.543666]]
+    print(floatListsToString(fl, 3))
+    
 if test == 9:
 
     for p in psutil.process_iter():
