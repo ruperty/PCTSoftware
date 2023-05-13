@@ -669,7 +669,7 @@ if __name__ == '__main__':
         # create the referee instance and run main loop
         #start_webots()
         if port==None:
-            port = 9999 #6666
+            port = 6666
         if wport==None:
             wport = 1234
         if sync==None:
