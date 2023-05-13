@@ -31,8 +31,8 @@ class Executor():
         else:
             self.worldfile = "wrestling-nosync.wbt"
         self.bat = get_root_path() + f'Versioning\\PCTSoftware\\Libraries\\python\\pctlocal\\tests\\ga\\pctobject\\evolve-{port}.bat'
-        pid = getpid()
-        logger.info(f'Started PID {pid}')
+        self.pid = getpid()
+        logger.info(f'Started PID {self.pid}')
 
         
     def start_webots(self):
