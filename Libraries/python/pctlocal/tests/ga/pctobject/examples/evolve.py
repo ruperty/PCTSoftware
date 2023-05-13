@@ -16,6 +16,7 @@ from time import sleep
 from pct.network import ClientConnectionManager
 
 
+
 if __name__ == '__main__':
     
         parser = argparse.ArgumentParser()
@@ -27,12 +28,11 @@ if __name__ == '__main__':
         filename = args.file
         port = args.port 
 
-        # env_name = 'WebotsWrestler' 
-        # filename = 'WW01-01-RewardError-CurrentError-Mode01'
-        # port = 6666
-        
         if port == None:
-                port = 6666
+                port = 9999
+                env_name = 'WebotsWrestler' 
+                filename = 'XXX-Dummy-Mode04'
+
         cm = ClientConnectionManager.getInstance()
         cm.set_port(port)
 
@@ -80,9 +80,9 @@ if __name__ == '__main__':
         output=True
         overwrite=True
 
-        for i in range(20):
-                print(f'Sleeping for {10-i} seconds')
-                sleep(1)
+        # for i in range(20):
+        #         print(f'Sleeping for {10-i} seconds')
+        #         sleep(1)
 
         hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
 

@@ -2089,7 +2089,7 @@ class HPCTEvolveProperties(object):
         if output:
             dir1 = out_dir + env_name
             makedirs(dir1, exist_ok=True)
-            dir2 = dir1+sep+desc+sep+hash_num
+            dir2 = dir1+sep+desc
             makedirs(dir2, exist_ok=True)
             exists, fname = check_hash_file_exists(dir2, hash_num)
             if exists and not overwrite:
@@ -2199,7 +2199,7 @@ class HPCTEvolveProperties(object):
         self.wrapper_properties['font_size']=font_size        
         self.wrapper_properties['node_size']=node_size        
         if output:
-            self.wrapper_properties['local_out_dir']=dir+sep+'output'        
+            self.wrapper_properties['local_out_dir']=dir+sep+hash_num+sep+'output'        
 
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 

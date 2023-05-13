@@ -227,7 +227,7 @@ class WrestlerSupervisorServer(Supervisor):
         elapsed = 1000 * (toc-tic)
         loop_time = elapsed/loops
         if ttime >= self.game_duration:
-            logger.info(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
+            logger.info(f'Time={ttime} Performance={performance} Elapsed time={elapsed:4.0f} loops={loops} loop_time={loop_time}')   
                         
         # self.close()
 
@@ -566,7 +566,7 @@ if __name__ == '__main__':
     wport = args.wport
     sync = args.sync
     
-    print(sync)
+    print(f'Sync={sync}')
 
 
     if test == 1:
@@ -669,7 +669,7 @@ if __name__ == '__main__':
         # create the referee instance and run main loop
         #start_webots()
         if port==None:
-            port = 6666
+            port = 9999 #6666
         if wport==None:
             wport = 1234
         if sync==None:
@@ -689,6 +689,7 @@ if __name__ == '__main__':
                 estr=ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}')
                 pstr=ex.get_process_info_by_pid(getpid())
                 wstr=ex.get_process_info_webots()
+                now = datetime.now()
                 date_time = now.strftime("%Y%m%d-%H%M%S")
                 memory = '\n'.join((f'Memory: {ctr} PID: {ex.pid} Time: {date_time}', estr, pstr, wstr))
                 logger.info(memory)
