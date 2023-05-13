@@ -120,7 +120,8 @@ class WrestlerSupervisorServer(Supervisor):
                     sync = False
 
                 if sync != self.synchronization:
-                    raise Exception('Sync is not the same as world file.')
+                    print(f'Sync {sync} is not the same as world file {self.synchronization}.')
+                    raise Exception(f'Sync {sync} is not the same as world file {self.synchronization}.')
             else:                
                 raise Exception('Sync not received in initialisation.')
         else:
@@ -181,6 +182,8 @@ class WrestlerSupervisorServer(Supervisor):
     def run(self, port=None):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
+        # time_step=5
+        # print('time_step=',time_step)
         self.step(time_step)
         self.initSupervisor()
         self.motion_library = MotionLibrary()
@@ -223,7 +226,8 @@ class WrestlerSupervisorServer(Supervisor):
         toc = time.perf_counter()
         elapsed = 1000 * (toc-tic)
         loop_time = elapsed/loops
-        logger.info(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
+        if ttime >= self.game_duration:
+            logger.info(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
                         
         # self.close()
 
@@ -241,7 +245,9 @@ class WrestlerSupervisorServer(Supervisor):
         # else:
         #     print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
         #     #performance = 0
-        logger.info(f'Final performance: {performance}')    
+        
+        # logger.info(f'Final performance: {performance}')    
+
         #del self.motion_library
         #del self.motion_library
         #in my own timedel self.motion_library
@@ -477,9 +483,6 @@ class Wrestler (Robot):
         self.hpcthelper = HPCTHelper(config_num=config_num, mode=self.rmode)
         self.fall_detector = FallDetection(self.fileTimeStep, self)
     
-
-
-
     def run(self, time_step=None, max_loops=None):
         # to load all the motions from the motions folder, we use the MotionLibrary class:
         motion_library = MotionLibrary()
@@ -499,9 +502,9 @@ class Wrestler (Robot):
         tic = time.perf_counter()
         while self.step(time_step) != -1 and ttime < game_duration:  # mandatory function to make the simulation run
             self.check_fallen()
-            if ttime % 10000 == 0:
+            if ttime % 7000 == 0:
                 self.hpcthelper.change_action(1)
-            elif ttime % 5000 == 0:
+            elif ttime % 3500 == 0:
                 self.hpcthelper.change_action(0)
 
             #motion_library.play('Forwards')
@@ -532,7 +535,7 @@ class Wrestler (Robot):
         if fallen:
             self.hpcthelper.reset_hierarchy()
             self.hpcthelper.reset_reference_values()
-            self.rr.reset_upper_body(self.hpcthelper.getConfigNum())
+            self.rr.reset_upper_body(self.hpcthelper.get_config_num())
             #self.reset_lower_body()
     
             # self.initial_sensors =  self.rr.read()
@@ -543,7 +546,7 @@ class Wrestler (Robot):
 
     def initMotors(self, mode, samplingperiod):
         self.rr = RobotAccess(self, mode, samplingperiod)
-        self.rr.reset_upper_body(self.hpcthelper.getConfigNum())
+        self.rr.reset_upper_body(self.hpcthelper.get_config_num())
         
         # send sensor data
         self.initial_sensors =  self.rr.read()
@@ -601,7 +604,7 @@ if __name__ == '__main__':
         # 9 - ok with guard position, does not reset
         # 10 - right leg behind, good with reversing 5 secs, not good with guard position 
         # 12 - not good with guard position
-        wrestler = Wrestler(config_num=12)    
+        wrestler = Wrestler(config_num=17)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         
@@ -671,6 +674,7 @@ if __name__ == '__main__':
             wport = 1234
         if sync==None:
             sync=False
+            
         ServerConnectionManager.getInstance().set_port(port=port)            
         ctr=1
         ex = Executor(port=port, wport=wport, sync=sync)
@@ -681,10 +685,16 @@ if __name__ == '__main__':
         while True:
             wrestler.simulationReset()
             wrestler.run(port=port)
-            if ctr % 10 == 0:
-                print(ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}'))
-                print(ex.get_process_info_by_pid(getpid()))
-                print(ex.get_process_info_webots())
+            if ctr % 100 == 0:
+                estr=ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}')
+                pstr=ex.get_process_info_by_pid(getpid())
+                wstr=ex.get_process_info_webots()
+                memory = '\n'.join((f'Memory: {ctr}', estr, pstr, wstr))
+                logger.info(memory)
+                print(memory)
+                # print(ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}'))
+                # print(ex.get_process_info_by_pid(getpid()))
+                # print(ex.get_process_info_webots())
             ctr+=1
 
 

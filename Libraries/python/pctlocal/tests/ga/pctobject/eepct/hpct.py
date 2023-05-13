@@ -1,7 +1,8 @@
 
 
-import random, enum, time, copy, math, logging
-import csv
+import random, enum, time, copy, math, logging, csv
+# from memory_profiler import profile
+
 from os import name, makedirs, sep
 from enum import IntEnum, auto
 from deap import tools, algorithms
@@ -1682,7 +1683,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
         if not local_out_dir is None:
             makedirs(local_out_dir, exist_ok=True)
                 
-    
+    # @profile
     def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False):
         log_string = ''
         
@@ -1754,18 +1755,28 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 else:
                     print(f'Running gen {gen:03}', end = ' ')
                     
+                # print('temp setting of hpct_verbose to True')
+                # hpct_verbose=True
+                # ind, score = HPCTIndividual.run_from_config(top_config, self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
+                #     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
+                #     steps=self.evolver.runs, hpct_verbose=hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
+                #     flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties)
+
                 ind, score = HPCTIndividual.run_from_config(top_config, self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
                     steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
                     flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties)
 
                 print(f'score = {score:8.3f}' )
+                
+                logger.info(f'Running gen {gen:03} score = {score:8.3f}')
+                
                 # draw ind to file ??
 
                 if self.save_arch_gen:                    
                     fig_file = f'{self.local_out_dir}/fig{gen:03}.png'
                     top_ind.write_config_to_file(self.evolver.seed, self.evolver.runs , self.evolver.early_termination, self.evolver.error_response_type, 
-                                                 self.evolver.error_collector_type, self.evolver.error_limit, score, f'{self.local_out_dir}/conf-{gen:03}.config')                
+                                                 self.evolver.error_collector_type, self.evolver.error_limit, score, f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')                
                     ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True)
 
                 
@@ -2092,11 +2103,15 @@ class HPCTEvolveProperties(object):
 
 
     def configure_evolver_from_properties_file(self, file=None, verbose=None, seed=None, flip_error_response=False,
-            gens=None, pop_size=None, print_properties=False, toolbox=None, processes=1, min=True):
+            gens=None, pop_size=None, print_properties=False, toolbox=None, processes=1, min=True, environment_properties=None):
         "Evolve from file - when is this used?"
         logger.info('Start evolve_from_properties_file')
         import hashlib
         self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size)
+        
+        if self.environment_properties['environment_properties'] is None:
+            self.environment_properties['environment_properties'] = environment_properties
+        
         self.hpct_run_properties['min']=min
         if gens is None:
             gens = self.wrapper_properties['gens']
@@ -2183,7 +2198,8 @@ class HPCTEvolveProperties(object):
 
         self.wrapper_properties['font_size']=font_size        
         self.wrapper_properties['node_size']=node_size        
-        self.wrapper_properties['local_out_dir']=dir+sep+'output'        
+        if output:
+            self.wrapper_properties['local_out_dir']=dir+sep+'output'        
 
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 

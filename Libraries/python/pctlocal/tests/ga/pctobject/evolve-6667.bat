@@ -13,4 +13,4 @@ set CONFIG=WW01-04-RewardError-CurrentError-Mode01
 
 
 
-::pause
+pause

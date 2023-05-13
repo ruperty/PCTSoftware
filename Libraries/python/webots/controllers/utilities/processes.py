@@ -34,9 +34,6 @@ class Executor():
         pid = getpid()
         logger.info(f'Started PID {pid}')
 
- 
-
-        
         
     def start_webots(self):
         worldfilepath = self.webotspath +sep+'worlds' +sep+ self.worldfile
@@ -54,17 +51,18 @@ class Executor():
         
     def webots_ram(self):
         for p in psutil.process_iter():
-            port_text = f'--port={self.wport}'
-            if 'webots-bin' in p.name() and port_text in p.cmdline() :
+            #port_text = f'--port={self.wport}'
+            if 'webots-bin' in p.name() :#and port_text in p.cmdline() :
                 #print(p.memory_info().rss, p.cmdline(), p.name())   
                 return p.memory_info().rss
 
-    def get_process_info_webots(self):        
+    def get_process_info_webots(self):    
+        rtn=''
         for p in psutil.process_iter():
-            port_text = f'--port={self.wport}'
-            if 'webots-bin' in p.name() and port_text in p.cmdline() :
-                rtn = f'RAM={p.memory_info().rss} PID={p.pid} webots-bin '
-                return rtn
+            #port_text = f'--port={self.wport}'
+            if 'webots-bin' in p.name() :#and port_text in p.cmdline() :
+                rtn += f'RAM={p.memory_info().rss} PID={p.pid} webots-bin \n'
+        return rtn
 
 
     def get_process_info_by_name(self, exe, text1, text2):

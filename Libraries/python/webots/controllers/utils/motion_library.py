@@ -22,7 +22,7 @@ class MotionLibrary:
         self.motions = {}
         
         motion_dir = '../motions/'
-        motion_dir = './controllers/motions/'
+        #motion_dir = './controllers/motions/'
         for motion_file in os.listdir(motion_dir):
             motion_path = os.path.join(motion_dir, motion_file)
             motion_name, ext = os.path.splitext(motion_file)
