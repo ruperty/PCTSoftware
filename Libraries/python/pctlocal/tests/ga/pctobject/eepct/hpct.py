@@ -1776,7 +1776,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 if self.save_arch_gen:                    
                     fig_file = f'{self.local_out_dir}/fig{gen:03}.png'
                     top_ind.write_config_to_file(self.evolver.seed, self.evolver.runs , self.evolver.early_termination, self.evolver.error_response_type, 
-                                                 self.evolver.error_collector_type, self.evolver.error_limit, score, f'{self.local_out_dir}/conf-{gen:03}.config')                
+                                                 self.evolver.error_collector_type, self.evolver.error_limit, score, f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')                
                     ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True)
 
                 
