@@ -27,8 +27,6 @@ import argparse
 # If you want to see a list of examples that use them, you can go to https://github.com/cyberbotics/wrestling#demo-robot-controllers
 sys.path.append('..')
 from utils.motion_library import MotionLibrary
-
-from utils.image_processing import ImageProcessing as IP
 from utils.fall_detection import FallDetection
 # from utils.gait_manager import GaitManager
 # from utils.camera import Camera
@@ -57,32 +55,6 @@ def get_gdrive():
         if os.name == 'nt' :
             root_dir='C:\\Users\\ryoung\\Google Drive\\'
     return root_dir
-
-test = 3
-
-
-
-
-if test == 3:
-    log = False
-    if log:
-        out_dir= f'c:{sep}tmp'
-        now = datetime.now() # current date and time
-        date_time = now.strftime("%Y%m%d-%H%M%S")
-        log_file=sep.join((out_dir, "participant-"+date_time+".log"))
-        print('log_file=',log_file)
-        logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
-
-
-if test == 5:
-    out_dir= get_gdrive() + f'data{sep}ga'
-    env_name = 'WebotsWrestler'
-
-    now = datetime.now() # current date and time
-    date_time = now.strftime("%Y%m%d-%H%M%S")
-    log_file=sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
-    print('log_file=',log_file)
-    logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
 logger = logging.getLogger(__name__)
 
@@ -194,14 +166,15 @@ class WrestlerSupervisorServer(Supervisor):
     # def close(self):
     #     self.server.close()
         
-    def run(self, port=None):
+    def run(self, port=None, extern=False):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        time_step = int(self.getBasicTimeStep())
         # time_step=5
         # print('time_step=',time_step)
-        self.step(time_step)
+        
+        self.time_step = int(self.getBasicTimeStep())
+        self.step(self.time_step)
         self.initSupervisor()
-        self.motion_library = MotionLibrary()
+        self.motion_library = MotionLibrary(extern=extern)
         #self.motion_library.play('Forwards')
         ko_labels = ['', '']
         coverage_labels = ['', '']
@@ -211,9 +184,12 @@ class WrestlerSupervisorServer(Supervisor):
         seconds = -1
         ko = -1
         rmode = self.initServer()
-        self.initMotors(rmode=rmode, samplingperiod=time_step)
+        self.initMotors(rmode=rmode, samplingperiod=self.time_step)
         tic = time.perf_counter()
-        while  self.step(time_step) != -1: 
+        while  self.step(self.time_step) != -1: 
+            # pan = self.rr.get_normalized_opponent_x()
+            # print(pan)
+
             # if time > 22000:
             #     self.motion_library.play('Backwards')
             # else:
@@ -235,7 +211,7 @@ class WrestlerSupervisorServer(Supervisor):
             # send sensor data
             self.send_sensors(performance)
 
-            ttime += time_step            
+            ttime += self.time_step            
             loops+=1
 
         toc = time.perf_counter()
@@ -490,34 +466,39 @@ from utilities.hpct import HPCTHelper
 
 class PCTWrestler (Robot):
     
-    def __init__(self, config_num=None, game_duration = 180000):
+    def __init__(self, config_num=None, time_step=None, game_duration = 180000):
         Robot.__init__(self)
+        ftime_step = int(self.getBasicTimeStep())
+        if time_step==None:
+            self.time_step=ftime_step
+        else:
+            self.time_step=time_step 
+
+        print(f'File time step={ftime_step}, used time step={self.time_step}')
         self.rr = RobotAccess(self)
-        self.fileTimeStep = int(self.getBasicTimeStep())
         self.rmode=1
         self.hpcthelper = HPCTHelper(config_num=config_num, mode=self.rmode)
-        self.fall_detector = FallDetection(self.fileTimeStep, self)
+        self.fall_detector = FallDetection(self.time_step, self)
         self.game_duration = game_duration
 
     
-    def run(self, time_step=None, max_loops=None):
+    def run(self, max_loops=None):
         # to load all the motions from the motions folder, we use the MotionLibrary class:
         self.motion_library = MotionLibrary()
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        self.fileTimeStep=int(self.getBasicTimeStep())
-        if time_step==None:
-            time_step = self.fileTimeStep
         #print(time_step)
         ttime=0
         loops=0
         hpct_verbose=False
         # hpct = self.hpcthelper.get_controller()
         # environment = hpct.get_environment()
-        self.initMotors(mode=self.rmode, samplingperiod=time_step)
+        self.initMotors(mode=self.rmode, samplingperiod=self.time_step)
         sensors = self.rr.read()    
         self.hpcthelper.set_obs(sensors)
         tic = time.perf_counter()
-        while self.step(time_step) != -1 :  # mandatory function to make the simulation run
+        while self.step(self.time_step) != -1 :  # mandatory function to make the simulation run
+            # pan = self.rr.get_normalized_opponent_x()
+            # print(pan)
             self.check_fallen()
             if ttime>0:
                 if ttime % 7000 == 0:
@@ -534,7 +515,7 @@ class PCTWrestler (Robot):
             sensors = self.rr.read()    
             #print('S',sensors)
             self.hpcthelper.set_obs(sensors)
-            ttime += time_step
+            ttime += self.time_step
             if loops==max_loops:
                 break
             if ttime > self.game_duration:
@@ -570,7 +551,7 @@ class PCTWrestler (Robot):
         sensors = self.rr.read()
         sum = self.hpcthelper.sum(sensors)
         while not sum==0:
-            self.step(self.fileTimeStep)
+            self.step(self.time_step)
             self.apply_actions()
             sensors = self.rr.read()
             # print('Sensors=', sensors)
@@ -595,27 +576,60 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port', type=int, help="controller port number")
     parser.add_argument('-wp', '--wport', type=int, help="webots port number")
+    parser.add_argument('-t', '--test', type=int, help="test scenario")
     parser.add_argument('-s', '--sync', help="webots port number", action="store_true")
+    parser.add_argument('-l', '--log', help="logging", action="store_true")
+    parser.add_argument('-e', '--extern', help="extern", action="store_true")
 
     args = parser.parse_args()
     port = args.port 
     wport = args.wport
+    test = args.test
     sync = args.sync
-    
-    print(f'Sync={sync}')
+    log = args.log
+    extern = args.extern
+
+    if port==None:
+        port = 6666
+    if wport==None:
+        wport = 1234
+    if test is None:
+        test = 5
+
+    print(f'Sync={sync} test={test} port={port} wport={wport}')
+
+    if test == 3:
+        if log:
+            out_dir= f'c:{sep}tmp'
+            now = datetime.now() # current date and time
+            date_time = now.strftime("%Y%m%d-%H%M%S")
+            log_file=sep.join((out_dir, "participant-"+date_time+".log"))
+            print('log_file=',log_file)
+            logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+
+    if test == 5:
+        if log:
+            out_dir= get_gdrive() + f'data{sep}ga'
+            env_name = 'WebotsWrestler'
+
+            now = datetime.now() # current date and time
+            date_time = now.strftime("%Y%m%d-%H%M%S")
+            log_file=sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
+            print('log_file=',log_file)
+            logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
 
     if test == 1:
         # create the referee instance and run main loop
         CI = environ.get("CI")
         wrestler = WrestlerSupervisor()    
-        time_step=None
+        self.time_step=None
         max_loops=10
         
         wrestler.simulationReset()
         #wrestler.simulationSetMode(wrestler.SIMULATION_MODE_FAST)
         tic = time.perf_counter()
-        wrestler.run(CI, time_step=time_step, max_loops=max_loops)
+        wrestler.run(CI, time_step=self.time_step, max_loops=max_loops)
         toc = time.perf_counter()
         elapsed = 1000 * (toc-tic)
         print(f'Elapsed time: {elapsed:4.0f}')   
@@ -639,32 +653,24 @@ if __name__ == '__main__':
         # 4 - ok with guard position, slow 
         # 9 - ok with guard position, not very stable but does standup again
         # 10 - right leg behind, good with reversing 5 secs, not good with guard position 
-        # 12 - not good with guard position, falls over after reset
+        # 12 - not good with guard position, falls over after reset, why???
         # 17 - doesn't do anything
         # 18 - fast but a bit unstable, keeps falling over,  2 ref
         # 20 - wobbles alot and falls over, 2 ref 
         # 25 - doesn't do much
         # 26 - 
-        wrestler = PCTWrestler(config_num=12, game_duration=60000)    
+        wrestler = PCTWrestler(config_num=4,  game_duration=60000)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         
-        wrestler.run(time_step=20)    
+        wrestler.run()    
         toc = time.perf_counter()
         elapsed = toc-tic
         print(f'Elapsed time: {elapsed:4.4f}')   
     
     if test == 4:
         # create the referee instance and run main loop
-        #start_webots()
-        if port==None:
-            port = 9999
-        if wport==None:
-            wport = 1300
-        if sync==None:
-            sync=False
-            sync=False
-
+      
         # ram_limit= 500 * 1000 * 1000 # 20 * 1000 * 1000 * 1000
         ram_limit= 10 * 1000 * 1000 * 1000
         ex = Executor(port=port, wport=wport, sync=sync)
@@ -708,24 +714,18 @@ if __name__ == '__main__':
                 
     if test == 5:
         # create the referee instance and run main loop
-        #start_webots()
-        if port==None:
-            port = 6666
-        if wport==None:
-            wport = 1234
-        if sync==None:
-            sync=False
             
         ServerConnectionManager.getInstance().set_port(port=port)            
         ctr=1
         ex = Executor(port=port, wport=wport, sync=sync)
+        # extern = not notextern
         wrestler = WrestlerSupervisorServer()
         print(f'Basic time step={wrestler.getBasicTimeStep()}')
         print(f'Memory={ex.webots_ram()}')
 
         while True:
             wrestler.simulationReset()
-            wrestler.run(port=port)
+            wrestler.run(port=port, extern=extern)
             if ctr % 100 == 0:
                 estr=ex.get_process_info_by_name('python.exe', 'evolve.py', f'{port}')
                 pstr=ex.get_process_info_by_pid(getpid())

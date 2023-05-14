@@ -17,12 +17,15 @@ from controller import Motion
 
 
 class MotionLibrary:
-    def __init__(self):
+    def __init__(self, extern=False):
         """Initializes the motion library with the motions in the motions folder."""
         self.motions = {}
         
-        motion_dir = '../motions/'
-        #motion_dir = './controllers/motions/'
+        if extern:
+            motion_dir = './controllers/motions/'
+        else:
+            motion_dir = '../motions/'
+
         for motion_file in os.listdir(motion_dir):
             motion_path = os.path.join(motion_dir, motion_file)
             motion_name, ext = os.path.splitext(motion_file)

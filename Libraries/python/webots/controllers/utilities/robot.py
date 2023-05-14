@@ -1,4 +1,6 @@
 
+from utils.camera import Camera
+from utils.image_processing import ImageProcessing as IP
 
 class RobotAccess(object):
     def __init__(self, robot, mode=1, samplingPeriod=20):
@@ -45,6 +47,7 @@ class RobotAccess(object):
         self.RHipPitchS.enable(samplingPeriod)
         robot.step(samplingPeriod)
 
+        self.camera = Camera(robot)
 
         
         
@@ -79,7 +82,13 @@ class RobotAccess(object):
         self.setMotorPosition(self.RElbowYawM,cmds['rey'])    # -0.2
 
 
-
+    def get_normalized_opponent_x(self):
+        """Locate the opponent in the image and return its horizontal position in the range [-1, 1]."""
+        img = self.camera.get_image()
+        _, _, horizontal_coordinate = IP.locate_opponent(img)
+        if horizontal_coordinate is None:
+            return 0
+        return horizontal_coordinate * 2 / img.shape[1] - 1
 
     def reset_upper_body(self, config_num):         
         if config_num == 4:         
