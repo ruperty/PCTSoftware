@@ -10,6 +10,7 @@ test = 10
 
 if test == 10:
     fl = [[[-0.125555], 0.543666]]
+    fl = [2,2]
     print(floatListsToString(fl, 3))
     
 if test == 9:

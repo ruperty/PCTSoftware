@@ -58,7 +58,6 @@ if test==7:
     #print(hpct.formatted_config())
     print(hpct.get_grid())
     top_level = hpct.get_top_level()
-
     references = [ top_level[ctr].get_reference_function() for ctr in range(len(top_level)) ]
     
     print('refs=', [f.get_value() for f in references])
@@ -101,6 +100,10 @@ if test==7:
         hpct.summary()
         print(hpct.formatted_config())
     hpct.run(steps, hpct_verbose)
+
+    sum=hpct.get_summary()
+    print(sum)
+
     env.close()
     if performance:
         score=hpct.get_error_collector().error()

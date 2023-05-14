@@ -80,16 +80,6 @@ class RobotAccess(object):
 
 
 
-    def reset_lower_body(self):
-        self.actions = {'LHipPitch': 0.0, 'LKneePitch': 0.0, 'LAnklePitch': 0.0, 'RHipPitch': 0.0, 'RKneePitch': 0.0, 'RAnklePitch': 0.0}
-        self.apply_actions()
-        sensors = self.rr.read()
-        sum = self.hpcthelper.sum(sensors)
-        while not sum==0:
-            self.apply_actions()
-            sensors = self.rr.read()
-            print('Sensors=', sensors)
-            sum = self.hpcthelper.sum(sensors)
 
     def reset_upper_body(self, config_num):         
         if config_num == 4:         

@@ -58,17 +58,32 @@ def get_gdrive():
             root_dir='C:\\Users\\ryoung\\Google Drive\\'
     return root_dir
 
-test = 5
-
-out_dir= get_gdrive() + f'data{sep}ga'
-env_name = 'WebotsWrestler'
+test = 3
 
 
-now = datetime.now() # current date and time
-date_time = now.strftime("%Y%m%d-%H%M%S")
-log_file=sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
-print('log_file=',log_file)
-logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+
+
+if test == 3:
+    log = False
+    if log:
+        out_dir= f'c:{sep}tmp'
+        now = datetime.now() # current date and time
+        date_time = now.strftime("%Y%m%d-%H%M%S")
+        log_file=sep.join((out_dir, "participant-"+date_time+".log"))
+        print('log_file=',log_file)
+        logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+
+
+if test == 5:
+    out_dir= get_gdrive() + f'data{sep}ga'
+    env_name = 'WebotsWrestler'
+
+    now = datetime.now() # current date and time
+    date_time = now.strftime("%Y%m%d-%H%M%S")
+    log_file=sep.join((out_dir, env_name, "ww-evolve-server-"+platform.node()+"-"+date_time+".log"))
+    print('log_file=',log_file)
+    logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+
 logger = logging.getLogger(__name__)
 
 class WrestlerSupervisorServer(Supervisor):
@@ -473,51 +488,56 @@ class WrestlerServer (Robot):
 
 from utilities.hpct import HPCTHelper
 
-class Wrestler (Robot):
+class PCTWrestler (Robot):
     
-    def __init__(self, config_num=None):
+    def __init__(self, config_num=None, game_duration = 180000):
         Robot.__init__(self)
         self.rr = RobotAccess(self)
         self.fileTimeStep = int(self.getBasicTimeStep())
         self.rmode=1
         self.hpcthelper = HPCTHelper(config_num=config_num, mode=self.rmode)
         self.fall_detector = FallDetection(self.fileTimeStep, self)
+        self.game_duration = game_duration
+
     
     def run(self, time_step=None, max_loops=None):
         # to load all the motions from the motions folder, we use the MotionLibrary class:
-        motion_library = MotionLibrary()
+        self.motion_library = MotionLibrary()
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         self.fileTimeStep=int(self.getBasicTimeStep())
         if time_step==None:
             time_step = self.fileTimeStep
         #print(time_step)
-        game_duration = 120000
         ttime=0
         loops=0
+        hpct_verbose=False
         # hpct = self.hpcthelper.get_controller()
         # environment = hpct.get_environment()
         self.initMotors(mode=self.rmode, samplingperiod=time_step)
         sensors = self.rr.read()    
         self.hpcthelper.set_obs(sensors)
         tic = time.perf_counter()
-        while self.step(time_step) != -1 and ttime < game_duration:  # mandatory function to make the simulation run
+        while self.step(time_step) != -1 :  # mandatory function to make the simulation run
             self.check_fallen()
-            if ttime % 7000 == 0:
-                self.hpcthelper.change_action(1)
-            elif ttime % 3500 == 0:
-                self.hpcthelper.change_action(0)
+            if ttime>0:
+                if ttime % 7000 == 0:
+                    self.hpcthelper.change_action(1)
+                elif ttime % 3500 == 0:
+                    self.hpcthelper.change_action(0)
 
             #motion_library.play('Forwards')
             self.actions = self.hpcthelper.get_actions()
             #print('A',self.actions)
             self.apply_actions()
-            out = self.hpcthelper.step()
+            out = self.hpcthelper.step(verbose=hpct_verbose)
             #sleep(.005)
             sensors = self.rr.read()    
             #print('S',sensors)
             self.hpcthelper.set_obs(sensors)
             ttime += time_step
             if loops==max_loops:
+                break
+            if ttime > self.game_duration:
                 break
             loops+=1
         
@@ -530,16 +550,31 @@ class Wrestler (Robot):
         fallen = False
         if self.fall_detector.detect_fall():
             fallen = True
+            logger.info('Fallen')
             self.fall_detector.check()    
 
         if fallen:
+            logger.info('reset_hierarchy')
             self.hpcthelper.reset_hierarchy()
             self.hpcthelper.reset_reference_values()
             self.rr.reset_upper_body(self.hpcthelper.get_config_num())
-            #self.reset_lower_body()
-    
-            # self.initial_sensors =  self.rr.read()
-            # print('InitialS=', self.initial_sensors)
+            self.motion_library.play("TurnLeft60")
+            self.reset_lower_body()
+            current =  self.rr.read()
+            logger.info(f'CurrentS={current}')
+
+
+    def reset_lower_body(self):
+        self.actions = {'LHipPitch': 0.0, 'LKneePitch': 0.0, 'LAnklePitch': 0.0, 'RHipPitch': 0.0, 'RKneePitch': 0.0, 'RAnklePitch': 0.0}
+        self.apply_actions()
+        sensors = self.rr.read()
+        sum = self.hpcthelper.sum(sensors)
+        while not sum==0:
+            self.step(self.fileTimeStep)
+            self.apply_actions()
+            sensors = self.rr.read()
+            # print('Sensors=', sensors)
+            sum = self.hpcthelper.sum(sensors)
 
     def apply_actions(self):
         self.rr.set( self.initial_sensors,self.actions)
@@ -549,7 +584,8 @@ class Wrestler (Robot):
         self.rr.reset_upper_body(self.hpcthelper.get_config_num())
         
         # send sensor data
-        self.initial_sensors =  self.rr.read()
+        self.initial_sensors =  self.rr.read()        
+        logger.info(f'InitialS={self.initial_sensors}')
         #print('InitialS=', self.initial_sensors)
 
 
@@ -600,11 +636,16 @@ if __name__ == '__main__':
         
     if test == 3:
         # on nosync
-        # 4 - ok with guard position, does not reset 
-        # 9 - ok with guard position, does not reset
+        # 4 - ok with guard position, slow 
+        # 9 - ok with guard position, not very stable but does standup again
         # 10 - right leg behind, good with reversing 5 secs, not good with guard position 
-        # 12 - not good with guard position
-        wrestler = Wrestler(config_num=17)    
+        # 12 - not good with guard position, falls over after reset
+        # 17 - doesn't do anything
+        # 18 - fast but a bit unstable, keeps falling over,  2 ref
+        # 20 - wobbles alot and falls over, 2 ref 
+        # 25 - doesn't do much
+        # 26 - 
+        wrestler = PCTWrestler(config_num=12, game_duration=60000)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         
