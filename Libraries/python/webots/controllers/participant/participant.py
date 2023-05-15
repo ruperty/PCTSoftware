@@ -500,21 +500,21 @@ class PCTWrestler (Robot):
             # pan = self.rr.get_normalized_opponent_x()
             # print(pan)
             self.check_fallen()
-            if ttime>0:
-                if ttime % 7000 == 0:
-                    self.hpcthelper.change_action(1)
-                elif ttime % 3500 == 0:
-                    self.hpcthelper.change_action(0)
+            self.rr.update_head_controller()
+            body = self.rr.update_body_controller(self.motion_library)  
+                      
+            # if ttime>0:
+            #     if ttime % 7000 == 0:
+            #         self.hpcthelper.change_action(1)
+            #     elif ttime % 3500 == 0:
+            #         self.hpcthelper.change_action(0)
+            if body == 0:
+                self.actions = self.hpcthelper.get_actions()
+                self.rr.apply_actions(self.initial_sensors, self.actions)
+                out = self.hpcthelper.step(verbose=hpct_verbose)
+                sensors = self.rr.read()    
+                self.hpcthelper.set_obs(sensors)
 
-            #motion_library.play('Forwards')
-            self.actions = self.hpcthelper.get_actions()
-            #print('A',self.actions)
-            self.apply_actions()
-            out = self.hpcthelper.step(verbose=hpct_verbose)
-            #sleep(.005)
-            sensors = self.rr.read()    
-            #print('S',sensors)
-            self.hpcthelper.set_obs(sensors)
             ttime += self.time_step
             if loops==max_loops:
                 break
@@ -533,39 +533,41 @@ class PCTWrestler (Robot):
             fallen = True
             logger.info('Fallen')
             self.fall_detector.check()    
-
+            logger.info('Back up')
+            
         if fallen:
             logger.info('reset_hierarchy')
             self.hpcthelper.reset_hierarchy()
             self.hpcthelper.reset_reference_values()
             self.rr.reset_upper_body(self.hpcthelper.get_config_num())
-            self.motion_library.play("TurnLeft60")
-            self.motion_library.play("Stand")
+            # self.motion_library.play("TurnLeft60")
+            # self.motion_library.play("Stand")
             self.reset_lower_body()
             current =  self.rr.read()
             logger.info(f'CurrentS={current}')
 
 
-    def reset_lower_body(self):
+    def reset_lower_body(self):        
+        logger.info(f'Reset lower body')
         self.actions = {'LHipPitch': 0.0, 'LKneePitch': 0.0, 'LAnklePitch': 0.0, 'RHipPitch': 0.0, 'RKneePitch': 0.0, 'RAnklePitch': 0.0}
-        self.apply_actions()
+        self.rr.apply_actions(self.initial_sensors, self.actions)
         sensors = self.rr.read()
         sum = self.hpcthelper.sum(sensors)
         while not sum==0:
             self.step(self.time_step)
-            self.apply_actions()
+            self.rr.apply_actions(self.initial_sensors, self.actions)
             sensors = self.rr.read()
+            logger.info(f'Sensors={sensors}')
             # print('Sensors=', sensors)
             sum = self.hpcthelper.sum(sensors)
 
-    def apply_actions(self):
-        self.rr.set( self.initial_sensors,self.actions)
 
     def initMotors(self, mode, samplingperiod):
         self.rr = RobotAccess(self, mode, samplingperiod)
         self.rr.reset_upper_body(self.hpcthelper.get_config_num())
         
-        # send sensor data
+        self.rr.create_head_controller(2.0)
+        self.rr.create_body_controller(1.0)        # send sensor data
         self.initial_sensors =  self.rr.read()        
         logger.info(f'InitialS={self.initial_sensors}')
         #print('InitialS=', self.initial_sensors)
@@ -595,7 +597,8 @@ if __name__ == '__main__':
     if wport==None:
         wport = 1234
     if test is None:
-        test = 5
+        test = 3
+    log=True
 
     print(f'Sync={sync} test={test} port={port} wport={wport}')
 
@@ -603,8 +606,9 @@ if __name__ == '__main__':
         if log:
             out_dir= f'c:{sep}tmp'
             now = datetime.now() # current date and time
-            date_time = now.strftime("%Y%m%d-%H%M%S")
-            log_file=sep.join((out_dir, "participant-"+date_time+".log"))
+            # date_time = now.strftime("%Y%m%d-%H%M%S")
+            # log_file=sep.join((out_dir, "participant-"+date_time+".log"))
+            log_file=sep.join((out_dir, "participant.log"))
             print('log_file=',log_file)
             logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
@@ -660,7 +664,7 @@ if __name__ == '__main__':
         # 20 - wobbles alot and falls over, 2 ref 
         # 25 - doesn't do much
         # 26 - 
-        wrestler = PCTWrestler(config_num=4,  game_duration=60000)    
+        wrestler = PCTWrestler(config_num=9,  game_duration=60000)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         

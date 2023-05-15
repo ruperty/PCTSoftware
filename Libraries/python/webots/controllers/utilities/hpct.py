@@ -1,9 +1,8 @@
 
 
 import logging
-from pct.hierarchy import PCTHierarchy
 from pct.webots import WebotsHelper
-
+from pct.hierarchy import PCTHierarchy
 
 logger = logging.getLogger(__name__)
 
@@ -101,17 +100,7 @@ class HPCTHelper(object):
         
         return out
     
-    def create_head_controller(self, gain):
-        self.head_controller = PCTHierarchy(1,1)
-        o = self.head_controller.get_function(0, 0, "output")
-        o.gain = gain
-
-    def update_head_controller(self):
-        p = self.head_controller.get_function(0, 0, "perception")
-        p.set_value(1)
-        o = self.head_controller.get_function(0, 0, "output")
-        out = o.get_value()
-        # hpct.summary()
+    
 
 
     def set_new_references(self):
@@ -120,15 +109,16 @@ class HPCTHelper(object):
             # new_refs = [0.6,0.1,0,0.3] # stops
             # new_refs = [0,0.1,-1.6,0.3] # turns right
             new_refs = [0,0.1,-1.6,0.3] # turns right
-        elif self.config_num == 4:
-             new_refs = [0.4] # turns to the left
+        # elif self.config_num == 4:
+        #      new_refs = [0.4] # turns to the left
         elif self.config_num == 12:
              new_refs = [0.4,0.2] # stops it
             # new_refs = [-1,-0.2]
         elif self.config_num == 17:
             new_refs = [-0.9, 0.1]
         elif self.config_num == 9:
-            new_refs = [2, 1]
+            # new_refs = [2, 1] # ok
+            new_refs = [1, 0.5]
         elif self.config_num == 26:
             new_refs = [1, 0.1]
         else:

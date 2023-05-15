@@ -1,4 +1,5 @@
 
+from pct.hierarchy import PCTHierarchy
 from utils.camera import Camera
 from utils.image_processing import ImageProcessing as IP
 
@@ -45,11 +46,18 @@ class RobotAccess(object):
         self.RAnklePitchS.enable(samplingPeriod)
         self.RKneePitchS.enable(samplingPeriod)
         self.RHipPitchS.enable(samplingPeriod)
-        robot.step(samplingPeriod)
 
+
+        self.HeadYawM = robot.getDevice("HeadYaw")
+        self.HeadYawS = robot.getDevice("HeadYawS")
+        self.HeadYawS.enable(samplingPeriod)
         self.camera = Camera(robot)
 
-        
+        robot.step(samplingPeriod)
+
+    def apply_actions(self, initial_sensors, actions):
+        self.set( initial_sensors, actions)
+
         
     def read(self):
         if self.mode == 1:
@@ -82,12 +90,64 @@ class RobotAccess(object):
         self.setMotorPosition(self.RElbowYawM,cmds['rey'])    # -0.2
 
 
+    def create_body_controller(self, gain):
+        self.body_controller = PCTHierarchy(1,1)
+        o = self.body_controller.get_function(0, 0, "output")
+        o.gain = gain
+
+
+    def create_head_controller(self, gain):
+        self.head_controller = PCTHierarchy(1,1)
+        o = self.head_controller.get_function(0, 0, "output")
+        o.gain = gain
+
+    def update_body_controller(self, motion_library):
+        head = self.HeadYawS.getValue()
+        if abs(head)<0.5:
+            head = 0
+        p = self.body_controller.get_function(0, 0, "perception")
+        p.set_value(head)
+        o = self.body_controller.get_function(0, 0, "output")
+        self.body_controller()
+        out = o.get_value()
+        if out < 0:            
+            print('TurnLeft20')
+            motion_library.play('TurnLeft20')
+        if out > 0:            
+            print('TurnRight20')
+            motion_library.play('TurnRight20')
+        return out
+
+
+    def update_head_controller(self):
+        out = 0.0
+        pan = self.get_normalized_opponent_x()
+        head = self.HeadYawS.getValue()
+        if pan is not None:
+            p = self.head_controller.get_function(0, 0, "perception")
+            p.set_value(pan)
+            o = self.head_controller.get_function(0, 0, "output")
+            self.head_controller()
+            out = o.get_value()
+            str = f'pan={pan:0.3} head={head:0.3} out={out:0.3}'
+        else:
+            str = f'pan={pan} head={head:0.3} out={out}'
+            
+        print(str)
+        self.set_head_rotation(out)
+        # hpct.summary()
+        return pan
+
+
+    def set_head_rotation(self, hy):    
+        self.setMotorPosition(self.HeadYawM, hy) 
+
     def get_normalized_opponent_x(self):
         """Locate the opponent in the image and return its horizontal position in the range [-1, 1]."""
         img = self.camera.get_image()
         _, _, horizontal_coordinate = IP.locate_opponent(img)
         if horizontal_coordinate is None:
-            return 0
+            return None
         return horizontal_coordinate * 2 / img.shape[1] - 1
 
     def reset_upper_body(self, config_num):         
@@ -103,6 +163,7 @@ class RobotAccess(object):
         # if self.config_num == 10:
 
     def setLegs(self, initial_sensors, actions):
+        print(actions)
         self.setMotorPosition(self.LHipPitchM,initial_sensors['LHipPitch'] + actions['LHipPitch'])           
         self.setMotorPosition(self.LKneePitchM,initial_sensors['LKneePitch'] + actions['LKneePitch'])
         self.setMotorPosition(self.LAnklePitchM,initial_sensors['LAnklePitch'] + actions['LAnklePitch'])
