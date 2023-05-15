@@ -111,8 +111,8 @@ class HPCTHelper(object):
         elif self.config_num == 4:
              new_refs = [0.4] # turns to the left
         elif self.config_num == 12:
-            #  new_refs = [0.4,0.2]
-            new_refs = [-1,-0.2]
+             new_refs = [0.4,0.2] # stops it
+            # new_refs = [-1,-0.2]
         elif self.config_num == 17:
             new_refs = [-0.9, 0.1]
         elif self.config_num == 9:

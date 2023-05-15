@@ -559,6 +559,7 @@ class PCTWrestler (Robot):
             self.hpcthelper.reset_reference_values()
             self.rr.reset_upper_body(self.hpcthelper.get_config_num())
             self.motion_library.play("TurnLeft60")
+            self.motion_library.play("Stand")
             self.reset_lower_body()
             current =  self.rr.read()
             logger.info(f'CurrentS={current}')
