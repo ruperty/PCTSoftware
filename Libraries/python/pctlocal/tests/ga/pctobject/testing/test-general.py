@@ -3,11 +3,25 @@ import json, socket, psutil
 from pct.putils import FunctionsList
 from pct.putils import floatListsToString
 from pct.functions import Constant
+from pct.hierarchy import PCTHierarchy
 #from pct.network import ConnectionManager
 
-test = 10
+test = 11
 
 
+if test == 11:
+    hpct = PCTHierarchy(1,1)
+    o = hpct.get_function(0, 0, "output")
+    o.gain = .5
+    hpct.summary()
+    p = hpct.get_function(0, 0, "perception")
+    p.set_value(1)
+    p.summary()
+    out = o.get_value()
+    print(out)
+    o.summary()
+
+    
 if test == 10:
     fl = [[[-0.125555], 0.543666]]
     fl = [2,2]
