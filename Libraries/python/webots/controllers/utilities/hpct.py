@@ -141,11 +141,7 @@ class HPCTHelper(object):
             self.set_references(new_refs)
             
 
-    def sum(self, msg):
-        sum = 0
-        for v in msg.values():
-            sum += abs(v)
-        return sum
+ 
 
     def get_initial_references(self):
         top_level = self.hpct.get_top_level()

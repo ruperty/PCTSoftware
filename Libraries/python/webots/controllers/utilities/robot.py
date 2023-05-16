@@ -3,8 +3,22 @@ from pct.hierarchy import PCTHierarchy
 from utils.camera import Camera
 from utils.image_processing import ImageProcessing as IP
 
+from enum import IntEnum, auto
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+class ROBOTMODE(IntEnum):
+    "Modes of robot behaviour."
+    FALLEN = auto()
+    GENERAL = auto()
+    TURNING = auto()
+    RESET = auto()
+    RISEN = auto()
+
 class RobotAccess(object):
-    def __init__(self, robot, mode=1, samplingPeriod=20):
+    def __init__(self, robot, mode=1, samplingPeriod=20, config_num=None):
         self.mode=mode
         
         # motors
@@ -54,9 +68,16 @@ class RobotAccess(object):
         self.camera = Camera(robot)
 
         robot.step(samplingPeriod)
+        
+        self.reset_upper_body(config_num)        
+        self.create_head_controller(2.0)
+        self.create_body_controller(1.0)        # send sensor data
+        self.set_initial_sensors()        
+        
+        
 
-    def apply_actions(self, initial_sensors, actions):
-        self.set( initial_sensors, actions)
+    def apply_actions(self, actions):
+        self.set( actions)
 
         
     def read(self):
@@ -69,9 +90,9 @@ class RobotAccess(object):
             print(f'rsp {rsp} lsp {lsp}')
 
 
-    def set(self, initial_sensors, actions):        
+    def set(self, actions):        
         if self.mode == 1:
-            self.setLegs(initial_sensors, actions)
+            self.setLegs(self.initial_sensors, actions)
 
     def setShoulders(self):
         cmds = {'lsp': 2, 'rsp': 2}        
@@ -101,8 +122,11 @@ class RobotAccess(object):
         o = self.head_controller.get_function(0, 0, "output")
         o.gain = gain
 
-    def update_body_controller(self, motion_library):
+    def update_body_controller(self, motion_library, mode=None):
         head = self.HeadYawS.getValue()
+        # print('mode=',mode)
+        if mode == ROBOTMODE.TURNING:
+            print('head=',head)
         if abs(head)<0.5:
             head = 0
         p = self.body_controller.get_function(0, 0, "perception")
@@ -111,12 +135,18 @@ class RobotAccess(object):
         self.body_controller()
         out = o.get_value()
         if out < 0:            
-            print('TurnLeft20')
+            print(f'TurnLeft20 head={head:0.3}')
             motion_library.play('TurnLeft20')
-        if out > 0:            
-            print('TurnRight20')
+            mode = ROBOTMODE.TURNING
+        elif out > 0:            
+            print(f'TurnRight20 head={head:0.3}')
             motion_library.play('TurnRight20')
-        return out
+            mode = ROBOTMODE.TURNING
+        else:
+            if mode == ROBOTMODE.TURNING:
+                mode = ROBOTMODE.RESET
+            
+        return mode
 
 
     def update_head_controller(self):
@@ -163,7 +193,7 @@ class RobotAccess(object):
         # if self.config_num == 10:
 
     def setLegs(self, initial_sensors, actions):
-        print(actions)
+        # print(actions)
         self.setMotorPosition(self.LHipPitchM,initial_sensors['LHipPitch'] + actions['LHipPitch'])           
         self.setMotorPosition(self.LKneePitchM,initial_sensors['LKneePitch'] + actions['LKneePitch'])
         self.setMotorPosition(self.LAnklePitchM,initial_sensors['LAnklePitch'] + actions['LAnklePitch'])
@@ -174,6 +204,31 @@ class RobotAccess(object):
     def setMotorPosition(self, motor, position):
         motor.setPosition(min(max(position, motor.min_position),motor.max_position))
 
+    def set_initial_sensors(self):
+        self.initial_sensors =  self.read()       
+        logger.info(f'InitialS={self.initial_sensors}')
+        #print('InitialS=', self.initial_sensors)
+ 
+       
+    def reset_lower_body(self, robot):        
+        logger.info(f'Reset lower body')
+        actions = {'LHipPitch': 0.0, 'LKneePitch': 0.0, 'LAnklePitch': 0.0, 'RHipPitch': 0.0, 'RKneePitch': 0.0, 'RAnklePitch': 0.0}
+        self.apply_actions( actions)
+        sensors = self.read()
+        sum = self.sum(sensors)
+        while not sum==0:
+            robot.step(robot.time_step)
+            self.apply_actions( actions)
+            sensors = self.read()
+            sum = self.sum(sensors)
+        logger.info(f'Sensors={sensors}')
+
+    def sum(self, msg):
+        sum = 0
+        for v in msg.values():
+            sum += abs(v)
+        return sum
+    
     def readLegs(self):
         
         lhp = self.LHipPitchS.getValue()        
