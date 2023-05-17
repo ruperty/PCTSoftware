@@ -16,6 +16,7 @@ class ROBOTMODE(IntEnum):
     TURNING = auto()
     RESET = auto()
     RISEN = auto()
+    PUNCH = auto()
 
 class RobotAccess(object):
     def __init__(self, robot, mode=1, samplingPeriod=20, config_num=None):
@@ -61,11 +62,16 @@ class RobotAccess(object):
         self.RKneePitchS.enable(samplingPeriod)
         self.RHipPitchS.enable(samplingPeriod)
 
-
         self.HeadYawM = robot.getDevice("HeadYaw")
         self.HeadYawS = robot.getDevice("HeadYawS")
         self.HeadYawS.enable(samplingPeriod)
         self.camera = Camera(robot)
+
+        self.SonarLeftS = robot.getDevice("Sonar/Left")
+        self.SonarRightS = robot.getDevice("Sonar/Right")
+        self.SonarLeftS.enable(samplingPeriod)
+        self.SonarRightS.enable(samplingPeriod)
+
 
         robot.step(samplingPeriod)
         
@@ -73,6 +79,7 @@ class RobotAccess(object):
         self.create_head_controller(2.0)
         self.create_body_controller(1.0)        # send sensor data
         self.set_initial_sensors()        
+        
         
         
 
@@ -95,12 +102,14 @@ class RobotAccess(object):
             self.setLegs(self.initial_sensors, actions)
 
     def setShoulders(self):
+        # logger.info('upper_body')
         cmds = {'lsp': 2, 'rsp': 2}        
         self.setMotorPosition(self.LShoulderPitchM, cmds['lsp'])           
         self.setMotorPosition(self.RShoulderPitchM, cmds['rsp'])           
 
     # setGuardup(0.33, -1.5, -0.2, -0.33, 1.5, -0.2)
     def setGuardup(self):
+        # logger.info('upper_body')
         cmds = {'lsr': 0.33, 'ler': -1.5, 'ley': -0.2, 'rsr': -0.33, 'rer': 1.5, 'rey': -0.2}
         self.setMotorPosition(self.LShoulderRollM,cmds['lsr'])    # 0.33
         self.setMotorPosition(self.LElbowRollM,cmds['ler'])    # -1.5
@@ -109,6 +118,17 @@ class RobotAccess(object):
         self.setMotorPosition(self.RShoulderRollM,cmds['rsr'])    # -0.33
         self.setMotorPosition(self.RElbowRollM,cmds['rer'])    # 1.5
         self.setMotorPosition(self.RElbowYawM,cmds['rey'])    # -0.2
+
+    def punch_position(self):
+        # logger.info('upper_body')
+        cmds = {'lap': -1.0, 'lkp': 0.0, 'lhp': 0.4, 'rap': 0.0, 'rkp': 1.3, 'rhp': -1.4}
+        self.setMotorPosition(self.LAnklePitchM,cmds['lap'])    
+        self.setMotorPosition(self.LKneePitchM,cmds['lkp'])    
+        self.setMotorPosition(self.LHipPitchM,cmds['lhp'])    
+        
+        self.setMotorPosition(self.RAnklePitchM,cmds['rap'])    
+        self.setMotorPosition(self.RKneePitchM,cmds['rkp'])    
+        self.setMotorPosition(self.RHipPitchM,cmds['rhp'])    
 
 
     def create_body_controller(self, gain):
@@ -150,6 +170,9 @@ class RobotAccess(object):
 
 
     def update_head_controller(self):
+        sonar_l = self.SonarLeftS.getValue()
+        sonar_r = self.SonarRightS.getValue()
+        # print(f'sonar={sonar_l} {sonar_r}')
         out = 0.0
         pan = self.get_normalized_opponent_x()
         head = self.HeadYawS.getValue()
@@ -183,6 +206,7 @@ class RobotAccess(object):
     def reset_upper_body(self, config_num):         
         if config_num == 4:         
             self.setGuardup()
+            # self.setShoulders()   
         elif config_num == 10:
             self.setShoulders()   
         elif config_num == 12: 

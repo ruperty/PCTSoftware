@@ -494,12 +494,18 @@ class PCTWrestler (Robot):
         self.hpcthelper.set_obs(sensors)
         tic = time.perf_counter()
         while self.step(self.time_step) != -1 :  # mandatory function to make the simulation run
-            mode = self.check_fallen(mode=mode)            
+            if mode != ROBOTMODE.PUNCH:
+                mode = self.check_fallen(mode=mode)            
             # print('check_fallen',mode)
             mode = self.resetting(mode=mode)
             # print('resetting',mode)
             self.rr.update_head_controller()
             mode = self.rr.update_body_controller(self.motion_library, mode=mode)  
+            
+            if ttime>3000:
+                mode = ROBOTMODE.PUNCH
+                self.rr.punch_position()
+            
             # print('update_body_controller',mode)
             # if ttime>0:
             #     if ttime % 7000 == 0:
@@ -551,7 +557,7 @@ class PCTWrestler (Robot):
             
 
     def initMotors(self, mode=None, samplingperiod=None, config_num=None):
-        self.rr = RobotAccess(self, mode, samplingperiod)
+        self.rr = RobotAccess(self, mode, samplingperiod, config_num=config_num)
 
 
     
