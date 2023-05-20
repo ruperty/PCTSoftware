@@ -160,7 +160,7 @@ class WrestlerSupervisorServer(Supervisor):
         #print('actions',self.actions)
         #logging.info(f'actions {self.actions}')
 
-        self.rr.set( self.initial_sensors,self.actions)
+        self.rr.set( self.actions)
 
 
     # def close(self):
@@ -502,10 +502,15 @@ class PCTWrestler (Robot):
             self.rr.update_head_controller()
             mode = self.rr.update_body_controller(self.motion_library, mode=mode)  
             
-            if ttime>3000:
-                mode = ROBOTMODE.PUNCH
-                self.rr.punch_position()
-            
+            mode = self.rr.distance_control(mode)
+            mode = self.rr.punch_position(mode)
+
+            # if ttime>=4000:
+            #     if ttime==4000:
+            #         mode = ROBOTMODE.RESET
+            #     mode = self.resetting(mode=mode)
+
+
             # print('update_body_controller',mode)
             # if ttime>0:
             #     if ttime % 7000 == 0:
@@ -650,7 +655,12 @@ if __name__ == '__main__':
         # 18 - fast but a bit unstable, keeps falling over,  2 ref
         # 20 - wobbles alot and falls over, 2 ref 
         # 25 - doesn't do much
-        # 26 - 
+        # 26 - good, but falls over after 2 secs, debug?
+        # 27 - fast shuffling, though unstable
+        # 28 - dud falls over
+        # 29 - dud falls over
+        # 30 - dud falls over
+        # 31 - fairly fast, but unstable
         wrestler = PCTWrestler(config_num=4,  game_duration=60000)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    

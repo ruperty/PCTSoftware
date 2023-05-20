@@ -156,10 +156,10 @@ data2 = [
     [24, 'WebotsWrestler\WW01-10-RewardError-CurrentError-Mode03\\6fca917053fd90d970824b5d63021dbc\output\\conf-020-0.908.config'], 
     # 0.053 (10) dud, does nothing, 2 ref *
     [25, 'WebotsWrestler\WW01-03-RewardError-CurrentError-Mode01\\8310ba064d95eee8c3347389c6f74628\output\conf-016-1.784.config'], 
-    # wait for finish # 0.838 (10) good, not too fast, but stable, 2 ref * 
+    # 1.275 good, fast shuffling, 2 ref * 
     [26, 'WebotsWrestler\WW01-09-RewardError-CurrentError-Mode03\\ga-001.614-s001-6x6-m003-f37757991a462f567c03e613acc09c2e.properties'], 
-
-    # [26, 'WebotsWrestler\WW01-09-RewardError-CurrentError-Mode03\\ga-001.614-s001-6x6-m003-f37757991a462f567c03e613acc09c2e.properties'], 
+    # 
+    [27, 'WebotsWrestler\WW01-08-RewardError-CurrentError-Mode02\\ga-001.837-s001-2x5-m002-6a468a669e5944c2d8792af248741dd0.properties'], 
 
 ]
 
@@ -169,6 +169,7 @@ data2 = [
 # WW01-07-RewardError-CurrentError-Mode02/108925b64cd5a2b96bde2bfc108fd4f8/output/
 # WW01-02-RewardError-CurrentError-Mode01/b99610e60d6105e758a25236980b0171/output/
 # WW01-05-RewardError-CurrentError-Mode01/757a5d1b4a1dea1eb118d18c8f22d7d5/output/
+# 
 
 index=26
 

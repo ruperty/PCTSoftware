@@ -1,10 +1,11 @@
 
 from pct.hierarchy import PCTHierarchy
+from pct.putils import smooth
 from utils.camera import Camera
 from utils.image_processing import ImageProcessing as IP
 
 from enum import IntEnum, auto
-import logging
+import logging, math
 
 logger = logging.getLogger(__name__)
 
@@ -42,10 +43,16 @@ class RobotAccess(object):
         self.RElbowRollM = robot.getDevice("RElbowRoll")
         self.RElbowYawM = robot.getDevice("RElbowYaw")
 
-        # sensors
+        ## sensors
+        # upper body
         self.RShoulderPitchS = robot.getDevice("RShoulderPitchS")
+        self.RShoulderRollS = robot.getDevice("RShoulderRollS")
+        self.RElbowRollS = robot.getDevice("RElbowRollS")
+        self.RElbowYawS = robot.getDevice("RElbowYawS")
+
         self.LShoulderPitchS = robot.getDevice("LShoulderPitchS")
 
+        # legs
         self.LAnklePitchS = robot.getDevice("LAnklePitchS")
         self.LKneePitchS = robot.getDevice("LKneePitchS")
         self.LHipPitchS = robot.getDevice("LHipPitchS")
@@ -54,7 +61,20 @@ class RobotAccess(object):
         self.RKneePitchS = robot.getDevice("RKneePitchS")
         self.RHipPitchS = robot.getDevice("RHipPitchS")
 
-        #print(f'samplingPeriod={samplingPeriod}')
+        # head
+        self.HeadYawM = robot.getDevice("HeadYaw")
+        self.HeadYawS = robot.getDevice("HeadYawS")
+
+        # sonar
+        self.SonarLeftS = robot.getDevice("Sonar/Left")
+        self.SonarRightS = robot.getDevice("Sonar/Right")
+
+        # gps
+        # self.gps = robot.getDevice("gps")
+
+        self.camera = Camera(robot)
+
+        ## enable sensors
         self.LAnklePitchS.enable(samplingPeriod)
         self.LKneePitchS.enable(samplingPeriod)
         self.LHipPitchS.enable(samplingPeriod)
@@ -62,16 +82,15 @@ class RobotAccess(object):
         self.RKneePitchS.enable(samplingPeriod)
         self.RHipPitchS.enable(samplingPeriod)
 
-        self.HeadYawM = robot.getDevice("HeadYaw")
-        self.HeadYawS = robot.getDevice("HeadYawS")
         self.HeadYawS.enable(samplingPeriod)
-        self.camera = Camera(robot)
 
-        self.SonarLeftS = robot.getDevice("Sonar/Left")
-        self.SonarRightS = robot.getDevice("Sonar/Right")
         self.SonarLeftS.enable(samplingPeriod)
         self.SonarRightS.enable(samplingPeriod)
 
+        self.RShoulderPitchS.enable(samplingPeriod)
+        self.RShoulderRollS.enable(samplingPeriod)
+        self.RElbowRollS.enable(samplingPeriod)
+        self.RElbowYawS.enable(samplingPeriod)
 
         robot.step(samplingPeriod)
         
@@ -79,7 +98,8 @@ class RobotAccess(object):
         self.create_head_controller(2.0)
         self.create_body_controller(1.0)        # send sensor data
         self.set_initial_sensors()        
-        
+        self.sonar_smooth=2.55
+        self.smooth_factor=0.1
         
         
 
@@ -119,18 +139,32 @@ class RobotAccess(object):
         self.setMotorPosition(self.RElbowRollM,cmds['rer'])    # 1.5
         self.setMotorPosition(self.RElbowYawM,cmds['rey'])    # -0.2
 
-    def punch_position(self):
+    def punch_position(self, mode):
         # logger.info('upper_body')
-        cmds = {'lap': -1.0, 'lkp': 0.0, 'lhp': 0.4, 'rap': 0.0, 'rkp': 1.3, 'rhp': -1.4}
-        self.setMotorPosition(self.LAnklePitchM,cmds['lap'])    
-        self.setMotorPosition(self.LKneePitchM,cmds['lkp'])    
-        self.setMotorPosition(self.LHipPitchM,cmds['lhp'])    
-        
-        self.setMotorPosition(self.RAnklePitchM,cmds['rap'])    
-        self.setMotorPosition(self.RKneePitchM,cmds['rkp'])    
-        self.setMotorPosition(self.RHipPitchM,cmds['rhp'])    
+        if mode == ROBOTMODE.PUNCH:
+            cmds = {'LHipPitch': 0.4, 'LKneePitch': 0.2,  'LAnklePitch': -1.0, 'RHipPitch': -1.6, 'RKneePitch': 1.3, 
+                    'RAnklePitch': 0.0, 'RShoulderRoll': 0.3, 'RElbowRoll': 0, 'RElbowYaw': 0, 'RShoulderPitch': -0.5}
+            self.setMotorPosition(self.LAnklePitchM,cmds['LAnklePitch'])    
+            self.setMotorPosition(self.LKneePitchM,cmds['LKneePitch'])    
+            self.setMotorPosition(self.LHipPitchM,cmds['LHipPitch'])    
+            
+            self.setMotorPosition(self.RAnklePitchM,cmds['RAnklePitch'])    
+            self.setMotorPosition(self.RKneePitchM,cmds['RKneePitch'])    
+            self.setMotorPosition(self.RHipPitchM,cmds['RHipPitch'])    
 
+            self.setMotorPosition(self.RShoulderRollM,cmds['RShoulderRoll'])    # -0.33
+            self.setMotorPosition(self.RElbowRollM,cmds['RElbowRoll'])    # 1.5
+            self.setMotorPosition(self.RElbowYawM,cmds['RElbowYaw'])    # -0.2
+            self.setMotorPosition(self.RShoulderPitchM, cmds['RShoulderPitch'])           
 
+            if self.check_punch_position(cmds):
+                return ROBOTMODE.RESET
+            else:
+                return ROBOTMODE.PUNCH
+
+        return mode
+
+   
     def create_body_controller(self, gain):
         self.body_controller = PCTHierarchy(1,1)
         o = self.body_controller.get_function(0, 0, "output")
@@ -169,10 +203,21 @@ class RobotAccess(object):
         return mode
 
 
+    def distance_control(self, mode):
+        if mode != ROBOTMODE.PUNCH:
+            sonar_l = self.SonarLeftS.getValue()
+            sonar_r = self.SonarRightS.getValue()
+            sonar  =  min(sonar_l, sonar_r)
+            self.sonar_smooth = smooth(sonar,self.sonar_smooth,self.smooth_factor)
+            if self.sonar_smooth < 1:
+                print(f'sonar={self.sonar_smooth} ')
+            if self.sonar_smooth < 0.3:
+                mode = ROBOTMODE.PUNCH
+                self.sonar_smooth = 2.55
+
+        return mode
+
     def update_head_controller(self):
-        sonar_l = self.SonarLeftS.getValue()
-        sonar_r = self.SonarRightS.getValue()
-        # print(f'sonar={sonar_l} {sonar_r}')
         out = 0.0
         pan = self.get_normalized_opponent_x()
         head = self.HeadYawS.getValue()
@@ -253,6 +298,16 @@ class RobotAccess(object):
             sum += abs(v)
         return sum
     
+    def read_upper_body_right(self):
+        rsp = self.RShoulderPitchS.getValue()
+        rsr = self.RShoulderRollS.getValue()
+        rer = self.RElbowRollS.getValue()
+        rey = self.RElbowYawS.getValue()
+
+        rtn = {'RShoulderRoll': round(rsr,3), 'RElbowRoll': round(rer, 3),  'RElbowYaw': round(rey, 3), 'RShoulderPitch': round(rsp, 3)}
+
+        return rtn
+
     def readLegs(self):
         
         lhp = self.LHipPitchS.getValue()        
@@ -266,3 +321,17 @@ class RobotAccess(object):
         legs = {'LHipPitch': round(lhp, 3), 'LKneePitch': round(lkp,3), 'LAnklePitch': round(lap, 3), 'RHipPitch': round(rhp, 3), 'RKneePitch': round(rkp, 3), 'RAnklePitch': round(rap, 3)}
         
         return legs
+    
+    def check_punch_position(self, d1):
+        d2 = self.readLegs()
+        upper = self.read_upper_body_right()
+        d2.update(upper)
+        # print('sensors=', d2)
+
+        diff = {key: d1[key] - d2[key] for key in d1}
+
+        # print('diff=', diff)
+        sum = self.sum(diff)
+        return math.isclose(sum, 0)        
+
+
