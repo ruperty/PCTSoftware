@@ -31,7 +31,7 @@ from utils.fall_detection import FallDetection
 # from utils.gait_manager import GaitManager
 # from utils.camera import Camera
 
-from utilities.robot import RobotAccess
+from utilities.robot import RobotAccess, ROBOTMODE
 from pct.network import Server
 from controller import Supervisor
 from pct.network import ServerConnectionManager
@@ -467,6 +467,7 @@ from utilities.hpct import HPCTHelper
 class PCTWrestler (Robot):
     
     def __init__(self, config_num=None, time_step=None, game_duration = 180000):
+        logger.info('Initialising PCTWrestler')
         Robot.__init__(self)
         ftime_step = int(self.getBasicTimeStep())
         if time_step==None:
@@ -475,7 +476,6 @@ class PCTWrestler (Robot):
             self.time_step=time_step 
 
         print(f'File time step={ftime_step}, used time step={self.time_step}')
-        self.rr = RobotAccess(self)
         self.rmode=1
         self.hpcthelper = HPCTHelper(config_num=config_num, mode=self.rmode)
         self.fall_detector = FallDetection(self.time_step, self)
@@ -485,36 +485,40 @@ class PCTWrestler (Robot):
     def run(self, max_loops=None):
         # to load all the motions from the motions folder, we use the MotionLibrary class:
         self.motion_library = MotionLibrary()
-        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        #print(time_step)
         ttime=0
         loops=0
         hpct_verbose=False
-        # hpct = self.hpcthelper.get_controller()
-        # environment = hpct.get_environment()
-        self.initMotors(mode=self.rmode, samplingperiod=self.time_step)
+        mode = ROBOTMODE.GENERAL
+        self.initMotors(mode=self.rmode, samplingperiod=self.time_step, config_num=self.hpcthelper.get_config_num())
         sensors = self.rr.read()    
         self.hpcthelper.set_obs(sensors)
         tic = time.perf_counter()
         while self.step(self.time_step) != -1 :  # mandatory function to make the simulation run
-            # pan = self.rr.get_normalized_opponent_x()
-            # print(pan)
-            self.check_fallen()
-            if ttime>0:
-                if ttime % 7000 == 0:
-                    self.hpcthelper.change_action(1)
-                elif ttime % 3500 == 0:
-                    self.hpcthelper.change_action(0)
+            if mode != ROBOTMODE.PUNCH:
+                mode = self.check_fallen(mode=mode)            
+            # print('check_fallen',mode)
+            mode = self.resetting(mode=mode)
+            # print('resetting',mode)
+            self.rr.update_head_controller()
+            mode = self.rr.update_body_controller(self.motion_library, mode=mode)  
+            
+            if ttime>3000:
+                mode = ROBOTMODE.PUNCH
+                self.rr.punch_position()
+            
+            # print('update_body_controller',mode)
+            # if ttime>0:
+            #     if ttime % 7000 == 0:
+            #         self.hpcthelper.change_action(1)
+            #     elif ttime % 3500 == 0:
+            #         self.hpcthelper.change_action(0)
+            if mode == ROBOTMODE.GENERAL:
+                self.actions = self.hpcthelper.get_actions()
+                self.rr.apply_actions(self.actions)
+                out = self.hpcthelper.step(verbose=hpct_verbose)
+                sensors = self.rr.read()    
+                self.hpcthelper.set_obs(sensors)
 
-            #motion_library.play('Forwards')
-            self.actions = self.hpcthelper.get_actions()
-            #print('A',self.actions)
-            self.apply_actions()
-            out = self.hpcthelper.step(verbose=hpct_verbose)
-            #sleep(.005)
-            sensors = self.rr.read()    
-            #print('S',sensors)
-            self.hpcthelper.set_obs(sensors)
             ttime += self.time_step
             if loops==max_loops:
                 break
@@ -527,50 +531,36 @@ class PCTWrestler (Robot):
         loop_time = elapsed/loops
         print(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
         
-    def check_fallen(self):
-        fallen = False
+    def check_fallen(self, mode):
         if self.fall_detector.detect_fall():
-            fallen = True
+            mode = ROBOTMODE.FALLEN
             logger.info('Fallen')
             self.fall_detector.check()    
-
-        if fallen:
-            logger.info('reset_hierarchy')
+            logger.info('Back up')
+        
+        if mode == ROBOTMODE.FALLEN:
+            mode = ROBOTMODE.RESET
+        return mode
+    
+    def resetting(self, mode):
+        if mode == ROBOTMODE.RESET:
+            logger.info('resetting hierarchy')
             self.hpcthelper.reset_hierarchy()
             self.hpcthelper.reset_reference_values()
             self.rr.reset_upper_body(self.hpcthelper.get_config_num())
-            self.motion_library.play("TurnLeft60")
-            self.reset_lower_body()
-            current =  self.rr.read()
-            logger.info(f'CurrentS={current}')
+            # self.motion_library.play("TurnLeft60")
+            # self.motion_library.play("Stand")
+            self.rr.reset_lower_body(self)
+            mode = ROBOTMODE.GENERAL
+            
+        return mode
+            
+
+    def initMotors(self, mode=None, samplingperiod=None, config_num=None):
+        self.rr = RobotAccess(self, mode, samplingperiod, config_num=config_num)
 
 
-    def reset_lower_body(self):
-        self.actions = {'LHipPitch': 0.0, 'LKneePitch': 0.0, 'LAnklePitch': 0.0, 'RHipPitch': 0.0, 'RKneePitch': 0.0, 'RAnklePitch': 0.0}
-        self.apply_actions()
-        sensors = self.rr.read()
-        sum = self.hpcthelper.sum(sensors)
-        while not sum==0:
-            self.step(self.time_step)
-            self.apply_actions()
-            sensors = self.rr.read()
-            # print('Sensors=', sensors)
-            sum = self.hpcthelper.sum(sensors)
-
-    def apply_actions(self):
-        self.rr.set( self.initial_sensors,self.actions)
-
-    def initMotors(self, mode, samplingperiod):
-        self.rr = RobotAccess(self, mode, samplingperiod)
-        self.rr.reset_upper_body(self.hpcthelper.get_config_num())
-        
-        # send sensor data
-        self.initial_sensors =  self.rr.read()        
-        logger.info(f'InitialS={self.initial_sensors}')
-        #print('InitialS=', self.initial_sensors)
-
-
-
+    
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -594,7 +584,8 @@ if __name__ == '__main__':
     if wport==None:
         wport = 1234
     if test is None:
-        test = 5
+        test = 3
+    log=True
 
     print(f'Sync={sync} test={test} port={port} wport={wport}')
 
@@ -602,8 +593,9 @@ if __name__ == '__main__':
         if log:
             out_dir= f'c:{sep}tmp'
             now = datetime.now() # current date and time
-            date_time = now.strftime("%Y%m%d-%H%M%S")
-            log_file=sep.join((out_dir, "participant-"+date_time+".log"))
+            # date_time = now.strftime("%Y%m%d-%H%M%S")
+            # log_file=sep.join((out_dir, "participant-"+date_time+".log"))
+            log_file=sep.join((out_dir, "participant.log"))
             print('log_file=',log_file)
             logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 

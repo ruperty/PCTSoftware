@@ -1,9 +1,25 @@
 
+from pct.hierarchy import PCTHierarchy
 from utils.camera import Camera
 from utils.image_processing import ImageProcessing as IP
 
+from enum import IntEnum, auto
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+class ROBOTMODE(IntEnum):
+    "Modes of robot behaviour."
+    FALLEN = auto()
+    GENERAL = auto()
+    TURNING = auto()
+    RESET = auto()
+    RISEN = auto()
+    PUNCH = auto()
+
 class RobotAccess(object):
-    def __init__(self, robot, mode=1, samplingPeriod=20):
+    def __init__(self, robot, mode=1, samplingPeriod=20, config_num=None):
         self.mode=mode
         
         # motors
@@ -45,11 +61,31 @@ class RobotAccess(object):
         self.RAnklePitchS.enable(samplingPeriod)
         self.RKneePitchS.enable(samplingPeriod)
         self.RHipPitchS.enable(samplingPeriod)
-        robot.step(samplingPeriod)
 
+        self.HeadYawM = robot.getDevice("HeadYaw")
+        self.HeadYawS = robot.getDevice("HeadYawS")
+        self.HeadYawS.enable(samplingPeriod)
         self.camera = Camera(robot)
 
+        self.SonarLeftS = robot.getDevice("Sonar/Left")
+        self.SonarRightS = robot.getDevice("Sonar/Right")
+        self.SonarLeftS.enable(samplingPeriod)
+        self.SonarRightS.enable(samplingPeriod)
+
+
+        robot.step(samplingPeriod)
         
+        self.reset_upper_body(config_num)        
+        self.create_head_controller(2.0)
+        self.create_body_controller(1.0)        # send sensor data
+        self.set_initial_sensors()        
+        
+        
+        
+
+    def apply_actions(self, actions):
+        self.set( actions)
+
         
     def read(self):
         if self.mode == 1:
@@ -61,17 +97,19 @@ class RobotAccess(object):
             print(f'rsp {rsp} lsp {lsp}')
 
 
-    def set(self, initial_sensors, actions):        
+    def set(self, actions):        
         if self.mode == 1:
-            self.setLegs(initial_sensors, actions)
+            self.setLegs(self.initial_sensors, actions)
 
     def setShoulders(self):
+        # logger.info('upper_body')
         cmds = {'lsp': 2, 'rsp': 2}        
         self.setMotorPosition(self.LShoulderPitchM, cmds['lsp'])           
         self.setMotorPosition(self.RShoulderPitchM, cmds['rsp'])           
 
     # setGuardup(0.33, -1.5, -0.2, -0.33, 1.5, -0.2)
     def setGuardup(self):
+        # logger.info('upper_body')
         cmds = {'lsr': 0.33, 'ler': -1.5, 'ley': -0.2, 'rsr': -0.33, 'rer': 1.5, 'rey': -0.2}
         self.setMotorPosition(self.LShoulderRollM,cmds['lsr'])    # 0.33
         self.setMotorPosition(self.LElbowRollM,cmds['ler'])    # -1.5
@@ -81,18 +119,94 @@ class RobotAccess(object):
         self.setMotorPosition(self.RElbowRollM,cmds['rer'])    # 1.5
         self.setMotorPosition(self.RElbowYawM,cmds['rey'])    # -0.2
 
+    def punch_position(self):
+        # logger.info('upper_body')
+        cmds = {'lap': -1.0, 'lkp': 0.0, 'lhp': 0.4, 'rap': 0.0, 'rkp': 1.3, 'rhp': -1.4}
+        self.setMotorPosition(self.LAnklePitchM,cmds['lap'])    
+        self.setMotorPosition(self.LKneePitchM,cmds['lkp'])    
+        self.setMotorPosition(self.LHipPitchM,cmds['lhp'])    
+        
+        self.setMotorPosition(self.RAnklePitchM,cmds['rap'])    
+        self.setMotorPosition(self.RKneePitchM,cmds['rkp'])    
+        self.setMotorPosition(self.RHipPitchM,cmds['rhp'])    
+
+
+    def create_body_controller(self, gain):
+        self.body_controller = PCTHierarchy(1,1)
+        o = self.body_controller.get_function(0, 0, "output")
+        o.gain = gain
+
+
+    def create_head_controller(self, gain):
+        self.head_controller = PCTHierarchy(1,1)
+        o = self.head_controller.get_function(0, 0, "output")
+        o.gain = gain
+
+    def update_body_controller(self, motion_library, mode=None):
+        head = self.HeadYawS.getValue()
+        # print('mode=',mode)
+        if mode == ROBOTMODE.TURNING:
+            print('head=',head)
+        if abs(head)<0.5:
+            head = 0
+        p = self.body_controller.get_function(0, 0, "perception")
+        p.set_value(head)
+        o = self.body_controller.get_function(0, 0, "output")
+        self.body_controller()
+        out = o.get_value()
+        if out < 0:            
+            print(f'TurnLeft20 head={head:0.3}')
+            motion_library.play('TurnLeft20')
+            mode = ROBOTMODE.TURNING
+        elif out > 0:            
+            print(f'TurnRight20 head={head:0.3}')
+            motion_library.play('TurnRight20')
+            mode = ROBOTMODE.TURNING
+        else:
+            if mode == ROBOTMODE.TURNING:
+                mode = ROBOTMODE.RESET
+            
+        return mode
+
+
+    def update_head_controller(self):
+        sonar_l = self.SonarLeftS.getValue()
+        sonar_r = self.SonarRightS.getValue()
+        # print(f'sonar={sonar_l} {sonar_r}')
+        out = 0.0
+        pan = self.get_normalized_opponent_x()
+        head = self.HeadYawS.getValue()
+        if pan is not None:
+            p = self.head_controller.get_function(0, 0, "perception")
+            p.set_value(pan)
+            o = self.head_controller.get_function(0, 0, "output")
+            self.head_controller()
+            out = o.get_value()
+            str = f'pan={pan:0.3} head={head:0.3} out={out:0.3}'
+        else:
+            str = f'pan={pan} head={head:0.3} out={out}'
+            
+        print(str)
+        self.set_head_rotation(out)
+        # hpct.summary()
+        return pan
+
+
+    def set_head_rotation(self, hy):    
+        self.setMotorPosition(self.HeadYawM, hy) 
 
     def get_normalized_opponent_x(self):
         """Locate the opponent in the image and return its horizontal position in the range [-1, 1]."""
         img = self.camera.get_image()
         _, _, horizontal_coordinate = IP.locate_opponent(img)
         if horizontal_coordinate is None:
-            return 0
+            return None
         return horizontal_coordinate * 2 / img.shape[1] - 1
 
     def reset_upper_body(self, config_num):         
         if config_num == 4:         
             self.setGuardup()
+            # self.setShoulders()   
         elif config_num == 10:
             self.setShoulders()   
         elif config_num == 12: 
@@ -103,6 +217,7 @@ class RobotAccess(object):
         # if self.config_num == 10:
 
     def setLegs(self, initial_sensors, actions):
+        # print(actions)
         self.setMotorPosition(self.LHipPitchM,initial_sensors['LHipPitch'] + actions['LHipPitch'])           
         self.setMotorPosition(self.LKneePitchM,initial_sensors['LKneePitch'] + actions['LKneePitch'])
         self.setMotorPosition(self.LAnklePitchM,initial_sensors['LAnklePitch'] + actions['LAnklePitch'])
@@ -113,6 +228,31 @@ class RobotAccess(object):
     def setMotorPosition(self, motor, position):
         motor.setPosition(min(max(position, motor.min_position),motor.max_position))
 
+    def set_initial_sensors(self):
+        self.initial_sensors =  self.read()       
+        logger.info(f'InitialS={self.initial_sensors}')
+        #print('InitialS=', self.initial_sensors)
+ 
+       
+    def reset_lower_body(self, robot):        
+        logger.info(f'Reset lower body')
+        actions = {'LHipPitch': 0.0, 'LKneePitch': 0.0, 'LAnklePitch': 0.0, 'RHipPitch': 0.0, 'RKneePitch': 0.0, 'RAnklePitch': 0.0}
+        self.apply_actions( actions)
+        sensors = self.read()
+        sum = self.sum(sensors)
+        while not sum==0:
+            robot.step(robot.time_step)
+            self.apply_actions( actions)
+            sensors = self.read()
+            sum = self.sum(sensors)
+        logger.info(f'Sensors={sensors}')
+
+    def sum(self, msg):
+        sum = 0
+        for v in msg.values():
+            sum += abs(v)
+        return sum
+    
     def readLegs(self):
         
         lhp = self.LHipPitchS.getValue()        
