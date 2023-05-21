@@ -132,8 +132,8 @@ class HPCTHelper(object):
             # new_refs = [0.6,0.1,0,0.3] # stops
             # new_refs = [0,0.1,-1.6,0.3] # turns right
             new_refs = [0,0.1,-1.6,0.3] # turns right
-        # elif self.config_num == 4:
-        #      new_refs = [0.4] # turns to the left
+        elif self.config_num == 4:
+             new_refs = [0.4] # turns to the left
         elif self.config_num == 12:
              new_refs = [0.4,0.2] # stops it
             # new_refs = [-1,-0.2]
@@ -180,6 +180,7 @@ class HPCTHelper(object):
 
 
     def change_action(self, type):
+        # print('change_action', type)
         if type == 0:
             self.set_new_references()
         

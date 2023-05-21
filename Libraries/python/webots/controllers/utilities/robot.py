@@ -18,6 +18,7 @@ class ROBOTMODE(IntEnum):
     RESET = auto()
     RISEN = auto()
     PUNCH = auto()
+    FORWARDLOOP = auto()
 
 class RobotAccess(object):
     def __init__(self, robot, mode=1, samplingPeriod=20, config_num=None):
@@ -172,8 +173,6 @@ class RobotAccess(object):
             self.setMotorPosition(self.LElbowYawM,cmds['LElbowYaw'])     
             self.setMotorPosition(self.LShoulderPitchM, cmds['LShoulderPitch'])      
 
-
-
             if self.check_punch_position(cmds):
                 return ROBOTMODE.RESET
             else:
@@ -218,6 +217,13 @@ class RobotAccess(object):
                 mode = ROBOTMODE.RESET
             
         return mode
+    
+    def run_behaviour(self, motion_library, mode):
+        if mode == ROBOTMODE.FORWARDLOOP:
+            # print(f'TurnRight20 head={head:0.3}')
+            motion_library.play('ForwardLoop')
+
+        return mode
 
 
     def distance_control(self, mode):
@@ -228,7 +234,7 @@ class RobotAccess(object):
             self.sonar_smooth = smooth(sonar,self.sonar_smooth,self.smooth_factor)
             if self.sonar_smooth < 1:
                 print(f'sonar={self.sonar_smooth} ')
-            if self.sonar_smooth < 0.3:
+            if self.sonar_smooth < 0.35:
                 mode = ROBOTMODE.PUNCH
                 self.sonar_smooth = 2.55
 
@@ -265,7 +271,8 @@ class RobotAccess(object):
             return None
         return horizontal_coordinate * 2 / img.shape[1] - 1
 
-    def reset_upper_body(self, config_num):         
+    def reset_upper_body(self, config_num):       
+        self.set_head_rotation(0)  
         if config_num == 4:         
             self.setGuardup()
             # self.setShoulders()   
@@ -307,6 +314,7 @@ class RobotAccess(object):
             self.apply_actions( actions)
             sensors = self.read()
             sum = self.sum(sensors)
+            # print('reset_lower_body', sum)
         logger.info(f'Sensors={sensors}')
 
     def sum(self, msg):

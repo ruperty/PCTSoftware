@@ -494,6 +494,7 @@ class PCTWrestler (Robot):
         self.hpcthelper.set_obs(sensors)
         tic = time.perf_counter()
         while self.step(self.time_step) != -1 :  # mandatory function to make the simulation run
+            # print('mode',mode)
             if mode != ROBOTMODE.PUNCH:
                 mode = self.check_fallen(mode=mode)            
             # print('check_fallen',mode)
@@ -505,18 +506,22 @@ class PCTWrestler (Robot):
             mode = self.rr.distance_control(mode)
             mode = self.rr.punch_position(mode)
 
-            # if ttime>=4000:
-            #     if ttime==4000:
-            #         mode = ROBOTMODE.RESET
-            #     mode = self.resetting(mode=mode)
+            # if ttime>=5000 and mode == ROBOTMODE.GENERAL:
+            #     mode = ROBOTMODE.FORWARDLOOP
+
+            # mode = self.rr.run_behaviour(self.motion_library, mode=mode)  
 
 
-            # print('update_body_controller',mode)
-            # if ttime>0:
-            #     if ttime % 7000 == 0:
-            #         self.hpcthelper.change_action(1)
-            #     elif ttime % 3500 == 0:
-            #         self.hpcthelper.change_action(0)
+            if ttime>0:
+                if ttime % 7000 == 0:
+                    self.hpcthelper.change_action(1)
+                elif ttime % 3500 == 0:
+                    self.hpcthelper.change_action(0)
+
+            if ttime>10000:
+                self.hpcthelper.change_action(0)
+
+
             if mode == ROBOTMODE.GENERAL:
                 self.actions = self.hpcthelper.get_actions()
                 self.rr.apply_actions(self.actions)
@@ -537,6 +542,8 @@ class PCTWrestler (Robot):
         print(f'Time={ttime} Elapsed time: {elapsed:4.0f} loops={loops} loop_time={loop_time}')   
         
     def check_fallen(self, mode):
+        
+        # print('check_fallen',mode)
         if self.fall_detector.detect_fall():
             mode = ROBOTMODE.FALLEN
             logger.info('Fallen')
@@ -557,6 +564,8 @@ class PCTWrestler (Robot):
             # self.motion_library.play("Stand")
             self.rr.reset_lower_body(self)
             mode = ROBOTMODE.GENERAL
+            
+            print('resetting',mode)
             
         return mode
             
