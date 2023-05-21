@@ -51,6 +51,9 @@ class RobotAccess(object):
         self.RElbowYawS = robot.getDevice("RElbowYawS")
 
         self.LShoulderPitchS = robot.getDevice("LShoulderPitchS")
+        self.LShoulderRollS = robot.getDevice("LShoulderRollS")
+        self.LElbowRollS = robot.getDevice("LElbowRollS")
+        self.LElbowYawS = robot.getDevice("LElbowYawS")
 
         # legs
         self.LAnklePitchS = robot.getDevice("LAnklePitchS")
@@ -91,6 +94,11 @@ class RobotAccess(object):
         self.RShoulderRollS.enable(samplingPeriod)
         self.RElbowRollS.enable(samplingPeriod)
         self.RElbowYawS.enable(samplingPeriod)
+
+        self.LShoulderPitchS.enable(samplingPeriod)
+        self.LShoulderRollS.enable(samplingPeriod)
+        self.LElbowRollS.enable(samplingPeriod)
+        self.LElbowYawS.enable(samplingPeriod)
 
         robot.step(samplingPeriod)
         
@@ -142,8 +150,10 @@ class RobotAccess(object):
     def punch_position(self, mode):
         # logger.info('upper_body')
         if mode == ROBOTMODE.PUNCH:
-            cmds = {'LHipPitch': 0.4, 'LKneePitch': 0.2,  'LAnklePitch': -1.0, 'RHipPitch': -1.6, 'RKneePitch': 1.3, 
-                    'RAnklePitch': 0.0, 'RShoulderRoll': 0.3, 'RElbowRoll': 0, 'RElbowYaw': 0, 'RShoulderPitch': -0.5}
+            # cmds = {'LHipPitch': 0.4, 'LKneePitch': 0.2,  'LAnklePitch': -1.0, 'RHipPitch': -1.6, 'RKneePitch': 1.3, 'RAnklePitch': 0.0, 'RShoulderRoll': 0.3, 'RElbowRoll': 0, 'RElbowYaw': 0, 'RShoulderPitch': -0.5} # stable psition but doesn't connect
+            cmds = {'LHipPitch': 0.4, 'LKneePitch': 0.0,  'LAnklePitch': -1.0, 'RHipPitch': -1.6, 'RKneePitch': 1.3, 'RAnklePitch': 0.0, 
+                    'RShoulderRoll': 0.3, 'RElbowRoll': 0, 'RElbowYaw': 0, 'RShoulderPitch': 0.25, 
+                    'LShoulderRoll': -0.3, 'LElbowRoll': 0, 'LElbowYaw': 0, 'LShoulderPitch': 0.25, }
             self.setMotorPosition(self.LAnklePitchM,cmds['LAnklePitch'])    
             self.setMotorPosition(self.LKneePitchM,cmds['LKneePitch'])    
             self.setMotorPosition(self.LHipPitchM,cmds['LHipPitch'])    
@@ -152,10 +162,17 @@ class RobotAccess(object):
             self.setMotorPosition(self.RKneePitchM,cmds['RKneePitch'])    
             self.setMotorPosition(self.RHipPitchM,cmds['RHipPitch'])    
 
-            self.setMotorPosition(self.RShoulderRollM,cmds['RShoulderRoll'])    # -0.33
-            self.setMotorPosition(self.RElbowRollM,cmds['RElbowRoll'])    # 1.5
-            self.setMotorPosition(self.RElbowYawM,cmds['RElbowYaw'])    # -0.2
-            self.setMotorPosition(self.RShoulderPitchM, cmds['RShoulderPitch'])           
+            self.setMotorPosition(self.RShoulderRollM,cmds['RShoulderRoll'])    
+            self.setMotorPosition(self.RElbowRollM,cmds['RElbowRoll'])    
+            self.setMotorPosition(self.RElbowYawM,cmds['RElbowYaw'])    
+            self.setMotorPosition(self.RShoulderPitchM, cmds['RShoulderPitch'])      
+
+            self.setMotorPosition(self.LShoulderRollM,cmds['LShoulderRoll'])    
+            self.setMotorPosition(self.LElbowRollM,cmds['LElbowRoll'])    
+            self.setMotorPosition(self.LElbowYawM,cmds['LElbowYaw'])     
+            self.setMotorPosition(self.LShoulderPitchM, cmds['LShoulderPitch'])      
+
+
 
             if self.check_punch_position(cmds):
                 return ROBOTMODE.RESET
@@ -231,7 +248,7 @@ class RobotAccess(object):
         else:
             str = f'pan={pan} head={head:0.3} out={out}'
             
-        print(str)
+        #print(str)
         self.set_head_rotation(out)
         # hpct.summary()
         return pan
@@ -308,6 +325,32 @@ class RobotAccess(object):
 
         return rtn
 
+    def read_upper_body_left(self):
+        lsp = self.LShoulderPitchS.getValue()
+        lsr = self.LShoulderRollS.getValue()
+        ler = self.LElbowRollS.getValue()
+        ley = self.LElbowYawS.getValue()
+
+        rtn = {'LShoulderRoll': round(lsr,3), 'LElbowRoll': round(ler, 3),  'LElbowYaw': round(ley, 3), 'LShoulderPitch': round(lsp, 3)}
+
+        return rtn
+
+
+    
+    def read_upper_body(self):
+        rsp = self.RShoulderPitchS.getValue()
+        rsr = self.RShoulderRollS.getValue()
+        rer = self.RElbowRollS.getValue()
+        rey = self.RElbowYawS.getValue()
+        lsp = self.LShoulderPitchS.getValue()
+        lsr = self.LShoulderRollS.getValue()
+        ler = self.LElbowRollS.getValue()
+        ley = self.LElbowYawS.getValue()
+
+        rtn = {'RShoulderRoll': round(rsr,3), 'RElbowRoll': round(rer, 3),  'RElbowYaw': round(rey, 3), 'RShoulderPitch': round(rsp, 3), 'LShoulderRoll': round(lsr,3), 'LElbowRoll': round(ler, 3),  'LElbowYaw': round(ley, 3), 'LShoulderPitch': round(lsp, 3)}
+
+        return rtn
+
     def readLegs(self):
         
         lhp = self.LHipPitchS.getValue()        
@@ -324,7 +367,7 @@ class RobotAccess(object):
     
     def check_punch_position(self, d1):
         d2 = self.readLegs()
-        upper = self.read_upper_body_right()
+        upper = self.read_upper_body()
         d2.update(upper)
         # print('sensors=', d2)
 
