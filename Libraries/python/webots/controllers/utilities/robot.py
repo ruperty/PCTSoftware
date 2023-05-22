@@ -19,6 +19,7 @@ class ROBOTMODE(IntEnum):
     RISEN = auto()
     PUNCH = auto()
     FORWARDLOOP = auto()
+    TURNLEFT60 = auto()
 
 class RobotAccess(object):
     def __init__(self, robot, mode=1, samplingPeriod=20, config_num=None):
@@ -173,7 +174,9 @@ class RobotAccess(object):
             self.setMotorPosition(self.LElbowYawM,cmds['LElbowYaw'])     
             self.setMotorPosition(self.LShoulderPitchM, cmds['LShoulderPitch'])      
 
-            if self.check_punch_position(cmds):
+            acmds = {'RShoulderRoll': 0.3, 'LShoulderRoll': -0.3}
+
+            if self.check_punch_position(acmds):
                 return ROBOTMODE.RESET
             else:
                 return ROBOTMODE.PUNCH
@@ -194,9 +197,8 @@ class RobotAccess(object):
 
     def update_body_controller(self, motion_library, mode=None):
         head = self.HeadYawS.getValue()
-        # print('mode=',mode)
-        if mode == ROBOTMODE.TURNING:
-            print('head=',head)
+        # if mode == ROBOTMODE.TURNING:
+        #     print('head=',head)
         if abs(head)<0.5:
             head = 0
         p = self.body_controller.get_function(0, 0, "perception")
@@ -205,12 +207,12 @@ class RobotAccess(object):
         self.body_controller()
         out = o.get_value()
         if out < 0:            
-            print(f'TurnLeft20 head={head:0.3}')
+            logger.info(f'TurnLeft20 head={head:0.3}')
             motion_library.play('TurnLeft20')
             mode = ROBOTMODE.TURNING
         elif out > 0:            
-            print(f'TurnRight20 head={head:0.3}')
-            motion_library.play('TurnRight20')
+            logger.info(f'TurnRight40 head={head:0.3}')
+            motion_library.play('TurnRight40')
             mode = ROBOTMODE.TURNING
         else:
             if mode == ROBOTMODE.TURNING:
@@ -223,6 +225,12 @@ class RobotAccess(object):
             # print(f'TurnRight20 head={head:0.3}')
             motion_library.play('ForwardLoop')
 
+        if mode == ROBOTMODE.TURNLEFT60:
+            # print(f'TurnRight20 head={head:0.3}')
+            motion_library.play('TurnLeft60')
+
+            
+
         return mode
 
 
@@ -232,8 +240,8 @@ class RobotAccess(object):
             sonar_r = self.SonarRightS.getValue()
             sonar  =  min(sonar_l, sonar_r)
             self.sonar_smooth = smooth(sonar,self.sonar_smooth,self.smooth_factor)
-            if self.sonar_smooth < 1:
-                print(f'sonar={self.sonar_smooth} ')
+            # if self.sonar_smooth < 1:
+            #     print(f'sonar={self.sonar_smooth} ')
             if self.sonar_smooth < 0.35:
                 mode = ROBOTMODE.PUNCH
                 self.sonar_smooth = 2.55
@@ -343,8 +351,14 @@ class RobotAccess(object):
 
         return rtn
 
+    def read_shoulders(self):    
+        rsr = self.RShoulderRollS.getValue()
+        lsr = self.LShoulderRollS.getValue()
 
-    
+        rtn = {'RShoulderRoll': round(rsr,3), 'LShoulderRoll': round(lsr,3)}
+
+        return rtn
+
     def read_upper_body(self):
         rsp = self.RShoulderPitchS.getValue()
         rsr = self.RShoulderRollS.getValue()
@@ -374,15 +388,16 @@ class RobotAccess(object):
         return legs
     
     def check_punch_position(self, d1):
-        d2 = self.readLegs()
-        upper = self.read_upper_body()
-        d2.update(upper)
-        # print('sensors=', d2)
+        # d2 = self.readLegs()
+        # upper = self.read_upper_body()
+        # d2.update(upper)
+        
+        d2 = self.read_shoulders()
 
         diff = {key: d1[key] - d2[key] for key in d1}
 
         # print('diff=', diff)
         sum = self.sum(diff)
-        return math.isclose(sum, 0)        
+        return math.isclose(sum, 0, rel_tol=0.05)        
 
 
