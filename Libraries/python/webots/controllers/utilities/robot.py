@@ -197,7 +197,7 @@ class RobotAccess(object):
         # print('mode=',mode)
         if mode == ROBOTMODE.TURNING:
             print('head=',head)
-        if abs(head)<0.5:
+        if abs(head)<0.6:
             head = 0
         p = self.body_controller.get_function(0, 0, "perception")
         p.set_value(head)
