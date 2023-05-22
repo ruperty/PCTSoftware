@@ -232,8 +232,8 @@ class RobotAccess(object):
             sonar_r = self.SonarRightS.getValue()
             sonar  =  min(sonar_l, sonar_r)
             self.sonar_smooth = smooth(sonar,self.sonar_smooth,self.smooth_factor)
-            if self.sonar_smooth < 1:
-                print(f'sonar={self.sonar_smooth} ')
+            # if self.sonar_smooth < 1:
+            #     print(f'sonar={self.sonar_smooth} ')
             if self.sonar_smooth < 0.35:
                 mode = ROBOTMODE.PUNCH
                 self.sonar_smooth = 2.55
