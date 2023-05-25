@@ -777,7 +777,10 @@ if __name__ == '__main__':
         SingletonObjects.getInstance().add_object('wrestler', wrestler)
 
         env_name = "WebotsWrestlerSupervisor"
-        filename = "WW01-01-RewardError-CurrentError-Mode01"
+        # filename = "WW01-01-RewardError-CurrentError-Mode01"
+        # filename = "WW01-03-RewardError-CurrentError-Mode01"
+        filename = "WW01-04-RewardError-CurrentError-Mode01"
+        
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
 
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
