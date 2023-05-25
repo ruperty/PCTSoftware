@@ -462,9 +462,6 @@ class WrestlerServer (Robot):
         self.server.close()
 
 
-
- 
-
 from utilities.hpct import HPCTHelper
 
 class PCTWrestler (Robot):
@@ -496,33 +493,38 @@ class PCTWrestler (Robot):
         sensors = self.rr.read()    
         self.hpcthelper.set_obs(sensors)
         tic = time.perf_counter()
+        centretime=7500
         while self.step(self.time_step) != -1 :  # mandatory function to make the simulation run
             # print('mode',mode)
             if mode != ROBOTMODE.PUNCH:
                 mode = self.check_fallen(mode=mode)            
             # print('check_fallen',mode)
-            mode = self.resetting(mode=mode)
+            if ttime<centretime:
+                mode = self.resetting(mode=mode)
+            else:
+                mode = self.resetting_upper_body(mode=mode)
+
             # print('resetting',mode)
             self.rr.update_head_controller()
-            mode = self.rr.update_body_controller(self.motion_library, mode=mode)  
+            if ttime>=6000:
+                mode = self.rr.update_body_controller(self.motion_library, mode=mode)  
             
             mode = self.rr.distance_control(mode)
             mode = self.rr.punch_position(mode)
 
-            # if ttime>=5000 and mode == ROBOTMODE.GENERAL:
-            #     mode = ROBOTMODE.FORWARDLOOP
+            if ttime>=centretime and mode == ROBOTMODE.GENERAL:
+                mode = ROBOTMODE.TURNLEFT60
 
-            # mode = self.rr.run_behaviour(self.motion_library, mode=mode)  
+            mode = self.rr.run_behaviour(self.motion_library, mode=mode)  
 
+            # if ttime>0:
+            #     if ttime % 7000 == 0:
+            #         self.hpcthelper.change_action(1)
+            #     elif ttime % 3500 == 0:
+            #         self.hpcthelper.change_action(0)
 
-            if ttime>0:
-                if ttime % 7000 == 0:
-                    self.hpcthelper.change_action(1)
-                elif ttime % 3500 == 0:
-                    self.hpcthelper.change_action(0)
-
-            if ttime>10000:
-                self.hpcthelper.change_action(0)
+            # if ttime>10000:
+            #     self.hpcthelper.change_action(0)
 
 
             if mode == ROBOTMODE.GENERAL:
@@ -571,7 +573,14 @@ class PCTWrestler (Robot):
             print('resetting',mode)
             
         return mode
-            
+
+    def resetting_upper_body(self, mode):
+        if mode == ROBOTMODE.RESET:
+            logger.info('resetting upper_body')
+            self.rr.reset_upper_body(self.hpcthelper.get_config_num())
+            mode = ROBOTMODE.GENERAL            
+        return mode
+
 
     def initMotors(self, mode=None, samplingperiod=None, config_num=None):
         self.rr = RobotAccess(self, mode, samplingperiod, config_num=config_num)
@@ -673,7 +682,7 @@ if __name__ == '__main__':
         # 29 - dud falls over
         # 30 - dud falls over
         # 31 - fairly fast, but unstable
-        wrestler = PCTWrestler(config_num=4,  game_duration=60000)    
+        wrestler = PCTWrestler(config_num=4,  game_duration=180000)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         

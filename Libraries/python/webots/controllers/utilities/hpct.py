@@ -203,7 +203,7 @@ class HPCTHelper(object):
     
         for ctr in range(len(top_level)):
             refs[ctr]= top_level[ctr].get_reference_function().get_value()
-        print(f'newrefs={refs}')
+        # print(f'newrefs={refs}')
 
     def get_config_num(self):
         return self.config_num
