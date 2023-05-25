@@ -21,7 +21,8 @@ class ROBOTMODE(IntEnum):
     FORWARDLOOP = auto()
 
 class RobotAccess(object):
-    def __init__(self, robot, mode=1, samplingPeriod=20, config_num=None):
+    def __init__(self, robot, mode=1, samplingPeriod=20, config_num=None, upper_body=None):
+        # print('RobotAccess start')    
         self.mode=mode
         
         # motors
@@ -103,13 +104,20 @@ class RobotAccess(object):
 
         robot.step(samplingPeriod)
         
-        self.reset_upper_body(config_num)        
+        if upper_body is not None:
+            self.set_upper_body(upper_body)        
+        
+        if config_num is not None:
+            self.reset_upper_body(config_num)        
+            
         self.create_head_controller(2.0)
         self.create_body_controller(1.0)        # send sensor data
         self.set_initial_sensors()        
         self.sonar_smooth=2.55
         self.smooth_factor=0.1
         
+        # print('RobotAccess end')    
+
         
 
     def apply_actions(self, actions):
@@ -270,6 +278,13 @@ class RobotAccess(object):
         if horizontal_coordinate is None:
             return None
         return horizontal_coordinate * 2 / img.shape[1] - 1
+
+
+    def set_upper_body(self, upper_body):  
+        if upper_body == 'guardup':
+            self.setGuardup()
+        else:
+            self.setShoulders()
 
     def reset_upper_body(self, config_num):       
         self.set_head_rotation(0)  

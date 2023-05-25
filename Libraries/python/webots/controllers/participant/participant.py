@@ -32,9 +32,9 @@ from utils.fall_detection import FallDetection
 # from utils.camera import Camera
 
 from utilities.robot import RobotAccess, ROBOTMODE
-from pct.network import Server
+from pct.network import Server, ServerConnectionManager
 from controller import Supervisor
-from pct.network import ServerConnectionManager
+from pct.putils import SingletonObjects
 from utilities.processes import Executor
 
 from datetime import datetime
@@ -167,10 +167,6 @@ class WrestlerSupervisorServer(Supervisor):
     #     self.server.close()
         
     def run(self, port=None, extern=False):
-        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        # time_step=5
-        # print('time_step=',time_step)
-        
         self.time_step = int(self.getBasicTimeStep())
         self.step(self.time_step)
         self.initSupervisor()
@@ -317,73 +313,55 @@ class WrestlerSupervisor(Supervisor):
             self.max[i] = self.robot[i].getPosition()
         self.coverage = [0] * 2
         self.ko_count = [0] * 2
+        self.robot_down= [0] * 2
+        self.outside_ring = False 
 
-    def run(self, CI, time_step=None, max_loops=None):
-        self.rr = RobotAccess(self)
+
+    def initialise(self, properties):    
+        self.simulationReset()
         self.initSupervisor()
-        self.motion_library = MotionLibrary()
         self.time_step = int(self.getBasicTimeStep())
-        ko_labels = ['', '']
-        coverage_labels = ['', '']
-        # Performance output used by automated CI script
-        game_duration = 1000 # 5000 # 3 * 60 * 1000  # a game lasts 3 minutes
-        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
-        fileTimeStep=int(self.getBasicTimeStep())
-        if time_step==None:
-            time_step = fileTimeStep
-        #print(time_step)
-        
-        if max_loops==None:
-            max_loops = game_duration/time_step
-        
-        time = 0
-        seconds = -1
-        ko = -1
-        loops=0
-        
-        while self.step(self.time_step) != -1:  # mandatory function to make the simulation run
-            if time > 22000:
-                self.motion_library.play('Backwards')
-            else:
-                self.motion_library.play('Forwards')
-                
-            legs = self.rr.readLegs()
-            print(legs)            
+        upper_body=properties['upper_body']
+        self.initMotors(mode=properties['rmode'], samplingperiod=self.time_step, upper_body=upper_body)
 
-            ko = self.evaluation(time, seconds, ko_labels, coverage_labels, ko)            
+        self.ko_labels = ['', '']
+        self.coverage_labels = ['', '']
+        self.game_duration = properties['game_duration']
+        self.ttime,self.loops,self.seconds,self.ko,self.done= 0, 0, -1, -1, False
+        self.observations={}
 
-            # if self.step(time_step) == -1 or time > game_duration or ko != -1 or loops==max_loops:
-            if ko != -1 or loops==max_loops:
-                break
-            time += time_step
-            loops = loops+1
-            
-        print(f'Time={time} loops={loops} time_step={time_step} ftime_step={fileTimeStep}')
-        if ko == 0:
-            print('Red is KO. Blue wins!')
-            performance = 0
-        elif ko == 1:
-            print('Blue is KO. Red wins!')
-            performance = 1
-        # in case of coverage equality, blue wins
-        elif self.coverage[0] > self.coverage[1]:
-            print('Red wins coverage: %s > %s' % (self.coverage[0], self.coverage[1]))
-            performance = 1
-        else:
-            print('Blue wins coverage: %s >= %s' % (self.coverage[1], self.coverage[0]))
-            performance = 0
+    def initMotors(self, mode=None, samplingperiod=None, config_num=None, upper_body=None):
+        self.rr = RobotAccess(self, mode=mode, samplingPeriod=samplingperiod, config_num=config_num, upper_body=upper_body)
 
-    def evaluation(self, time, seconds, ko_labels, coverage_labels, ko):
+
+    def rstep(self, actions):
+        self.rr.apply_actions(actions)
+        self.ko, self.performance = self.evaluation(self.ttime, self.ko)            
+        sensors = self.rr.read()
+
+        if self.step(self.time_step) == -1 or self.ttime > self.game_duration or self.ko != -1 or self.robot_down[0]:
+            self.done = True
+
+        self.ttime += self.time_step            
+        self.loops+=1
+        
+        self.observations['performance']=self.performance
+        self.observations['done']=self.done
+        self.observations['sensors']=sensors
+        return self.observations      
+
+
+    def evaluation(self, time, ko):
         if time % 200 == 0:
             s = int(time / 1000) % 60
-            if seconds != s:
-                seconds = s
+            if self.seconds != s:
+                self.seconds = s
                 minutes = int(time / 60000)
-                #print(f'{time} {minutes:02}:{seconds:02}')
+                # print(f'{time} {minutes:02}:{seconds:02}')
             box = [0] * 3
             for i in range(2):
                 position = self.robot[i].getPosition()
-                color = 0xff0000 if i == 0 else 0x0000ff
+                #color = 0xff0000 if i == 0 else 0x0000ff
                 if abs(position[0]) < 1 and abs(position[1]) < 1:  # inside the ring
                     coverage = 0
                     for j in range(2):
@@ -398,8 +376,18 @@ class WrestlerSupervisor(Supervisor):
                     string = '{:.3f}'.format(coverage)
                     # if string != coverage_labels[i]:
                     #     print(f'coverage for robot {i}: {string}')
-                    coverage_labels[i] = string
-                if position[2] < 0.9:  # low position threshold
+                    self.coverage_labels[i] = string
+                else:
+                    if i==0:
+                        self.outside_ring = True
+                        #print(f'outside_ring')
+                        # print(f'outside_ring')
+
+                if position[2] < 0.9 or self.outside_ring:  # low position threshold
+                    #print(i, position)
+                    self.robot_down[i] = True
+                    # if position[0] < -0.1:
+                    #     self.robot_backwards = True
                     self.ko_count[i] = self.ko_count[i] + 200
                     if self.ko_count[i] > 10000:  # 10 seconds
                         ko = i
@@ -407,12 +395,27 @@ class WrestlerSupervisor(Supervisor):
                     self.ko_count[i] = 0
                 counter = 10 - self.ko_count[i] // 1000
                 string = '' if self.ko_count[i] == 0 else str(counter) if counter > 0 else 'KO'
-                if string != ko_labels[i] and string:
-                    print(f'robot {i}: {string}')
-                ko_labels[i] = string
+                # if string != ko_labels[i] and string:
+                #     print(f'robot {i}: {string}')
+                self.ko_labels[i] = string
 
-        return ko
-
+        if self.robot_down[0]:
+            #print(f'robot_down')
+            # print(f'robot_down')
+            performance = self.coverage[0]/10
+            if self.outside_ring:
+                performance = -performance 
+        else:
+            performance = self.coverage[0]
+            
+        if ko == 0:
+            # print('Red is KO. Blue wins!')
+            performance = 0
+        elif ko == 1:
+            # print('Blue is KO. Red wins!')
+            performance = 10
+                             
+        return ko, performance
 
 
         
@@ -759,6 +762,10 @@ if __name__ == '__main__':
         from cutils.paths import get_root_path, get_gdrive
         from eepct.hpct import HPCTEvolveProperties
         from os import sep, makedirs
+
+
+        wrestler = WrestlerSupervisor()
+        SingletonObjects.getInstance().add_object('wrestler', wrestler)
 
         env_name = "WebotsWrestlerSupervisor"
         filename = "WW01-01-RewardError-CurrentError-Mode01"
