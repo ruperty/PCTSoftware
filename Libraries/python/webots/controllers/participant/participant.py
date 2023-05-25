@@ -767,7 +767,7 @@ if __name__ == '__main__':
         SingletonObjects.getInstance().add_object('wrestler', wrestler)
 
         env_name = "WebotsWrestlerSupervisor"
-        fname=1
+        fname=2
         if fname ==1 :
             filename = "WW01-01-RewardError-CurrentError-Mode01"
         if fname ==2 :
