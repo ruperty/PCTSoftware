@@ -322,7 +322,7 @@ class RobotAccess(object):
 
     def set_initial_sensors(self):
         self.initial_sensors =  self.read()       
-        logger.info(f'InitialS={self.initial_sensors}')
+        # logger.info(f'InitialS={self.initial_sensors}')
         #print('InitialS=', self.initial_sensors)
  
        

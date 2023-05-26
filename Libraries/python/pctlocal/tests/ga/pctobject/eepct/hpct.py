@@ -1983,15 +1983,14 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_limit', float_convert=True)
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='runs', int_convert=True)
 
-
-
         if print_properties:
             properties_str = 'Properties:\n' + f'Description = {self.db["desc"]}, inputs = {self.environment_properties["env_name"]}\n' + f'inputs = {self.environment_properties["env_inputs_indexes"]}, references = {self.environment_properties["references"]}, top_inputs = {self.environment_properties["toplevel_inputs_indexes"]}\n' + f'names = {self.environment_properties["env_inputs_names"]}, early_termination = {self.environment_properties["early_termination"]}\n' + f'error_collector = {self.hpct_run_properties["error_collector_type"]}, error_response = {self.hpct_run_properties["error_response_type"]}, error_limit = {self.hpct_run_properties["error_limit"]}\n' + f'pop_size = {self.wrapper_properties["pop_size"]}, gens = {self.wrapper_properties["gens"]}, attr_mut_pb = {self.evolve_properties["attr_mut_pb"]}, structurepb = {self.evolve_properties["structurepb"]}, lower_float = {self.hpct_structure_properties["lower_float"]}, upper_float = {self.hpct_structure_properties["upper_float"]}\n' + f'p_crossover = {self.wrapper_properties["p_crossover"]}, p_mutation = {self.wrapper_properties["p_mutation"]}\n' + f'seed = {self.hpct_run_properties["seed"]}, nevals = {self.hpct_run_properties["nevals"]}, runs = {self.hpct_run_properties["runs"]}, mode = {self.hpct_structure_properties["mode"]}\n'
             print(properties_str)
-            logger.info(properties_str)
+            # logger.info(properties_str)
             # if raw != None:
             #     print(raw)
 
+        return properties_str
         
 
 
@@ -2107,7 +2106,7 @@ class HPCTEvolveProperties(object):
         "Evolve from file - when is this used?"
         logger.info('Start evolve_from_properties_file')
         import hashlib
-        self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size)
+        properties_str = self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size)
         
         if self.environment_properties['environment_properties'] is None:
             self.environment_properties['environment_properties'] = environment_properties
@@ -2186,7 +2185,7 @@ class HPCTEvolveProperties(object):
         self.wrapper_properties['run_gen_best']=run_gen_best        
         #self.wrapper_properties['local_out_dir']=local_out_dir        
 
-        return hash_num, self.file_properties['desc']
+        return hash_num, self.file_properties['desc'], properties_str
 
     def run_configured_evolver(self, file=None, out_dir=None, output=False, hash_num=None, overwrite=False, test=False, log=False, draw_file=False, 
                                with_edge_labels=True,figsize=(12,12), node_size=200, font_size=8, print_properties=False, move=None):

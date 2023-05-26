@@ -483,7 +483,6 @@ class PCTWrestler (Robot):
 
     
     def run(self, max_loops=None):
-        # to load all the motions from the motions folder, we use the MotionLibrary class:
         self.motion_library = MotionLibrary()
         ttime=0
         loops=0
@@ -495,37 +494,25 @@ class PCTWrestler (Robot):
         tic = time.perf_counter()
         centretime=7500
         while self.step(self.time_step) != -1 :  # mandatory function to make the simulation run
-            # print('mode',mode)
             if mode != ROBOTMODE.PUNCH:
                 mode = self.check_fallen(mode=mode)            
-            # print('check_fallen',mode)
-            if ttime<centretime:
-                mode = self.resetting(mode=mode)
-            else:
-                mode = self.resetting_upper_body(mode=mode)
 
-            # print('resetting',mode)
+            # if ttime<centretime:
+            mode = self.resetting(mode=mode)
+            # else:
+            #     mode = self.resetting_upper_body(mode=mode)
+
             self.rr.update_head_controller()
-            if ttime>=6000:
-                mode = self.rr.update_body_controller(self.motion_library, mode=mode)  
+            # if ttime>=6000:
+            mode = self.rr.update_body_controller(self.motion_library, mode=mode)  
             
             mode = self.rr.distance_control(mode)
             mode = self.rr.punch_position(mode)
 
-            if ttime>=centretime and mode == ROBOTMODE.GENERAL:
-                mode = ROBOTMODE.TURNLEFT60
+            # if ttime>=centretime and mode == ROBOTMODE.GENERAL:
+            #     mode = ROBOTMODE.TURNLEFT60
 
-            mode = self.rr.run_behaviour(self.motion_library, mode=mode)  
-
-            # if ttime>0:
-            #     if ttime % 7000 == 0:
-            #         self.hpcthelper.change_action(1)
-            #     elif ttime % 3500 == 0:
-            #         self.hpcthelper.change_action(0)
-
-            # if ttime>10000:
-            #     self.hpcthelper.change_action(0)
-
+            # mode = self.rr.run_behaviour(self.motion_library, mode=mode)  
 
             if mode == ROBOTMODE.GENERAL:
                 self.actions = self.hpcthelper.get_actions()
@@ -625,10 +612,13 @@ if __name__ == '__main__':
             print('log_file=',log_file)
             logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 
-    if test == 5:
+    if test == 5 :
         if log:
             out_dir= get_gdrive() + f'data{sep}ga'
-            env_name = 'WebotsWrestler'
+            if test == 5:
+                env_name = 'WebotsWrestler'
+            if test == 6:
+                env_name = "WebotsWrestlerSupervisor"
 
             now = datetime.now() # current date and time
             date_time = now.strftime("%Y%m%d-%H%M%S")
@@ -682,7 +672,7 @@ if __name__ == '__main__':
         # 29 - dud falls over
         # 30 - dud falls over
         # 31 - fairly fast, but unstable
-        wrestler = PCTWrestler(config_num=4,  game_duration=180000)    
+        wrestler = PCTWrestler(config_num=33,  game_duration=180000)    
         tic = time.perf_counter()
         # wrestler.run(time_step=20, max_loops=1000)    
         
@@ -777,10 +767,32 @@ if __name__ == '__main__':
         SingletonObjects.getInstance().add_object('wrestler', wrestler)
 
         env_name = "WebotsWrestlerSupervisor"
-        # filename = "WW01-01-RewardError-CurrentError-Mode01"
-        # filename = "WW01-03-RewardError-CurrentError-Mode01"
-        filename = "WW01-04-RewardError-CurrentError-Mode01"
-        
+        fname=2
+        if fname ==1 :
+            filename = "WW01-01-RewardError-CurrentError-Mode01"
+        if fname ==2 :
+            filename = "WW01-02-RewardError-CurrentError-Mode01"
+        if fname ==3 :
+            filename = "WW01-03-RewardError-CurrentError-Mode01"
+        if fname ==4 :
+            filename = "WW01-04-RewardError-CurrentError-Mode01"
+        if fname ==5 :
+            filename = "WW01-05-RewardError-CurrentError-Mode01"
+        if fname ==6 :
+            filename = "WW01-06-RewardError-CurrentError-Mode01"
+        if fname ==7 :
+            filename = "WW01-07-RewardError-CurrentError-Mode02"
+        if fname ==8 :
+            filename = "WW01-08-RewardError-CurrentError-Mode02"
+        if fname ==9 :
+            filename = "WW01-09-RewardError-CurrentError-Mode03"
+        if fname ==10 :
+            filename = "WW01-10-RewardError-CurrentError-Mode03"
+        if fname ==11 :
+            filename = "WW01-11-RewardError-CurrentError-Mode04"
+        if fname ==12 :
+            filename = "WW01-12-RewardError-CurrentError-Mode04"
+
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
 
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
@@ -827,7 +839,7 @@ if __name__ == '__main__':
         #         print(f'Sleeping for {10-i} seconds')
         #         sleep(1)
 
-        hash_num, desc = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
+        hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
 
         # logging info
         now = datetime.now() # current date and time
@@ -838,6 +850,8 @@ if __name__ == '__main__':
         logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
         logger = logging.getLogger(__name__)
         logger.info("Evolving {} ".format(env_name))
+        logger.info(properties_str)
+
 
         try:
                 hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
