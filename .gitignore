@@ -25,3 +25,7 @@ Libraries/python/webots/controllers/utils/__pycache__/fall_detection.cpython-39.
 Libraries/python/webots/controllers/utils/__pycache__/finite_state_machine.cpython-39.pyc
 Libraries/python/webots/controllers/utils/__pycache__/running_average.cpython-39.pyc
 Libraries/python/webots/controllers/utils/__pycache__/current_motion_manager.cpython-39.pyc
+Libraries/python/webots/controllers/utils/__pycache__/camera.cpython-39.pyc
+Libraries/python/webots/worlds/.wrestling-nosync-extern.wbproj
+Libraries/python/webots/worlds/wrestling-nosync-extern.wbt
+Libraries/python/webots/controllers/participant/__pycache__/participant.cpython-39.pyc
