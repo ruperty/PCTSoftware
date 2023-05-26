@@ -58,7 +58,7 @@ def get_gdrive():
             root_dir='C:\\Users\\ryoung\\Google Drive\\'
     return root_dir
 
-test = 3
+test = 5
 
 
 
@@ -658,7 +658,7 @@ if __name__ == '__main__':
         # create the referee instance and run main loop
         #start_webots()
         if port==None:
-            port = 9999
+            port = 6666
         if wport==None:
             wport = 1300
         if sync==None:
