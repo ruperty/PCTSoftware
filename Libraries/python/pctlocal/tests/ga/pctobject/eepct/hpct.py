@@ -856,6 +856,33 @@ class HPCTIndividual(PCTHierarchy):
     #     return ''.join(str_list)
     
     
+    @classmethod
+    def run_from_file(cls, root, filename, env_props):
+        file = root+sep + 'data'+sep+'ga'+sep+ filename
+        
+        hep = HPCTEvolveProperties()
+        hep.load_db(file)
+
+        error_collector_type = hep.db['error_collector_type']
+        error_response_type = hep.db['error_response_type']
+        error_limit = eval(hep.db['error_limit'])
+        runs = eval(hep.db['runs'])
+        config = eval(hep.db['config'])
+        seed = eval(hep.db['seed'])
+        early_termination = eval(hep.db['early_termination'])
+        # outdir = 'output' + sep + dir
+        # makedirs(outdir, exist_ok=True)
+
+        hpct_verbose= False #True #False #
+        render=False
+        history=False
+        
+        ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+                                                    error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, environment_properties=env_props,
+                                                    seed=seed, early_termination=early_termination)
+
+        
+        return score 
         
     
 
@@ -2329,7 +2356,7 @@ class HPCTGenerateEvolvers(object):
                         self.write_to_file(filepath, text)
                         cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
                         #print(cmd, end='\n')
-                        print(f'set CONFIG={filename}')
+                        print(f'set WW_CONFIG={filename}')
 
     def process_csv(self, file):
         with open(file, 'r', encoding='utf-16') as csvfile:

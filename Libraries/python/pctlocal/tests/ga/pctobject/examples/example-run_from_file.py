@@ -89,7 +89,7 @@ def runit2(datum, env_props):
                                                 seed=seed, early_termination=early_termination)
 
         
-    print("Score: %0.3f" % score)
+    c
 
 
 data = [

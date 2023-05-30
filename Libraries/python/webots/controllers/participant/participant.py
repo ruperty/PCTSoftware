@@ -15,7 +15,7 @@
 
 
 import numpy as np
-from os import sep, environ, getpid
+from os import sep, environ, getpid, getenv
 from time import sleep
 import math, time, logging
 from controller import Robot
@@ -767,31 +767,33 @@ if __name__ == '__main__':
         SingletonObjects.getInstance().add_object('wrestler', wrestler)
 
         env_name = "WebotsWrestlerSupervisor"
-        fname=10
-        if fname ==1 :
-            filename = "WW01-01-RewardError-CurrentError-Mode01"
-        if fname ==2 :
-            filename = "WW01-02-RewardError-CurrentError-Mode01"
-        if fname ==3 :
-            filename = "WW01-03-RewardError-CurrentError-Mode01"
-        if fname ==4 :
-            filename = "WW01-04-RewardError-CurrentError-Mode01"
-        if fname ==5 :
-            filename = "WW01-05-RewardError-CurrentError-Mode01"
-        if fname ==6 :
-            filename = "WW01-06-RewardError-CurrentError-Mode01"
-        if fname ==7 :
-            filename = "WW01-07-RewardError-CurrentError-Mode02"
-        if fname ==8 :
-            filename = "WW01-08-RewardError-CurrentError-Mode02"
-        if fname ==9 :
-            filename = "WW01-09-RewardError-CurrentError-Mode03"
-        if fname ==10 :
-            filename = "WW01-10-RewardError-CurrentError-Mode03"
-        if fname ==11 :
-            filename = "WW01-11-RewardError-CurrentError-Mode04"
-        if fname ==12 :
-            filename = "WW01-12-RewardError-CurrentError-Mode04"
+        # fname=10
+        # if fname ==1 :
+        #     filename = "WW01-01-RewardError-CurrentError-Mode01"
+        # if fname ==2 :
+        #     filename = "WW01-02-RewardError-CurrentError-Mode01"
+        # if fname ==3 :
+        #     filename = "WW01-03-RewardError-CurrentError-Mode01"
+        # if fname ==4 :
+        #     filename = "WW01-04-RewardError-CurrentError-Mode01"
+        # if fname ==5 :
+        #     filename = "WW01-05-RewardError-CurrentError-Mode01"
+        # if fname ==6 :
+        #     filename = "WW01-06-RewardError-CurrentError-Mode01"
+        # if fname ==7 :
+        #     filename = "WW01-07-RewardError-CurrentError-Mode02"
+        # if fname ==8 :
+        #     filename = "WW01-08-RewardError-CurrentError-Mode02"
+        # if fname ==9 :
+        #     filename = "WW01-09-RewardError-CurrentError-Mode03"
+        # if fname ==10 :
+        #     filename = "WW01-10-RewardError-CurrentError-Mode03"
+        # if fname ==11 :
+        #     filename = "WW01-11-RewardError-CurrentError-Mode04"
+        # if fname ==12 :
+        #     filename = "WW01-12-RewardError-CurrentError-Mode04"
+
+        filename = getenv('WW_CONFIG')
 
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
 
@@ -807,7 +809,7 @@ if __name__ == '__main__':
 
         root = get_root_path()
 
-        file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/' + env_name +'/'+ filename + ".properties"
+        file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests\\ga/pctobject/configs/' + env_name +'/'+ filename + ".properties"
 
         local_out_dir = 'output/'  + filename 
         draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
@@ -865,4 +867,36 @@ if __name__ == '__main__':
                         print(e)
                         logger.info(e)
 
+        status = 1 #EXIT_SUCCESS
+        wrestler.simulationQuit(status) 
 
+
+    if test == 7:
+        from eepct.hpct import HPCTIndividual
+        
+        wrestler = WrestlerSupervisor()
+        SingletonObjects.getInstance().add_object('wrestler', wrestler)
+
+
+        root = get_gdrive()
+        env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false', 'upper_body':'guardup'}
+
+        files = ['WebotsWrestlerSupervisor\\WW01-06-RewardError-CurrentError-Mode01\\ga-001.276-s001-3x4-m001-21db068466666c5352cceef7c8c496d9.properties',
+                    'WebotsWrestlerSupervisor\\WW01-07-RewardError-CurrentError-Mode02\\ga-001.903-s001-5x8-m002-108925b64cd5a2b96bde2bfc108fd4f8.properties',
+                    'WebotsWrestlerSupervisor\\WW01-08-RewardError-CurrentError-Mode02\\ga-001.443-s001-4x10-m002-8dcd95a5aea2589f13c7f6bc603ca2e0.properties',
+                    'WebotsWrestlerSupervisor\\WW01-09-RewardError-CurrentError-Mode03\\ga-000.111-s001-9x9-m003-f37757991a462f567c03e613acc09c2e.properties',
+                    'WebotsWrestlerSupervisor\\WW01-10-RewardError-CurrentError-Mode03\\ga-001.732-s001-3x8-m003-d6d662f2b5a398c83d82cf82adf7a44c.properties',
+                    'WebotsWrestlerSupervisor\\WW01-11-RewardError-CurrentError-Mode04\\ga-000.753-s001-2x2-m004-32a6774decb5c3f7cc89a67a47530398.properties',
+                    'WebotsWrestlerSupervisor\\WW01-12-RewardError-CurrentError-Mode04\\ga-000.818-s001-3x7-m004-344d674e5423a22c0aa0c12f91d74a84.properties']
+
+        for file in files:
+            print(file)
+            score = HPCTIndividual.run_from_file(root, file, env_props)
+            print("Score: %0.3f" % score)
+            
+            
+        status = 1 #EXIT_SUCCESS
+        wrestler.simulationQuit(status) 
+
+    
+    
