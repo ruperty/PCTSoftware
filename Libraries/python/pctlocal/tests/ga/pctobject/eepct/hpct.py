@@ -857,7 +857,7 @@ class HPCTIndividual(PCTHierarchy):
     
     
     @classmethod
-    def run_from_file(cls, root, filename, env_props):
+    def run_from_file(cls, root, filename, env_props, hpct_verbose= False):
         file = root+sep + 'data'+sep+'ga'+sep+ filename
         
         hep = HPCTEvolveProperties()
@@ -873,13 +873,12 @@ class HPCTIndividual(PCTHierarchy):
         # outdir = 'output' + sep + dir
         # makedirs(outdir, exist_ok=True)
 
-        hpct_verbose= False #True #False #
         render=False
         history=False
         
         ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                                    error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, environment_properties=env_props,
-                                                    seed=seed, early_termination=early_termination)
+                                                    error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
+                                                    environment_properties=env_props, seed=seed, early_termination=early_termination)
 
         
         return score 

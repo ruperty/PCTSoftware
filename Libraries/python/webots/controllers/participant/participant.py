@@ -312,6 +312,9 @@ class WrestlerSupervisor(Supervisor):
             self.min[i] = self.robot[i].getPosition()
             self.max[i] = self.robot[i].getPosition()
         self.coverage = [0] * 2
+        print(self.coverage)
+        print(self.min)
+        print(self.max)
         self.ko_count = [0] * 2
         self.robot_down= [0] * 2
         self.outside_ring = False 
@@ -319,10 +322,10 @@ class WrestlerSupervisor(Supervisor):
 
     def initialise(self, properties):    
         self.simulationReset()
-        self.initSupervisor()
         self.time_step = int(self.getBasicTimeStep())
         upper_body=properties['upper_body']
         self.initMotors(mode=properties['rmode'], samplingperiod=self.time_step, upper_body=upper_body)
+        self.initSupervisor()
 
         self.ko_labels = ['', '']
         self.coverage_labels = ['', '']
@@ -373,6 +376,10 @@ class WrestlerSupervisor(Supervisor):
                         coverage += box[j] * box[j]
                     coverage = math.sqrt(coverage)
                     self.coverage[i] = coverage
+
+                    # if i == 0:
+                    #     print('coverage=', coverage)
+
                     string = '{:.3f}'.format(coverage)
                     # if string != coverage_labels[i]:
                     #     print(f'coverage for robot {i}: {string}')
@@ -597,7 +604,7 @@ if __name__ == '__main__':
     if wport==None:
         wport = 1234
     if test is None:
-        test = 6
+        test = 7
     log=True
 
     # print(f'Sync={sync} test={test} port={port} wport={wport}')
@@ -889,14 +896,30 @@ if __name__ == '__main__':
                     'WebotsWrestlerSupervisor\\WW01-11-RewardError-CurrentError-Mode04\\ga-000.753-s001-2x2-m004-32a6774decb5c3f7cc89a67a47530398.properties',
                     'WebotsWrestlerSupervisor\\WW01-12-RewardError-CurrentError-Mode04\\ga-000.818-s001-3x7-m004-344d674e5423a22c0aa0c12f91d74a84.properties']
 
+        files = [
+            # 'WebotsWrestlerSupervisor\\WW01-06-RewardError-CurrentError-Mode01\\ga-000.064-s001-3x6-m001-1c4088fe6bdd2464080de0c4261d43f5.properties',
+            # 'WebotsWrestlerSupervisor\\WW01-01-RewardError-CurrentError-Mode01\\ga-000.152-s001-8x10-m001-4a71894fbdf43463f02f3e84bc0d7e94.properties',
+
+            'WebotsWrestlerSupervisor\\WW01-07-RewardError-CurrentError-Mode02\\ga-001.776-s001-3x5-m002-27f4085024c2f7879344ae55bb28904c.properties',
+            'WebotsWrestlerSupervisor\\WW01-02-RewardError-CurrentError-Mode01\\ga-001.536-s001-5x6-m001-612442651880a50388df8860cfa72209.properties',
+            'WebotsWrestlerSupervisor\\WW01-08-RewardError-CurrentError-Mode02\\ga-002.230-s001-2x6-m002-baff0450b076d566ae3d620dacbc31eb.properties',
+            'WebotsWrestlerSupervisor\\WW01-09-RewardError-CurrentError-Mode03\\ga-002.481-s001-2x2-m003-9a64fd541da0b63ef26d6c9fa9f7fdfd.properties',
+
+            'WebotsWrestlerSupervisor\\WW01-03-RewardError-CurrentError-Mode01\\ga-001.915-s001-2x2-m001-028fd92550db5c336676a9bd34189279.properties'
+
+            # 'WebotsWrestlerSupervisor\\WW01-10-RewardError-CurrentError-Mode03\\ga-001.085-s001-4x10-m003-19b2d6dad801b22bc5d20f04d13efd07.properties'
+            ]
+
         for file in files:
             print(file)
-            score = HPCTIndividual.run_from_file(root, file, env_props)
+            score = HPCTIndividual.run_from_file(root, file, env_props, hpct_verbose= False)
             print("Score: %0.3f" % score)
+
+
             
             
-        status = 1 #EXIT_SUCCESS
-        wrestler.simulationQuit(status) 
+        # status = 1 #EXIT_SUCCESS
+        # wrestler.simulationQuit(status) 
 
     
     
