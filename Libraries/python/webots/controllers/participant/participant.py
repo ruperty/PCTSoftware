@@ -599,13 +599,20 @@ if __name__ == '__main__':
     log = args.log
     extern = args.extern
 
-    if port==None:
-        port = 6666
-    if wport==None:
-        wport = 1234
+    # if port==None:
+    #     port = 6666
+    # if wport==None:
+    #     wport = 1234
+    # if test is None:
+    #     test = 7
+    log=True
+
+    test = eval(getenv('WW_TEST'))
+    print('test is ',test)
     if test is None:
         test = 7
-    log=True
+    print('test is ',test)
+
 
     # print(f'Sync={sync} test={test} port={port} wport={wport}')
 
@@ -801,7 +808,7 @@ if __name__ == '__main__':
         #     filename = "WW01-12-RewardError-CurrentError-Mode04"
 
         filename = getenv('WW_CONFIG')
-
+        print(filename, filename)
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
 
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
