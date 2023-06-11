@@ -13,20 +13,28 @@ from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
 from time import sleep
 
-# set EA_ENVNAME=CartPoleV1
+from pct.network import ClientConnectionManager
+
+
 
 if __name__ == '__main__':
-        
-        env_name = getenv('EA_ENVNAME')
-        filename = getenv('EA_FILENAME')
-        
-        if env_name is None:    
-                parser = argparse.ArgumentParser()
-                parser.add_argument("env_name", help="the environment name")
-                parser.add_argument("file", help="the properties file name")
-                args = parser.parse_args()
-                env_name = args.env_name 
-                filename = args.file
+    
+        parser = argparse.ArgumentParser()
+        parser.add_argument("env_name", help="the environment name")
+        parser.add_argument("file", help="the properties file name")
+        parser.add_argument('-p', '--port', type=int, help="port number")
+        args = parser.parse_args()
+        env_name = args.env_name 
+        filename = args.file
+        port = args.port 
+
+        # if port == None:
+        #         port = 9999
+        #         env_name = 'WebotsWrestler' 
+        #         filename = 'XXX-Dummy-Mode04'
+
+        cm = ClientConnectionManager.getInstance()
+        cm.set_port(port)
 
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
 
