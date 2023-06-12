@@ -52,7 +52,7 @@
             "name": "generate_properties_file",
             "type": "python",
             "request": "launch",
-            "module": "examples.generate-evolver-properties"
+            "module": "examples.generate-evolver-properties-csv"
         },
         {
             "name": "example-arch",

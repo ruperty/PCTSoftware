@@ -106,9 +106,13 @@ overwrite=True
 
 #if __name__ == "__main__":
 
-hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, flip_error_response=flip,
-                                    out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, min=min)
-# hep.load_properties(file=file, evolve=True, print_properties=True)
+# hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, draw_file=draw_file, flip_error_response=flip,
+#                                     out_dir=out_dir, local_out_dir=local_out_dir, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, min=min)
 
 
 
+hash_num, desc, ps = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
+
+
+            hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
+                                output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
