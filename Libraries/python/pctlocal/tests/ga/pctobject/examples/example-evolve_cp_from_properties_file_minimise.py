@@ -114,5 +114,5 @@ overwrite=True
 hash_num, desc, ps = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
 
 
-            hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
+hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
                                 output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
