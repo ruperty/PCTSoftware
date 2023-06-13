@@ -31,7 +31,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 1
+test = 22
 
 # Std00
 if test == 1:
@@ -66,7 +66,9 @@ if test == 20:
 if test == 21:
     filename = 'Std02-InputsError-RootMeanSquareError-Mode01'
 
-
+# Std03
+if test == 22:
+    filename = 'Std03-InputsError-RootMeanSquareError-Mode00'
 
 
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/CartPoleV1/'+ filename + ".properties"
