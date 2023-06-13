@@ -10,7 +10,7 @@ from epct.evolvers import CommonToolbox
 
 from eepct.hpct import HPCTIndividual
 
-max = True # False #
+max =  False #True #
 
 if max:
     creator.create("FitnessMax", base.Fitness, weights=(1.0,))
