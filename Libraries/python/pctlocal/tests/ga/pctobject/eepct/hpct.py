@@ -2353,9 +2353,10 @@ class HPCTGenerateEvolvers(object):
                         text = '\n'.join((desc, fpars, cpars, ppars, spars))
                         filepath = f'configs{sep}{env}{sep}{filename}.properties'
                         self.write_to_file(filepath, text)
-                        cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
-                        #print(cmd, end='\n')
-                        print(f'set WW_CONFIG={filename}')
+                        # cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
+                        cmd = f'python examples{sep}evolve.py {env} {filename} '
+                        print(cmd, end='\n')
+                        # print(f'set WW_CONFIG={filename}')
 
     def process_csv(self, file):
         with open(file, 'r', encoding='utf-16') as csvfile:
