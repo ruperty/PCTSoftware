@@ -913,9 +913,10 @@ if __name__ == '__main__':
             'WebotsWrestlerSupervisor\\WW01-09-RewardError-CurrentError-Mode03\\ga-002.481-s001-2x2-m003-9a64fd541da0b63ef26d6c9fa9f7fdfd.properties',
 
             # 'WebotsWrestlerSupervisor\\WW01-03-RewardError-CurrentError-Mode01\\ga-001.915-s001-2x2-m001-028fd92550db5c336676a9bd34189279.properties'
-            # 'WebotsWrestlerSupervisor\\WW01-10-RewardError-CurrentError-Mode03\\ga-001.085-s001-4x10-m003-19b2d6dad801b22bc5d20f04d13efd07.properties'
-            
+            # 'WebotsWrestlerSupervisor\\WW01-10-RewardError-CurrentError-Mode03\\ga-001.085-s001-4x10-m003-19b2d6dad801b22bc5d20f04d13efd07.properties'            
             # 'WebotsWrestlerSupervisor\\WW01-11-RewardError-CurrentError-Mode04\ga-001.923-s001-4x3-m004-bed1bb89b056f966c528b4c8296df4c5.properties'
+            
+            # 'WebotsWrestlerSupervisor\\WW01-04-RewardError-CurrentError-Mode01\ga-001.915-s001-2x2-m001-79925912a1d3e3e09e8d6efeeb67eba1.properties'
             
             ]
 
