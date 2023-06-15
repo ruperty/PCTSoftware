@@ -9,7 +9,25 @@ Created on Thu Feb  4 19:08:59 2021
 
 import os
 from pct.architectures import run_from_properties_file
-from pct.putils import get_gdrive
+# from pct.putils import get_gdrive
+
+
+def get_gdrive():
+    import socket
+    import os
+    if socket.gethostname() == 'DESKTOP-5O07H5P':
+        root_dir='/mnt/c/Users/ruper/My Drive/'
+        if os.name == 'nt' :
+            root_dir='C:\\Users\\ruper\\My Drive\\'
+    elif socket.gethostname() == 'UKM5570RYOUNG2':
+        if os.name == 'nt' :
+            root_dir='G:\\My Drive\\'
+    else:
+        root_dir='/mnt/c/Users/ryoung/My Drive/'        
+        if os.name == 'nt' :
+            root_dir='C:\\Users\\ryoung\\Google Drive\\'
+    return root_dir
+
 
 render=True
 summary=False
@@ -36,7 +54,7 @@ plots = [ {'plot_items': {'reward':'err'}, 'title':'Reward'}]
 move={'IV':[0.2,0],'IP':[-0.2,0.1],'OL0C0sm':[0,-0.2],'OL1C0sm':[0,-0.2], 'MountainCarContinuousV0':[-.4,-0.25], 'Action1ws':[-0.45,-0.3]}
 
 
-test = 2
+test = 1
 
 
 if test == 2:    
@@ -72,8 +90,8 @@ if test == 2:
         move={'IV':[0.2,0],'IP':[-0.2,0.1],'OL0C0sm':[0,-0.2],'OL1C0sm':[0,-0.2],
               'MountainCarContinuousV0':[-.4,-0.25], 'Action1ws':[-0.45,-0.3]}
         
-        lower_limit=0.401
-        upper_limit=0.401
+        lower_limit=0.325
+        upper_limit=0.326
         #fseed='s066'
         #seed=94
         nevals=1
@@ -87,10 +105,10 @@ if test == 2:
                 {'plot_items': {'reward':'err'}, 'title':'Reward'}
                 ]
         plots=[]
-
+        render=True
 
 if test == 1:    
-    ttest = 1
+    ttest = 3
     if ttest == 1:    
         dir = 'MountainCarContinuousV0/Topp1-ReferencedInputsError-CurrentError-AllFloats-SmoothWeightedSum/'
         fseed='s001'
@@ -104,11 +122,13 @@ if test == 1:
 
     if ttest == 3:    
         dir = 'MountainCarContinuousV0-1/Topp1-ReferencedInputsError-RootMeanSquareError-AllFloats-SmoothWeightedSum/'
-        lower_limit=0.325
+        lower_limit=0.326
         upper_limit=0.326
         seed=10
         #nevals=10
         render=True#False
+        figsize=(12,14)
+
         #size='2x3'
         #runs=1
 
@@ -239,9 +259,9 @@ def multiple_files_in_folder(root_dir, prefix, dir, fseed):
 
         print(file)
         file_path=''.join((prefix, dir))
-        
+        draw_file='out.png'
         hpct, sum, output = run_from_properties_file(root_dir=root_dir, path=file_path, 
-                file=file, nevals=nevals, figsize=figsize,
+                file=file, nevals=nevals, figsize=figsize, draw_file=draw_file,
                 move=move, render=render, verbose=verbose, summary=summary, draw=True, runs=runs, 
                 hpct_verbose=hpct_verbose, plots=plots, seed=seed, print_properties=print_properties,   
                 early_termination=early_termination, error_collector_type=error_collector, 
