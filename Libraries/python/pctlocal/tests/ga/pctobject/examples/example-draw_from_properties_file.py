@@ -1,12 +1,12 @@
 from os import sep, makedirs
 
-from utils.paths import  get_gdrive
+from cutils.paths import  get_gdrive
 from eepct.hpct import HPCTIndividual
 
 test = 0
 
 
-def drawit(datum):
+def drawit(datum, funcdata=False):
   filename = datum[1]
   dir = datum[2]
   move=datum[3] 
@@ -22,7 +22,7 @@ def drawit(datum):
   hpct.set_name(hname)
   hpct.set_suffixes()
   #print(hpct.formatted_config(3))
-  hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size)
+  hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size, funcdata=funcdata)
   print('Image saved to '+draw_file)
 
 
@@ -40,7 +40,10 @@ data = [
   [8,'ga-000.116-s001-1x1-m000-c046ca4614c64a3fd02baca87d33992e','Std02-InputsError-RootMeanSquareError-Mode00',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}],
   [9,'ga-000.123-s001-1x1-m001-3c4731f243d746771f7cb639d8f0095a','Std02-InputsError-RootMeanSquareError-Mode01',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}],
   
-  [10,'ga-000.130-s001-2x1-m002-9729cd44431b1958b69da786b4ba4f00','Std00-InputsError-RootMeanSquareError-Mode02',  {'CartPoleV1': [-0.6, -0.1],'ICV': [-0.3, 0.1], 'ICP': [-0.1,  0.2], 'IPV': [0.1, 0.3],'IPA': [0.3, 0.4], 'Action1ws': [-0.65, 0]}]
+  [10,'ga-000.130-s001-2x1-m002-9729cd44431b1958b69da786b4ba4f00','Std00-InputsError-RootMeanSquareError-Mode02',  {'CartPoleV1': [-0.6, -0.1],'ICV': [-0.3, 0.1], 'ICP': [-0.1,  0.2], 'IPV': [0.1, 0.3],'IPA': [0.3, 0.4], 'Action1ws': [-0.65, 0]}],
+  [11,'ga-000.113-s001-1x1-m000-cfe004e44e94d469055bc00d7aac892f', 'Std03-InputsError-RootMeanSquareError-Mode00',  {'CartPoleV1': [-1, 0.2],'ICV': [-0.4, 0.3], 'ICP': [-0.2,  0.4],           'IPV': [0, 0.5],'IPA': [0.2, 0.6], 'Action1ws': [-1, 0.2], 'OL0C0p': [0, 0.1]}]
+
+
 ]
 
 
@@ -50,7 +53,8 @@ if test == 100:
       
       
 if test == 0:
-    drawit(data[10])   
+    funcdata=True
+    drawit(data[11], funcdata=funcdata)   
 
 
 

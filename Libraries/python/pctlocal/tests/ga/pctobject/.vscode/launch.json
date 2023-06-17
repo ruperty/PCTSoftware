@@ -39,7 +39,7 @@
             "name": "run_from_properties_file",
             "type": "python",
             "request": "launch",
-            "module": "examples.example-run_from_properties_file"
+            "module": "examples.example-run_from_file"
         },
 
         {

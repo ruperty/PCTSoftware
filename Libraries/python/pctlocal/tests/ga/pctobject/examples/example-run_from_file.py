@@ -9,13 +9,11 @@ from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
 from pct.architectures import run_from_properties_file
 from pct.network import ClientConnectionManager   
 
-test = 20
+test = 30
 
 
-cm = ClientConnectionManager.getInstance()
-cm.set_port(6666)
   
-def runit(datum):
+def runit_old(datum):
     env  = datum[1]
     filename = datum[2]
     hash = datum[3]
@@ -63,9 +61,16 @@ def runit(datum):
     #print(ind.get_config())
 
 
-def runit2(datum, env_props):
+def runit(datum, env_props, render=False, history=False, move=None, plots=None, runs=None):
     filename = datum[1]
-    file = get_gdrive() + 'data'+sep+'ga'+sep+ filename
+    root = get_gdrive() 
+
+    index1 = filename.find(sep)
+    env = filename[0:index1]
+    index2 = filename.find(sep,index1+1)
+    gatest = filename[index1+1:index2]
+
+    file = root + 'data'+sep+'ga'+sep+ filename
     
     hep = HPCTEvolveProperties()
     hep.load_db(file)
@@ -73,26 +78,31 @@ def runit2(datum, env_props):
     error_collector_type = hep.db['error_collector_type']
     error_response_type = hep.db['error_response_type']
     error_limit = eval(hep.db['error_limit'])
-    runs = eval(hep.db['runs'])
+    if runs==None:
+        runs = eval(hep.db['runs'])
     config = eval(hep.db['config'])
     seed = eval(hep.db['seed'])
     early_termination = eval(hep.db['early_termination'])
-    # outdir = 'output' + sep + dir
-    # makedirs(outdir, exist_ok=True)
+
+    if history:
+        end = filename.find('.properties', index)
+        outdir =  root + 'data'+sep+'ga'+sep + env + sep + gatest+ sep + filename[end-32:end]
+        # makedirs(outdir, exist_ok=True)
+
 
     hpct_verbose= False #True #False #
-    render=False
-    history=False
+    
     
     ind, score = HPCTIndividual.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                                error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, environment_properties=env_props,
-                                                seed=seed, early_termination=early_termination)
+                                                error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
+                                                environment_properties=env_props,
+                                                seed=seed, early_termination=early_termination, move=move, plots=plots, suffixes=True, plots_dir=outdir)
 
         
-    c
+    
 
 
-data = [
+data_old = [
     [0, 'CartPoleV1', 'ga-000.115-s001-2x3-m000-4292b6128e13ac2df54fd2c05a34292e', 'Std00-InputsError-RootMeanSquareError-Mode00', {'CartPoleV1': [-0.4, -0.3],'ICV': [0, 0], 'ICP': [0,  -0.1],         'IPV': [-0.0, -0.1],'IPA': [0.0, 0.0], 'Action1ws': [-0.3, -0.3]}, [ {'plot_items': {'PL1C0ws':'PL1C0ws','PL1C0ws':'ref'}, 'title':'Goal1'},{'plot_items': {'IPA':'pa','ICP':'cp'}, 'title':'Inputs'}], True],
     [1, 'CartPoleV1', 'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832','Std01-InputsError-RootMeanSquareError-Mode01', {'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0],  'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}, [], True],
     [2, 'CartPoleV1', 'ga-000.123-s001-1x1-m001-d1be23c359e86c3de89401d212089832', 'Std01-InputsError-RootMeanSquareError-Mode01',{'CartPoleV1': [-0.8, -0.2],'ICV': [-0.3, 0], 'ICP': [-0.1,  0], 'IPV': [-0.1, 0],'IPA': [0.0, -0.2], 'Action1ws': [-0.8, -0.2]}, [], True],
@@ -114,8 +124,10 @@ data = [
    
     ]
 
-data2 = [
-    [0],[1],[2],[3],
+data = [
+    [0, 'CartPoleV1'+sep+'Std03-InputsError-RootMeanSquareError-Mode00'+sep+'ga-000.113-s001-1x1-m000-cfe004e44e94d469055bc00d7aac892f.properties'],
+    
+    [1],[2],[3],
     # 0.906 (10) good, stable, moves slowly, 1 ref
     [4, 'WebotsWrestler\\WW01-RewardError-CurrentError-Mode01\ga-000.870-s001-3x6-m001-e8993f3235b484cd5a869600d6d5a374.properties'],
     # deleted
@@ -171,27 +183,37 @@ data2 = [
 # WW01-05-RewardError-CurrentError-Mode01/757a5d1b4a1dea1eb118d18c8f22d7d5/output/
 # 
 
-index=26
+index=0
 
 # C:\Users\ryoung\Google Drive\data\ga\WebotsWrestler\WW01-07-RewardError-CurrentError-Mode02\108925b64cd5a2b96bde2bfc108fd4f8\output
 
 
 if test == 100:
-    for datum in data:
-      runit(datum)   
+    for datum in data_old:
+      runit_old(datum)   
       
 if test == 10:
     # good ones 4, 9, 11, weird 10
-    runit(data[7])
+    runit_old(data_old[7])
 
 if test == 20:
+    
+    cm = ClientConnectionManager.getInstance()
+    cm.set_port(6666)
     env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false'}
     env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false', 'upper_body':'guardup'}
 
     
-    runit2(data2[index], env_props)
+    runit(data[index], env_props)
     
 
+if test == 30:
+    env_props={}
+    history=True
+    plots = [ {'plot_items': {'PL0C0ws':'per','RL0C0v':'ref','IPA':'pa'}, 'title':'Goal'},
+             {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]   
+    runit(data[index], env_props, render=True, history=history, plots=plots, runs=100)
+    
 
 
 

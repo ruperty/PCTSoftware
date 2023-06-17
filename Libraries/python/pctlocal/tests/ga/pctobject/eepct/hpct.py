@@ -2224,7 +2224,7 @@ class HPCTEvolveProperties(object):
         self.wrapper_properties['font_size']=font_size        
         self.wrapper_properties['node_size']=node_size        
         if output:
-            self.wrapper_properties['local_out_dir']=dir+sep+hash_num+sep+'output'        
+            self.wrapper_properties['local_out_dir']=dir+sep+hash_num        
 
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 

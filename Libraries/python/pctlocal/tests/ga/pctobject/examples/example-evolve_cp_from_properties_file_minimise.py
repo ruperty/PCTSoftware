@@ -79,9 +79,9 @@ out_dir= get_gdrive() + 'data/ga/'
 #draw_file= 'output' + os.sep + filename + os.sep + filename + '-evolve-best' + '.png'
 #draw_file= 'output'  + os.sep + filename + '-evolve-best' + '.png'
 
-local_out_dir = 'output/'  + filename 
 
-draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
+
+draw_file= filename + '-evolve-best' + '.png'
 
 debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 hpct_verbose= False #True # log of every control system iteration
