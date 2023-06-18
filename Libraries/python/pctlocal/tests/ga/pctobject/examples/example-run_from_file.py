@@ -85,7 +85,7 @@ def runit(datum, env_props, render=False, history=False, move=None, plots=None, 
     early_termination = eval(hep.db['early_termination'])
 
     if history:
-        end = filename.find('.properties', index)
+        end = filename.find('.properties')
         outdir =  root + 'data'+sep+'ga'+sep + env + sep + gatest+ sep + filename[end-32:end]
         # makedirs(outdir, exist_ok=True)
 

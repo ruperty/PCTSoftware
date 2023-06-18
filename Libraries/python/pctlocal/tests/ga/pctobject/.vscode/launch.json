@@ -41,6 +41,12 @@
             "request": "launch",
             "module": "examples.example-run_from_file"
         },
+        {
+            "name": "run_files_from_dir",
+            "type": "python",
+            "request": "launch",
+            "module": "impl.run_files_from_dir"
+        },
 
         {
             "name": "mutate_ind",
