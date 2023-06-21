@@ -2350,6 +2350,8 @@ class HPCTGenerateEvolvers(object):
                         # display = f'### Display\n\ninputs_names = {inputs_names}\n'
                         
                         text = '\n'.join((desc, fpars, cpars, ppars, spars))
+                        filedir = f'configs{sep}{env}'
+                        makedirs(filedir, exist_ok=True)
                         filepath = f'configs{sep}{env}{sep}{filename}.properties'
                         self.write_to_file(filepath, text)
                         # cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'

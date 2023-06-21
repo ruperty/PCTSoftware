@@ -9,16 +9,16 @@ import os
 
 from eepct.hpct import HPCTGenerateEvolvers
 
-from eepct.hpct import HPCTLEVEL
-from eepct.hpct import HPCTVARIABLE
-from pct.functions import HPCTFUNCTION
 
-test = 1
+test = 2
 
 if test == 1:
     file = 'configs'+ os.sep + 'configs-cp.csv'
 
 if test == 2:
+    file = 'configs'+ os.sep + 'configs-mc.csv'
+
+if test == 3:
     file = 'configs'+ os.sep + 'configs-ww.csv'
 
 
