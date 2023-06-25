@@ -32,9 +32,7 @@ def runit(filename, env_props, render=False, history=False, runs=None, early_ter
     
     print(f'Score={score:0.3f}')
 
-        
-    
-
+# python -m impl.run_files_from_dir -d "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode03/eb57dceed66c7697c01c54617cb106ff"
     
 if __name__ == '__main__':
 

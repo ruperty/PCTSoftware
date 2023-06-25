@@ -2009,7 +2009,7 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='runs', int_convert=True)
 
         if print_properties:
-            properties_str = 'Properties:\n' + f'Env = {self.environment_properties["env_name"]}, description = {self.db["desc"]}\n' + f'inputs = {self.environment_properties["env_inputs_indexes"]}, names = {self.environment_properties["env_inputs_names"]}, references = {self.environment_properties["references"]}, top_inputs = {self.environment_properties["toplevel_inputs_indexes"]}\n' + f'min_levels_limit = {self.hpct_structure_properties["min_levels_limit"]}, max_levels_limit = {self.hpct_structure_properties["max_levels_limit"]}, min_columns_limit = {self.hpct_structure_properties["min_columns_limit"]}, max_columns_limit = {self.hpct_structure_properties["max_columns_limit"]}, early_termination = {self.environment_properties["early_termination"]}\n' + f'error_collector = {self.hpct_run_properties["error_collector_type"]}, error_response = {self.hpct_run_properties["error_response_type"]}, error_limit = {self.hpct_run_properties["error_limit"]}\n' + f'pop_size = {self.wrapper_properties["pop_size"]}, gens = {self.wrapper_properties["gens"]}, attr_mut_pb = {self.evolve_properties["attr_mut_pb"]}, structurepb = {self.evolve_properties["structurepb"]}, lower_float = {self.hpct_structure_properties["lower_float"]}, upper_float = {self.hpct_structure_properties["upper_float"]}\n' + f'p_crossover = {self.wrapper_properties["p_crossover"]}, p_mutation = {self.wrapper_properties["p_mutation"]}\n' + f'seed = {self.hpct_run_properties["seed"]}, nevals = {self.hpct_run_properties["nevals"]}, runs = {self.hpct_run_properties["runs"]}, mode = {self.hpct_structure_properties["mode"]}\n'
+            properties_str = 'Properties:\n' + f'Env = {self.environment_properties["env_name"]}, description = {self.db["desc"]}\n' + f'inputs = {self.environment_properties["env_inputs_indexes"]}, names = {self.environment_properties["env_inputs_names"]}, references = {self.environment_properties["references"]}, top_inputs = {self.environment_properties["toplevel_inputs_indexes"]}\n' + f'min_levels_limit = {self.hpct_structure_properties["min_levels_limit"]}, max_levels_limit = {self.hpct_structure_properties["max_levels_limit"]}, min_columns_limit = {self.hpct_structure_properties["min_columns_limit"]}, max_columns_limit = {self.hpct_structure_properties["max_columns_limit"]}, early_termination = {self.environment_properties["early_termination"]}\n' + f'error_collector = {self.hpct_run_properties["error_collector_type"]}, error_response = {self.hpct_run_properties["error_response_type"]}, error_limit = {self.hpct_run_properties["error_limit"]}\n' + f'pop_size = {self.wrapper_properties["pop_size"]}, gens = {self.wrapper_properties["gens"]}, attr_mut_pb = {self.evolve_properties["attr_mut_pb"]}, structurepb = {self.evolve_properties["structurepb"]}, lower_float = {self.hpct_structure_properties["lower_float"]}, upper_float = {self.hpct_structure_properties["upper_float"]}\n' + f'p_crossover = {self.wrapper_properties["p_crossover"]}, p_mutation = {self.wrapper_properties["p_mutation"]}\n' + f'seed = {seed}, nevals = {self.hpct_run_properties["nevals"]}, runs = {self.hpct_run_properties["runs"]}, mode = {self.hpct_structure_properties["mode"]}\n'
             print(properties_str)
             # logger.info(properties_str)
             # if raw != None:
@@ -2131,7 +2131,7 @@ class HPCTEvolveProperties(object):
         "Evolve from file - when is this used?"
         logger.info('Start evolve_from_properties_file')
         import hashlib
-        properties_str = self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size)
+        properties_str = self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size, seed=seed)
         
         if self.environment_properties['environment_properties'] is None:
             self.environment_properties['environment_properties'] = environment_properties
@@ -2355,7 +2355,7 @@ class HPCTGenerateEvolvers(object):
                         filepath = f'configs{sep}{env}{sep}{filename}.properties'
                         self.write_to_file(filepath, text)
                         # cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
-                        cmd = f'python examples{sep}evolve.py {env} {filename} '
+                        cmd = f'python -m impl.evolve {env} {filename} '
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
 

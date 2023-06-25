@@ -66,8 +66,8 @@ if __name__ == '__main__':
         #evolve_verbose = 3 #2# 1 #2 # output of evolve iterations, 2 for best of each gen
 
         save_arch_gen = True #False #True
-        display_env = True #True #False#
-        run_gen_best = True # #False #True
+        display_env = False #True #True #False#
+        run_gen_best = False #True # #False #True
 
         #save_arch_gen = False #True
         #display_env = False #False#
@@ -84,30 +84,32 @@ if __name__ == '__main__':
         #         print(f'Sleeping for {10-i} seconds')
         #         sleep(1)
 
-        hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
+        for seed in range(100):
 
-        # logging info
-        now = datetime.now() # current date and time
-        date_time = now.strftime("%Y%m%d-%H%M%S")
-        log_dir=sep.join((out_dir, env_name, desc, hash_num, "output"))
-        makedirs(log_dir,exist_ok = True) 
-        log_file=sep.join((log_dir, "evolve-client-"+platform.node()+"-"+date_time+".log"))
-        logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
-        logger = logging.getLogger(__name__)
-        logger.info("Evolving {} ".format(env_name))
-        logger.info(properties_str)
+                hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
 
-        # try:
-        hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
-                                output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
+                # logging info
+                now = datetime.now() # current date and time
+                date_time = now.strftime("%Y%m%d-%H%M%S")
+                log_dir=sep.join((out_dir, env_name, desc, hash_num, "output"))
+                makedirs(log_dir,exist_ok = True) 
+                log_file=sep.join((log_dir, "evolve-client-"+platform.node()+"-"+date_time+".log"))
+                logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+                logger = logging.getLogger(__name__)
+                logger.info("Evolving {} ".format(env_name))
+                logger.info(properties_str)
 
-        # except Exception as e:
-        #         if hasattr(e, 'message'):
-        #                 print(e.message)
-        #                 logger.info(e.message)
-        #         else:
-        #                 print(e)
-        #                 logger.info(e)
+                # try:
+                hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
+                                        output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
+
+                # except Exception as e:
+                #         if hasattr(e, 'message'):
+                #                 print(e.message)
+                #                 logger.info(e.message)
+                #         else:
+                #                 print(e)
+                #                 logger.info(e)
 
 
         

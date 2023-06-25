@@ -1,0 +1,15 @@
+
+
+from eepct.hpct import HPCTIndividual
+
+test = 2
+
+if test==1:
+  config =  {'type': 'Individual', 'name': 'pcthierarchy', 'pre': {'pre0': {'type': 'CartPoleV1', 'name': 'CartPoleV1', 'value': [0.03498833197860944, 0.20994561633454428, 0.012668159509212712, -0.2705237130920193, 0.047656152654718356], 'links': {0: 'Action1'}, 'env_name': 'CartPole-v1', 'reward': 1.0, 'done': False, 'info': {}}, 'pre1': {'type': 'IndexedParameter', 'name': 'ICV', 'value': 0.20994561633454428, 'links': {0: 'CartPoleV1'}, 'index': 1}, 'pre2': {'type': 'IndexedParameter', 'name': 'ICP', 'value': 0.03498833197860944, 'links': {0: 'CartPoleV1'}, 'index': 0}, 'pre3': {'type': 'IndexedParameter', 'name': 'IPV', 'value': -0.2705237130920193, 'links': {0: 'CartPoleV1'}, 'index': 3}, 'pre4': {'type': 'IndexedParameter', 'name': 'IPA', 'value': 0.012668159509212712, 'links': {0: 'CartPoleV1'}, 'index': 2}}, 'levels': {'level0': {'level': 0, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L0C0', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL0C0', 'value': 0, 'links': {}}}, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL0C0', 'value': -0.2705237130920193, 'links': {0: 'ICV', 1: 'ICP', 2: 'IPV', 3: 'IPA'}, 'weights': [0, 0, 1, 0]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C0', 'value': 0.2705237130920193, 'links': {0: 'RL0C0', 1: 'PL0C0'}}}, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL0C0', 'value': -0.05046166000036782, 'links': {0: 'CL0C0'}, 'gain': -0.1865332226280776}}}}}}}, 'post': {'post0': {'type': 'EAWeightedSum', 'name': 'Action1', 'value': -0.005282911840894066, 'links': {0: 'OL0C0'}, 'weights': [0.10469159835121472]}}}
+ 
+ 
+if test==2:
+    config = {'type': 'Individual', 'name': 'pcthierarchy', 'pre': {'pre0': {'type': 'MountainCarContinuousV0', 'name': 'MountainCarContinuousV0', 'value': [-0.0, -0.0, 0.0], 'links': {0: 'Action1'}, 'env_name': 'MountainCarContinuous-v0', 'reward': 0.049, 'done': False, 'info': {}}, 'pre1': {'type': 'IndexedParameter', 'name': 'IP', 'value': -0.0, 'links': {0: 'MountainCarContinuousV0'}, 'index': 0}, 'pre2': {'type': 'IndexedParameter', 'name': 'IV', 'value': -0.0, 'links': {0: 'MountainCarContinuousV0'}, 'index': 1}}, 'levels': {'level0': {'level': 0, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L0C0', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL0C0', 'value': 0.45, 'links': {}}}, 'percoll': {'0': {'type': 'EASmoothWeightedSum', 'name': 'PL0C0', 'value': -0.0, 'links': {0: 'IP', 1: 'IV'}, 'weights': [0.47574422389645465, -0.208869207482694], 'smooth_factor': 0.19172023627949142}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C0', 'value': 0.0, 'links': {0: 'RL0C0', 1: 'PL0C0'}}}, 'outcoll': {'0': {'type': 'EASmoothWeightedSum', 'name': 'OL0C0', 'value': 0.0, 'links': {0: 'CL0C0'}, 'weights': [1.3212686341195057], 'smooth_factor': 0.5854198725038962}}}}}}}, 'post': {'post0': {'type': 'EAWeightedSum', 'name': 'Action1', 'value': 0.0, 'links': {0: 'OL0C0'}, 'weights': [0.9307628044405286]}}}
+    
+    
+ind = HPCTIndividual.from_config(config, seed=1)

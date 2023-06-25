@@ -60,7 +60,7 @@ if __name__ == "__main__":
     #print(evolver_properties)
     evr = HPCTEvolverWrapper(evolver=evolver, min=min, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=False)
 
-    test=1
+    test=2
     if test==1:
         print('Start evolve')
         verbose=  1

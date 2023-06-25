@@ -67,6 +67,12 @@
             "module": "examples.example-arch"
         },
         {
+            "name": "load-from-config",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-load-from-config"
+        },
+        {
             "name": "from-config",
             "type": "python",
             "request": "launch",

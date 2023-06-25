@@ -31,7 +31,9 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 1
+test = 24
+
+filename = ''
 
 # Std00
 if test == 1:
@@ -72,6 +74,13 @@ if test == 22:
 
 
 file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/CartPoleV1/'+ filename + ".properties"
+
+# MC00
+if test == 24:
+    filename = 'MC00-ReferencedInputsError-RootMeanSquareError-Mode03'
+    file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/MountainCarContinuousV0/'+ filename + ".properties"
+
+
 out_dir= get_gdrive() + 'data/ga/'
 #print(out_dir)
 
