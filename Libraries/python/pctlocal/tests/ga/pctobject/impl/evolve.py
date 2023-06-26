@@ -13,6 +13,9 @@ from epct.evolvers import CommonToolbox
 from eepct.hpct import HPCTIndividual
 from time import sleep
 
+
+logger = logging.getLogger(__name__)
+
 # set EA_ENVNAME=CartPoleV1
 
 if __name__ == '__main__':
@@ -24,9 +27,18 @@ if __name__ == '__main__':
                 parser = argparse.ArgumentParser()
                 parser.add_argument("env_name", help="the environment name")
                 parser.add_argument("file", help="the properties file name")
+                parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
+                parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
+                parser.add_argument("-d", "--display_env", help="display best of each generation", action="store_true")
+                parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=1)
+                parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
+
                 args = parser.parse_args()
                 env_name = args.env_name 
                 filename = args.file
+                start=args.start
+                iters=args.iters
+                
 
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
 
@@ -61,41 +73,29 @@ if __name__ == '__main__':
         hpct_verbose= False #True # log of every control system iteration
         evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 
-        # debug= 2 #3 #0 #3 # details of population in each gen, inc. mutate and merge
-        #hpct_verbose= 1 #True # log of every control system iteration
-        #evolve_verbose = 3 #2# 1 #2 # output of evolve iterations, 2 for best of each gen
+       
 
-        save_arch_gen = True #False #True
-        display_env = False #True #True #False#
-        run_gen_best = False #True # #False #True
-
-        #save_arch_gen = False #True
-        #display_env = False #False#
-        #run_gen_best = False # #False #True
-
-        verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': display_env, 'hpct_verbose':hpct_verbose, 
-                'save_arch_gen': save_arch_gen, 'run_gen_best':run_gen_best}
+        verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': args.display_env, 'hpct_verbose':hpct_verbose, 
+                'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best}
+        
+        # print(verbose)
 
         hep = HPCTEvolveProperties()
         output=True
         overwrite=True
 
-        # for i in range(20):
-        #         print(f'Sleeping for {10-i} seconds')
-        #         sleep(1)
+         # logging info
+        now = datetime.now() # current date and time
+        date_time = now.strftime("%Y%m%d-%H%M%S")
+        log_dir=sep.join((out_dir, env_name, filename))
+        makedirs(log_dir,exist_ok = True) 
+        log_file=sep.join((log_dir, "evolve-"+platform.node()+"-"+date_time+".log"))
+        logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+        logger = logging.getLogger(__name__)
 
-        for seed in range(100):
-
+        for seed in range(start, iters+start, 1):
                 hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
-
-                # logging info
-                now = datetime.now() # current date and time
-                date_time = now.strftime("%Y%m%d-%H%M%S")
-                log_dir=sep.join((out_dir, env_name, desc, hash_num, "output"))
-                makedirs(log_dir,exist_ok = True) 
-                log_file=sep.join((log_dir, "evolve-client-"+platform.node()+"-"+date_time+".log"))
-                logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
-                logger = logging.getLogger(__name__)
+                
                 logger.info("Evolving {} ".format(env_name))
                 logger.info(properties_str)
 

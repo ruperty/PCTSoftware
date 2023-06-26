@@ -77,7 +77,7 @@ file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobje
 
 # MC00
 if test == 24:
-    filename = 'MC00-ReferencedInputsError-RootMeanSquareError-Mode03'
+    filename = 'MC05-ReferencedInputsError-RootMeanSquareError-Mode02'
     file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/MountainCarContinuousV0/'+ filename + ".properties"
 
 

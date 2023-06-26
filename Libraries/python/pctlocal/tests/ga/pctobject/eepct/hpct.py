@@ -1096,6 +1096,9 @@ class HPCTEvolver(BaseEvolver):
             ip = IndexedParameter(index=input_index, name=input_name, links=[env], namespace=env.namespace)
             env_inputs.append(ip)
             if toplevel_inputs_indexes != None:
+                if zerolevel_inputs_indexes is None:
+                    raise Exception(f'HPCTEvolver.create_inputs: if top level inputs {len(toplevel_inputs_indexes)} are specified so should zero level inputs.')
+
                 if input_index in toplevel_inputs_indexes:
                     toplevel_inputs.append(ip)
                 if input_index in zerolevel_inputs_indexes:
@@ -2433,6 +2436,10 @@ class HPCTGenerateEvolvers(object):
                     arch={}
                     arch['name']=record['arch_name']
                     arch['env_inputs_indexes']=eval(record['env_inputs_indexes'])
+                    if len(record['zerolevel_inputs_indexes']) > 0:
+                        arch['zerolevel_inputs_indexes']=eval(record['zerolevel_inputs_indexes'])
+                    if len(record['toplevel_inputs_indexes']) > 0:
+                        arch['toplevel_inputs_indexes']=eval(record['toplevel_inputs_indexes'])
                     arch['references']=eval(record['references'])
                     arch['env_inputs_names']=record['env_inputs_names']
                     
