@@ -9,7 +9,7 @@ from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
 from pct.architectures import run_from_properties_file
 from pct.network import ClientConnectionManager   
 
-test = 30
+test = 31
 
 
   
@@ -78,6 +78,7 @@ def runit(datum, env_props, render=False, history=False, move=None, plots=None, 
     error_collector_type = hep.db['error_collector_type']
     error_response_type = hep.db['error_response_type']
     error_limit = eval(hep.db['error_limit'])
+    error_properties = hep.get_error_properties()
     if runs==None:
         runs = eval(hep.db['runs'])
     config = eval(hep.db['config'])
@@ -87,6 +88,8 @@ def runit(datum, env_props, render=False, history=False, move=None, plots=None, 
     if history:
         end = filename.find('.properties')
         outdir =  root + 'data'+sep+'ga'+sep + env + sep + gatest+ sep + filename[end-32:end]
+    else:
+        outdir=None
         # makedirs(outdir, exist_ok=True)
 
 
@@ -94,7 +97,7 @@ def runit(datum, env_props, render=False, history=False, move=None, plots=None, 
     
     
     ind, score = HPCTIndividual.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                                error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
+                                                error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=env_props,
                                                 seed=seed, early_termination=early_termination, move=move, plots=plots, suffixes=True, plots_dir=outdir)
 
@@ -173,6 +176,8 @@ data = [
     # 
     [27, 'WebotsWrestler\WW01-08-RewardError-CurrentError-Mode02\\ga-001.837-s001-2x5-m002-6a468a669e5944c2d8792af248741dd0.properties'], 
 
+    [28, 'MountainCarContinuousV0'+sep+'MC00-ReferencedInputsError-RootMeanSquareError-Mode03'+sep+'ga-000.631-s066-2x2-m003-eb57dceed66c7697c01c54617cb106ff.properties']
+
 ]
 
 # todo
@@ -183,7 +188,7 @@ data = [
 # WW01-05-RewardError-CurrentError-Mode01/757a5d1b4a1dea1eb118d18c8f22d7d5/output/
 # 
 
-index=0
+index=28
 
 # C:\Users\ryoung\Google Drive\data\ga\WebotsWrestler\WW01-07-RewardError-CurrentError-Mode02\108925b64cd5a2b96bde2bfc108fd4f8\output
 
@@ -215,6 +220,11 @@ if test == 30:
     runit(data[index], env_props, render=True, history=history, plots=plots, runs=100)
     
 
+if test == 31:
+    env_props={}
+    history=True
+    runit(data[index], env_props, render=True, runs=500)
+    
 
 
 

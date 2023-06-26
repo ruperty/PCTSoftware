@@ -18,6 +18,8 @@ def runit(filename, env_props, render=False, history=False, runs=None, early_ter
     error_collector_type = hep.db['error_collector_type']
     error_response_type = hep.db['error_response_type']
     error_limit = eval(hep.db['error_limit'])
+    error_properties = hep.get_error_properties()
+
     if runs==None:
         runs = eval(hep.db['runs'])
     config = eval(hep.db['config'])
@@ -27,7 +29,7 @@ def runit(filename, env_props, render=False, history=False, runs=None, early_ter
     hpct_verbose= False #True #False #
     
     ind, score = HPCTIndividual.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                                error_properties=None, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
+                                                error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=env_props, seed=seed, early_termination=early_termination)
     
     print(f'Score={score:0.3f}')
