@@ -9,7 +9,7 @@ Created on Thu Feb  4 19:08:59 2021
 
 
 from pct.architectures import run_from_properties_file
-from utils.paths import get_gdrive
+from cutils.paths import get_gdrive
 import os
 
 
@@ -20,8 +20,7 @@ plots = []
 nevals = None
 root_dir=get_gdrive()
 prefix = 'data/ga/'
-env = 'MountainCarContinuousV0/'
-type = 'Topp1-ReferencedInputsError-RootMeanSquareError-Binary-SmoothWeightedSum/'
+env = 'MountainCarContinuousV0-2/'
 funcdata = False #True #False
 
 if funcdata:
@@ -34,7 +33,7 @@ else:
       'OL1C0sm': [0, -0.1], 'IV': [-0.1, 0.0], 'IP': [-0.6, 0.5], 'CL1C0': [0, 0.1]}
 
 
-test=21
+test=22
 
 
 if test==20:
@@ -48,11 +47,11 @@ if test==20:
     
 if test==21:
     # only works with plenty of momentum
+    type = 'Topp1-ReferencedInputsError-RootMeanSquareError-Binary-SmoothWeightedSum/'
     file = 'ga-000.334-s005-2x2-6655-0e807ca9d92dc8b7f825dfb5d7fe79c2.properties'
     plots = [{'plot_items': {'IP':'ip', 'IV':'iv'}, 'title':'Inputs'},
              {'plot_items': {'CL0C0':'err'}, 'title':'Error'},
              {'plot_items': {'RL1C0c':'ref', 'PL1C0ws': 'per'}, 'title':'Goal'}]  
-    
     
     plots = [
         {'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},
@@ -70,15 +69,27 @@ if test==21:
     nevals=1
     #seed = 58
     
-    
+if test==22:
+    type = 'Topp1-ReferencedInputsError-RootMeanSquareError-AllFloats-SmoothWeightedSum/'
+    file = 'ga-000.334-s068-2x2-6655-8193255f62b3d17188329b5537b3631d.properties'
+    nevals=1
+
+if test==23:
+    type = 'Topp1-ReferencedInputsError-RootMeanSquareError-AllFloats-SmoothWeightedSum/'
+    file = 'ga-000.326-s066-2x3-6655-3e2bd466e286755de7111bfc35b40609.properties'
+    nevals=1
+
     
 file_path=os.sep.join((prefix, env, type))
-render = False
+render = True
 draw_file="mc.png"
 hpct, score_sum, output = run_from_properties_file(root_dir=root_dir, path=file_path, file=file, 
     nevals=nevals, move=move, plots=plots, seed=seed, print_properties=True, verbose=verbose, 
     draw=True, early_termination=True, figsize=figsize, render =render, draw_file=draw_file, funcdata=funcdata)
 
+# print(hpct.formatted_config())
+# hpct.summary()
+print(hpct.get_config(zero=0))
 
 
 
