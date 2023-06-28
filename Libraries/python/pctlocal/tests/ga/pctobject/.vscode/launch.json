@@ -47,6 +47,16 @@
             "request": "launch",
             "module": "impl.run_files_from_dir"
         },
+        {
+            "name": "run_from_file",
+            "type": "python",
+            "request": "launch",
+            "program": "impl/run_from_file.py",
+            "args": ["--file", "G:\\My Drive\\data\\ga\\testfiles\\ga-000.334-s068-2x2-6655-8193255f62b3d17188329b5537b3631d-pctobject.properties", "-e", "-v"],
+            "console": "internalConsole"
+        },
+
+
 
         {
             "name": "mutate_ind",

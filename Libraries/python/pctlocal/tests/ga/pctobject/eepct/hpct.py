@@ -1902,6 +1902,7 @@ class HPCTEvolveProperties(object):
 
         # read properties from file
         configs = Properties()
+        #print(file)
         with open(file, 'rb') as config_file:
             configs.load(config_file)
 

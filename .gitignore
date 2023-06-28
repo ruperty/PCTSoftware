@@ -31,3 +31,5 @@ Libraries/python/webots/worlds/wrestling-nosync-extern.wbt
 Libraries/python/webots/controllers/participant/__pycache__/participant.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/examples/__pycache__/example-hpct-from-config.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/dynamic/out.png
+Libraries/python/pctlocal/tests/ga/pctobject/impl/__pycache__/evolve.cpython-39.pyc
+Libraries/python/pctlocal/tests/ga/pctobject/impl/__pycache__/run_from_file.cpython-39.pyc
