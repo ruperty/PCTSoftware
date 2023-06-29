@@ -2,8 +2,8 @@ python -m impl.evolve MountainCarContinuousV0 MC00-ReferencedInputsError-RootMea
 python -m impl.evolve MountainCarContinuousV0 MC01-ReferencedInputsError-RootMeanSquareError-Mode00 -i 100
 python -m impl.evolve MountainCarContinuousV0 MC02-ReferencedInputsError-RootMeanSquareError-Mode01 -i 100
 python -m impl.evolve MountainCarContinuousV0 MC03-ReferencedInputsError-RootMeanSquareError-Mode01 -i 100
-py -m impl.evolve MountainCarContinuousV0 MC04-ReferencedInputsError-RootMeanSquareError-Mode02 -i 100
-py -m impl.evolve MountainCarContinuousV0 MC05-ReferencedInputsError-RootMeanSquareError-Mode02 -i 100
+python -m impl.evolve MountainCarContinuousV0 MC04-ReferencedInputsError-RootMeanSquareError-Mode02 -i 100
+python -m impl.evolve MountainCarContinuousV0 MC05-ReferencedInputsError-RootMeanSquareError-Mode02 -i 100
 python -m impl.evolve MountainCarContinuousV0 MC06-ReferencedInputsError-RootMeanSquareError-Mode03 -i 100
 python -m impl.evolve MountainCarContinuousV0 MC07-ReferencedInputsError-RootMeanSquareError-Mode03 -i 100
 python -m impl.evolve MountainCarContinuousV0 MC08-ReferencedInputsError-RootMeanSquareError-Mode04 -i 100
