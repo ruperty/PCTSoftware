@@ -55,6 +55,14 @@
             "args": ["--file", "G:\\My Drive\\data\\ga\\testfiles\\ga-000.334-s068-2x2-6655-8193255f62b3d17188329b5537b3631d-pctobject.properties", "-e", "-v"],
             "console": "internalConsole"
         },
+        {
+            "name": "evolve",
+            "type": "python",
+            "request": "launch",
+            "program": "impl/evolve.py",
+            "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00", "-i", "2"],
+            "console": "internalConsole"
+        },
 
 
 
