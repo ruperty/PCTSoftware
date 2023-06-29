@@ -32,12 +32,14 @@ if __name__ == '__main__':
                 parser.add_argument("-d", "--display_env", help="display best of each generation", action="store_true")
                 parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=1)
                 parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
+                parser.add_argument('-e', '--early', help="early termination", action="store_true")
 
                 args = parser.parse_args()
                 env_name = args.env_name 
                 filename = args.file
                 start=args.start
-                iters=args.iters
+                iters=args.iters                
+                early = args.early 
                 
 
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
