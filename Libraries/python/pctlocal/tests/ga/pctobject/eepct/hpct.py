@@ -1775,19 +1775,20 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     log_string = ''.join((log_string, log_stats, '\n'))
 
             self.best_of_gens.append(top_ind)
-            top_config=top_ind.get_config(zero=0)            
-            top_config_formatted = top_ind.formatted_config()
-            
+            top_config=top_ind.get_config(zero=0)   
+
+            # top_config_formatted = top_ind.formatted_config()        
             # logger.info(f'TOP config gen {gen:03} score {top_ind.get_error_collector().error()}')            
             # logger.info(f'TOP config gen {gen:03} \n{top_config_formatted}')            
             # logger.info(f'TOP config gen {gen:03} \n{top_config}')
 
             if self.run_gen_best:
                 render = True if self.display_env else False
-                if render:
-                    print(f'Displaying gen {gen:03}', end = ' ')
-                else:
-                    print(f'Running gen {gen:03}', end = ' ')
+                if evolve_verbose>0:
+                    if render:
+                        print(f'Displaying gen {gen:03}', end = ' ')
+                    else:
+                        print(f'Running gen {gen:03}', end = ' ')
                     
                 # print('temp setting of hpct_verbose to True')
                 # hpct_verbose=True
@@ -1801,7 +1802,8 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
                     flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties)
 
-                print(f'score = {score:8.3f}' )
+                if evolve_verbose>0:
+                    print(f'score = {score:8.3f}' )
                 
                 logger.info(f'Running gen {gen:03} score = {score:8.3f}')
                 
@@ -2017,8 +2019,8 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_limit', float_convert=True)
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='runs', int_convert=True)
 
+        properties_str = 'Properties:\n' + f'Env = {self.environment_properties["env_name"]}, description = {self.db["desc"]}\n' + f'inputs = {self.environment_properties["env_inputs_indexes"]}, names = {self.environment_properties["env_inputs_names"]}, references = {self.environment_properties["references"]}, top_inputs = {self.environment_properties["toplevel_inputs_indexes"]}\n' + f'min_levels_limit = {self.hpct_structure_properties["min_levels_limit"]}, max_levels_limit = {self.hpct_structure_properties["max_levels_limit"]}, min_columns_limit = {self.hpct_structure_properties["min_columns_limit"]}, max_columns_limit = {self.hpct_structure_properties["max_columns_limit"]}, early_termination = {self.environment_properties["early_termination"]}\n' + f'error_collector = {self.hpct_run_properties["error_collector_type"]}, error_response = {self.hpct_run_properties["error_response_type"]}, error_limit = {self.hpct_run_properties["error_limit"]}\n' + f'pop_size = {self.wrapper_properties["pop_size"]}, gens = {self.wrapper_properties["gens"]}, attr_mut_pb = {self.evolve_properties["attr_mut_pb"]}, structurepb = {self.evolve_properties["structurepb"]}, lower_float = {self.hpct_structure_properties["lower_float"]}, upper_float = {self.hpct_structure_properties["upper_float"]}\n' + f'p_crossover = {self.wrapper_properties["p_crossover"]}, p_mutation = {self.wrapper_properties["p_mutation"]}\n' + f'seed = {seed}, nevals = {self.hpct_run_properties["nevals"]}, runs = {self.hpct_run_properties["runs"]}, mode = {self.hpct_structure_properties["mode"]}\n'
         if print_properties:
-            properties_str = 'Properties:\n' + f'Env = {self.environment_properties["env_name"]}, description = {self.db["desc"]}\n' + f'inputs = {self.environment_properties["env_inputs_indexes"]}, names = {self.environment_properties["env_inputs_names"]}, references = {self.environment_properties["references"]}, top_inputs = {self.environment_properties["toplevel_inputs_indexes"]}\n' + f'min_levels_limit = {self.hpct_structure_properties["min_levels_limit"]}, max_levels_limit = {self.hpct_structure_properties["max_levels_limit"]}, min_columns_limit = {self.hpct_structure_properties["min_columns_limit"]}, max_columns_limit = {self.hpct_structure_properties["max_columns_limit"]}, early_termination = {self.environment_properties["early_termination"]}\n' + f'error_collector = {self.hpct_run_properties["error_collector_type"]}, error_response = {self.hpct_run_properties["error_response_type"]}, error_limit = {self.hpct_run_properties["error_limit"]}\n' + f'pop_size = {self.wrapper_properties["pop_size"]}, gens = {self.wrapper_properties["gens"]}, attr_mut_pb = {self.evolve_properties["attr_mut_pb"]}, structurepb = {self.evolve_properties["structurepb"]}, lower_float = {self.hpct_structure_properties["lower_float"]}, upper_float = {self.hpct_structure_properties["upper_float"]}\n' + f'p_crossover = {self.wrapper_properties["p_crossover"]}, p_mutation = {self.wrapper_properties["p_mutation"]}\n' + f'seed = {seed}, nevals = {self.hpct_run_properties["nevals"]}, runs = {self.hpct_run_properties["runs"]}, mode = {self.hpct_structure_properties["mode"]}\n'
             print(properties_str)
             # logger.info(properties_str)
             # if raw != None:
