@@ -73,7 +73,9 @@ if __name__ == '__main__':
                'overwrite':args.overwrite, 'verbose': args.verbose}
         list.append(arg) 
     
-    p = Pool()
+    processes = os.cpu_count()
+    print('Processes={processes}')
+    p = Pool(processes)
     p.map(evolve, list)
     
     p.close()
