@@ -64,8 +64,6 @@ if __name__ == '__main__':
 
         root = get_root_path()
 
-
-
         file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/' + env_name +'/'+ filename + ".properties"
 
         local_out_dir = 'output/'  + filename 
