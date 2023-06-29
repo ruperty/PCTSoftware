@@ -75,7 +75,7 @@ if __name__ == '__main__':
     
     processes = os.cpu_count()
     print('Processes={processes}')
-    p = Pool(processes)
+    p = Pool(processes=processes)
     p.map(evolve, list)
     
     p.close()
