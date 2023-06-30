@@ -11,6 +11,7 @@ from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
 
 # python -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC04-ReferencedInputsError-RootMeanSquareError-Mode02\ga-000.380-s008-2x2-m002-90b3f2cfd2a1cb0235ad8f8178608f35.properties"
 
+# python -m impl.run_from_file -f "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\ga-000.385-s064-2x2-m000-f46606db9aa4aabc0af650882cabb6ac.properties"
 
 if __name__ == '__main__':
 
@@ -20,18 +21,14 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--early', help="early termination", action="store_true")
     parser.add_argument('-d', '--display', help="display environment", action="store_false")
     parser.add_argument("-v", "--verbose", help="print output ", action="store_true")
+    parser.add_argument("-s", "--seed", type=int, help="seed value", default="1")
 
     args = parser.parse_args()
-    file = args.file 
-    runs = args.runs 
-    early = args.early 
-    render = args.display
-    hpct_verbose = args.verbose
 
     # file = 'G:\My Drive\data\ga\MountainCarContinuousV0\MC00-ReferencedInputsError-RootMeanSquareError-Mode03\ga-000.631-s066-2x2-m003-eb57dceed66c7697c01c54617cb106ff.properties'
     # file = 'G:\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.548-s013-2x2-m004-5a08e6cdc09769db0267a14f0634b051.properties'
 
-    score = HPCTIndividual.run_from_file(file, render=render, history=False, move=None, plots=None, hpct_verbose= hpct_verbose, runs=None, outdir=None, early_termination=early)
+    score = HPCTIndividual.run_from_file(args.file, seed=args.seed, render=args.display, history=False, move=None, plots=None, hpct_verbose= args.verbose, runs=None, outdir=None, early_termination=args.early)
      
     
     print(f'Score={score:0.3f}')

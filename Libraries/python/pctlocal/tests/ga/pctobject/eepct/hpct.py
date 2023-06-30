@@ -857,7 +857,7 @@ class HPCTIndividual(PCTHierarchy):
     
     
     @classmethod
-    def run_from_file(cls, filename, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
+    def run_from_file(cls, filename, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
         
         hep = HPCTEvolveProperties()
         hep.load_db(filename)
@@ -872,7 +872,9 @@ class HPCTIndividual(PCTHierarchy):
         if runs==None:
             runs = eval(hep.db['runs'])
         config = eval(hep.db['config'])
-        seed = eval(hep.db['seed'])
+        if seed is None:
+            seed = eval(hep.db['seed'])
+        print(f'Seed={seed}')
         if early_termination is None:
             early_termination = eval(hep.db['early_termination'])
 
@@ -2011,6 +2013,7 @@ class HPCTEvolveProperties(object):
 
         error_properties = self.get_error_properties()
         # properties of one HPCT run.
+        self.fseed = self.db['seed']   
         self.hpct_run_properties['error_properties'] = error_properties
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_collector_type',  default=None)
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_response_type',  default=None)
@@ -2139,7 +2142,7 @@ class HPCTEvolveProperties(object):
 
     def configure_evolver_from_properties_file(self, file=None, verbose=None, seed=None, flip_error_response=False,
             gens=None, pop_size=None, print_properties=False, toolbox=None, processes=1, min=True, environment_properties=None):
-        "Evolve from file - when is this used?"
+        "Evolve from properties file"
         logger.info('Start evolve_from_properties_file')
         import hashlib
         properties_str = self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size, seed=seed)
@@ -2155,7 +2158,7 @@ class HPCTEvolveProperties(object):
             self.wrapper_properties['pop_size']=pop_size
 
         if seed is None:
-            seed = self.hpct_run_properties['seed']
+            seed = self.hpct_run_properties['seed']            
         else:
             self.hpct_run_properties['seed']=seed
         # modes_list = properties['modes']
@@ -2291,7 +2294,7 @@ class HPCTEvolveProperties(object):
             results = f'# Date {dateTimeObj}\n' + '# Result'+'\n' + '# Best individual'+'\n' + f'raw = {best.formatted_config()}'+'\n\n' + f'config = {best.get_config(zero=0)}'+'\n' + f'score = {score:0.5f}'+'\n' + f'# Time  {meantime:0.4f}'+'\n'
             
             f.write(results)
-            f.write(file_contents.replace(f'seed = {int(self.hpct_run_properties["seed"])}', f'seed = {seed}')+'\n')
+            f.write(file_contents.replace(f'seed = {self.fseed}', f'seed = {seed}')+'\n')
             if log:
                 f.write(log_string)
                 logger.info(results)

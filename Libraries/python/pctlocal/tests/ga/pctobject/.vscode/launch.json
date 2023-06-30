@@ -48,7 +48,7 @@
             "module": "impl.run_files_from_dir"
         },
         {
-            "name": "run_from_file",
+            "name": "run_from_file_win",
             "type": "python",
             "request": "launch",
             "program": "impl/run_from_file.py",
@@ -56,11 +56,21 @@
             "console": "internalConsole"
         },
         {
+            "name": "run_from_file_wsl",
+            "type": "python",
+            "request": "launch",
+            "module": "impl.run_from_file",
+            "args": ["--file", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode00/ga-000.387-s013-2x2-m000-0aae4f1ddfc2791f0c48debdc95ab6ce.properties", "-e", "-v"],
+            "console": "internalConsole"
+        },
+        {
             "name": "draw_from_file",
             "type": "python",
             "request": "launch",
-            "program": "impl/draw_from_file.py",
-            "args": ["-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\\ga-000.385-s064-2x2-m000-f46606db9aa4aabc0af650882cabb6ac.properties", "-o", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\\f46606db9aa4aabc0af650882cabb6ac", "-m", "{'IV':[0.15,0.2],'IP':[-0.8,0.1], 'OL0C0p':[-0.4,-0.2],'OL0C1p':[0,-0.2], 'OL1C0p':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"],
+            "module": "impl.draw_from_file",
+            //"program": "impl/draw_from_file.py",
+            //"args": ["-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\\ga-000.385-s064-2x2-m000-f46606db9aa4aabc0af650882cabb6ac.properties", "-o", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\\f46606db9aa4aabc0af650882cabb6ac", "-m", "{'IV':[0.15,0.2],'IP':[-0.8,0.1], 'OL0C0p':[-0.4,-0.2],'OL0C1p':[0,-0.2], 'OL1C0p':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"],
+            "args": ["-f", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode00/ga-000.385-s064-2x2-m000-f46606db9aa4aabc0af650882cabb6ac.properties", "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode00/f46606db9aa4aabc0af650882cabb6ac", "-m", "{'IV':[0, 0.05],'IP':[-0.6, 0.3], 'OL0C0p':[-0.28, -0.2],'OL0C1p':[0.28, -0.2], 'OL1C0p':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"],
             "console": "internalConsole"
         },
         {
