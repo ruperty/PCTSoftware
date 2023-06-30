@@ -56,6 +56,14 @@
             "console": "internalConsole"
         },
         {
+            "name": "draw_from_file",
+            "type": "python",
+            "request": "launch",
+            "program": "impl/draw_from_file.py",
+            "args": ["-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\\ga-000.385-s064-2x2-m000-f46606db9aa4aabc0af650882cabb6ac.properties", "-o", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\\f46606db9aa4aabc0af650882cabb6ac", "-m", "{'IV':[0.15,0.2],'IP':[-0.8,0.1], 'OL0C0p':[-0.4,-0.2],'OL0C1p':[0,-0.2], 'OL1C0p':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"],
+            "console": "internalConsole"
+        },
+        {
             "name": "evolve",
             "type": "python",
             "request": "launch",
