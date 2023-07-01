@@ -99,7 +99,7 @@ if __name__ == '__main__':
         parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
         parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
         parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
-        parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=4)
+        parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
         
         args = parser.parse_args()
         start=args.start
@@ -115,9 +115,9 @@ if __name__ == '__main__':
     
 
         mprocesses = cpu_count()
-        print('Machine processes={mprocesses}')
+        print(f'Machine processes={mprocesses}')
         processes = args.cpu
-        print('Application processes={processes}')
+        print(f'Application processes={processes}')
         p = Pool(processes=processes)
     
         p.map(evolve, list)

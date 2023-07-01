@@ -40,6 +40,8 @@ def runit(filename, env_props, render=False, history=False, runs=None, early_ter
 # python -m impl.run_files_from_dir -d "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\cdf7cc1497ad143c0b04a3d9e72ab783" 
 # python -m impl.run_files_from_dir -d "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783" 
 
+# python -m impl.run_files_from_dir -d "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode00/fc21f334f54a2f9b44275c793465158e" 
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
