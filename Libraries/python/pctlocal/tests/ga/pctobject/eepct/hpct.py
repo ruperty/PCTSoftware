@@ -755,15 +755,15 @@ class HPCTIndividual(PCTHierarchy):
         f.write('# individual'+'\n')
         f.write(f'score = {score:0.5f}'+'\n')
         #f.write(f'# Time  {meantime:0.4f}'+'\n')
-        f.write(f'seed = {seed}'+'\n')
+        f.write(f'\nseed = {seed}'+'\n')
         f.write(f'runs = {runs} \n')
-        f.write(f'early_termination = {early_termination} \n')               
-        f.write(f'error_response_type = {error_response_type} \n')
-        f.write(f'error_collector_type = {error_collector_type} \n')
-        f.write(f'error_limit = {error_limit} \n')
+        f.write(f'early_termination = {early_termination}\n')               
+        f.write(f'error_response_type = {error_response_type}\n')
+        f.write(f'error_collector_type = {error_collector_type}\n')
+        f.write(f'error_limit = {error_limit}\n')
         #f.write(f'raw = {self.get_parameters_list()}'+'\n')
-        f.write(f'raw = {self.formatted_config(3)}'+'\n')
-        f.write(f'config = {self.get_config(zero=0)}'+'\n')
+        f.write(f'\nraw = {self.formatted_config(3)}'+'\n')
+        f.write(f'\nconfig = {self.get_config(zero=0)}'+'\n')
 
         f.close()
         
@@ -862,7 +862,7 @@ class HPCTIndividual(PCTHierarchy):
         hep = HPCTEvolveProperties()
         hep.load_db(filename)
 
-        error_collector_type = hep.db['error_collector_type']
+        error_collector_type = hep.db['error_collector_type'].strip()
         error_response_type = hep.db['error_response_type']
         error_limit = eval(hep.db['error_limit'])
         environment_properties = eval(hep.db['environment_properties'])
@@ -2283,11 +2283,12 @@ class HPCTEvolveProperties(object):
             levels = len(struct)
             cols = max(struct)
             seed = self.hpct_run_properties['seed']
-            file_contents =  self.get_file_contents(file)
+            file_contents = HPCTEvolveProperties.get_file_contents(file)
 
             output_file = dir+sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{hash_num}.properties'
             if print_properties:
                 print(output_file)
+                
             f = open(output_file, "w")
             from datetime import datetime   
             dateTimeObj = datetime.now()
@@ -2304,7 +2305,8 @@ class HPCTEvolveProperties(object):
 
         return output_file, evr, score
 
-    def get_file_contents(self, file):
+    @classmethod
+    def get_file_contents(cls, file):
         "Get filtered contents a GA properties file."
         from io import StringIO
         file_str = StringIO()

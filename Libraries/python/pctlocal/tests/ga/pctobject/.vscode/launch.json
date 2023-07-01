@@ -47,6 +47,7 @@
             "request": "launch",
             "module": "impl.run_files_from_dir",
             "args": ["-d", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
+            //"args": ["-d", "/mnt/c/Users/ruper/My Drive/data/ga/CartPoleV1/Std00-InputsError-RootMeanSquareError-Mode00/fb22a9790da95d15522361084ca466ab/"],
             "console": "internalConsole"
         },
         {
@@ -76,11 +77,19 @@
             "console": "internalConsole"
         },
         {
-            "name": "evolve",
+            "name": "evolve_win",
             "type": "python",
             "request": "launch",
             "program": "impl/evolve.py",
-            "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00", "-i", "2"],
+            "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "2"],
+            "console": "internalConsole"
+        },
+        {
+            "name": "evolve_wsl",
+            "type": "python",
+            "request": "launch",
+            "module": "impl.evolve",
+            "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "2"],
             "console": "internalConsole"
         },
 
