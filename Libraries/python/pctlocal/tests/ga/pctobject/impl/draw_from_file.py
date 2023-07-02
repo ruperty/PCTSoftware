@@ -33,6 +33,8 @@ def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, n
 # python -m impl.draw_from_file -f "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode00/ga-000.385-s064-2x2-m000-f46606db9aa4aabc0af650882cabb6ac.properties" -o "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode00/f46606db9aa4aabc0af650882cabb6ac" -m "{'IV':[0.15,0.2],'IP':[-0.8,0.1], 'OL0C0p':[-0.4,-0.2],'OL0C1p':[0,-0.2], 'OL1C0p':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"
 
 # python -m impl.draw_from_file -f "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties" -o "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\cdf7cc1497ad143c0b04a3d9e72ab783" -m "{'IV':[0, 0.05],'IP':[-0.6, 0.3],  'OL0C0sm':[-0.28, -0.2],'OL0C1sm':[0.28, -0.2], 'OL1C0sm':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"
+# python -m impl.draw_from_file -f "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties" -o "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\cdf7cc1497ad143c0b04a3d9e72ab783" -m "{}" -d
+
 
 
 
