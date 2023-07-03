@@ -746,28 +746,59 @@ class HPCTIndividual(PCTHierarchy):
         return mutated > 0
 
 
-    def write_config_to_file(self, seed, runs , early_termination, error_response_type, error_collector_type, error_limit, score, file):
+    # def write_config_to_file(self, seed, runs , early_termination, error_response_type, error_collector_type, error_limit, score, file):
         
-        f = open(file, "w")
+    #     f = open(file, "w")
+    #     from datetime import datetime   
+    #     dateTimeObj = datetime.now()
+    #     f.write(f'# Date {dateTimeObj}\n')
+    #     f.write('# individual'+'\n')
+    #     f.write(f'score = {score:0.5f}'+'\n')
+    #     #f.write(f'# Time  {meantime:0.4f}'+'\n')
+    #     f.write(f'\nseed = {seed}'+'\n')
+    #     f.write(f'runs = {runs} \n')
+    #     f.write(f'early_termination = {early_termination}\n')               
+    #     f.write(f'error_response_type = {error_response_type}\n')
+    #     f.write(f'error_collector_type = {error_collector_type}\n')
+    #     f.write(f'error_limit = {error_limit}\n')
+    #     #f.write(f'raw = {self.get_parameters_list()}'+'\n')
+    #     f.write(f'\nraw = {self.formatted_config(3)}'+'\n')
+    #     f.write(f'\nconfig = {self.get_config(zero=0)}'+'\n')
+
+    #     f.close()
+        
+
+    def write_config_to_file1(self, in_file=None, seed=None, fseed=None, log=False, log_string=None, meantime=None, score=None, output_file=None):
+        file_contents = HPCTEvolveProperties.get_file_contents(in_file)
+
+        f = open(output_file, "w")
         from datetime import datetime   
         dateTimeObj = datetime.now()
+        
         f.write(f'# Date {dateTimeObj}\n')
-        f.write('# individual'+'\n')
-        f.write(f'score = {score:0.5f}'+'\n')
-        #f.write(f'# Time  {meantime:0.4f}'+'\n')
-        f.write(f'seed = {seed}'+'\n')
-        f.write(f'runs = {runs} \n')
-        f.write(f'early_termination = {early_termination} \n')               
-        f.write(f'error_response_type = {error_response_type} \n')
-        f.write(f'error_collector_type = {error_collector_type} \n')
-        f.write(f'error_limit = {error_limit} \n')
-        #f.write(f'raw = {self.get_parameters_list()}'+'\n')
-        f.write(f'raw = {self.formatted_config(3)}'+'\n')
-        f.write(f'config = {self.get_config(zero=0)}'+'\n')
+        f.write('# Result\n' )
+        f.write('# Best individual\n' )
+        f.write(f'raw = {self.formatted_config()}\n\n' )
+        f.write(f'config = {self.get_config(zero=0)}\n' )
+        f.write(f'score = {score:0.5f}\n')
+        if meantime is not None:
+            f.write(f'# Time  {meantime:0.4f}\n')
+
+        f.write(file_contents.replace(f'seed = {fseed}', f'seed = {seed}')+'\n')
+        if log:
+            f.write(log_string)
+
+            logger.info(f'# Date {dateTimeObj}\n')
+            logger.info('# Result\n' )
+            logger.info('# Best individual\n' )
+            logger.info(f'raw = {self.formatted_config()}\n\n' )
+            logger.info(f'config = {self.get_config(zero=0)}\n' )
+            logger.info(f'score = {score:0.5f}\n')
+            if meantime is not None:
+                logger.info(f'# Time  {meantime:0.4f}\n')
 
         f.close()
-        
-
+   
 
     @classmethod
     def from_properties_file(cls, file):
@@ -857,12 +888,12 @@ class HPCTIndividual(PCTHierarchy):
     
     
     @classmethod
-    def run_from_file(cls, filename, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
+    def run_from_file(cls, filename, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
         
         hep = HPCTEvolveProperties()
         hep.load_db(filename)
 
-        error_collector_type = hep.db['error_collector_type']
+        error_collector_type = hep.db['error_collector_type'].strip()
         error_response_type = hep.db['error_response_type']
         error_limit = eval(hep.db['error_limit'])
         environment_properties = eval(hep.db['environment_properties'])
@@ -872,7 +903,9 @@ class HPCTIndividual(PCTHierarchy):
         if runs==None:
             runs = eval(hep.db['runs'])
         config = eval(hep.db['config'])
-        seed = eval(hep.db['seed'])
+        if seed is None:
+            seed = eval(hep.db['seed'])
+        print(f'Seed={seed}')
         if early_termination is None:
             early_termination = eval(hep.db['early_termination'])
 
@@ -1703,11 +1736,13 @@ class HPCTEvolverWrapper(EvolverWrapper):
     
     def __init__(self, evolver, min, pop_size=25, p_crossover = 0.9, p_mutation = 0.1, display_env=False, select={'selection_type':'tournament', 'tournsize':None}, 
                  processes=1, save_arch_gen=False, save_arch_all=False, toolbox=None, hpct_verbose=False, run_gen_best=False, 
-                 font_size=8, node_size=100, local_out_dir=None, **cargs):
+                 font_size=8, node_size=100, local_out_dir=None, in_file=None, fseed=None, **cargs):
 
         super().__init__(evolver=evolver, pop_size=pop_size, p_crossover = p_crossover, p_mutation = p_mutation, display_env=display_env,
                  select=select, processes=processes, save_arch_gen=save_arch_gen, save_arch_all=save_arch_all, toolbox=toolbox)
         
+        self.in_file=in_file        
+        self.fseed=fseed
         self.hpct_verbose=hpct_verbose        
         self.run_gen_best=run_gen_best
         self.font_size=font_size        
@@ -1810,9 +1845,13 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 # draw ind to file ??
 
                 if self.save_arch_gen:                    
+                    # top_ind.write_config_to_file(self.evolver.seed, self.evolver.runs , self.evolver.early_termination, self.evolver.error_response_type, 
+                    #                              self.evolver.error_collector_type, self.evolver.error_limit, score, f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')                
+
+                    top_ind.write_config_to_file1(in_file=self.in_file, seed=self.evolver.seed, fseed=self.fseed, log=False, log_string=None, 
+                                                  meantime=None, score=score, output_file=f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')
+
                     fig_file = f'{self.local_out_dir}/fig{gen:03}.png'
-                    top_ind.write_config_to_file(self.evolver.seed, self.evolver.runs , self.evolver.early_termination, self.evolver.error_response_type, 
-                                                 self.evolver.error_collector_type, self.evolver.error_limit, score, f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')                
                     ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True)
 
                 
@@ -2011,6 +2050,7 @@ class HPCTEvolveProperties(object):
 
         error_properties = self.get_error_properties()
         # properties of one HPCT run.
+        self.fseed = self.db['seed']   
         self.hpct_run_properties['error_properties'] = error_properties
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_collector_type',  default=None)
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_response_type',  default=None)
@@ -2139,7 +2179,7 @@ class HPCTEvolveProperties(object):
 
     def configure_evolver_from_properties_file(self, file=None, verbose=None, seed=None, flip_error_response=False,
             gens=None, pop_size=None, print_properties=False, toolbox=None, processes=1, min=True, environment_properties=None):
-        "Evolve from file - when is this used?"
+        "Evolve from properties file"
         logger.info('Start evolve_from_properties_file')
         import hashlib
         properties_str = self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size, seed=seed)
@@ -2155,7 +2195,7 @@ class HPCTEvolveProperties(object):
             self.wrapper_properties['pop_size']=pop_size
 
         if seed is None:
-            seed = self.hpct_run_properties['seed']
+            seed = self.hpct_run_properties['seed']            
         else:
             self.hpct_run_properties['seed']=seed
         # modes_list = properties['modes']
@@ -2233,6 +2273,9 @@ class HPCTEvolveProperties(object):
 
         self.wrapper_properties['font_size']=font_size        
         self.wrapper_properties['node_size']=node_size        
+        self.wrapper_properties['in_file']=file        
+        self.wrapper_properties['fseed']=self.fseed        
+
         if output:
             self.wrapper_properties['local_out_dir']=dir+sep+hash_num        
 
@@ -2280,28 +2323,31 @@ class HPCTEvolveProperties(object):
             levels = len(struct)
             cols = max(struct)
             seed = self.hpct_run_properties['seed']
-            file_contents =  self.get_file_contents(file)
+            # file_contents = HPCTEvolveProperties.get_file_contents(file)
 
             output_file = dir+sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{hash_num}.properties'
             if print_properties:
                 print(output_file)
-            f = open(output_file, "w")
-            from datetime import datetime   
-            dateTimeObj = datetime.now()
-            results = f'# Date {dateTimeObj}\n' + '# Result'+'\n' + '# Best individual'+'\n' + f'raw = {best.formatted_config()}'+'\n\n' + f'config = {best.get_config(zero=0)}'+'\n' + f'score = {score:0.5f}'+'\n' + f'# Time  {meantime:0.4f}'+'\n'
-            
-            f.write(results)
-            f.write(file_contents.replace(f'seed = {int(self.hpct_run_properties["seed"])}', f'seed = {seed}')+'\n')
-            if log:
-                f.write(log_string)
-                logger.info(results)
+                
+            best.write_config_to_file1(in_file=file, seed=seed, fseed=self.fseed, log=log, log_string=log_string, meantime=meantime, score=score, output_file=output_file)
 
-            f.close()
-        #env.close()
+            # f = open(output_file, "w")
+            # from datetime import datetime   
+            # dateTimeObj = datetime.now()
+            # results = f'# Date {dateTimeObj}\n' + '# Result'+'\n' + '# Best individual'+'\n' + f'raw = {best.formatted_config()}'+'\n\n' + f'config = {best.get_config(zero=0)}'+'\n' + f'score = {score:0.5f}'+'\n' + f'# Time  {meantime:0.4f}'+'\n'
+            
+            # f.write(results)
+            # f.write(file_contents.replace(f'seed = {self.fseed}', f'seed = {seed}')+'\n')
+            # if log:
+            #     f.write(log_string)
+            #     logger.info(results)
+
+            # f.close()
 
         return output_file, evr, score
 
-    def get_file_contents(self, file):
+    @classmethod
+    def get_file_contents(cls, file):
         "Get filtered contents a GA properties file."
         from io import StringIO
         file_str = StringIO()

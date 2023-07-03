@@ -11,6 +11,10 @@ from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
 
 # python -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC04-ReferencedInputsError-RootMeanSquareError-Mode02\ga-000.380-s008-2x2-m002-90b3f2cfd2a1cb0235ad8f8178608f35.properties"
 
+# python -m impl.run_from_file -f "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\ga-000.385-s064-2x2-m000-f46606db9aa4aabc0af650882cabb6ac.properties"
+
+# python -m impl.run_from_file -f "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties"
+# python -m impl.run_from_file -f "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties" -p "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'}, {'plot_items': {'OL0C1sm':'out1'}, 'title':'Output1'}, {'plot_items': {'OL0C0sm':'out0', 'OL0C2sm':'out2'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]"
 
 if __name__ == '__main__':
 
@@ -20,18 +24,20 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--early', help="early termination", action="store_true")
     parser.add_argument('-d', '--display', help="display environment", action="store_false")
     parser.add_argument("-v", "--verbose", help="print output ", action="store_true")
+    parser.add_argument("-s", "--seed", type=int, help="seed value", default="1")
+    parser.add_argument("-p", "--plots", type=str, help="plots definition")
+    parser.add_argument('-o', '--outdir', type=str, help="directory to save plots")
 
     args = parser.parse_args()
-    file = args.file 
-    runs = args.runs 
-    early = args.early 
-    render = args.display
-    hpct_verbose = args.verbose
 
-    # file = 'G:\My Drive\data\ga\MountainCarContinuousV0\MC00-ReferencedInputsError-RootMeanSquareError-Mode03\ga-000.631-s066-2x2-m003-eb57dceed66c7697c01c54617cb106ff.properties'
-    # file = 'G:\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.548-s013-2x2-m004-5a08e6cdc09769db0267a14f0634b051.properties'
+    plots = args.plots
+    if plots is not None:
+        plots=eval(plots)
+        history=True
+    else:
+        history=False
 
-    score = HPCTIndividual.run_from_file(file, render=render, history=False, move=None, plots=None, hpct_verbose= hpct_verbose, runs=None, outdir=None, early_termination=early)
+    score = HPCTIndividual.run_from_file(args.file, seed=args.seed, render=args.display, move=None, plots=plots, history=history, hpct_verbose= args.verbose, runs=None, outdir=args.outdir, early_termination=args.early)
      
     
     print(f'Score={score:0.3f}')

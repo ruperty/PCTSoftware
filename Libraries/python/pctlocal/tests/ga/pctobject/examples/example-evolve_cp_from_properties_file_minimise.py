@@ -31,7 +31,7 @@ node_size, font_size=150, 10
 
 root = get_root_path()
 
-test = 24
+test = 25
 
 filename = ''
 
@@ -80,6 +80,11 @@ if test == 24:
     filename = 'MC05-ReferencedInputsError-RootMeanSquareError-Mode02'
     file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/MountainCarContinuousV0/'+ filename + ".properties"
 
+if test == 25:
+    filename = 'MC00-ReferencedInputsError-RootMeanSquareError-Mode00'
+    file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/MountainCarContinuousV0/'+ filename + ".properties"
+    seed=2
+
 
 out_dir= get_gdrive() + 'data/ga/'
 #print(out_dir)
@@ -122,7 +127,7 @@ overwrite=True
 
 
 
-hash_num, desc, ps = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox,  min=min)
+hash_num, desc, ps = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=verbose, toolbox=toolbox, seed=seed, min=min)
 print('hash', hash_num)
 
 hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,

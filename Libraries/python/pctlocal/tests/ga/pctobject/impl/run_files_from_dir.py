@@ -15,7 +15,7 @@ def runit(filename, env_props, render=False, history=False, runs=None, early_ter
     hep = HPCTEvolveProperties()
     hep.load_db(filename)
 
-    error_collector_type = hep.db['error_collector_type']
+    error_collector_type = hep.db['error_collector_type'].strip()
     error_response_type = hep.db['error_response_type']
     error_limit = eval(hep.db['error_limit'])
     error_properties = hep.get_error_properties()
@@ -34,8 +34,14 @@ def runit(filename, env_props, render=False, history=False, runs=None, early_ter
     
     print(f'Score={score:0.3f}')
 
-# python -m impl.run_files_from_dir -d "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode03/eb57dceed66c7697c01c54617cb106ff"
+# python -m impl.run_files_from_dir -d "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC03-ReferencedInputsError-RootMeanSquareError-Mode01/0c4be8064cb284e7bd5bc0c3248ee554"
     
+
+# python -m impl.run_files_from_dir -d "c:\Users\ruper\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\cdf7cc1497ad143c0b04a3d9e72ab783" 
+# python -m impl.run_files_from_dir -d "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783" 
+
+# python -m impl.run_files_from_dir -d "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC00-ReferencedInputsError-RootMeanSquareError-Mode00/fc21f334f54a2f9b44275c793465158e" 
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()

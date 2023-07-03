@@ -6,7 +6,7 @@ import platform
 import time
 import argparse
 
-from os import sep, makedirs, getenv
+from os import sep, makedirs, getenv, cpu_count
 from datetime import datetime
 from deap import base, creator
 from epct.evolvers import CommonToolbox
@@ -99,6 +99,7 @@ if __name__ == '__main__':
         parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
         parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
         parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
+        parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
         
         args = parser.parse_args()
         start=args.start
@@ -112,7 +113,13 @@ if __name__ == '__main__':
                 arg = {'seed': i, 'file': args.file, 'env_name':args.env_name, 'verbosed':verbosed, 'gens':args.gens, 'pop':args.pop}
                 list.append(arg) 
     
-        p = Pool()
+
+        mprocesses = cpu_count()
+        print(f'Machine processes={mprocesses}')
+        processes = args.cpu
+        print(f'Application processes={processes}')
+        p = Pool(processes=processes)
+    
         p.map(evolve, list)
         
         p.close()
