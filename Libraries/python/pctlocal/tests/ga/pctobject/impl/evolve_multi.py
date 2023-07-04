@@ -44,15 +44,21 @@ def evolve(args):
 
         max = False
         if max:
-                creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-                creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
-                flip=True
-                min=False
+                if hasattr(creator, 'FitnessMax'):
+                        pass
+                else:
+                        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+                        creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
+                        flip=True
+                        min=False
         else:
-                creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
-                creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
-                flip=False
-                min=True
+                if hasattr(creator, 'FitnessMin'):
+                        pass
+                else:
+                        creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+                        creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
+                        flip=False
+                        min=True
 
         toolbox = base.Toolbox()
         CommonToolbox.getInstance().set_toolbox(toolbox)
