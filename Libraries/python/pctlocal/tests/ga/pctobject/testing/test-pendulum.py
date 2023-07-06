@@ -1,6 +1,5 @@
 
 
-from pct.environments import Pendulum_1
 from pct.environments import Pendulum
 from pct.environments import CartPoleV1, MountainCarContinuousV0
 
@@ -10,11 +9,11 @@ from pct.functions import Constant
 
 steps=1
 
-test = 4
+test = 1
 
 if test ==1:
     # seed 3 circles anti-clockwise
-    mc = Pendulum(render=True, seed=4) 
+    mc = Pendulum(render=True, seed=93) 
     mc.add_link(Constant(0))
     print(mc.get_config())
 
@@ -36,14 +35,30 @@ if test ==2:
     
     cp.close()
 
-if test ==3:
-    mc = Pendulum_1(render=True, seed=1)
-    namespace=mc.namespace
-    mc.add_link(Constant([1], namespace=namespace))
-    print(mc.get_config())
-    mc.run(steps=20, verbose=True)
+# if test ==3:
+#     mc = Pendulum_1(render=True, seed=1)
+#     namespace=mc.namespace
+#     mc.add_link(Constant([1], namespace=namespace))
+#     print(mc.get_config())
+#     mc.run(steps=20, verbose=True)
 
-    mc.close()
+#     mc.close()
+
+
+
+if test ==3:
+    import gym
+    for i in range(10):
+        env = gym.make('Pendulum-v1') 
+        env.reset(seed=93)
+        # for i in range(1, 100, 1):
+        obs = env.step([0])
+
+        # env.render()
+        print(obs[0], obs[1])
+        
+        #self.env.seed(seed)
+        env.close()
 
 
 if test ==4:
@@ -91,7 +106,7 @@ if test ==6:
 
     print(down)
 
-
+# windows
 #  4 [-0.94407326] [0.32973573] [0.43530822]
 # 10 [-0.9588292] [0.28398332] [-0.22993018]
 # 29 [-0.95203173] [-0.30599934] [-0.06932865]
@@ -104,5 +119,5 @@ if test ==6:
 # 66 [-0.90681845] [0.42152146] [0.88143444]
 # 82 [-0.9995882] [-0.02869503] [0.8707026]
 # 85 [-0.96300477] [-0.2694844] [-0.1126398]
-# 93 [-0.99711835] [0.07586187] [0.3046366]
+# 93 [-0.99711835] [0.07586187] [0.3046366] ***
 # 98 [-0.95581126] [0.29398108] [1.1126672]

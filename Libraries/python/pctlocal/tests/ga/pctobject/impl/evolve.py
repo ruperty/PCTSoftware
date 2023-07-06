@@ -20,26 +20,26 @@ logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
         
-        env_name = getenv('EA_ENVNAME')
-        filename = getenv('EA_FILENAME')
+        # env_name = getenv('EA_ENVNAME')
+        # filename = getenv('EA_FILENAME')
         
-        if env_name is None:    
-                parser = argparse.ArgumentParser()
-                parser.add_argument("env_name", help="the environment name")
-                parser.add_argument("file", help="the properties file name")
-                parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
-                parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
-                parser.add_argument("-d", "--display_env", help="display best of each generation", action="store_false")
-                parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=1)
-                parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
-                parser.add_argument('-e', '--early', help="early termination", action="store_true")
+        # if env_name is None:    
+        parser = argparse.ArgumentParser()
+        parser.add_argument("env_name", help="the environment name")
+        parser.add_argument("file", help="the properties file name")
+        parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
+        parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
+        parser.add_argument("-d", "--display_env", help="display best of each generation", action="store_false")
+        parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=1)
+        parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
+        parser.add_argument('-e', '--early', help="early termination", action="store_true")
 
-                args = parser.parse_args()
-                env_name = args.env_name 
-                filename = args.file
-                start=args.start
-                iters=args.iters                
-                early = args.early 
+        args = parser.parse_args()
+        env_name = args.env_name 
+        filename = args.file
+        start=args.start
+        iters=args.iters                
+        early = args.early 
                 
 
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
