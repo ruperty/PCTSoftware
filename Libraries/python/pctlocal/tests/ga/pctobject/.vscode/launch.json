@@ -81,7 +81,8 @@
             "type": "python",
             "request": "launch",
             "program": "impl/evolve.py",
-            "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
+            // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
+            "args": ["Pendulum", "PM00-InputsError-RootMeanSquareError-Mode00", "-i", "1"],
             "console": "internalConsole"
         },
         {
@@ -89,7 +90,8 @@
             "type": "python",
             "request": "launch",
             "module": "impl.evolve",
-            "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "2"],
+            // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "2"],
+            "args": ["Pendulum", "PM00-InputsError-RootMeanSquareError-Mode00", "-i", "1"],
             "console": "internalConsole"
         },
 

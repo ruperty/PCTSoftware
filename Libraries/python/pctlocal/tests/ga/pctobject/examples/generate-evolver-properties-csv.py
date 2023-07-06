@@ -10,7 +10,7 @@ import os
 from eepct.hpct import HPCTGenerateEvolvers
 
 
-test = 2
+test = 4
 
 if test == 1:
     file = 'configs'+ os.sep + 'configs-cp.csv'
@@ -20,6 +20,9 @@ if test == 2:
 
 if test == 3:
     file = 'configs'+ os.sep + 'configs-ww.csv'
+
+if test == 4:
+    file = 'configs'+ os.sep + 'configs-pm.csv'
 
 
 
