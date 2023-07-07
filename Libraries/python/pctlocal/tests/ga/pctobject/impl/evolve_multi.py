@@ -42,6 +42,7 @@ def evolve(args):
         # local_out_dir = 'output/'  + filename 
         # draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
 
+        min=True
         max = False
         if max:
                 if hasattr(creator, 'FitnessMax'):
