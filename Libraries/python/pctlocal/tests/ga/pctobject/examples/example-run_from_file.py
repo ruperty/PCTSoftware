@@ -9,7 +9,7 @@ from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
 from pct.architectures import run_from_properties_file
 from pct.network import ClientConnectionManager   
 
-test = 31
+test = 40
 
 
   
@@ -61,7 +61,7 @@ def runit_old(datum):
     #print(ind.get_config())
 
 
-def runit(datum, env_props, render=False, history=False, move=None, plots=None, runs=None):
+def runit(datum, env_props, render=False, history=False, move=None, plots=None, runs=None, early_termination=None, seed=None):
     filename = datum[1]
     root = get_gdrive() 
 
@@ -82,8 +82,10 @@ def runit(datum, env_props, render=False, history=False, move=None, plots=None, 
     if runs==None:
         runs = eval(hep.db['runs'])
     config = eval(hep.db['config'])
-    seed = eval(hep.db['seed'])
-    early_termination = eval(hep.db['early_termination'])
+    if seed is None:
+        seed = eval(hep.db['seed'])
+    if early_termination is None:
+        early_termination = eval(hep.db['early_termination'])
 
     if history:
         end = filename.find('.properties')
@@ -100,7 +102,11 @@ def runit(datum, env_props, render=False, history=False, move=None, plots=None, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=env_props,
                                                 seed=seed, early_termination=early_termination, move=move, plots=plots, suffixes=True, plots_dir=outdir)
+    
+    
+    print(f'Score={score:0.3f} seed={seed}')
 
+    return score
         
     
 
@@ -176,7 +182,7 @@ data = [
     # 
     [27, 'WebotsWrestler\WW01-08-RewardError-CurrentError-Mode02\\ga-001.837-s001-2x5-m002-6a468a669e5944c2d8792af248741dd0.properties'], 
 
-    [28, 'MountainCarContinuousV0'+sep+'MC00-ReferencedInputsError-RootMeanSquareError-Mode03'+sep+'ga-000.631-s066-2x2-m003-eb57dceed66c7697c01c54617cb106ff.properties']
+    [28, 'MountainCarContinuousV0'+sep+'MC08-ReferencedInputsError-RootMeanSquareError-Mode04'+sep+'ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties']
 
 ]
 
@@ -201,15 +207,12 @@ if test == 10:
     # good ones 4, 9, 11, weird 10
     runit_old(data_old[7])
 
-if test == 20:
-    
-    cm = ClientConnectionManager.getInstance()
-    cm.set_port(6666)
-    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false'}
-    env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false', 'upper_body':'guardup'}
-
-    
-    runit(data[index], env_props)
+# if test == 20:  
+#     cm = ClientConnectionManager.getInstance()
+#     cm.set_port(6666)
+#     env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false'}
+#     env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false', 'upper_body':'guardup'}
+#     runit(data[index], env_props)
     
 
 if test == 30:
@@ -223,8 +226,25 @@ if test == 30:
 if test == 31:
     env_props={}
     history=True
-    runit(data[index], env_props, render=True, runs=500)
+    early_termination=False #True
+    render=False
+    seed=1
+    runit(data[index], env_props, render=render, runs=500, early_termination=early_termination, seed=seed)
     
+if test == 40:
+    env_props={}
+    history=True
+    early_termination=False #True
+    render=False
+    ctr = 0
+    threshold=0.4
+    for seed in range(100):
+        score = runit(data[index], env_props, render=render, runs=500, early_termination=early_termination, seed=seed)
+        if score > threshold:
+            ctr += 1
+
+    print(f'{ctr} > {threshold}')
+
 
 
 
