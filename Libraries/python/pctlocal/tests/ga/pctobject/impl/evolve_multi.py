@@ -19,12 +19,11 @@ from eepct.hpct import HPCTIndividual
 def evolve(args):
         seed=args['seed']
         filename=args['file']
-        # verbosed=args['verbosed']
-        # gens=args['gens']
-        # pop=args['pop']
-
+  
         env_name=args['env_name']
         verbose= args['verbosed']
+        min=True
+        max= args['max']
 
         
         print(f'Start seed {seed}')
@@ -42,24 +41,22 @@ def evolve(args):
         # local_out_dir = 'output/'  + filename 
         # draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
 
-        min=True
-        max = False
         if max:
+                # flip=True
+                min=False
                 if hasattr(creator, 'FitnessMax'):
                         pass
                 else:
                         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
                         creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
-                        flip=True
-                        min=False
         else:
+                # flip=False
+                min=True
                 if hasattr(creator, 'FitnessMin'):
                         pass
                 else:
                         creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
                         creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
-                        flip=False
-                        min=True
 
         toolbox = base.Toolbox()
         CommonToolbox.getInstance().set_toolbox(toolbox)
@@ -106,6 +103,7 @@ if __name__ == '__main__':
         parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
         parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
         parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
+        parser.add_argument("-x", "--max", help="maximise fitness function", action="store_false")
         parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
         
         args = parser.parse_args()
@@ -117,7 +115,7 @@ if __name__ == '__main__':
         
         list=[]
         for i in range(start, iters+start, 1):
-                arg = {'seed': i, 'file': args.file, 'env_name':args.env_name, 'verbosed':verbosed, 'gens':args.gens, 'pop':args.pop}
+                arg = {'seed': i, 'file': args.file, 'env_name':args.env_name, 'verbosed':verbosed, 'gens':args.gens, 'pop':args.pop, 'max':args.max}
                 list.append(arg) 
     
 

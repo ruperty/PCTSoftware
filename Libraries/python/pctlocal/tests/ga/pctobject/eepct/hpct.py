@@ -2380,7 +2380,7 @@ class HPCTGenerateEvolvers(object):
                     config = configs[key]
                     self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
 
-    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection):
+    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args):
         "Generate properties file based upon architecture type."
         #print('arch', arch)
         import os
@@ -2412,11 +2412,11 @@ class HPCTGenerateEvolvers(object):
                         filepath = f'configs{sep}{env}{sep}{filename}.properties'
                         self.write_to_file(filepath, text)
                         # cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
-                        cmd = f'python -m impl.evolve_multi {env} {filename} -i 100'
+                        cmd = f'python -m impl.evolve_multi {env} {filename} {args}'
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
 
-    def process_csv(self, file):
+    def process_csv(self, file, args=""):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
             for row in reader:
@@ -2492,7 +2492,7 @@ class HPCTGenerateEvolvers(object):
                     arch['references']=eval(record['references'])
                     arch['env_inputs_names']=record['env_inputs_names']
                     
-                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection)
+                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args)
 
     def additional_properties(self, error_properties, response, collector):
         "Add additional properties such as error function parameters."

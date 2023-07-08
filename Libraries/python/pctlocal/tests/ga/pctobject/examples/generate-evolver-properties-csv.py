@@ -28,5 +28,5 @@ if test == 4:
 
 
 hge = HPCTGenerateEvolvers()  
-
-hge.process_csv(file)
+args = "-i 1 -s 93"
+hge.process_csv(file, args)
