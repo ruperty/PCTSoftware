@@ -238,7 +238,7 @@ if test == 40:
     render=False
     ctr = 0
     threshold=0.4
-    for seed in range(1, 101, 1):
+    for seed in range(1, 1001, 1):
         score = runit(data[index], env_props, render=render, runs=500, early_termination=early_termination, seed=seed)
         if score > threshold:
             ctr += 1
