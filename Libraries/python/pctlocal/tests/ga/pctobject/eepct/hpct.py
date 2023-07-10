@@ -2380,7 +2380,7 @@ class HPCTGenerateEvolvers(object):
                     config = configs[key]
                     self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
 
-    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args):
+    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args, fname_list):
         "Generate properties file based upon architecture type."
         #print('arch', arch)
         import os
@@ -2395,11 +2395,11 @@ class HPCTGenerateEvolvers(object):
         #print('collection', collection)
 
         #print('config', config)
-
         for collector in collectors:
             for response in responses:
                     for struct in structs:
                         desc, filename = self.description(collector,response,  f'Mode{struct["mode"]:02}', arch_name)
+                        fname_list.append(filename)
                         fpars = self.fixed_parameters(env, arch, num_actions, environment_properties)
                         cpars = self.configurable_parameters( config, collector, response, nevals)
                         ppars = self.additional_properties(error_properties, response, collector)
@@ -2412,13 +2412,16 @@ class HPCTGenerateEvolvers(object):
                         filepath = f'configs{sep}{env}{sep}{filename}.properties'
                         self.write_to_file(filepath, text)
                         # cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
-                        cmd = f'python -m impl.evolve_multi {env} {filename} {args}'
+                        flist = [filename]
+                        cmd = f'python -m impl.evolve_multi {env} "{flist}" {args}'
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
+                
 
     def process_csv(self, file, args=""):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
+            fname_list = []
             for row in reader:
                 # print(row)
                 if reader.line_num==1:
@@ -2491,8 +2494,13 @@ class HPCTGenerateEvolvers(object):
                         arch['toplevel_inputs_indexes']=eval(record['toplevel_inputs_indexes'])
                     arch['references']=eval(record['references'])
                     arch['env_inputs_names']=record['env_inputs_names']
-                    
-                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args)
+
+
+                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args, fname_list)
+            cmd = f'python -m impl.evolve_multi {record["env"]} "{fname_list}" {args}'
+            print(cmd, end='\n')
+
+
 
     def additional_properties(self, error_properties, response, collector):
         "Add additional properties such as error function parameters."

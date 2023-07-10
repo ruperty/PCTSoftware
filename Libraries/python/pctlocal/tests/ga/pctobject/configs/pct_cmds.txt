@@ -1,0 +1,28 @@
+
+
+python -m impl.evolve_multi Pendulum PM00-RewardError-RootMeanSquareError-Mode00 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM01-RewardError-RootMeanSquareError-Mode00 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM02-RewardError-RootMeanSquareError-Mode01 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM03-RewardError-RootMeanSquareError-Mode01 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM04-RewardError-RootMeanSquareError-Mode02 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM05-RewardError-RootMeanSquareError-Mode02 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM06-RewardError-RootMeanSquareError-Mode03 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM07-RewardError-RootMeanSquareError-Mode03 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM08-RewardError-RootMeanSquareError-Mode04 -i 1 -s 93
+python -m impl.evolve_multi Pendulum PM09-RewardError-RootMeanSquareError-Mode04 -i 1 -s 93
+
+
+python -m impl.run_from_file -f "g:\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties" 
+
+some seeds fail
+python -m impl.run_from_file -f "g:\My Drive\data\ga\MountainCarContinuousV0\MC04-ReferencedInputsError-RootMeanSquareError-Mode02/ga-000.328-s086-2x2-m002-6b5bf903615a9fd886ec2e6a2efd2c42.properties" 
+
+some seeds not first pass
+python -m impl.run_from_file -f "g:\My Drive\data\ga\MountainCarContinuousV0\MC04-ReferencedInputsError-RootMeanSquareError-Mode02/ga-000.331-s043-2x2-m002-27b84ba8cca3c723ffaa3be9f180262a.properties"
+
+
+python -m impl.run_from_file -f "G:\My Drive\data\ga\Pendulum\PM03-RewardError-RootMeanSquareError-Mode01\ga-001.711-s093-5x5-m001-8e2df20ffa5797c7c10c6268319ae4a3.properties" -s 93
+
+
+
+

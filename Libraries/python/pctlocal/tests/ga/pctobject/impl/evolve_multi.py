@@ -95,7 +95,7 @@ if __name__ == '__main__':
     
         parser = argparse.ArgumentParser()
         parser.add_argument("env_name", help="the environment name")
-        parser.add_argument("file", help="the properties file name")
+        parser.add_argument("files", help="the properties file name list")
 
         parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=1)
         parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
@@ -114,14 +114,20 @@ if __name__ == '__main__':
                     'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':False}
         
         list=[]
-        for i in range(start, iters+start, 1):
-                arg = {'seed': i, 'file': args.file, 'env_name':args.env_name, 'verbosed':verbosed, 'gens':args.gens, 'pop':args.pop, 'max':args.max}
-                list.append(arg) 
+        for file in eval(args.files):    
+                print(file)    
+                for i in range(start, iters+start, 1):
+                        arg = {'seed': i, 'file': file, 'env_name':args.env_name, 'verbosed':verbosed, 'gens':args.gens, 'pop':args.pop, 'max':args.max}
+                        list.append(arg) 
     
+
+        # print(list)
 
         mprocesses = cpu_count()
         print(f'Machine processes={mprocesses}')
         processes = args.cpu
+        if processes > len(list):
+                processes = len(list)
         print(f'Application processes={processes}')
         p = Pool(processes=processes)
     
