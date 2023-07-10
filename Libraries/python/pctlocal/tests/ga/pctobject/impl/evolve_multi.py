@@ -25,8 +25,7 @@ def evolve(args):
         min=True
         max= args['max']
 
-        
-        print(f'Start seed {seed}')
+
         tic = time.perf_counter()
         
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
@@ -61,6 +60,7 @@ def evolve(args):
         toolbox = base.Toolbox()
         CommonToolbox.getInstance().set_toolbox(toolbox)
 
+        print(f'Start seed={seed} min={min}')
 
         hep = HPCTEvolveProperties()
         output=True
@@ -103,7 +103,7 @@ if __name__ == '__main__':
         parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
         parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
         parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
-        parser.add_argument("-x", "--max", help="maximise fitness function", action="store_false")
+        parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
         parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
         
         args = parser.parse_args()
