@@ -66,18 +66,18 @@ def evolve(args):
         output=True
         overwrite=True
 
-         # logging info
-        now = datetime.now() # current date and time
-        date_time = now.strftime("%Y%m%d-%H%M%S")
-        log_dir=sep.join((out_dir, env_name, filename))
-        makedirs(log_dir,exist_ok = True) 
-        log_file=sep.join((log_dir, "evolve-"+platform.node()+"-"+date_time+".log"))
-        logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
-        logger = logging.getLogger(__name__)
 
         # print(verbose)
         hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, verbose=verbose, toolbox=toolbox,  min=min, print_properties=False)        
 
+         # logging info
+        now = datetime.now() # current date and time
+        date_time = now.strftime("%Y%m%d-%H%M%S")
+        log_dir=sep.join((out_dir, env_name, desc))
+        makedirs(log_dir,exist_ok = True) 
+        log_file=sep.join((log_dir, "evolve-"+platform.node()+"-"+date_time+".log"))
+        logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
+        logger = logging.getLogger(__name__)
         logger.info("Evolving {} ".format(env_name))
         logger.info(properties_str)
 

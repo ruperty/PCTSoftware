@@ -58,10 +58,6 @@
             // "args": ["-d", "c:\\Users\\ruper\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\cdf7cc1497ad143c0b04a3d9e72ab783"],
             "args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\PM09-RewardError-RootMeanSquareError-Mode04\\ga-001.674-s093-3x2-m004-473df880b052be76d2c80bd33e375cf7.properties", "-s", "93"],
             // "args": ["-v", "-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC09-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.335-s052-2x3-m004-5cad8b8d1bd1050938961f16248cd5cc.properties"],
-
-
-
-
             "console": "internalConsole"
         },
         {
@@ -108,7 +104,7 @@
             "request": "launch",
             "module": "impl.evolve",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "2"],
-            "args": ["Pendulum", "PM01-InputsError-RootMeanSquareError-Mode00", "-i", "1", "-s", "93"],
+            "args": ["Pendulum", "PM00-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-s", "93"],
             "console": "internalConsole"
         },
 

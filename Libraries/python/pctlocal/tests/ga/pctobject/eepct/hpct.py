@@ -2598,7 +2598,8 @@ class HPCTGenerateEvolvers(object):
     def description(self, collector,response, mode, arch):
         "Define the description and filename."
         filename = '-'.join((arch, collector,response, mode))
-        rtn = ''.join(('\n### Description:\n\n','desc = ', filename,'\n'))
+        desc = '-'.join((collector,response, mode))
+        rtn = ''.join(('\n### Description:\n\n','desc = ', desc,'\n'))
         return rtn, filename
 
     def fixed_parameters(self, env, option, num_actions, environment_properties):  
