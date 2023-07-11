@@ -39,10 +39,12 @@ if __name__ == '__main__':
     else:
         history=False
 
-    score = HPCTIndividual.run_from_file(args.file, seed=args.seed, render=args.display, move=None, plots=plots, history=history, hpct_verbose= args.verbose, runs=None, outdir=args.outdir, early_termination=args.early)
-     
+    try:
+        score = HPCTIndividual.run_from_file(args.file, seed=args.seed, render=args.display, move=None, plots=plots, history=history, hpct_verbose= args.verbose, runs=None, outdir=args.outdir, early_termination=args.early)
+        print(f'Score={score:0.3f}')
+    except FileNotFoundError:
+        print(f'File {args.file} does not exist.')
     
-    print(f'Score={score:0.3f}')
 
 
 

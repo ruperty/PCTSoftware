@@ -1,15 +1,17 @@
 
 
-python -m impl.evolve_multi Pendulum PM00-RewardError-RootMeanSquareError-Mode00 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM01-RewardError-RootMeanSquareError-Mode00 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM02-RewardError-RootMeanSquareError-Mode01 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM03-RewardError-RootMeanSquareError-Mode01 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM04-RewardError-RootMeanSquareError-Mode02 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM05-RewardError-RootMeanSquareError-Mode02 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM06-RewardError-RootMeanSquareError-Mode03 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM07-RewardError-RootMeanSquareError-Mode03 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM08-RewardError-RootMeanSquareError-Mode04 -i 1 -s 93
-python -m impl.evolve_multi Pendulum PM09-RewardError-RootMeanSquareError-Mode04 -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM00-RewardError-RootMeanSquareError-Mode00']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM01-RewardError-RootMeanSquareError-Mode00']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM02-RewardError-RootMeanSquareError-Mode01']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM03-RewardError-RootMeanSquareError-Mode01']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM04-RewardError-RootMeanSquareError-Mode02']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM05-RewardError-RootMeanSquareError-Mode02']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM06-RewardError-RootMeanSquareError-Mode03']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM07-RewardError-RootMeanSquareError-Mode03']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM08-RewardError-RootMeanSquareError-Mode04']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM09-RewardError-RootMeanSquareError-Mode04']" -i 1 -s 93
+python -m impl.evolve_multi Pendulum "['PM00-RewardError-RootMeanSquareError-Mode00', 'PM01-RewardError-RootMeanSquareError-Mode00', 'PM02-RewardError-RootMeanSquareError-Mode01', 'PM03-RewardError-RootMeanSquareError-Mode01', 'PM04-RewardError-RootMeanSquareError-Mode02', 'PM05-RewardError-RootMeanSquareError-Mode02', 'PM06-RewardError-RootMeanSquareError-Mode03', 'PM07-RewardError-RootMeanSquareError-Mode03', 'PM08-RewardError-RootMeanSquareError-Mode04', 'PM09-RewardError-RootMeanSquareError-Mode04']" -i 1 -s 93
+
 
 
 python -m impl.run_from_file -f "g:\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties" 
@@ -25,4 +27,7 @@ python -m impl.run_from_file -f "G:\My Drive\data\ga\Pendulum\PM03-RewardError-R
 
 
 
+python -m impl.run_from_file -f "G:\My Drive\data\ga\Pendulum\PM09-RewardError-RootMeanSquareError-Mode04\ga-001.674-s093-3x2-m004-473df880b052be76d2c80bd33e375cf7.properties"
+
+python -m impl.run_from_file -f "G:\My Drive\data\ga\Pendulum\PM09-RewardError-RootMeanSquareError-Mode04\ga-001.862-s093-2x3-m004-44723a82197c67de81b4a4f6554e9080.properties"
 

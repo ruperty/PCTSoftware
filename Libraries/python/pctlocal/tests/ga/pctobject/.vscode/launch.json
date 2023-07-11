@@ -56,7 +56,12 @@
             "request": "launch",
             "program": "impl/run_from_file.py",
             // "args": ["-d", "c:\\Users\\ruper\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\cdf7cc1497ad143c0b04a3d9e72ab783"],
-            "args": ["-v", "-f", "G:\\My Drive\\data\\ga\\Pendulum\\PM01-RewardError-RootMeanSquareError-Mode00\\ga-005.043-s001-3x4-m000-459b0d241a5f0c1a0e8fb6c971cae028.properties"],
+            "args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\PM09-RewardError-RootMeanSquareError-Mode04\\ga-001.674-s093-3x2-m004-473df880b052be76d2c80bd33e375cf7.properties", "-s", "93"],
+            // "args": ["-v", "-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC09-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.335-s052-2x3-m004-5cad8b8d1bd1050938961f16248cd5cc.properties"],
+
+
+
+
             "console": "internalConsole"
         },
         {
