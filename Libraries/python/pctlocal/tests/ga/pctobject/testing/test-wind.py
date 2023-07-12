@@ -1,4 +1,6 @@
 
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 import pandas as pd
 from yaw_RL_module import YawEnv, get_dataset_from_simu
