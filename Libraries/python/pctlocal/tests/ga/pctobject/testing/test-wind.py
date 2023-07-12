@@ -14,8 +14,8 @@ test = 1
 if test ==1:
 
 
-    power_curve = pd.read_excel('power_curve.xlsx')
-    dataset_file = 'steady_wind.csv'
+    power_curve = pd.read_excel('testfiles/power_curve.xlsx')
+    dataset_file = 'testfiles/steady_wind.csv'
     (wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,
                                                                    cycle_period=10,
                                                                    rolling_average_duration=20)
@@ -66,4 +66,7 @@ if test ==1:
         
         #self.env.seed(seed)
         env.close()
+
+    print(observation)
+    print(score)
 
