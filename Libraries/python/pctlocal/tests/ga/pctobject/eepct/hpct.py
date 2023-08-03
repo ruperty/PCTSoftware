@@ -2452,7 +2452,10 @@ class HPCTGenerateEvolvers(object):
                     #print(collection)
                     
                     config={}
-                    config['seed']=eval(record['seed']) 
+                    if record['seed'] == '':
+                        config['seed'] = None
+                    else:
+                        config['seed']=eval(record['seed']) 
                     config['pop_size']=eval(record['pop_size']) 
                     config['gens']=eval(record['gens']) 
                     config['attr_mut_pb']=eval(record['attr_mut_pb']) 
@@ -2468,7 +2471,10 @@ class HPCTGenerateEvolvers(object):
                         config['early_termination']=False
                     config['min_levels_limit']=eval(record['min_levels_limit']) 
                     config['min_columns_limit']=eval(record['min_columns_limit']) 
-                    config['error_limit']=eval(record['error_limit']) 
+                    if record['error_limit'] == '':
+                        config['error_limit']=None    
+                    else:
+                        config['error_limit']=eval(record['error_limit']) 
                     config['p_crossover']=eval(record['p_crossover']) 
                     config['p_mutation']=eval(record['p_mutation']) 
                     
