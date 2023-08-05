@@ -25,14 +25,9 @@ def evolve(args):
         min=True
         max= args['max']
 
-
         tic = time.perf_counter()
-        
         out_dir= get_gdrive() + f'data{sep}ga{sep}'
-
-
         node_size, font_size=150, 10
-
         root = get_root_path()
 
         file = root + 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/' + env_name +'/'+ filename + ".properties"

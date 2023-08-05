@@ -2045,6 +2045,7 @@ class HPCTEvolveProperties(object):
         self.set_property_value(properties_var=self.hpct_structure_properties, property_name='upper_float', float_convert=True)
         self.set_property_value(properties_var=self.hpct_structure_properties, property_name='mode', eval_convert=True)
 
+        self.hpct_structure_properties['arch_name']=self.db['arch_name']
         self.hpct_structure_properties['types_strings'] = self.collect_types_strings()
         #self.hpct_structure_properties['configs_strings'] = self.collect_configs_strings()
 
@@ -2325,7 +2326,7 @@ class HPCTEvolveProperties(object):
             seed = self.hpct_run_properties['seed']
             # file_contents = HPCTEvolveProperties.get_file_contents(file)
 
-            output_file = dir+sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{hash_num}.properties'
+            output_file = dir+sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{self.hpct_structure_properties["arch_name"]}-{hash_num}.properties'
             if print_properties:
                 print(output_file)
                 
@@ -2605,7 +2606,7 @@ class HPCTGenerateEvolvers(object):
         "Define the description and filename."
         filename = '-'.join((arch, collector,response, mode))
         desc = '-'.join((collector,response, mode))
-        rtn = ''.join(('\n### Description:\n\n','desc = ', desc,'\n'))
+        rtn = ''.join(('\n### Description:\n\n','desc = ', desc,'\n', 'arch_name = ', arch, '\n'))
         return rtn, filename
 
     def fixed_parameters(self, env, option, num_actions, environment_properties):  

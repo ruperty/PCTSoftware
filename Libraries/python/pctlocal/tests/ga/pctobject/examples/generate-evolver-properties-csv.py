@@ -9,7 +9,7 @@ import os
 
 from eepct.hpct import HPCTGenerateEvolvers
 
-
+args = "-i 1 -s 93"
 test = 5
 
 if test == 1:
@@ -26,11 +26,7 @@ if test == 4:
 
 if test == 5:
     file = 'configs'+ os.sep + 'configs-wt.csv'
-
-
-
-
+    args = "-i 1"
 
 hge = HPCTGenerateEvolvers()  
-args = "-i 1 -s 93"
 hge.process_csv(file, args)

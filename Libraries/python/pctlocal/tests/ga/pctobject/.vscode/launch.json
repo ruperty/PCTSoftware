@@ -87,7 +87,8 @@
             "request": "launch",
             "program": "impl/evolve.py",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
-            "args": ["Pendulum", "PM00-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-s", "93"],
+            //"args": ["Pendulum", "PM00-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-s", "93"],
+            "args": ["WindTurbine", "WT01-RewardError-SummedError-Mode00", "-i", "1", "-x"],
             "console": "internalConsole"
         },
         {
