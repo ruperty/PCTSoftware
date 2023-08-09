@@ -1,12 +1,9 @@
 
-from yaw_module import YawEnv, get_dataset_from_simu, test_model_wind
+from yaw_module import get_dataset_from_simu, test_model_wind, get_comparaison_metrics, test_trad_control
 from comet_ml import Experiment
-# import matplotlib.pyplot as plt
-# import plotly.tools as tls
-# import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
+from matplotlib.ticker import FuncFormatter
 from os import sep, path
 
 
@@ -67,6 +64,27 @@ experiment.set_name(name)
     datatype='test',
     )
 
+
+
+(res_baseline_simu, nac_pos_baseline_simu, wind_dir) = test_trad_control(
+    model_params['wind_timeseries'],
+    model_params['wind_timeseries_not_agg'],
+    yaw_params['cycle_period'],
+    model_params['start_index_test'],
+    model_params['stop_index_test'],
+    experiment=experiment,
+    datatype='baseline_simu',
+    )
+
+(res_baseline_logs, nac_pos_baseline_logs, wind_dir) = test_trad_control(
+    model_params['wind_timeseries'],
+    model_params['wind_timeseries_not_agg'],
+    yaw_params['cycle_period'],
+    model_params['start_index_test'],
+    model_params['stop_index_test'],
+    experiment=experiment,
+    datatype='baseline_logs',
+    )
 
 
 
