@@ -1,5 +1,5 @@
 
-from yaw_module import get_dataset_from_simu, test_model_wind, get_comparaison_metrics, test_trad_control
+from pct.yaw_module import get_dataset_from_simu, test_model_wind, get_comparaison_metrics, test_trad_control
 from comet_ml import Experiment
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -52,7 +52,7 @@ name = 'test-model-wind'
 experiment.set_name(name)
 
 
-(res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_model_wind(
+(res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
     
     model_params['wind_timeseries'],
     model_params['start_index_test'],
