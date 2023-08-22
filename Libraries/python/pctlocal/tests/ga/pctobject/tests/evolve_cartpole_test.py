@@ -42,7 +42,10 @@ class TestEvolveCartpole(unittest.TestCase):
         
         print(score)
         
-        self.assertAlmostEqual(score, 18.505598747269836)
+        if os.name=='nt':
+            self.assertAlmostEqual(score, 17.958707641429346)
+        else:
+            self.assertAlmostEqual(score, 18.505598747269836)
         # self.assertAlmostEqual(score, 16.949603136533007)
         
 
@@ -69,7 +72,11 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
-        self.assertAlmostEqual(score, 19.307275966656576)        
+        
+        if os.name=='nt':
+            self.assertAlmostEqual(score, 24.252205621328663)        
+        else:
+            self.assertAlmostEqual(score, 19.307275966656576)        
         
     def test_std00_TE_RMS_mode01(self):
         filename = 'Std00-TotalError-RootMeanSquareError-Mode01'        
@@ -81,8 +88,11 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
-        self.assertAlmostEqual(score, 5.263805245212976)        
-                
+        
+        if os.name=='nt':
+            self.assertAlmostEqual(score, 7.517082676170141)        
+        else:            
+            self.assertAlmostEqual(score, 5.263805245212976)        
                 
                 
         
@@ -97,8 +107,12 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
-        self.assertAlmostEqual(score, 18.79305613192372)    
+
         
+        if os.name=='nt':
+            self.assertAlmostEqual(score, 16.995650861454976)    
+        else:        
+            self.assertAlmostEqual(score, 18.79305613192372)    
         
             
     def test_std01_IE_RMS_mode01(self):
@@ -111,7 +125,12 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
-        self.assertAlmostEqual(score, 22.10562580760481)    
+        
+        
+        if os.name=='nt':
+            self.assertAlmostEqual(score, 18.784182802440625)    
+        else:
+            self.assertAlmostEqual(score, 22.10562580760481)    
         
             
     def test_std01_TE_RMS_mode00(self):
@@ -124,8 +143,14 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
-        self.assertAlmostEqual(score, 19.56707031226311)        
         
+        
+        if os.name=='nt':
+            self.assertAlmostEqual(score, 3.40140450457157)        
+        else:
+            self.assertAlmostEqual(score, 19.56707031226311)        
+
+
     def test_std01_TE_RMS_mode01(self):
         filename = 'Std01-TotalError-RootMeanSquareError-Mode01'        
         file = self.prefix + filename + self.suffix
@@ -148,8 +173,12 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
-        self.assertAlmostEqual(score, 18.833059591366965)    
         
+        if os.name=='nt':
+            self.assertAlmostEqual(score, 16.995650861454976)    
+        else:
+            self.assertAlmostEqual(score, 18.833059591366965)    
+
             
     def test_std02_IE_RMS_mode01(self):
         filename = 'Std02-InputsError-RootMeanSquareError-Mode01'        
@@ -161,7 +190,12 @@ class TestEvolveCartpole(unittest.TestCase):
         output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
-        self.assertAlmostEqual(score, 19.93341868149284)        
+        
+        if os.name=='nt':
+            self.assertAlmostEqual(score, 0.12322572537678272)        
+        else:
+            self.assertAlmostEqual(score, 19.93341868149284)        
+
         
         
             

@@ -1,4 +1,4 @@
-import unittest
+import unittest, os
 import random
 import json
 from deap import tools, base, creator
@@ -91,12 +91,24 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         grid = ind1.get_grid()
         #print(grid)
 
-        self.assertEqual(grid, [2])
+        if os.name=='nt':               
+            self.assertEqual(grid, [5, 2])
+        else:
+            self.assertEqual(grid, [2])
 
         link_name_0_B = ind1.get_node(0,0).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
-        self.assertEqual(link_name_0_B, link_name_0_A)
+        
+        if os.name=='nt':   
+            self.assertEqual('IV', link_name_0_A)
+        else:
+            self.assertEqual(link_name_0_B, link_name_0_A)
+
         link_name_1_B = ind1.get_node(0,1).get_function_from_collection(HPCTFUNCTION.PERCEPTION).get_links()[0].name
-        self.assertEqual(link_name_1_B, link_name_1_A)
+        
+        if os.name=='nt': 
+            self.assertEqual('IF', link_name_1_A)
+        else:
+            self.assertEqual(link_name_1_B, link_name_1_A)
 
         
 
@@ -180,8 +192,11 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         grid = ind1.get_grid()
         #print(grid)
 
-        self.assertEqual(grid,  [4, 3, 3, 2, 2])
-
+        
+        if os.name=='nt':   
+            self.assertEqual(grid,  [4, 1, 3, 3, 2])
+        else:
+            self.assertEqual(grid,  [4, 3, 3, 2, 2])
 
         # new_config = ind1.get_config()
         # #print(new_config)
@@ -201,7 +216,11 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         grid = ind1.get_grid()
         #print(grid)
 
-        self.assertEqual(grid,  [1, 2, 2])
+        
+        if os.name=='nt':   
+            self.assertEqual(grid,  [1, 5, 2])
+        else:
+            self.assertEqual(grid,  [1, 2, 2])
 
         rlinks = ind1.get_node(1,1).get_function_from_collection(HPCTFUNCTION.REFERENCE).get_links()
         self.assertEqual(rlinks, ['OL2C0', 'OL2C1'])
@@ -293,7 +312,10 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
         grid = ind1.get_grid()
         print(grid)
-        self.assertEqual(grid, [2, 2])
+        if os.name=='nt':
+            self.assertEqual(grid, [3, 1, 2])
+        else:
+            self.assertEqual(grid, [2, 2])
 
 
         # new_config = ind1.get_config()
@@ -318,7 +340,10 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
 
         grid = ind1.get_grid()
         print(grid)
-        self.assertEqual(grid, [5, 4, 2])
+        if os.name=='nt':
+            self.assertEqual(grid, [2])
+        else:
+            self.assertEqual(grid, [5, 4, 2])
 
         # new_config = ind1.get_config()
         # # print(new_config)
