@@ -131,6 +131,12 @@
             "module": "examples.example-arch"
         },
         {
+            "name": "example-run-from-file",
+            "type": "python",
+            "request": "launch",
+            "module": "examples.example-run_from_file"
+        },
+        {
             "name": "load-from-config",
             "type": "python",
             "request": "launch",
