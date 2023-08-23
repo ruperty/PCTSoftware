@@ -8,7 +8,7 @@ from enum import IntEnum, auto
 from deap import tools, algorithms
 from dataclasses import dataclass
 
-from pct.hierarchy import PCTHierarchy
+from pct.hierarchy import PCTHierarchy, PCTRunProperties
 from pct.nodes import PCTNode
 from pct.errors import BaseErrorCollector
 from pct.functions import FunctionFactory, HPCTFUNCTION
@@ -923,42 +923,42 @@ class HPCTIndividual(PCTHierarchy):
         
     
 
-    @classmethod
-    def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
-        error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
-        seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
-        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, environment_properties=None):
-        "Run an individual from a provided configuration."
-        #if hpct_verbose:
-        #print(config)
-        ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
-        env = ind.get_preprocessor()[0]
-        env.set_properties(environment_properties)
-        env.set_render(render)
-        env.early_termination = early_termination
-        env.reset(full=False, seed=seed)
-        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
+    # @classmethod
+    # def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
+    #     error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
+    #     seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
+    #     history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, environment_properties=None):
+    #     "Run an individual from a provided configuration."
+    #     #if hpct_verbose:
+    #     #print(config)
+    #     ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
+    #     env = ind.get_preprocessor()[0]
+    #     env.set_properties(environment_properties)
+    #     env.set_render(render)
+    #     env.early_termination = early_termination
+    #     env.reset(full=False, seed=seed)
+    #     error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
 
-        ind.set_error_collector(error_collector)
-        if hpct_verbose:
-            ind.summary()
-            print(ind.formatted_config())
-        ind.run(steps, hpct_verbose)
-        env.close()
+    #     ind.set_error_collector(error_collector)
+    #     if hpct_verbose:
+    #         ind.summary()
+    #         print(ind.formatted_config())
+    #     ind.run(steps, hpct_verbose)
+    #     env.close()
         
-        # draw network file
-        move = {} if move == None else move
-        if draw_file is not None:
-            ind.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
-            print(draw_file)
+    #     # draw network file
+    #     move = {} if move == None else move
+    #     if draw_file is not None:
+    #         ind.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
+    #         print(draw_file)
         
-        if history:
-            for plot in plots:
-                fig = ind.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
+    #     if history:
+    #         for plot in plots:
+    #             fig = ind.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
 
-        score=ind.get_error_collector().error()
+    #     score=ind.get_error_collector().error()
         
-        return ind, score
+    #     return ind, score
 
 
 
@@ -1892,11 +1892,10 @@ class HPCTEvolverWrapper(EvolverWrapper):
 
 
 
-class HPCTEvolveProperties(object):
+class HPCTEvolveProperties(PCTRunProperties):
     "For running evolution from properties file."
 
     def __init__(self):
-        # self.properties = {}
         self.environment_properties = {} 
         self.evolve_properties = {}  
         self.hpct_structure_properties = {}
@@ -1937,37 +1936,37 @@ class HPCTEvolveProperties(object):
                 properties_var[property_name] = default
 
 
-    def load_db(self, file):
-        "Load properties of one run of GA from file."
-        from jproperties import Properties
+    # def load_db(self, file):
+    #     "Load properties of one run of GA from file."
+    #     from jproperties import Properties
 
-        # read properties from file
-        configs = Properties()
-        #print(file)
-        with open(file, 'rb') as config_file:
-            configs.load(config_file)
+    #     # read properties from file
+    #     configs = Properties()
+    #     #print(file)
+    #     with open(file, 'rb') as config_file:
+    #         configs.load(config_file)
 
-        items_view = configs.items()
-        self.db = {}
-        for item in items_view:
-            self.db[item[0]] = item[1].data
+    #     items_view = configs.items()
+    #     self.db = {}
+    #     for item in items_view:
+    #         self.db[item[0]] = item[1].data
 
 
-    def get_error_properties(self):
-        "Get properties of error function from loaded properties list of the form propertyn."
-        error_properties = []
-        for property in range(1, 100):
-            property_key = f'property{property}'
-            if property_key in self.db:
-                property_string = self.db[property_key]
-                strarr = property_string.split(':')
-                if strarr[0] == 'error':
-                    parr = strarr[1].split(',')
-                    prop=[]
-                    prop.append(parr[0])
-                    prop.append(parr[1])
-                    error_properties.append(prop)
-        return error_properties
+    # def get_error_properties(self):
+    #     "Get properties of error function from loaded properties list of the form propertyn."
+    #     error_properties = []
+    #     for property in range(1, 100):
+    #         property_key = f'property{property}'
+    #         if property_key in self.db:
+    #             property_string = self.db[property_key]
+    #             strarr = property_string.split(':')
+    #             if strarr[0] == 'error':
+    #                 parr = strarr[1].split(',')
+    #                 prop=[]
+    #                 prop.append(parr[0])
+    #                 prop.append(parr[1])
+    #                 error_properties.append(prop)
+    #     return error_properties
         
     def collect_types_strings(self):
         "?"
