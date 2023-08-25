@@ -2,7 +2,7 @@
 import argparse
 from os import sep, listdir
 from cutils.paths import  get_gdrive
-from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
+from pct.hierarchy import PCTHierarchy
 
 # py -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.548-s013-2x2-m004-5a08e6cdc09769db0267a14f0634b051.properties"
 # py -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC06-ReferencedInputsError-RootMeanSquareError-Mode03\ga-000.554-s068-2x2-m003-5342c97128d9ad23a0fea14a6d9c05e5.properties"
@@ -40,7 +40,7 @@ if __name__ == '__main__':
         history=False
 
     try:
-        score = HPCTIndividual.run_from_file(args.file, seed=args.seed, render=args.display, move=None, plots=plots, history=history, hpct_verbose= args.verbose, runs=None, outdir=args.outdir, early_termination=args.early)
+        score = PCTHierarchy.run_from_file(args.file, seed=args.seed, render=args.display, move=None, plots=plots, history=history, hpct_verbose= args.verbose, runs=None, outdir=args.outdir, early_termination=args.early)
         print(f'Score={score:0.3f}')
     except FileNotFoundError:
         print(f'File {args.file} does not exist.')

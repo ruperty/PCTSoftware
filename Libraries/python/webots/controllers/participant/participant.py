@@ -14,7 +14,6 @@
 
 
 
-import numpy as np
 from os import sep, environ, getpid, getenv
 from time import sleep
 import math, time, logging
@@ -37,6 +36,7 @@ from controller import Supervisor
 from pct.putils import SingletonObjects
 from utilities.processes import Executor
 
+from pct.hierarchy import PCTHierarchy
 from datetime import datetime
 
 
@@ -607,10 +607,11 @@ if __name__ == '__main__':
     #     test = 7
     log=True
 
-    test = eval(getenv('WW_TEST'))
-    print('test is ',test)
-    if test is None:
+    etest = getenv('WW_TEST')
+    if etest is None:
         test = 7
+    else:
+        test = eval(etest)
     print('test is ',test)
 
 
@@ -892,7 +893,7 @@ if __name__ == '__main__':
         SingletonObjects.getInstance().add_object('wrestler', wrestler)
 
 
-        root = get_gdrive()
+        root = get_gdrive()+ f'data{sep}ga{sep}'
         env_props={'game_duration':10000, 'rmode' : 1, 'sync': 'false', 'upper_body':'guardup'}
 
         files = ['WebotsWrestlerSupervisor\\WW01-06-RewardError-CurrentError-Mode01\\ga-001.276-s001-3x4-m001-21db068466666c5352cceef7c8c496d9.properties',
@@ -921,8 +922,9 @@ if __name__ == '__main__':
             ]
 
         for file in files:
-            print(file)
-            score = HPCTIndividual.run_from_file(root, file, env_props, hpct_verbose= False)
+            filepath = root+ file
+            print(filepath)
+            score = PCTHierarchy.run_from_file(filepath, env_props=env_props, hpct_verbose= False)
             print("Score: %0.3f" % score)
 
 

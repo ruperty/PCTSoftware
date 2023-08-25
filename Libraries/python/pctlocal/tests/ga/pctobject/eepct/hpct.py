@@ -887,39 +887,36 @@ class HPCTIndividual(PCTHierarchy):
     #     return ''.join(str_list)
     
     
-    @classmethod
-    def run_from_file(cls, filename, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
+    # @classmethod
+    # def run_from_file(cls, filename, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
         
-        hep = HPCTEvolveProperties()
-        hep.load_db(filename)
+    #     hep = HPCTEvolveProperties()
+    #     hep.load_db(filename)
 
-        error_collector_type = hep.db['error_collector_type'].strip()
-        error_response_type = hep.db['error_response_type']
-        error_limit = eval(hep.db['error_limit'])
-        environment_properties = eval(hep.db['environment_properties'])
+    #     error_collector_type = hep.db['error_collector_type'].strip()
+    #     error_response_type = hep.db['error_response_type']
+    #     error_limit = eval(hep.db['error_limit'])
+    #     environment_properties = eval(hep.db['environment_properties'])
         
-        error_properties = hep.get_error_properties()
+    #     error_properties = hep.get_error_properties()
    
-        if runs==None:
-            runs = eval(hep.db['runs'])
-        config = eval(hep.db['config'])
-        if seed is None:
-            seed = eval(hep.db['seed'])
-        print(f'Seed={seed}')
-        if early_termination is None:
-            early_termination = eval(hep.db['early_termination'])
+    #     if runs==None:
+    #         runs = eval(hep.db['runs'])
+    #     config = eval(hep.db['config'])
+    #     if seed is None:
+    #         seed = eval(hep.db['seed'])
+    #     print(f'Seed={seed}')
+    #     if early_termination is None:
+    #         early_termination = eval(hep.db['early_termination'])
 
-        ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                                error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
-                                                environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
-                                                suffixes=True, plots_dir=outdir)
+    #     ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+    #                                             error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
+    #                                             environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
+    #                                             suffixes=True, plots_dir=outdir)
         
-        # ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-        #                                             error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
-        #                                             environment_properties=env_props, seed=seed, early_termination=early_termination)
-
+       
         
-        return score 
+    # return score 
         
     
 

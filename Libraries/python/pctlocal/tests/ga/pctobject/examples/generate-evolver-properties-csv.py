@@ -10,7 +10,7 @@ import os
 from eepct.hpct import HPCTGenerateEvolvers
 
 args = "-i 1 -s 93"
-test = 1
+test = 3
 
 if test == 1:
     file = 'configs'+ os.sep + 'configs-cp.csv'
