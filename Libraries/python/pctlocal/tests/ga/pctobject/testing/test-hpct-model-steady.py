@@ -1,5 +1,5 @@
 
-from pct.yaw_module import get_dataset_from_simu, test_model_wind, get_comparaison_metrics, test_trad_control
+from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind
 from comet_ml import Experiment
 import pandas as pd
 import matplotlib.pyplot as plt
