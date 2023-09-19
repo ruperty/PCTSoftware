@@ -1,11 +1,11 @@
+import pandas as pd
+import matplotlib.pyplot as plt
 
 from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind
 from comet_ml import Experiment
-import pandas as pd
-import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 from os import sep, path
-
+from cutils.paths import get_gdrive
 
 
 power_curve = pd.read_excel(f'testfiles{sep}power_curve.xlsx')
@@ -51,20 +51,24 @@ experiment.log_code(path.basename(__file__))
 name = 'test-model-wind'
 experiment.set_name(name)
 
+filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-10024.064-s001-5x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
+
+root = get_gdrive() 
+file = root + 'data'+sep+'ga'+sep+ filename
+
+plots=None
+history=False
+verbose=False
+outdir=None
+early=None
 
 (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
-    
-    model_params['wind_timeseries'],
-    model_params['start_index_test'],
-    model_params['stop_index_test'],
-    model_params['ancestors'],
-    model_params['filter_duration'],
-    model_params['yaw_params'],
+    file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,
+    start_index=model_params['start_index_test'],
+    stop_index=model_params['stop_index_test'],
     experiment=experiment,
     datatype='test',
     )
-
-
 
 (res_baseline_simu, nac_pos_baseline_simu, wind_dir) = test_trad_control(
     model_params['wind_timeseries'],
