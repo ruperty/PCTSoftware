@@ -35,6 +35,7 @@ if __name__ == '__main__':
 	parser.add_argument('-e', '--early', help="early termination", action="store_true")
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument("-v", "--hpct_verbose", help="hierarchy output", action="store_true")
+	parser.add_argument("-db", "--debug", type=int, help="details of population in each gen, inc. mutate and merge", default=0)
 
 
 	args = parser.parse_args()
@@ -72,12 +73,12 @@ if __name__ == '__main__':
 	# local_out_dir = 'output/'  + filename 
 	# draw_file= local_out_dir + '/' + filename + '-evolve-best' + '.png'
 
-	debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
+	#debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
 	evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
 
 	
 
-	verbose={ 'debug': debug, 'evolve_verbose': evolve_verbose, 'display_env': args.display_env, 'hpct_verbose':hpct_verbose, 
+	verbose={ 'debug': args.debug, 'evolve_verbose': evolve_verbose, 'display_env': args.display_env, 'hpct_verbose':hpct_verbose, 
 			'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best}
 	
 	# print(verbose)

@@ -4,9 +4,10 @@ import argparse
 from os import sep, listdir
 
 from cutils.paths import  get_gdrive
-from eepct.hpct import HPCTIndividual, HPCTEvolveProperties
+from eepct.hpct import HPCTEvolveProperties
 from pct.architectures import run_from_properties_file
 
+from pct.hierarchy import PCTHierarchy
 
 
 
@@ -28,7 +29,7 @@ def runit(filename, env_props, render=False, history=False, runs=None, early_ter
 
     hpct_verbose= False #True #False #
     
-    ind, score = HPCTIndividual.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+    ind, score = PCTHierarchy.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=env_props, seed=seed, early_termination=early_termination)
     

@@ -8,6 +8,8 @@ from os import sep, path
 from cutils.paths import get_gdrive
 
 
+
+
 power_curve = pd.read_excel(f'testfiles{sep}power_curve.xlsx')
 dataset_file = f'testfiles{sep}steady_wind.csv'
 (wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,
@@ -62,8 +64,11 @@ verbose=False
 outdir=None
 early=None
 
+environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
+
 (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
     file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,
+    environment_properties=environment_properties,
     start_index=model_params['start_index_test'],
     stop_index=model_params['stop_index_test'],
     experiment=experiment,
