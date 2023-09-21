@@ -7,9 +7,6 @@ from matplotlib.ticker import FuncFormatter
 from os import sep, path
 from cutils.paths import get_gdrive
 
-
-
-
 power_curve = pd.read_excel(f'testfiles{sep}power_curve.xlsx')
 dataset_file = f'testfiles{sep}steady_wind.csv'
 (wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,

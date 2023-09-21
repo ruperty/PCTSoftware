@@ -10,7 +10,7 @@ from os import sep, makedirs, getenv, cpu_count
 from datetime import datetime
 from deap import base, creator
 from epct.evolvers import CommonToolbox
-from  multiprocessing import Pool
+from multiprocessing import Pool
 from os import sep
 from cutils.paths import get_root_path, get_gdrive
 from eepct.hpct import HPCTEvolveProperties
