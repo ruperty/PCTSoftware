@@ -50,7 +50,7 @@ experiment.log_code(path.basename(__file__))
 name = 'test-model-wind'
 experiment.set_name(name)
 
-filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-10024.064-s001-5x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
+filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-10029.013-s001-5x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
 
 root = get_gdrive() 
 file = root + 'data'+sep+'ga'+sep+ filename
@@ -61,7 +61,8 @@ verbose=False
 outdir=None
 early=None
 
-environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
+environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True, 'range': 'test'}
+#environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
 
 (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
     file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,
