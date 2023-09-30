@@ -50,12 +50,15 @@ experiment.log_code(path.basename(__file__))
 name = 'test-model-wind'
 experiment.set_name(name)
 
-filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-10029.013-s001-5x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
+filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-6992.137-s001-4x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
 
 root = get_gdrive() 
 file = root + 'data'+sep+'ga'+sep+ filename
 
 plots=None
+plots = [ {'plot_items': {'IWD':'wd'}, 'title':'Wind'},
+            {'plot_items': {'Action1':'out'}, 'title':'Output'}]   
+  
 history=False
 verbose=False
 outdir=None

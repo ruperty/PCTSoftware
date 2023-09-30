@@ -18,6 +18,10 @@ from pct.hierarchy import PCTHierarchy
 
 # python -m impl.run_from_file -f "G:\My Drive\data\ga\Pendulum\PM09-RewardError-RootMeanSquareError-Mode04\ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties"
 
+# python -m impl.run_from_file -f "G:\My Drive\data\ga\WindTurbine\RewardError-RootMeanSquareError-Mode00\ga-10029.013-s001-5x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties" -p "[ {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" -o "c:/tmp" -ep "{'series': 'steady', 'zero_threshold': 1, 'range':'test'}"
+
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -29,9 +33,13 @@ if __name__ == '__main__':
     parser.add_argument("-s", "--seed", type=int, help="seed value", default="1")
     parser.add_argument("-p", "--plots", type=str, help="plots definition")
     parser.add_argument('-o', '--outdir', type=str, help="directory to save plots")
+    parser.add_argument('-ep', '--eprops', type=str, help="environment properties")
 
     args = parser.parse_args()
 
+    eprops = None
+    if args.eprops is not None:
+        eprops = eval(args.eprops)
     plots = args.plots
     if plots is not None:
         plots=eval(plots)
@@ -40,7 +48,7 @@ if __name__ == '__main__':
         history=False
 
     try:
-        score = PCTHierarchy.run_from_file(args.file, seed=args.seed, render=args.display, move=None, plots=plots, history=history, hpct_verbose= args.verbose, runs=None, outdir=args.outdir, early_termination=args.early)
+        hierarchy, score = PCTHierarchy.run_from_file(args.file, env_props=eprops, seed=args.seed, render=args.display, move=None, plots=plots, history=history, hpct_verbose= args.verbose, runs=None, outdir=args.outdir, early_termination=args.early)
         print(f'Score={score:0.3f}')
     except FileNotFoundError:
         print(f'File {args.file} does not exist.')
