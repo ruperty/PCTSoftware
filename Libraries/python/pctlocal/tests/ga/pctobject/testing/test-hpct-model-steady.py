@@ -50,25 +50,39 @@ experiment.log_code(path.basename(__file__))
 name = 'test-model-wind'
 experiment.set_name(name)
 
-filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-6992.137-s001-4x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
+plots=None
+history=False
+outdir=None
+
+# filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-6992.137-s001-4x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
+
+filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode04'+sep+'ga-5115.748-s001-2x1-m004-WT18-bb86c377bcf7536e5b9acb437d0f3353.properties'
+filename='WindTurbine'+sep+'RewardError-SummedError-Mode02'+sep+'ga-3112894.396-s001-3x5-m002-WT09-697f9588cbe79baa5370381833b269af.properties'
+
+
+plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, {'plot_items': {'IWD':'wd'}, 'title':'Wind'},
+            {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
+history=True
+outdir="c:\\tmp"
+  
+
+verbose=False
+early=None
 
 root = get_gdrive() 
 file = root + 'data'+sep+'ga'+sep+ filename
 
-plots=None
-plots = [ {'plot_items': {'IWD':'wd'}, 'title':'Wind'},
-            {'plot_items': {'Action1':'out'}, 'title':'Output'}]   
-  
-history=False
-verbose=False
-outdir=None
-early=None
+lastsepIndex = filename.rfind(sep)
+propIndex = filename.rfind('.properties')
+filenamePrefix = filename[lastsepIndex+1:propIndex]
+draw_file = outdir + sep + 'draw-'+filenamePrefix+'.png'
 
-environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True, 'range': 'test'}
+
+environment_properties={'series': 'steady', 'zero_threshold': 1.25, 'keep_history': True, 'range': 'test'}
 #environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
 
 (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
-    file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,
+    file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,draw_file=draw_file,
     environment_properties=environment_properties,
     start_index=model_params['start_index_test'],
     stop_index=model_params['stop_index_test'],
