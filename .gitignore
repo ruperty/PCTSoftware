@@ -42,3 +42,5 @@ Libraries/python/pctlocal/tests/ga/pctobject/impl/__pycache__/evolve.cpython-37.
 Libraries/python/pctlocal/tests/ga/pctobject/impl/__pycache__/evolve_multi.cpython-39.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/res-baseline_logs.html
 Libraries/python/pctlocal/tests/ga/pctobject/res-baseline_simu.html
+Libraries/python/pctlocal/tests/ga/pctobject/testfiles/steady_wind_edit.ods
+Libraries/python/pctlocal/tests/ga/pctobject/testfiles/variable_wind_edit.ods

@@ -1,53 +1,26 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind
+from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties
 from comet_ml import Experiment
 from matplotlib.ticker import FuncFormatter
 from os import sep, path
 from cutils.paths import get_gdrive
 
-power_curve = pd.read_excel(f'testfiles{sep}power_curve.xlsx')
-dataset_file = f'testfiles{sep}steady_wind.csv'
-(wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,
-                                                                   cycle_period=10,
-                                                                   rolling_average_duration=20)
-    
 
-yaw_params = {
-    'yaw_rate_max': 0.3,
-    'yaw_consumption':18,
-    'rated_speed': 14,
-    'ref_speed': power_curve['ref_v'].to_list(),
-    'ref_power': power_curve['ref_P'].to_list(),
-    'cycle_period': 10,
-    'w2': 40,
-    }
+environment_properties={'series': 'steady', 'zero_threshold': 1.25, 'keep_history': True, 'range': 'test'}
+environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True, 'range': 'test'}
+#environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
 
-model_params = {
-    'wind_timeseries': wind_timeseries,
-    'wind_timeseries_not_agg': wind_timeseries_not_agg,
-    'start_index': 100,
-    'stop_index': 1100,    
-    'start_index_test': 1100,
-    'stop_index_test': 2100,
-    'filter_duration': 1,
-    'yaw_params': yaw_params,
-    'ancestors': 12,
-    'training_steps': 500000,
-    }
-
-
+wind_timeseries,start, stop, model_params,yaw_params,keep_history = get_properties(environment_properties)
 
 experiment = Experiment(api_key='WVBkFFlU4zqOyfWzk5PRSQbfD',
-                        project_name='yaw-rl',
+                        project_name='yaw-pct',
                         workspace='perceptualrobots')
-
-
 
 experiment.log_parameters(model_params)
 experiment.log_code(path.basename(__file__))
-name = 'test-model-wind'
+name = 'test_hpct_wind'
 experiment.set_name(name)
 
 plots=None
@@ -57,7 +30,7 @@ outdir=None
 # filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-6992.137-s001-4x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
 
 filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode04'+sep+'ga-5115.748-s001-2x1-m004-WT18-bb86c377bcf7536e5b9acb437d0f3353.properties'
-filename='WindTurbine'+sep+'RewardError-SummedError-Mode02'+sep+'ga-3112894.396-s001-3x5-m002-WT09-697f9588cbe79baa5370381833b269af.properties'
+#filename='WindTurbineOld'+sep+'RewardError-SummedError-Mode02'+sep+'ga-3112894.396-s001-3x5-m002-WT09-697f9588cbe79baa5370381833b269af.properties'
 
 
 plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, {'plot_items': {'IWD':'wd'}, 'title':'Wind'},
@@ -65,6 +38,7 @@ plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, {'plot_items': {'IW
 history=True
 outdir="c:\\tmp"
   
+#suffix ??
 
 verbose=False
 early=None
@@ -78,8 +52,6 @@ filenamePrefix = filename[lastsepIndex+1:propIndex]
 draw_file = outdir + sep + 'draw-'+filenamePrefix+'.png'
 
 
-environment_properties={'series': 'steady', 'zero_threshold': 1.25, 'keep_history': True, 'range': 'test'}
-#environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
 
 (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
     file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,draw_file=draw_file,
