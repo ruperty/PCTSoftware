@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties
 from comet_ml import Experiment
 from matplotlib.ticker import FuncFormatter
-from os import sep, path
+from os import sep, path, makedirs
 from cutils.paths import get_gdrive
 
 
@@ -27,16 +27,17 @@ plots=None
 history=False
 outdir=None
 
-# filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-6992.137-s001-4x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
-
-filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode04'+sep+'ga-5115.748-s001-2x1-m004-WT18-bb86c377bcf7536e5b9acb437d0f3353.properties'
+#filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-6992.137-s001-4x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
+#filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode04'+sep+'ga-5115.748-s001-2x1-m004-WT18-bb86c377bcf7536e5b9acb437d0f3353.properties'
 #filename='WindTurbineOld'+sep+'RewardError-SummedError-Mode02'+sep+'ga-3112894.396-s001-3x5-m002-WT09-697f9588cbe79baa5370381833b269af.properties'
+prefix = 'ga-5115.748-s001-2x1-m004-WT18-bb86c377bcf7536e5b9acb437d0f3353'
+filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode04'+sep+prefix+'.properties'
+        
 
-
-plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, {'plot_items': {'IWD':'wd'}, 'title':'Wind'},
-            {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
+plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, {'plot_items': {'IWD':'wd'}, 'title':'Wind'}, {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
 history=True
-outdir="c:\\tmp"
+outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
+makedirs(outdir, exist_ok=True)
   
 #suffix ??
 
@@ -49,12 +50,12 @@ file = root + 'data'+sep+'ga'+sep+ filename
 lastsepIndex = filename.rfind(sep)
 propIndex = filename.rfind('.properties')
 filenamePrefix = filename[lastsepIndex+1:propIndex]
-draw_file = outdir + sep + 'draw-'+filenamePrefix+'.png'
-
+draw_file = outdir + 'draw-'+filenamePrefix+'.png'
+model_file = outdir + 'res_model.html'
 
 
 (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
-    file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,draw_file=draw_file,
+    file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,draw_file=draw_file, model_file=model_file,
     environment_properties=environment_properties,
     start_index=model_params['start_index_test'],
     stop_index=model_params['stop_index_test'],
