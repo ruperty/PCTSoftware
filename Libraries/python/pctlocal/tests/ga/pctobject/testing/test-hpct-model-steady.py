@@ -39,7 +39,6 @@ history=True
 outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
 makedirs(outdir, exist_ok=True)
   
-#suffix ??
 
 verbose=False
 early=None
