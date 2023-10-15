@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties
+from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
 import warnings
 
 with warnings.catch_warnings():
@@ -12,12 +12,12 @@ from os import sep, path, makedirs
 from cutils.paths import get_gdrive
 
 log_experiment = False
-comparisons = False
+comparisons = True #False
 comparisons_print_plots = True
 
 environment_properties={'series': 'steady', 'zero_threshold': 1.25, 'keep_history': True, 'range': 'test'}
 environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True, 'range': 'test'}
-#environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
+environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
 
 wind_timeseries,start, stop, model_params,yaw_params,keep_history = get_properties(environment_properties)
 
@@ -72,24 +72,29 @@ model_file = outdir + 'res_model.html'
     )
 
 if comparisons:
+    start, stop = get_indexes(model_params, environment_properties)
+
+    
     (res_baseline_simu, nac_pos_baseline_simu, wind_dir) = test_trad_control(
         model_params['wind_timeseries'],
         model_params['wind_timeseries_not_agg'],
         yaw_params['cycle_period'],
-        model_params['start_index_test'],
-        model_params['stop_index_test'],
+        start, #model_params['start_index_test'],
+        stop, #model_params['stop_index_test'],
         experiment=experiment,
         datatype='baseline_simu',
+        outdir=outdir
         )
 
     (res_baseline_logs, nac_pos_baseline_logs, wind_dir) = test_trad_control(
         model_params['wind_timeseries'],
         model_params['wind_timeseries_not_agg'],
         yaw_params['cycle_period'],
-        model_params['start_index_test'],
-        model_params['stop_index_test'],
+        start, #model_params['start_index_test'],
+        stop, #model_params['stop_index_test'],
         experiment=experiment,
         datatype='baseline_logs',
+        outdir=outdir
         )
 
 
