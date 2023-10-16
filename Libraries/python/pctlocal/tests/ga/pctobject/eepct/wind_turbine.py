@@ -40,7 +40,10 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
             
     plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, {'plot_items': {'IWD':'wd'}, 'title':'Wind'}, {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
     history=True
-    outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
+    if 'range' in environment_properties and environment_properties['range']=='test':
+        outdir='c:'+sep+'tmp'+sep+'WindTurbine-test'+sep+prefix+sep
+    else:
+        outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
     makedirs(outdir, exist_ok=True)
 
     file = root + 'data'+sep+'ga'+sep+ filename
