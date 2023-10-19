@@ -20,7 +20,7 @@ history=False
 verbose=False
 early=None
 
-test=1
+test=2
 
 if test==1:
 
