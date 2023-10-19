@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 from yaw_RL_module import *
 from datetime import datetime
-from os import mkdir, sep, rename
+from os import makedirs, sep, rename
 # --------------------------------------------------------------------------
 
-    
+# python steady_script.py > steady.log    
 
 power_curve = pd.read_excel('power_curve.xlsx')
 dataset_file = 'steady_wind.csv'
@@ -64,15 +64,15 @@ env = YawEnv(
 date_time = datetime.now()
 str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
 
-results_dir = f'results{sep}str_date_time'
-mkdir(results_dir)
+results_dir = f'results{sep}{name}{sep}{str_date_time}'
+makedirs(results_dir, exist_ok=True)
 
 model = PPO('MlpPolicy', env, verbose=1)
 logger_callback = Cometlogger(experiment, model_params,
                               eval_freq=20000)
 callback = CallbackList([logger_callback])
 model.learn(total_timesteps=model_params['training_steps'],callback=callback)
-model.save(f'steady_wind-{str_date_time}')
+model.save(f'steady_wind')
 #model_eval = PPO.load('steady_wind')
 
 
@@ -180,7 +180,7 @@ print(res_model)
 rename('res_model.html', f'{results_dir}{sep}res_model.html')
 rename('steady_dataset.png', f'{results_dir}{sep}steady_dataset.png')
 rename('steady_results.png', f'{results_dir}{sep}steady_results.png')
-
+rename('steady_wind.zip', f'{results_dir}{sep}steady_wind.zip')
 
 
 

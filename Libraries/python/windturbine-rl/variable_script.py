@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from yaw_RL_module import *
+from datetime import datetime
+from os import makedirs, sep, rename
 
+# python variable_script.py > variable.log
 
 # --------------------------------------------------------------------------
-
-    
 
 power_curve = pd.read_excel('power_curve.xlsx')
 dataset_file = 'variable_wind.csv'
@@ -13,11 +14,6 @@ dataset_file = 'variable_wind.csv'
                                                                    cycle_period=10,
                                                                    rolling_average_duration=20)
     
-    
-
-
-
-
 yaw_params = {
     'yaw_rate_max': 0.3,
     'yaw_consumption':18,
@@ -60,13 +56,22 @@ env = YawEnv(
     model_params['filter_duration'],
     yaw_params,
     )
- 
+
+date_time = datetime.now()
+str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
+
+results_dir = f'results{sep}{name}{sep}{str_date_time}'
+makedirs(results_dir, exist_ok=True)
+
+
 model = PPO('MlpPolicy', env, verbose=1)
 logger_callback = Cometlogger(experiment, model_params,
                               eval_freq=20000)
 callback = CallbackList([logger_callback])
-#model.learn(total_timesteps=model_params['training_steps'],callback=callback)
-model_eval = PPO.load('variable_wind')
+model.learn(total_timesteps=model_params['training_steps'],callback=callback)
+model.save(f'variable_wind')
+
+#model_eval = PPO.load('variable_wind')
 
 
 (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_model(
@@ -150,9 +155,6 @@ axs[5].set_ylabel(ylabel='net power output \nincrease (per cent)', fontsize=20,)
 fig.tight_layout()
 plt.savefig('variable_dataset',dpi=600)
 
-    
-
-
 
 fig, axs = plt.subplots(2, sharex=True)
 axs[0].plot(range(model_params['start_index']*yaw_params['cycle_period'],model_params['stop_index']*yaw_params['cycle_period'], yaw_params['cycle_period'] ),wind_timeseries['wind_direction'][model_params['start_index']:model_params['stop_index']],label='train')
@@ -169,8 +171,10 @@ print(res_baseline_simu)
 print(res_baseline_logs)
 print(res_model)
     
-
-
+rename('res_model.html', f'{results_dir}{sep}res_model.html')
+rename('variable_dataset.png', f'{results_dir}{sep}variable_dataset.png')
+rename('variable_results.png', f'{results_dir}{sep}variable_results.png')
+rename('variable_wind.zip', f'{results_dir}{sep}variable_wind.zip')
 
 
 

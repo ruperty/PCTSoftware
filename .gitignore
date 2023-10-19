@@ -44,3 +44,7 @@ Libraries/python/pctlocal/tests/ga/pctobject/res-baseline_logs.html
 Libraries/python/pctlocal/tests/ga/pctobject/res-baseline_simu.html
 Libraries/python/pctlocal/tests/ga/pctobject/testfiles/steady_wind_edit.ods
 Libraries/python/pctlocal/tests/ga/pctobject/testfiles/variable_wind_edit.ods
+Libraries/python/windturbine-rl/__pycache__/yaw_RL_module.cpython-39.pyc
+results
+Libraries/python/windturbine-rl/res_model.html
+Libraries/python/windturbine-rl/steady.log
