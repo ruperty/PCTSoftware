@@ -51,14 +51,8 @@ python -m impl.run_from_file -f "G:\My Drive\data\ga\Pendulum\PM09-RewardError-R
 
 
 
-python -m impl.evolve_multi WindTurbine "['WT01-RewardError-SummedError-Mode00', 'WT02-RewardError-RootMeanSquareError-Mode00', 'WT03-RewardError-RootMeanSquareError-Mode00', 'WT04-RewardError-RootMeanSquareError-Mode00', 'WT05-RewardError-SummedError-Mode01', 'WT06-RewardError-RootMeanSquareError-Mode01', 'WT07-RewardError-RootMeanSquareError-Mode01', 'WT08-RewardError-RootMeanSquareError-Mode01', 'WT09-RewardError-SummedError-Mode02', 'WT10-RewardError-RootMeanSquareError-Mode02']
+
+python -m impl.evolve_multi WindTurbine "[  'WT03-RewardError-RootMeanSquareError-Mode00', 'WT04-RewardError-RootMeanSquareError-Mode00', 'WT05-RewardError-SummedError-Mode01',  'WT07-RewardError-RootMeanSquareError-Mode01', 'WT08-RewardError-RootMeanSquareError-Mode01',  'WT11-RewardError-RootMeanSquareError-Mode02', 'WT12-RewardError-RootMeanSquareError-Mode02' ]"
 
 
 
-
-python -m impl.evolve_multi WindTurbine "['WT11-RewardError-RootMeanSquareError-Mode02', 'WT12-RewardError-RootMeanSquareError-Mode02', 'WT13-RewardError-SummedError-Mode03', 'WT14-RewardError-RootMeanSquareError-Mode03', 'WT15-RewardError-RootMeanSquareError-Mode03', 'WT16-RewardError-RootMeanSquareError-Mode03', 'WT17-RewardError-SummedError-Mode04', 'WT18-RewardError-RootMeanSquareError-Mode04', 'WT19-RewardError-RootMeanSquareError-Mode04', 'WT20-RewardError-RootMeanSquareError-Mode04']"
-
-
-
-
-python -m impl.evolve_multi WindTurbine "[ 'WT03-RewardError-RootMeanSquareError-Mode00', 'WT04-RewardError-RootMeanSquareError-Mode00', 'WT07-RewardError-RootMeanSquareError-Mode01']
