@@ -1,0 +1,12 @@
+python.exe -m pip install setuptools==65.5.0 pip==21
+pip install stable-baselines3==1.4.0 comet-ml==3.26.0 numpy==1.22.2
+pip install scipy plotly==5.6.0 openpyxl pandas==1.4.0 matplotlib==3.5.1
+
+
+pip install urllib3==1.25.10
+
+pip install pandas==1.4.0
+
+
+pip install 'shimmy>=0.2.1
+
