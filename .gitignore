@@ -48,3 +48,8 @@ Libraries/python/windturbine-rl/__pycache__/yaw_RL_module.cpython-39.pyc
 results
 Libraries/python/windturbine-rl/res_model.html
 Libraries/python/windturbine-rl/steady.log
+Libraries/python/windturbine-rl/variable_script.py
+.gitignore
+Libraries/python/windturbine-rl/res-baseline_simu.html
+Libraries/python/windturbine-rl/res-baseline_logs.html
+Libraries/python/windturbine-rl/variable.log

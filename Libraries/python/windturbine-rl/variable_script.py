@@ -3,10 +3,13 @@
 from yaw_RL_module import *
 from datetime import datetime
 from os import makedirs, sep, rename
-
-# python variable_script.py > variable.log
+import time
 
 # --------------------------------------------------------------------------
+# python variable_script.py > variable.log
+# --------------------------------------------------------------------------
+
+learn = True
 
 power_curve = pd.read_excel('power_curve.xlsx')
 dataset_file = 'variable_wind.csv'
@@ -68,8 +71,14 @@ model = PPO('MlpPolicy', env, verbose=1)
 logger_callback = Cometlogger(experiment, model_params,
                               eval_freq=20000)
 callback = CallbackList([logger_callback])
-model.learn(total_timesteps=model_params['training_steps'],callback=callback)
-model.save(f'variable_wind')
+
+if learn:    
+    tic = time.perf_counter()
+    model.learn(total_timesteps=model_params['training_steps'],callback=callback)    
+    toc = time.perf_counter()
+    elapsed = toc-tic
+    print(f'Elapsed time: {elapsed:4.4f}')  
+    model.save(f'variable_wind')
 
 #model_eval = PPO.load('variable_wind')
 

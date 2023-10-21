@@ -3,9 +3,13 @@
 from yaw_RL_module import *
 from datetime import datetime
 from os import makedirs, sep, rename
+import time
+
+# --------------------------------------------------------------------------
+# python steady_script.py > steady.log    
 # --------------------------------------------------------------------------
 
-# python steady_script.py > steady.log    
+learn = True
 
 power_curve = pd.read_excel('power_curve.xlsx')
 dataset_file = 'steady_wind.csv'
@@ -14,10 +18,6 @@ dataset_file = 'steady_wind.csv'
                                                                    rolling_average_duration=20)
     
     
-
-
-
-
 yaw_params = {
     'yaw_rate_max': 0.3,
     'yaw_consumption':18,
@@ -71,8 +71,14 @@ model = PPO('MlpPolicy', env, verbose=1)
 logger_callback = Cometlogger(experiment, model_params,
                               eval_freq=20000)
 callback = CallbackList([logger_callback])
-model.learn(total_timesteps=model_params['training_steps'],callback=callback)
-model.save(f'steady_wind')
+
+if learn:    
+    tic = time.perf_counter()
+    model.learn(total_timesteps=model_params['training_steps'],callback=callback)
+    toc = time.perf_counter()
+    elapsed = toc-tic
+    print(f'Elapsed time: {elapsed:4.4f}')  
+    model.save(f'steady_wind')
 #model_eval = PPO.load('steady_wind')
 
 
