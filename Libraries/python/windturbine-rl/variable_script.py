@@ -9,7 +9,7 @@ import time
 # python variable_script.py > variable.log
 # --------------------------------------------------------------------------
 
-learn = True
+learn = False
 
 power_curve = pd.read_excel('power_curve.xlsx')
 dataset_file = 'variable_wind.csv'
@@ -79,8 +79,8 @@ if learn:
     elapsed = toc-tic
     print(f'Elapsed time: {elapsed:4.4f}')  
     model.save(f'variable_wind')
-
-#model_eval = PPO.load('variable_wind')
+else:
+    model_eval = PPO.load('variable_wind')
 
 
 (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_model(
