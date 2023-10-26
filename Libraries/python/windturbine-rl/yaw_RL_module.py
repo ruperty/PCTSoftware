@@ -350,7 +350,8 @@ class YawEnv(Env):
         )
 
         self.state = new_state
-        reward = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    \
+        reward = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 \
+                * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    \
                 + self.w2 * (self.step_since_last_2 > self.filter_duration and self.step_since_last_0 > self.filter_duration)
 
 
