@@ -188,7 +188,7 @@ for i in range(100):
     rename('steady_wind.zip', f'{results_dir}{sep}steady_wind.zip')
 
 
-
+    plt.close('all')
 
 
 
