@@ -10,6 +10,8 @@ import time
 # --------------------------------------------------------------------------
 
 learn = True
+exp = False
+name = 'steady'
 
 
 power_curve = pd.read_excel('power_curve.xlsx')
@@ -42,18 +44,20 @@ model_params = {
     'training_steps': 500000,
     }
 
+
+
 for i in range(100):
-
-    experiment = Experiment(api_key='???',
-                            project_name='yaw-rl',
-                            workspace='albanpuech')
-
-
-    experiment.log_parameters(model_params)
-    experiment.log_code(os.path.basename(__file__))
-    experiment.log_code('yaw_RL_module.py')
-    name = 'steady'
-    experiment.set_name(name)
+    print(i, end=" ")
+    if exp:
+        experiment = Experiment(api_key='???',
+                                project_name='yaw-rl',
+                                workspace='albanpuech')
+        experiment.log_parameters(model_params)
+        experiment.log_code(os.path.basename(__file__))
+        experiment.log_code('yaw_RL_module.py')
+        experiment.set_name(name)
+    else:
+        experiment=None
 
     env = YawEnv(
         wind_timeseries,
@@ -66,14 +70,16 @@ for i in range(100):
 
     date_time = datetime.now()
     str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
-
     results_dir = f'results{sep}{name}{sep}{str_date_time}'
     makedirs(results_dir, exist_ok=True)
-
     model = PPO('MlpPolicy', env, verbose=1)
-    logger_callback = Cometlogger(experiment, model_params,
-                                eval_freq=20000)
-    callback = CallbackList([logger_callback])
+
+    if exp:
+        logger_callback = Cometlogger(experiment, model_params,
+                                    eval_freq=20000)
+        callback = CallbackList([logger_callback])
+    else:
+        callback=None
 
     if learn:    
         tic = time.perf_counter()
@@ -117,8 +123,8 @@ for i in range(100):
         datatype='baseline_logs',
         )
 
-
-    experiment.end()
+    if exp:
+        experiment.end()
 
 
     power_prod_change, conso_yaw_change, net_prod_change, rel_net_prod_change,yaw_error_rel_change = get_comparaison_metrics(wind_dir,power_control,power_simu,nac_pos_model, nac_pos_baseline_simu, yaw_params['yaw_rate_max'], yaw_params['yaw_consumption'], 50)    
