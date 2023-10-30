@@ -47,7 +47,11 @@ model_params = {
 
 
 for i in range(100):
-    print(i, end=" ")
+    print(f'loop={i}')
+    from datetime import datetime   
+    dateTimeObj = datetime.now()
+    print(dateTimeObj)
+
     if exp:
         experiment = Experiment(api_key='???',
                                 project_name='yaw-rl',
