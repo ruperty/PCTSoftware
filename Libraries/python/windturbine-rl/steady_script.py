@@ -46,7 +46,7 @@ model_params = {
 
 
 
-for i in range(100):
+for i in range(10):
     print(f'loop={i}')
     from datetime import datetime   
     dateTimeObj = datetime.now()
