@@ -11,6 +11,7 @@ comparisons_print_plots = True
 wt='WindTurbine'
 environment_properties={'series': 'steady', 'zero_threshold': 1.25, 'keep_history': True, 'range': 'test'}
 environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True, 'range': 'test'}
+environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True, 'range': 'test', 'reward_type': 'surface2'}
 # environment_properties={'series': 'steady', 'zero_threshold': 1, 'keep_history': True}
 
 root = get_gdrive() 

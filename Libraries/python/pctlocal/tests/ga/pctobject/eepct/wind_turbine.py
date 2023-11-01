@@ -14,7 +14,7 @@ from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_
 
 def wind_turbine_results(environment_properties=None, log_experiment=False, root=None, wt='WindTurbine', verbose=None, early=None, comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None):
 
-    wind_timeseries,start, stop, model_params,yaw_params,keep_history = get_properties(environment_properties)
+    wind_timeseries,start, stop, model_params,yaw_params,keep_history, rt = get_properties(environment_properties)
 
     if log_experiment:
         experiment = Experiment(api_key='WVBkFFlU4zqOyfWzk5PRSQbfD',

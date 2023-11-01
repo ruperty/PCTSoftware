@@ -54,5 +54,7 @@ python -m impl.run_from_file -f "G:\My Drive\data\ga\Pendulum\PM09-RewardError-R
 
 python -m impl.evolve_multi WindTurbine "[  'WT03-RewardError-RootMeanSquareError-Mode00', 'WT04-RewardError-RootMeanSquareError-Mode00', 'WT05-RewardError-SummedError-Mode01',  'WT07-RewardError-RootMeanSquareError-Mode01', 'WT08-RewardError-RootMeanSquareError-Mode01',  'WT11-RewardError-RootMeanSquareError-Mode02', 'WT12-RewardError-RootMeanSquareError-Mode02' ]"
 
+python -m impl.evolve_multi WindTurbine "[ 'WT21-RewardError-SummedError-Mode00'  ]"
+
 
 
