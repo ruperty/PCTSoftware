@@ -1,6 +1,4 @@
-
 import warnings
-import pandas as pd
 import matplotlib.pyplot as plt
 
 with warnings.catch_warnings():
@@ -8,11 +6,24 @@ with warnings.catch_warnings():
     from comet_ml import Experiment
 from matplotlib.ticker import FuncFormatter
 from os import sep, path, makedirs
-
+from pct.hierarchy import PCTHierarchy
 from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
 
 
+def get_environment_properties(root=None, wt='WindTurbine', property_dir=None, property_file=None):
+
+    filename=wt+sep+property_dir+sep+property_file
+    file = root + 'data'+sep+'ga'+sep+ filename
+
+    environment_properties = PCTHierarchy.get_environment_properties(file)
+
+    return environment_properties
+
 def wind_turbine_results(environment_properties=None, log_experiment=False, root=None, wt='WindTurbine', verbose=None, early=None, comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None):
+
+    prefix = property_file[:property_file.find(".properties")]
+    filename=wt+sep+property_dir+sep+property_file
+    file = root + 'data'+sep+'ga'+sep+ filename
 
     wind_timeseries,start, stop, model_params,yaw_params,keep_history, rt = get_properties(environment_properties)
 
@@ -35,8 +46,6 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
     #prefix = 'ga-5115.748-s001-2x1-m004-WT18-bb86c377bcf7536e5b9acb437d0f3353'
     #filename=wt+sep+'RewardError-RootMeanSquareError-Mode04'+sep+prefix+'.properties'
 
-    prefix = property_file[:property_file.find(".properties")]
-    filename=wt+sep+property_dir+sep+property_file
             
     plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, {'plot_items': {'IWD':'wd'}, 'title':'Wind'}, {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
     history=True
@@ -46,7 +55,6 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
         outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
     makedirs(outdir, exist_ok=True)
 
-    file = root + 'data'+sep+'ga'+sep+ filename
 
     lastsepIndex = filename.rfind(sep)
     propIndex = filename.rfind('.properties')
