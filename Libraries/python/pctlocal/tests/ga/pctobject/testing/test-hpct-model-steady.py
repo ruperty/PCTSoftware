@@ -20,7 +20,7 @@ history=False
 verbose=False
 early=None
 
-test=2
+test=1
 
 if test==1:
 
@@ -31,6 +31,7 @@ if test==1:
             if file.endswith(".properties"):
                 if environment_properties is None:
                     environment_properties = get_environment_properties(root=root, property_dir=property_dir, property_file=file)
+                    environment_properties['range'] = 'test'
                     environment_properties['keep_history'] = True
                 #print(file)
                 wind_turbine_results(environment_properties=environment_properties, log_experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file)
