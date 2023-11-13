@@ -53,7 +53,7 @@ def evolve(args):
 	toolbox = base.Toolbox()
 	CommonToolbox.getInstance().set_toolbox(toolbox)
 
-	print(f'Start seed={seed} min={min}')
+	print(f'Start seed={seed} min={min} file={filename}')
 
 	hep = HPCTEvolveProperties()
 	output=True
