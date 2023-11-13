@@ -2,7 +2,6 @@
 
 
 import logging
-import platform
 import time
 import argparse
 
@@ -11,7 +10,6 @@ from datetime import datetime
 from deap import base, creator
 from epct.evolvers import CommonToolbox
 from multiprocessing import Pool
-from os import sep
 from cutils.paths import get_root_path, get_gdrive
 from eepct.hpct import HPCTEvolveProperties
 from eepct.hpct import HPCTIndividual
@@ -75,7 +73,8 @@ def evolve(args):
 	logger = logging.getLogger(__name__)
 	logger.info("Evolving {} ".format(env_name))
 	logger.info(properties_str)
-
+	logger.info(f'hash_num={hash_num}')
+	
 	out, evr, score = hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
 	# out = True
 
@@ -110,9 +109,20 @@ if __name__ == '__main__':
 	
 	list=[]
 	for file in eval(args.files):    
-			print(file)    
+			index = file.find(' ')
+			if index < 0:
+				filen=file
+				max = args.max
+			else:
+				filen = file[0:index]
+				arg = file[index+1:]
+				if arg == '-x' or arg == '-max':
+					max = True
+
+
+			print(filen)    
 			for i in range(start, iters+start, 1):
-					arg = {'seed': i, 'file': file, 'env_name':args.env_name, 'verbosed':verbosed, 'gens':args.gens, 'pop':args.pop, 'max':args.max}
+					arg = {'seed': i, 'file': filen, 'env_name':args.env_name, 'verbosed':verbosed, 'gens':args.gens, 'pop':args.pop, 'max':max}
 					list.append(arg) 
 
 	# print(list)

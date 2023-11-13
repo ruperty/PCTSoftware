@@ -2380,7 +2380,7 @@ class HPCTGenerateEvolvers(object):
                     config = configs[key]
                     self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
 
-    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args, fname_list):
+    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args, fname_list, fargs):
         "Generate properties file based upon architecture type."
         #print('arch', arch)
         import os
@@ -2399,7 +2399,10 @@ class HPCTGenerateEvolvers(object):
             for response in responses:
                     for struct in structs:
                         desc, filename = self.description(collector,response,  f'Mode{struct["mode"]:02}', arch_name)
-                        fname_list.append(filename)
+                        if len(fargs)>0:
+                            fname_list.append(f'{filename} {fargs}')
+                        else:
+                            fname_list.append(filename)
                         fpars = self.fixed_parameters(env, arch, num_actions, environment_properties)
                         cpars = self.configurable_parameters( config, collector, response, nevals)
                         ppars = self.additional_properties(error_properties, response, collector)
@@ -2422,16 +2425,21 @@ class HPCTGenerateEvolvers(object):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
             fname_list = []
+            actr=0
             for row in reader:
                 # print(row)
                 if reader.line_num==1:
                     header = row
                 else:
+                    actr=actr+1
                     record = {}
                     for ctr, item in enumerate(header):
                         record[item] = row[ctr]
                         
                     #print(record)
+
+                    aname = f'{record["arch_name"]}{actr:03}'
+
                     arch_props = {}
                     arch_props['collectors']=[record['error_collector']]
                     arch_props['responses']=[record['error_response']]
@@ -2443,7 +2451,7 @@ class HPCTGenerateEvolvers(object):
                     structs['mode'] = eval(record['arch_mode'])  
                     arch_props['structs']=[structs]
                     arch_config={}
-                    arch_config[record['arch_name']]=arch_props
+                    arch_config[aname]=arch_props
                     archs={}
                     archs['arch']=arch_config                
                     collection={}
@@ -2492,7 +2500,7 @@ class HPCTGenerateEvolvers(object):
 
                     
                     arch={}
-                    arch['name']=record['arch_name']
+                    arch['name']=aname
                     arch['env_inputs_indexes']=eval(record['env_inputs_indexes'])
                     if len(record['zerolevel_inputs_indexes']) > 0:
                         arch['zerolevel_inputs_indexes']=eval(record['zerolevel_inputs_indexes'])
@@ -2501,8 +2509,9 @@ class HPCTGenerateEvolvers(object):
                     arch['references']=eval(record['references'])
                     arch['env_inputs_names']=record['env_inputs_names']
 
+                    fargs = record['args']
 
-                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args, fname_list)
+                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args, fname_list, fargs)
             cmd = f'python -m impl.evolve_multi {record["env"]} "{fname_list}" {args}'
             print(cmd, end='\n')
 
