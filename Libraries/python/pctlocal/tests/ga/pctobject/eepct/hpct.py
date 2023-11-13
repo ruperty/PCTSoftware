@@ -2056,7 +2056,7 @@ class HPCTEvolveProperties(PCTRunProperties):
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='error_limit', float_convert=True)
         self.set_property_value(properties_var=self.hpct_run_properties, property_name='runs', int_convert=True)
 
-        properties_str = 'Properties:\n' + f'Env = {self.environment_properties["env_name"]}, description = {self.db["desc"]}\n' + f'inputs = {self.environment_properties["env_inputs_indexes"]}, names = {self.environment_properties["env_inputs_names"]}, references = {self.environment_properties["references"]}, top_inputs = {self.environment_properties["toplevel_inputs_indexes"]}\n' + f'min_levels_limit = {self.hpct_structure_properties["min_levels_limit"]}, max_levels_limit = {self.hpct_structure_properties["max_levels_limit"]}, min_columns_limit = {self.hpct_structure_properties["min_columns_limit"]}, max_columns_limit = {self.hpct_structure_properties["max_columns_limit"]}, early_termination = {self.environment_properties["early_termination"]}\n' + f'error_collector = {self.hpct_run_properties["error_collector_type"]}, error_response = {self.hpct_run_properties["error_response_type"]}, error_limit = {self.hpct_run_properties["error_limit"]}\n' + f'pop_size = {self.wrapper_properties["pop_size"]}, gens = {self.wrapper_properties["gens"]}, attr_mut_pb = {self.evolve_properties["attr_mut_pb"]}, structurepb = {self.evolve_properties["structurepb"]}, lower_float = {self.hpct_structure_properties["lower_float"]}, upper_float = {self.hpct_structure_properties["upper_float"]}\n' + f'p_crossover = {self.wrapper_properties["p_crossover"]}, p_mutation = {self.wrapper_properties["p_mutation"]}\n' + f'seed = {seed}, nevals = {self.hpct_run_properties["nevals"]}, runs = {self.hpct_run_properties["runs"]}, mode = {self.hpct_structure_properties["mode"]}\n'
+        properties_str = 'Properties:\n' + f'Env = {self.environment_properties["env_name"]}, arch = {self.db["arch_name"]}, description = {self.db["desc"]}\n' + f'inputs = {self.environment_properties["env_inputs_indexes"]}, names = {self.environment_properties["env_inputs_names"]}, references = {self.environment_properties["references"]}, top_inputs = {self.environment_properties["toplevel_inputs_indexes"]}\n' + f'min_levels_limit = {self.hpct_structure_properties["min_levels_limit"]}, max_levels_limit = {self.hpct_structure_properties["max_levels_limit"]}, min_columns_limit = {self.hpct_structure_properties["min_columns_limit"]}, max_columns_limit = {self.hpct_structure_properties["max_columns_limit"]}, early_termination = {self.environment_properties["early_termination"]}\n' + f'error_collector = {self.hpct_run_properties["error_collector_type"]}, error_response = {self.hpct_run_properties["error_response_type"]}, error_limit = {self.hpct_run_properties["error_limit"]}\n' + f'pop_size = {self.wrapper_properties["pop_size"]}, gens = {self.wrapper_properties["gens"]}, attr_mut_pb = {self.evolve_properties["attr_mut_pb"]}, structurepb = {self.evolve_properties["structurepb"]}, lower_float = {self.hpct_structure_properties["lower_float"]}, upper_float = {self.hpct_structure_properties["upper_float"]}\n' + f'p_crossover = {self.wrapper_properties["p_crossover"]}, p_mutation = {self.wrapper_properties["p_mutation"]}\n' + f'seed = {seed}, nevals = {self.hpct_run_properties["nevals"]}, runs = {self.hpct_run_properties["runs"]}, mode = {self.hpct_structure_properties["mode"]}'
         if print_properties:
             print(properties_str)
             # logger.info(properties_str)
@@ -2177,7 +2177,7 @@ class HPCTEvolveProperties(PCTRunProperties):
     def configure_evolver_from_properties_file(self, file=None, verbose=None, seed=None, flip_error_response=False,
             gens=None, pop_size=None, print_properties=False, toolbox=None, processes=1, min=True, environment_properties=None):
         "Evolve from properties file"
-        logger.info('Start evolve_from_properties_file')
+
         import hashlib
         properties_str = self.load_properties(file, print_properties=print_properties, evolve=True, gens=gens, pop_size=pop_size, seed=seed)
         
@@ -2233,8 +2233,8 @@ class HPCTEvolveProperties(PCTRunProperties):
         hash_string = self.create_hash_string(properties_string, types_string)
         #print(hash_string)
         hash_num = hashlib.md5(hash_string.encode()).hexdigest()
-        #print(hash_num)
-
+        if print_properties:
+            print(f'hash_num={hash_num}')
         
         evolver_properties = {'environment_properties':self.environment_properties, 
         'evolve_properties':self.evolve_properties,  
@@ -2325,7 +2325,10 @@ class HPCTEvolveProperties(PCTRunProperties):
             output_file = dir+sep +f'ga-{score:07.3f}-s{seed:03}-{levels}x{cols}-m{self.hpct_structure_properties["mode"]:03}-{self.hpct_structure_properties["arch_name"]}-{hash_num}.properties'
             if print_properties:
                 print(output_file)
-                
+
+            
+            logger.info(draw_file)    
+            logger.info(output_file)    
             best.write_config_to_file1(in_file=file, seed=seed, fseed=self.fseed, log=log, log_string=log_string, meantime=meantime, score=score, output_file=output_file)
 
             # f = open(output_file, "w")

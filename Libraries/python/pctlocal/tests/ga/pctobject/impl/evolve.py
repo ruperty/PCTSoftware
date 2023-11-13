@@ -96,11 +96,12 @@ if __name__ == '__main__':
 		date_time = now.strftime("%Y%m%d-%H%M%S")
 		log_dir=sep.join((out_dir, env_name, desc))
 		makedirs(log_dir,exist_ok = True) 
-		log_file=sep.join((log_dir, "evolve-"+platform.node()+"-"+date_time+".log"))
+		log_file=sep.join((log_dir, "evolve-" + hash_num+"-"+date_time+".log"))
 		logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 		logger = logging.getLogger(__name__)
 		logger.info("Evolving {} ".format(env_name))
 		logger.info(properties_str)
+		logger.info(f'hash_num={hash_num}')
 
 		# try:
 		hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num,
