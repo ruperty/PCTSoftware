@@ -69,6 +69,7 @@ def evolve(args):
 	log_dir=sep.join((out_dir, env_name, desc))
 	makedirs(log_dir,exist_ok = True) 
 	log_file=sep.join((log_dir, "evolve-"+  hash_num +"-"+ date_time+".log"))
+	print(log_file)
 	logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'    )
 	logger = logging.getLogger(__name__)
 	logger.info("Evolving {} ".format(env_name))
