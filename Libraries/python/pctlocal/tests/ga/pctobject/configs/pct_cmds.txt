@@ -82,4 +82,10 @@ python -m impl.evolve_multi WindTurbine "['WT001-RewardError-RootMeanSquareError
 
 
 
+Old laptop
+
+
+python -m impl.evolve_multi WindTurbine "['WT076-RewardError-RootMeanSquareError-Mode00 -x', 'WT077-RewardError-RootMeanSquareError-Mode00 -x', 'WT078-RewardError-RootMeanSquareError-Mode00 -x', 'WT079-RewardError-RootMeanSquareError-Mode01 -x', 'WT080-RewardError-RootMeanSquareError-Mode01 -x', 'WT081-RewardError-RootMeanSquareError-Mode01 -x', 'WT082-RewardError-RootMeanSquareError-Mode02 -x', 'WT083-RewardError-RootMeanSquareError-Mode02 -x', 'WT084-RewardError-RootMeanSquareError-Mode02 -x', 'WT085-RewardError-RootMeanSquareError-Mode03 -x', 'WT086-RewardError-RootMeanSquareError-Mode03 -x', 'WT087-RewardError-RootMeanSquareError-Mode03 -x', 'WT088-RewardError-RootMeanSquareError-Mode04 -x', 'WT089-RewardError-RootMeanSquareError-Mode04 -x', 'WT090-RewardError-RootMeanSquareError-Mode04 -x']" --cpu 4
+
+
 
