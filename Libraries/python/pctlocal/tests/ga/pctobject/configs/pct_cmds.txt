@@ -173,6 +173,13 @@ python -m impl.evolve_multi WindTurbine "['WT090-RewardError-RootMeanSquareError
 
 Old laptop
 
+python -m impl.evolve_multi WindTurbine "['WT070-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT071-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT072-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT073-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT074-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT075-RewardError-SummedError-Mode04']"
+
 
 python -m impl.evolve_multi WindTurbine "['WT087-RewardError-RootMeanSquareError-Mode03 -x', 'WT088-RewardError-RootMeanSquareError-Mode04 -x', 'WT089-RewardError-RootMeanSquareError-Mode04 -x', 'WT090-RewardError-RootMeanSquareError-Mode04 -x']" --cpu 4
 
