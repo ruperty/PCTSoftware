@@ -178,3 +178,19 @@ python -m impl.evolve_multi WindTurbine "['WT087-RewardError-RootMeanSquareError
 
 
 
+new laptop
+
+pending
+python -m impl.evolve_multi WindTurbine "['WT076-RewardError-RootMeanSquareError-Mode00']" -x
+python -m impl.evolve_multi WindTurbine "['WT077-RewardError-RootMeanSquareError-Mode00']" -x
+python -m impl.evolve_multi WindTurbine "['WT078-RewardError-RootMeanSquareError-Mode00']" -x
+python -m impl.evolve_multi WindTurbine "['WT079-RewardError-RootMeanSquareError-Mode01']" -x
+python -m impl.evolve_multi WindTurbine "['WT080-RewardError-RootMeanSquareError-Mode01']" -x
+python -m impl.evolve_multi WindTurbine "['WT081-RewardError-RootMeanSquareError-Mode01']" -x
+python -m impl.evolve_multi WindTurbine "['WT082-RewardError-RootMeanSquareError-Mode02']" -x
+python -m impl.evolve_multi WindTurbine "['WT083-RewardError-RootMeanSquareError-Mode02']" -x
+python -m impl.evolve_multi WindTurbine "['WT084-RewardError-RootMeanSquareError-Mode02']" -x
+
+done
+python -m impl.evolve_multi WindTurbine "['WT085-RewardError-RootMeanSquareError-Mode03']" -x
+python -m impl.evolve_multi WindTurbine "['WT086-RewardError-RootMeanSquareError-Mode03']" -x
