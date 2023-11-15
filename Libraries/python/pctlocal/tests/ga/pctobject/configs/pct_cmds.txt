@@ -190,7 +190,16 @@ python -m impl.evolve_multi WindTurbine "['WT081-RewardError-RootMeanSquareError
 python -m impl.evolve_multi WindTurbine "['WT082-RewardError-RootMeanSquareError-Mode02']" -x
 python -m impl.evolve_multi WindTurbine "['WT083-RewardError-RootMeanSquareError-Mode02']" -x
 python -m impl.evolve_multi WindTurbine "['WT084-RewardError-RootMeanSquareError-Mode02']" -x
-
+python -m impl.evolve_multi WindTurbine "['WT061-RewardError-SummedError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT062-RewardError-SummedError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT063-RewardError-SummedError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT064-RewardError-SummedError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT065-RewardError-SummedError-Mode01']" 
+python -m impl.evolve_multi WindTurbine "['WT066-RewardError-SummedError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT067-RewardError-SummedError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT068-RewardError-SummedError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT069-RewardError-SummedError-Mode02']"
+p
 done
 python -m impl.evolve_multi WindTurbine "['WT085-RewardError-RootMeanSquareError-Mode03']" -x
 python -m impl.evolve_multi WindTurbine "['WT086-RewardError-RootMeanSquareError-Mode03']" -x
