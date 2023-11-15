@@ -10,9 +10,9 @@ def get_gdrive():
         if os.name == 'nt' :
             root_dir='G:\\My Drive\\'
     else:
-        root_dir='/mnt/c/Users/ryoung/My Drive/'        
+        root_dir='/mnt/g/My Drive/'        
         if os.name == 'nt' :
-            root_dir='C:\\Users\\ryoung\\Google Drive\\'
+            root_dir='G:\\My Drive\\'
     return root_dir
 
 

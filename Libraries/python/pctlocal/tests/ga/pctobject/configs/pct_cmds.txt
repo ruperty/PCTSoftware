@@ -171,7 +171,81 @@ python -m impl.evolve_multi WindTurbine "['WT088-RewardError-RootMeanSquareError
 python -m impl.evolve_multi WindTurbine "['WT089-RewardError-RootMeanSquareError-Mode04']"
 python -m impl.evolve_multi WindTurbine "['WT090-RewardError-RootMeanSquareError-Mode04']"
 
+Desktop
+
+pending
+python -m impl.evolve_multi WindTurbine "['WT003-RewardError-RootMeanSquareError-Mode00']" 
+python -m impl.evolve_multi WindTurbine "['WT004-RewardError-RootMeanSquareError-Mode01']" 
+python -m impl.evolve_multi WindTurbine "['WT005-RewardError-RootMeanSquareError-Mode01']" 
+python -m impl.evolve_multi WindTurbine "['WT006-RewardError-RootMeanSquareError-Mode01']" 
+python -m impl.evolve_multi WindTurbine "['WT007-RewardError-RootMeanSquareError-Mode02']" 
+python -m impl.evolve_multi WindTurbine "['WT008-RewardError-RootMeanSquareError-Mode02']" 
+python -m impl.evolve_multi WindTurbine "['WT009-RewardError-RootMeanSquareError-Mode02']" 
+python -m impl.evolve_multi WindTurbine "['WT010-RewardError-RootMeanSquareError-Mode03']" 
+python -m impl.evolve_multi WindTurbine "['WT011-RewardError-RootMeanSquareError-Mode03']" 
+python -m impl.evolve_multi WindTurbine "['WT012-RewardError-RootMeanSquareError-Mode03']" 
+python -m impl.evolve_multi WindTurbine "['WT013-RewardError-RootMeanSquareError-Mode04']" 
+python -m impl.evolve_multi WindTurbine "['WT014-RewardError-RootMeanSquareError-Mode04']" 
+python -m impl.evolve_multi WindTurbine "['WT015-RewardError-RootMeanSquareError-Mode04']" 
+python -m impl.evolve_multi WindTurbine "['WT016-RewardError-RootMeanSquareError-Mode00']" 
+python -m impl.evolve_multi WindTurbine "['WT017-RewardError-RootMeanSquareError-Mode00']" 
+python -m impl.evolve_multi WindTurbine "['WT018-RewardError-RootMeanSquareError-Mode00']" 
+python -m impl.evolve_multi WindTurbine "['WT019-RewardError-RootMeanSquareError-Mode01']" 
+python -m impl.evolve_multi WindTurbine "['WT020-RewardError-RootMeanSquareError-Mode01']" 
+python -m impl.evolve_multi WindTurbine "['WT021-RewardError-RootMeanSquareError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT022-RewardError-RootMeanSquareError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT023-RewardError-RootMeanSquareError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT024-RewardError-RootMeanSquareError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT025-RewardError-RootMeanSquareError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT026-RewardError-RootMeanSquareError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT027-RewardError-RootMeanSquareError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT028-RewardError-RootMeanSquareError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT029-RewardError-RootMeanSquareError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT030-RewardError-RootMeanSquareError-Mode04']"
+
+python -m impl.evolve_multi WindTurbine "['WT031-RewardError-SummedError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT032-RewardError-SummedError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT033-RewardError-SummedError-Mode00']" 
+python -m impl.evolve_multi WindTurbine "['WT034-RewardError-SummedError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT035-RewardError-SummedError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT036-RewardError-SummedError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT037-RewardError-SummedError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT038-RewardError-SummedError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT039-RewardError-SummedError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT040-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT041-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT042-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT043-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT044-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT045-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT046-RewardError-SummedError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT047-RewardError-SummedError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT048-RewardError-SummedError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT049-RewardError-SummedError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT050-RewardError-SummedError-Mode01']" 
+python -m impl.evolve_multi WindTurbine "['WT051-RewardError-SummedError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT052-RewardError-SummedError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT053-RewardError-SummedError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT054-RewardError-SummedError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT055-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT056-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT057-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT058-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT059-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT060-RewardError-SummedError-Mode04']"
+
+
+
+
+
 Old laptop
+
+python -m impl.evolve_multi WindTurbine "['WT070-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT071-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT072-RewardError-SummedError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT073-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT074-RewardError-SummedError-Mode04']"
+python -m impl.evolve_multi WindTurbine "['WT075-RewardError-SummedError-Mode04']"
 
 
 python -m impl.evolve_multi WindTurbine "['WT087-RewardError-RootMeanSquareError-Mode03 -x', 'WT088-RewardError-RootMeanSquareError-Mode04 -x', 'WT089-RewardError-RootMeanSquareError-Mode04 -x', 'WT090-RewardError-RootMeanSquareError-Mode04 -x']" --cpu 4
