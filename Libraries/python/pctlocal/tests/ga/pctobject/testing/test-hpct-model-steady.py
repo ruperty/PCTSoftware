@@ -1,4 +1,7 @@
+# python testing/test-hpct-model-steady.py
+
 from os import sep, listdir
+from os.path import isfile
 from cutils.paths import get_gdrive
 
 from eepct.wind_turbine import wind_turbine_results, get_environment_properties
@@ -27,6 +30,8 @@ if test==1:
     for property_dir in sorted(listdir(wtdir)):
         #print(property_dir)
         tmp_dir = wtdir + sep + property_dir
+        if isfile(tmp_dir):
+            continue
         for file in sorted(listdir(tmp_dir)):
             if file.endswith(".properties"):
                 if environment_properties is None:
