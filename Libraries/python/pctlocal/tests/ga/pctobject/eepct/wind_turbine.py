@@ -49,7 +49,7 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
             
     plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, 
              {'plot_items': {'IWD':'wd'}, 'title':'Wind'}, 
-             {'plot_items': {'CL1C1':'eLM'},'title':'LMErrors'}, 
+             {'plot_items': {'CL1C1':'eLM', 'ILM':'ilm'},'title':'LMErrors'}, 
              {'plot_items': {'CL1C0':'eYE'},'title':'YEErrors'}, 
             #  {'plot_items': {'CL1C1':'eLM', 'CL1C0':'eYE'},'title':'RefErrors'}, 
              {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   

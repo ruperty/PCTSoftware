@@ -257,3 +257,23 @@ python -m impl.evolve_multi WindTurbine "['WT188-ReferencedInputsError-RootMeanS
 python -m impl.evolve_multi WindTurbine "['WT189-ReferencedInputsError-RootMeanSquareError-Mode03']"
 python -m impl.evolve_multi WindTurbine "['WT190-ReferencedInputsError-RootMeanSquareError-Mode04']"
 
+
+
+python -m impl.evolve_multi WindTurbine "['WT191-ReferencedInputsError-RootMeanSquareError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT192-ReferencedInputsError-RootMeanSquareError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT193-ReferencedInputsError-RootMeanSquareError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT194-ReferencedInputsError-RootMeanSquareError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT195-ReferencedInputsError-RootMeanSquareError-Mode04']" 
+
+python -m impl.evolve_multi WindTurbine "['WT196-ReferencedInputsError-RootMeanSquareError-Mode00']"
+python -m impl.evolve_multi WindTurbine "['WT197-ReferencedInputsError-RootMeanSquareError-Mode01']"
+python -m impl.evolve_multi WindTurbine "['WT198-ReferencedInputsError-RootMeanSquareError-Mode02']"
+python -m impl.evolve_multi WindTurbine "['WT199-ReferencedInputsError-RootMeanSquareError-Mode03']"
+python -m impl.evolve_multi WindTurbine "['WT200-ReferencedInputsError-RootMeanSquareError-Mode04']"
+
+
+
+
+
+
+
