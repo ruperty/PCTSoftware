@@ -13,7 +13,6 @@ import scipy as sc
 from gym import Env
 from gym.spaces import Discrete, Box
 import numpy as np
-import random
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.tools as tls
@@ -25,7 +24,6 @@ from matplotlib.ticker import FuncFormatter
 def get_yaw_count(nacelle_position_diff):
     '''
     
-
     Parameters
     ----------
     nacelle_position_diff : Pandas series of nacelle position increment 
