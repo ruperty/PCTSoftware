@@ -53,6 +53,8 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
              {'plot_items': {'CL1C0':'eYE'},'title':'YEErrors'}, 
             #  {'plot_items': {'CL1C1':'eLM', 'CL1C0':'eYE'},'title':'RefErrors'}, 
              {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
+    
+    plots=[]
     history=True
     if 'range' in environment_properties and environment_properties['range']=='test':
         outdir='c:'+sep+'tmp'+sep+'WindTurbine-test'+sep+prefix+sep
