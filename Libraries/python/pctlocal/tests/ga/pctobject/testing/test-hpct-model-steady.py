@@ -43,15 +43,16 @@ if test==1:
 
 if test ==2:
 
-    # property_dir = 'RewardError-RootMeanSquareError-Mode04'
-    # file = 'ga-19073.531-s001-2x4-m004-WT20-eda030b5312bf8c0b89e50a4a75a22f7.properties'
 
     # property_dir = 'RewardError-SummedError-Mode00'
     # file = 'ga-28251.409-s001-2x2-m000-WT21-be71d6baeeb226c7e272315e736ecb42.properties'
 
-    property_dir = 'ReferencedInputsError-RootMeanSquareError-Mode04-old'
-    # file = 'ga-006.223-s001-2x3-m004-WT181-404dfa64508ea87ebf6941a9f9332ac7.properties'
-    file = 'ga-005.701-s001-2x3-m004-WT182-541d9dd89dbd748f186d68b0ad296597.properties'
+    # property_dir = 'ReferencedInputsError-RootMeanSquareError-Mode04-old'
+    # # file = 'ga-006.223-s001-2x3-m004-WT181-404dfa64508ea87ebf6941a9f9332ac7.properties'
+    # file = 'ga-005.701-s001-2x3-m004-WT182-541d9dd89dbd748f186d68b0ad296597.properties'
+
+    property_dir = 'RewardError-RootMeanSquareError-Mode04'
+    file = 'ga-001.000-s001-3x4-m004-WT213-26049881d0446367baf361d0c60492a5.properties'
 
 
     if environment_properties is None:
