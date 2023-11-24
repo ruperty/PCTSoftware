@@ -2,7 +2,10 @@
 
 import random, enum, time, copy, math, logging, csv
 # from memory_profiler import profile
+from datetime import datetime
+#from epct.evolvers import CommonToolbox
 
+from deap import base, creator
 from os import name, makedirs, sep
 from enum import IntEnum, auto
 from deap import tools, algorithms
@@ -2640,3 +2643,73 @@ class HPCTGenerateEvolvers(object):
             return pdict[name]
 
         return default
+    
+
+
+def evolve_from_properties(args):
+    seed=args['seed']
+    filename=args['file']
+    env_name=args['env_name']
+    verbose= args['verbosed']
+    min=True
+    max= args['max']
+    tic = time.perf_counter()
+    out_dir= args['drive'] + f'data{sep}ga{sep}'
+    node_size, font_size=150, 10
+    root = args['root_path']
+    file = root + args['configs_dir'] + env_name +'/'+ filename + ".properties"
+    
+    if max:
+        pass
+        min=False
+        if hasattr(creator, 'FitnessMax'):
+                pass
+        else:
+                creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+                creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
+    else:
+        # flip=False
+        min=True
+        if hasattr(creator, 'FitnessMin'):
+                pass
+        else:
+                creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+                creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
+
+    toolbox = base.Toolbox()
+    CommonToolbox.getInstance().set_toolbox(toolbox)
+
+    print(f'Start seed={seed} min={min} file={filename}')
+
+    hep = HPCTEvolveProperties()
+    output=True
+    overwrite=args['overwrite']
+
+	# # print(verbose)
+    hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, verbose=verbose, toolbox=toolbox,  min=min, print_properties=False)        
+
+    log_dir=sep.join((out_dir, env_name, desc))
+    makedirs(log_dir,exist_ok = True) 
+    
+    # logging info
+    # now = datetime.now() # current date and time
+    # date_time = now.strftime("%Y%m%d-%H%M%S")
+	# log_file=sep.join((log_dir, "evolve-"+  hash_num +"-"+ date_time+".log"))
+	# print(log_file)
+	# logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'  , force=True  )
+	# logger = logging.getLogger(__name__)
+	# logger.info("Evolving {} ".format(env_name))
+	# logger.info(properties_str)
+	# logger.info(f'hash_num={hash_num}')
+	
+    properties_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
+    
+    if properties_file != None:
+        toc = time.perf_counter()
+        elapsed = toc-tic        
+        print(f'Seed {seed} Evolve time: {elapsed:4.2f}')
+
+    return properties_file
+
+    
+    
