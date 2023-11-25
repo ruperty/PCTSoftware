@@ -39683,3 +39683,24 @@ Wrapping the env in a DummyVecEnv.
 |    policy_gradient_loss | -6.22e-07 |
 |    value_loss           | 4.56e+14  |
 ---------------------------------------
+---------------------------------------
+| rollout/                |           |
+|    ep_len_mean          | 999       |
+|    ep_rew_mean          | -8.24e+08 |
+| time/                   |           |
+|    fps                  | 854       |
+|    iterations           | 176       |
+|    time_elapsed         | 421       |
+|    total_timesteps      | 360448    |
+| train/                  |           |
+|    approx_kl            | 0.0       |
+|    clip_fraction        | 0         |
+|    clip_range           | 0.2       |
+|    entropy_loss         | -1.1      |
+|    explained_variance   | 1.79e-07  |
+|    learning_rate        | 0.0003    |
+|    loss                 | 1.25e+15  |
+|    n_updates            | 1750      |
+|    policy_gradient_loss | -1.09e-07 |
+|    value_loss           | 2.81e+15  |
+---------------------------------------
