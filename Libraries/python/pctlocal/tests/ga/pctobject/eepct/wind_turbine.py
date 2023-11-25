@@ -19,7 +19,7 @@ def get_environment_properties(root=None, wt='WindTurbine', property_dir=None, p
 
     return environment_properties
 
-def wind_turbine_results(environment_properties=None, log_experiment=False, root=None, wt='WindTurbine', verbose=None, early=None, comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None):
+def wind_turbine_results(environment_properties=None, log_experiment=False, root=None, wt='WindTurbine', verbose=None, early=None, comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None, plots=None):
 
     prefix = property_file[:property_file.find(".properties")]
     filename=wt+sep+property_dir+sep+property_file
@@ -39,22 +39,6 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
     else:
         experiment = None
 
-
-    #filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode00'+sep+'ga-6992.137-s001-4x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties'
-    #filename='WindTurbine'+sep+'RewardError-RootMeanSquareError-Mode04'+sep+'ga-5115.748-s001-2x1-m004-WT18-bb86c377bcf7536e5b9acb437d0f3353.properties'
-    #filename='WindTurbineOld'+sep+'RewardError-SummedError-Mode02'+sep+'ga-3112894.396-s001-3x5-m002-WT09-697f9588cbe79baa5370381833b269af.properties'
-    #prefix = 'ga-5115.748-s001-2x1-m004-WT18-bb86c377bcf7536e5b9acb437d0f3353'
-    #filename=wt+sep+'RewardError-RootMeanSquareError-Mode04'+sep+prefix+'.properties'
-
-            
-    plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, 
-             {'plot_items': {'IWD':'wd'}, 'title':'Wind'}, 
-             {'plot_items': {'CL1C1':'eLM', 'ILM':'ilm'},'title':'LMErrors'}, 
-             {'plot_items': {'CL1C0':'eYE'},'title':'YEErrors'}, 
-            #  {'plot_items': {'CL1C1':'eLM', 'CL1C0':'eYE'},'title':'RefErrors'}, 
-             {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
-    
-    plots=[]
     history=True
     if 'range' in environment_properties and environment_properties['range']=='test':
         outdir='c:'+sep+'tmp'+sep+'WindTurbine-test'+sep+prefix+sep
@@ -81,7 +65,6 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
     if comparisons:
         start, stop = get_indexes(model_params, environment_properties)
 
-        
         (res_baseline_simu, nac_pos_baseline_simu, wind_dir) = test_trad_control(
             model_params['wind_timeseries'],
             model_params['wind_timeseries_not_agg'],
