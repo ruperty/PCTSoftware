@@ -1,14 +1,15 @@
 import warnings
 import matplotlib.pyplot as plt
 
-with warnings.catch_warnings():
-    warnings.filterwarnings("ignore",category=DeprecationWarning)
-    from comet_ml import Experiment
 from matplotlib.ticker import FuncFormatter
 from os import sep, path, makedirs
 from pct.hierarchy import PCTHierarchy
 from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
+from eepct.hpct import evolve_from_properties
 
+# with warnings.catch_warnings():
+#     warnings.filterwarnings("ignore",category=DeprecationWarning)
+from comet_ml import Experiment
 
 def get_environment_properties(root=None, wt='WindTurbine', property_dir=None, property_file=None):
 
@@ -19,25 +20,13 @@ def get_environment_properties(root=None, wt='WindTurbine', property_dir=None, p
 
     return environment_properties
 
-def wind_turbine_results(environment_properties=None, log_experiment=False, root=None, wt='WindTurbine', verbose=None, early=None, comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None, plots=None):
+def wind_turbine_results(environment_properties=None, experiment=None, root=None, wt='WindTurbine', verbose=None, early=None, comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None, plots=None):
 
     prefix = property_file[:property_file.find(".properties")]
     filename=wt+sep+property_dir+sep+property_file
     file = root + 'data'+sep+'ga'+sep+ filename
 
     wind_timeseries,start, stop, model_params,yaw_params,keep_history, rt = get_properties(environment_properties)
-
-    if log_experiment:
-        experiment = Experiment(api_key='WVBkFFlU4zqOyfWzk5PRSQbfD',
-                                project_name='yaw-pct',
-                                workspace='perceptualrobots')
-
-        experiment.log_parameters(model_params)
-        experiment.log_code(path.basename(__file__))
-        name = 'test_hpct_wind'
-        experiment.set_name(name)
-    else:
-        experiment = None
 
     history=True
     if 'range' in environment_properties and environment_properties['range']=='test':
@@ -87,9 +76,6 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
             outdir=outdir
             )
 
-
-    if log_experiment:
-        experiment.end()
 
     if comparisons_print_plots and comparisons:
         power_prod_change, conso_yaw_change, net_prod_change, rel_net_prod_change,yaw_error_rel_change = get_comparaison_metrics(wind_dir,power_control,power_simu,nac_pos_model, nac_pos_baseline_simu, yaw_params['yaw_rate_max'], yaw_params['yaw_consumption'], 50)    
@@ -153,3 +139,62 @@ def wind_turbine_results(environment_properties=None, log_experiment=False, root
         print(res_baseline_simu)
         print(res_baseline_logs)
         print(res_model)
+
+    if experiment:
+        print(res_model)
+        experiment.log_parameter('power_control_test', res_model['power_control'])
+
+
+
+def evolve_wt_from_properties(args):
+
+    if args['log_experiment']:
+        experiment = Experiment(api_key=args['api_key'],
+                                project_name=args['project_name'],
+                                workspace=args['workspace'])
+
+        # experiment.log_parameters(model_params)
+        experiment.log_code(path.basename(__file__))		
+        experiment.set_name(args['experiment_name'])
+    else:
+        experiment = None
+
+
+    filepath = evolve_from_properties(args)
+    environment_properties=None
+    plots=None
+    early=None
+
+    # comparisons = False 
+    # comparisons_print_plots = True
+    # log_experiment=False
+    # verbose=False
+    # log_experiment=True
+    # api_key='WVBkFFlU4zqOyfWzk5PRSQbfD',
+    # project_name='yaw-pct'
+    # workspace='perceptualrobots'
+    # experiment_name = 'test_hpct_wind'
+
+
+    index1=filepath.rindex(sep)
+    file = filepath[index1+1:]
+    print(file)
+    index2=filepath.rindex(sep, 0, index1)
+    property_dir=filepath[index2+1:index1]
+    print(property_dir)
+    #configs_root=args['root_path']
+    drive=args['drive']
+
+    if environment_properties is None:
+        environment_properties = get_environment_properties(root=drive, property_dir=property_dir, property_file=file)
+        environment_properties['keep_history'] = True
+        environment_properties['range'] = 'test'
+        # environment_properties['reward_type']= 'power'
+        print(environment_properties)
+
+    wind_turbine_results(environment_properties=environment_properties, experiment=experiment, root=drive, verbose=args['verbosed']['hpct_verbose'], 
+                        early=early, comparisons=args['comparisons'], comparisons_print_plots=args['comparisons_print_plots'], 
+                        property_dir=property_dir, property_file=file, plots=plots)
+
+    experiment.end()
+

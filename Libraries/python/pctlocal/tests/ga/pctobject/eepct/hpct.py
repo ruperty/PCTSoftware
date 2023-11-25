@@ -5,8 +5,13 @@ import random, enum, time, copy, math, logging, csv
 from datetime import datetime
 #from epct.evolvers import CommonToolbox
 
+# with warnings.catch_warnings():
+#     warnings.filterwarnings("ignore",category=DeprecationWarning)
+from comet_ml import Experiment
+
+
 from deap import base, creator
-from os import name, makedirs, sep
+from os import name, makedirs, sep, path
 from enum import IntEnum, auto
 from deap import tools, algorithms
 from dataclasses import dataclass
@@ -2657,7 +2662,7 @@ def evolve_from_properties(args):
     out_dir= args['drive'] + f'data{sep}ga{sep}'
     node_size, font_size=150, 10
     root = args['root_path']
-    file = root + args['configs_dir'] + env_name +'/'+ filename + ".properties"
+    file = root + args['configs_dir'] + env_name +sep+ filename + ".properties"
     
     if max:
         pass
@@ -2710,6 +2715,7 @@ def evolve_from_properties(args):
         print(f'Seed {seed} Evolve time: {elapsed:4.2f}')
 
     return properties_file
+
 
     
     

@@ -6,7 +6,7 @@ from cutils.paths import get_gdrive
 
 from eepct.wind_turbine import wind_turbine_results, get_environment_properties
 
-log_experiment = False
+log_experiment = None
 comparisons = False #True #False
 comparisons_print_plots = True
 WT='WindTurbine'
@@ -68,7 +68,7 @@ if test ==2:
         environment_properties['range'] = 'test'
         # environment_properties['reward_type']= 'power'
         print(environment_properties)
-    wind_turbine_results(environment_properties=environment_properties, log_experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file, plots=plots)
+    wind_turbine_results(environment_properties=environment_properties, experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file, plots=plots)
 
 
 

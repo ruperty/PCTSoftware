@@ -33,7 +33,6 @@ if __name__ == '__main__':
 	early = args.early 
 	max=args.max        
 	hpct_verbose= args.hpct_verbose
-	
 		
 	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':False}
