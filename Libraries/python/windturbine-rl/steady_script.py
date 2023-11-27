@@ -106,7 +106,10 @@ if __name__ == '__main__':
             elapsed = toc-tic
             print(f'Elapsed time: {elapsed:4.4f}')  
             model.save(f'steady_wind')
-        #model_eval = PPO.load('steady_wind')
+        #else:
+        # model_eval = PPO.load('steady_wind')
+        # note: code on comet shows this
+        # model = PPO.load('steady_wind')
 
 
         (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_model(
