@@ -1758,7 +1758,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
             makedirs(local_out_dir, exist_ok=True)
                 
     # @profile
-    def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False):
+    def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False, experiment=None):
         log_string = ''
         
         if self.save_arch_all:
@@ -1791,12 +1791,12 @@ class HPCTEvolverWrapper(EvolverWrapper):
             self.timing_sum += timeperpop
             self.evolver.member=0
             if gen == 1:
-                log_stats = self.collect_stats( 0, 0, logbook, timeperpop, evolve_verbose, log)
+                log_stats = self.collect_stats( 0, 0, logbook, timeperpop, evolve_verbose, log, experiment)
                 if log:
                     logger.info(log_stats)
                     log_string = ''.join((log_string, log_stats))
 
-            log_stats = self.collect_stats( gen, 1, logbook, timeperpop, evolve_verbose, log)
+            log_stats = self.collect_stats( gen, 1, logbook, timeperpop, evolve_verbose, log, experiment)
 
             if evolve_verbose>2:
                 print('pop ***')
@@ -2269,7 +2269,7 @@ class HPCTEvolveProperties(PCTRunProperties):
         return hash_num, self.file_properties['desc'], properties_str
 
     def run_configured_evolver(self, file=None, out_dir=None, output=False, hash_num=None, overwrite=False, test=False, log=False, draw_file=False, 
-                               with_edge_labels=True,figsize=(12,12), node_size=200, font_size=8, print_properties=False, move=None):
+                               with_edge_labels=True,figsize=(12,12), node_size=200, font_size=8, print_properties=False, move=None, experiment=None):
         
         desc = self.file_properties['desc']
         skip, dir = self.create_output_directories(output, out_dir, self.environment_properties['env_name'], desc, hash_num, overwrite)
@@ -2284,6 +2284,10 @@ class HPCTEvolveProperties(PCTRunProperties):
         if output:
             self.wrapper_properties['local_out_dir']=dir+sep+hash_num        
 
+        if experiment:
+            experiment.add_tag(self.db['error_collector_type'])
+            experiment.add_tag(self.db['error_response_type'])
+
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 
         gens=self.wrapper_properties['gens']
@@ -2296,7 +2300,7 @@ class HPCTEvolveProperties(PCTRunProperties):
             #print(f'Mean time: {meantime:6.3f}')
 
         else:
-            meantime, log_string = evr.run(gens=gens, evolve_verbose=self.evolve_verbose, deap_verbose=self.deap_verbose, log=log)
+            meantime, log_string = evr.run(gens=gens, evolve_verbose=self.evolve_verbose, deap_verbose=self.deap_verbose, log=log, experiment=experiment)
             best= evr.best()
             score = evr.best_score()
             s1 = f'Best Score: {score:0.5f}'
@@ -2689,6 +2693,7 @@ def evolve_from_properties(args):
     hep = HPCTEvolveProperties()
     output=True
     overwrite=args['overwrite']
+    experiment=args['experiment']
 
 	# # print(verbose)
     hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, verbose=verbose, toolbox=toolbox,  min=min, print_properties=False)        
@@ -2707,7 +2712,8 @@ def evolve_from_properties(args):
 	# logger.info(properties_str)
 	# logger.info(f'hash_num={hash_num}')
 	
-    properties_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num, output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True)
+    properties_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num, 
+                                                             output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, experiment=experiment)
     
     if properties_file != None:
         toc = time.perf_counter()

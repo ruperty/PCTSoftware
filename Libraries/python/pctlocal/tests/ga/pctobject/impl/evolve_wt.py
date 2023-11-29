@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
 	comparisons = False 
 	comparisons_print_plots = True
-	log_experiment=True
+	log_experiment= True #False #True
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name='test-evolve'
 	workspace='wind-turbine'

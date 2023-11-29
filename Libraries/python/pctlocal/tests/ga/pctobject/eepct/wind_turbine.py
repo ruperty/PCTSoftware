@@ -142,7 +142,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
 
     if experiment:
         print(res_model)
-        experiment.log_parameter('power_control_test', res_model['power_control'])
+        experiment.log_metric('pc_test_result', res_model['power_control'])
 
 
 
@@ -159,6 +159,7 @@ def evolve_wt_from_properties(args):
     else:
         experiment = None
 
+    args['experiment']=experiment
 
     filepath = evolve_from_properties(args)
     environment_properties=None
