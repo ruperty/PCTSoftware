@@ -11,7 +11,7 @@ from comet_ml import Experiment
 
 
 from deap import base, creator
-from os import name, makedirs, sep, path
+from os import makedirs, sep, path
 from enum import IntEnum, auto
 from deap import tools, algorithms
 from dataclasses import dataclass
@@ -2697,6 +2697,9 @@ def evolve_from_properties(args):
 
 	# # print(verbose)
     hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, verbose=verbose, toolbox=toolbox,  min=min, print_properties=False)        
+
+    if experiment:
+        experiment.log_parameters({'hash':hash_num})
 
     log_dir=sep.join((out_dir, env_name, desc))
     makedirs(log_dir,exist_ok = True) 

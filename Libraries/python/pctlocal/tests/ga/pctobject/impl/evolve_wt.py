@@ -37,6 +37,7 @@ if __name__ == '__main__':
 	comparisons = False 
 	comparisons_print_plots = True
 	log_experiment= True #False #True
+	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name='test-evolve'
 	workspace='wind-turbine'
@@ -53,7 +54,7 @@ if __name__ == '__main__':
 		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite,
 						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'comparisons': comparisons, 
 					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key,
-					'project_name':project_name, 'workspace':workspace, 'experiment_name':experiment_name
+					'project_name':project_name, 'workspace':workspace, 'experiment_name':experiment_name, 'log_testing_to_experiment':log_testing_to_experiment
 		}#,'gens':args.gens, 'pop':args.pop }
 					
 		pf = evolve_wt_from_properties(arg)
