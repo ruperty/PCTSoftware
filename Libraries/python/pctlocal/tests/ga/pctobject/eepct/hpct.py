@@ -11,7 +11,7 @@ from comet_ml import Experiment
 
 
 from deap import base, creator
-from os import name, makedirs, sep, path
+from os import makedirs, sep, path
 from enum import IntEnum, auto
 from deap import tools, algorithms
 from dataclasses import dataclass
