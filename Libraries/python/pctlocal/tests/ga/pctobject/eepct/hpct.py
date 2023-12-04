@@ -2284,9 +2284,9 @@ class HPCTEvolveProperties(PCTRunProperties):
         if output:
             self.wrapper_properties['local_out_dir']=dir+sep+hash_num        
 
-        if experiment:
-            experiment.add_tag(self.db['error_collector_type'])
-            experiment.add_tag(self.db['error_response_type'])
+        # if experiment:
+        #     experiment.add_tag(self.db['error_collector_type'])
+        #     experiment.add_tag(self.db['error_response_type'])
 
         evr = HPCTEvolverWrapper(**self.wrapper_properties)
 
@@ -2322,7 +2322,7 @@ class HPCTEvolveProperties(PCTRunProperties):
                 if move == None:
                     move={}
                 print(draw_file)
-                best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size)
+                best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size, experiment=experiment)
 
 
         # write results
@@ -2698,6 +2698,8 @@ def evolve_from_properties(args):
 	# # print(verbose)
     hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, verbose=verbose, toolbox=toolbox,  min=min, print_properties=False)        
 
+    if experiment:
+        experiment.log_parameter('hash', hash_num)
     log_dir=sep.join((out_dir, env_name, desc))
     makedirs(log_dir,exist_ok = True) 
     
@@ -2712,7 +2714,7 @@ def evolve_from_properties(args):
 	# logger.info(properties_str)
 	# logger.info(f'hash_num={hash_num}')
 	
-    properties_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, draw_file=True, out_dir=out_dir, hash_num=hash_num, 
+    properties_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, draw_file=False, out_dir=out_dir, hash_num=hash_num, 
                                                              output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, experiment=experiment)
     
     if properties_file != None:
