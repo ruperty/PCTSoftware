@@ -2322,6 +2322,8 @@ class HPCTEvolveProperties(PCTRunProperties):
                 if move == None:
                     move={}
                 print(draw_file)
+            
+            if experiment or draw_file:            
                 best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size, experiment=experiment)
 
 

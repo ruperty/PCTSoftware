@@ -6,9 +6,7 @@ import argparse
 from os import cpu_count, sep, path
 from multiprocessing import Pool
 from cutils.paths import get_root_path, get_gdrive
-from eepct.hpct
-
-
+from eepct.wind_turbine import evolve_wt_from_properties
 
 
 if __name__ == '__main__':
@@ -21,8 +19,8 @@ if __name__ == '__main__':
 	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
 	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
 	parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
-	parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
-	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
+	parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_true")
+	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_true")
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
 	
@@ -35,7 +33,7 @@ if __name__ == '__main__':
 	comparisons = False 
 	comparisons_print_plots = True
 	log_experiment=True
-	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD',
+	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name='test-evolve'
 	workspace='wind-turbine'
 	experiment_name = 'steady'

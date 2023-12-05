@@ -40,7 +40,8 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     lastsepIndex = filename.rfind(sep)
     propIndex = filename.rfind('.properties')
     filenamePrefix = filename[lastsepIndex+1:propIndex]
-    draw_file = outdir + 'draw-'+filenamePrefix+'.png'
+    # draw_file = outdir + 'draw-'+filenamePrefix+'.png'
+    draw_file = False
     model_file = outdir + 'res_model.html'
 
     (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
@@ -50,6 +51,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         stop_index=model_params['stop_index_test'],
         experiment=experiment,
         datatype='test',
+        log_testing_to_experiment=log_testing_to_experiment
         )
 
     if comparisons:
@@ -178,7 +180,7 @@ def evolve_wt_from_properties(args):
     # experiment_name = 'test_hpct_wind'
 
     if 'log_testing_to_experiment' in args:
-        log_testing_to_experiment = ['log_testing_to_experiment']
+        log_testing_to_experiment = args['log_testing_to_experiment']
     else:
         log_testing_to_experiment = False
 
