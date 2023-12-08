@@ -26,7 +26,7 @@ if test == 4:
 
 if test == 5:
     file = 'configs'+ os.sep + 'configs-wt.csv'
-    args = ""
+    args = "-b"
 
 hge = HPCTGenerateEvolvers()  
 hge.process_csv(file, args)
