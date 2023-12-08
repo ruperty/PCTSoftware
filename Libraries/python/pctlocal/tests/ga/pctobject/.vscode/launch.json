@@ -123,7 +123,7 @@
             "program": "impl/evolve_multi_wt.py",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
             // "args": ["Pendulum", "[\"PM00-RewardError-RootMeanSquareError-Mode00\", \"PM01-RewardError-RootMeanSquareError-Mode00\"", "-i", "1", "-s", "93"],
-            "args": ["WindTurbine", "[\"WT01-RewardError-RootMeanSquareError-Mode00 -x\" ]" ],
+            "args": ["WindTurbine", "[\"WT01-RewardError-RootMeanSquareError-Mode00 \" ]", "-b" , "-p", "test-evolve"],
             "console": "internalConsole"
         },
         {

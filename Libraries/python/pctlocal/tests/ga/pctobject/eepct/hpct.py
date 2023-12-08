@@ -2269,19 +2269,34 @@ class HPCTEvolveProperties(PCTRunProperties):
         return hash_num, self.file_properties['desc'], properties_str
 
     def run_configured_evolver(self, file=None, out_dir=None, output=False, hash_num=None, overwrite=False, test=False, log=False, draw_file=False, 
-                               with_edge_labels=True,figsize=(12,12), node_size=200, font_size=8, print_properties=False, move=None, experiment=None):
+                               with_edge_labels=True,figsize=(12,12), node_size=200, font_size=8, print_properties=False, move=None, args=None):
         
         desc = self.file_properties['desc']
         skip, dir = self.create_output_directories(output, out_dir, self.environment_properties['env_name'], desc, hash_num, overwrite)
         if skip:
-            return None,None,None
+            return None,None,None,None
+
+        if args['log_experiment']:
+            experiment = Experiment(api_key=args['api_key'],
+                                    project_name=args['project_name'],
+                                    workspace=args['workspace'])
+
+            # experiment.log_parameters(model_params)
+            # experiment.log_code(path.basename(__file__))		
+            experiment.set_name(args['experiment_name'])
+        else:
+            experiment = None
+
+
+        if experiment:
+            experiment.log_parameter('hash', hash_num)
 
         self.wrapper_properties['font_size']=font_size        
         self.wrapper_properties['node_size']=node_size        
         self.wrapper_properties['in_file']=file        
         self.wrapper_properties['fseed']=self.fseed        
 
-        if output:
+        if self.wrapper_properties['save_arch_gen'] or self.wrapper_properties['save_arch_gen']:
             self.wrapper_properties['local_out_dir']=dir+sep+hash_num        
 
         # if experiment:
@@ -2358,7 +2373,7 @@ class HPCTEvolveProperties(PCTRunProperties):
 
             # f.close()
 
-        return output_file, evr, score
+        return output_file, evr, score, experiment
 
     @classmethod
     def get_file_contents(cls, file):
@@ -2394,7 +2409,7 @@ class HPCTGenerateEvolvers(object):
                     config = configs[key]
                     self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
 
-    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args, fname_list, fargs):
+    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=None):
         "Generate properties file based upon architecture type."
         #print('arch', arch)
         import os
@@ -2430,12 +2445,12 @@ class HPCTGenerateEvolvers(object):
                         self.write_to_file(filepath, text)
                         # cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
                         flist = [filename]
-                        cmd = f'python -m impl.evolve_multi {env} "{flist}" {fargs} {args}'
+                        cmd = f'python -m {cmdline} {env} "{flist}" {fargs} {args}'
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
 
-    def process_csv(self, file, args=""):
+    def process_csv(self, file, args="", cmdline=None):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
             fname_list = []
@@ -2525,8 +2540,8 @@ class HPCTGenerateEvolvers(object):
 
                     fargs = record['args']
 
-                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args, fname_list, fargs)
-            cmd = f'python -m impl.evolve_multi {record["env"]} "{fname_list}" {args}'
+                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
+            cmd = f'python -m {cmdline} {record["env"]} "{fname_list}" {args}'
             print(cmd, end='\n')
 
 
@@ -2695,36 +2710,22 @@ def evolve_from_properties(args):
     hep = HPCTEvolveProperties()
     output=True
     overwrite=args['overwrite']
-    experiment=args['experiment']
 
 	# # print(verbose)
     hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, verbose=verbose, toolbox=toolbox,  min=min, print_properties=False)        
 
-    if experiment:
-        experiment.log_parameter('hash', hash_num)
     log_dir=sep.join((out_dir, env_name, desc))
     makedirs(log_dir,exist_ok = True) 
-    
-    # logging info
-    # now = datetime.now() # current date and time
-    # date_time = now.strftime("%Y%m%d-%H%M%S")
-	# log_file=sep.join((log_dir, "evolve-"+  hash_num +"-"+ date_time+".log"))
-	# print(log_file)
-	# logging.basicConfig(filename=log_file, level=logging.INFO,    format="%(asctime)s.%(msecs)03d:%(levelname)s:%(module)s.%(lineno)d %(message)s",datefmt= '%H:%M:%S'  , force=True  )
-	# logger = logging.getLogger(__name__)
-	# logger.info("Evolving {} ".format(env_name))
-	# logger.info(properties_str)
-	# logger.info(f'hash_num={hash_num}')
-	
-    properties_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, draw_file=False, out_dir=out_dir, hash_num=hash_num, 
-                                                             output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, experiment=experiment)
+    	
+    properties_file, evr, score, experiment = hep.run_configured_evolver( file=file, print_properties=True, draw_file=False, out_dir=out_dir, hash_num=hash_num, 
+                                                             output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, args=args)
     
     if properties_file != None:
         toc = time.perf_counter()
         elapsed = toc-tic        
         print(f'Seed {seed} Evolve time: {elapsed:4.2f}')
 
-    return properties_file
+    return properties_file, experiment
 
 
     

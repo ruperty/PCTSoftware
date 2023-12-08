@@ -21,6 +21,7 @@ if __name__ == '__main__':
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument("-v", "--hpct_verbose", help="hierarchy output", action="store_true")
 	parser.add_argument("-db", "--debug", type=int, help="details of population in each gen, inc. mutate and merge", default=0)
+	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
 	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
 	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
 
@@ -39,7 +40,7 @@ if __name__ == '__main__':
 	log_experiment= True #False #True
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
-	project_name='test-evolve'
+	project_name=args.project
 	workspace='wind-turbine'
 	experiment_name = 'steady'
 			
@@ -48,7 +49,7 @@ if __name__ == '__main__':
 	drive = get_gdrive()
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
-	overwrite=True
+	overwrite=False
 
 	for i in range(start, iters+start, 1):
 		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite,

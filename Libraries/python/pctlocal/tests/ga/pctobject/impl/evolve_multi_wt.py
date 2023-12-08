@@ -23,7 +23,8 @@ if __name__ == '__main__':
 	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_true")
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
-	
+	parser.add_argument('-p', '--project', type=str, help="comet project name", default="evolve")
+
 	args = parser.parse_args()
 	start=args.start
 	iters=args.iters
@@ -34,7 +35,7 @@ if __name__ == '__main__':
 	comparisons_print_plots = True
 	log_experiment=True
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
-	project_name='test-evolve'
+	project_name=args.project
 	workspace='wind-turbine'
 	experiment_name = 'steady'
 
@@ -43,7 +44,7 @@ if __name__ == '__main__':
 	drive = get_gdrive()
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
-	overwrite=True
+	overwrite=False
 
 	list=[]
 	for file in eval(args.files):    

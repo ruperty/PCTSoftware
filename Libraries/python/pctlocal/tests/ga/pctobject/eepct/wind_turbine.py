@@ -150,39 +150,15 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         experiment.log_metric('energy_gain', 100*(res_model['power_control']/res_model['power_trad']-1))
 
 
-        
-
-
-
 def evolve_wt_from_properties(args):
 
-    if args['log_experiment']:
-        experiment = Experiment(api_key=args['api_key'],
-                                project_name=args['project_name'],
-                                workspace=args['workspace'])
-
-        # experiment.log_parameters(model_params)
-        experiment.log_code(path.basename(__file__))		
-        experiment.set_name(args['experiment_name'])
-    else:
-        experiment = None
-
-    args['experiment']=experiment
-
-    filepath = evolve_from_properties(args)
+    filepath, experiment = evolve_from_properties(args)
+    if filepath is None:
+        return
+    
     environment_properties=None
     plots=None
     early=None
-
-    # comparisons = False 
-    # comparisons_print_plots = True
-    # log_experiment=False
-    # verbose=False
-    # log_experiment=True
-    # api_key='WVBkFFlU4zqOyfWzk5PRSQbfD',
-    # project_name='yaw-pct'
-    # workspace='perceptualrobots'
-    # experiment_name = 'test_hpct_wind'
 
     if 'log_testing_to_experiment' in args:
         log_testing_to_experiment = args['log_testing_to_experiment']
