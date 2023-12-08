@@ -146,6 +146,11 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     if experiment:
         print(res_model)
         experiment.log_metric('pc_test_result', res_model['power_control'])
+        experiment.log_metric('yaw_count', res_model['yaw count'])
+        experiment.log_metric('energy_gain', 100*(res_model['power_control']/res_model['power_trad']-1))
+
+
+        
 
 
 
