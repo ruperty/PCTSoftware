@@ -9,7 +9,7 @@ from eepct.hpct import evolve_from_properties
 
 # with warnings.catch_warnings():
 #     warnings.filterwarnings("ignore",category=DeprecationWarning)
-from comet_ml import Experiment
+from comet_ml import Artifact
 
 def get_environment_properties(root=None, wt='WindTurbine', property_dir=None, property_file=None):
 
@@ -43,6 +43,11 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     # draw_file = outdir + 'draw-'+filenamePrefix+'.png'
     draw_file = False
     model_file = outdir + 'res_model.html'
+
+    artifact = Artifact(property_file, "Properties file")
+    artifact.add(file)
+
+    experiment.log_artifact(artifact)
 
     (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
         file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,draw_file=draw_file, model_file=model_file,
