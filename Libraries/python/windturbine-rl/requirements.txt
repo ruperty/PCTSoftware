@@ -295,12 +295,12 @@ sympy @ file:///C:/ci/sympy_1618255511605/work
 tables==3.6.1
 tabulate==0.8.9
 tblib @ file:///tmp/build/80754af9/tblib_1597928476713/work
-tenacity==8.0.1
-tensorboard==2.8.0
-tensorboard-data-server==0.6.1
-tensorboard-plugin-wit==1.8.1
-tensorflow==2.8.0
-tensorflow-io-gcs-filesystem==0.24.0
+#tenacity==8.0.1
+#tensorboard==2.8.0
+#tensorboard-data-server==0.6.1
+#tensorboard-plugin-wit==1.8.1
+#tensorflow==2.8.0
+#tensorflow-io-gcs-filesystem==0.24.0
 termcolor==1.1.0
 terminado==0.9.4
 testpath @ file:///home/ktietz/src/ci/testpath_1611930608132/work
