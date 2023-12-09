@@ -20,6 +20,7 @@ if __name__ == '__main__':
 	parser.add_argument('-e', '--early', help="early termination", action="store_true")
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument("-v", "--hpct_verbose", help="hierarchy output", action="store_true")
+	parser.add_argument("-l", "--log", help="log experiment to comet", action="store_false")
 	parser.add_argument("-db", "--debug", type=int, help="details of population in each gen, inc. mutate and merge", default=0)
 	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
 	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
@@ -34,10 +35,11 @@ if __name__ == '__main__':
 	early = args.early 
 	max=args.max        
 	hpct_verbose= args.hpct_verbose
+	log_experiment= args.log
 
 	comparisons = False 
 	comparisons_print_plots = True
-	log_experiment= True #False #True
+	
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project

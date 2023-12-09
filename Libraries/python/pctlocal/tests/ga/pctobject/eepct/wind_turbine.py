@@ -47,7 +47,8 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     artifact = Artifact(property_file, "Properties file")
     artifact.add(file)
 
-    experiment.log_artifact(artifact)
+    if experiment:
+        experiment.log_artifact(artifact)
 
     (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
         file=file,plots=plots,history=history,verbose=verbose,outdir=outdir,early=early,draw_file=draw_file, model_file=model_file,
@@ -190,5 +191,6 @@ def evolve_wt_from_properties(args):
                         early=early, comparisons=args['comparisons'], comparisons_print_plots=args['comparisons_print_plots'], 
                         property_dir=property_dir, property_file=file, plots=plots, log_testing_to_experiment=log_testing_to_experiment)
 
-    experiment.end()
+    if experiment:
+        experiment.end()
 
