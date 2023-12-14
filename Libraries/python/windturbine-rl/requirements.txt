@@ -42,7 +42,7 @@ bravado==11.0.3
 bravado-core==5.17.0
 brotlipy==0.7.0
 cachetools==5.0.0
-certifi==2021.10.8
+#certifi==2021.10.8
 cffi @ file:///C:/ci/cffi_1613247279197/work
 chardet==3.0.4
 click @ file:///home/linux1/recipes/ci/click_1610990599742/work
@@ -58,7 +58,7 @@ conda-package-handling @ file:///C:/ci/conda-package-handling_1618262320430/work
 conda-repo-cli @ file:///tmp/build/80754af9/conda-repo-cli_1620168426516/work
 conda-token @ file:///tmp/build/80754af9/conda-token_1620076980546/work
 conda-verify==3.4.2
-configobj==5.0.6
+#configobj==5.0.6
 contextlib2==0.6.0.post1
 cryptography @ file:///C:/ci/cryptography_1616769344312/work
 cycler==0.10.0
@@ -81,12 +81,12 @@ Flask @ file:///home/ktietz/src/ci/flask_1611932660458/work
 flatbuffers==2.0
 fonttools==4.29.1
 fsspec @ file:///tmp/build/80754af9/fsspec_1617959894824/work
-future==0.18.2
+#future==0.18.2
 gast==0.5.3
 geojson==2.5.0
 gevent @ file:///C:/ci/gevent_1616773090559/work
 gitdb==4.0.9
-GitPython==3.1.26
+#GitPython==3.1.26
 glob2 @ file:///home/linux1/recipes/ci/glob2_1610991677669/work
 gmaps==0.9.0
 gmpy2 @ file:///C:/ci/gmpy2_1645456279018/work
@@ -94,7 +94,7 @@ google-auth==2.6.0
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
 greenlet @ file:///C:/ci/greenlet_1611958565931/work
-grpcio==1.43.0
+#grpcio==1.43.0
 gym==0.19.0
 h5py==2.10.0
 HeapDict==1.0.1
@@ -156,7 +156,7 @@ mkl-service==2.3.0
 mock @ file:///tmp/build/80754af9/mock_1607622725907/work
 monotonic==1.6
 more-itertools @ file:///tmp/build/80754af9/more-itertools_1613676688952/work
-mpmath==1.2.1
+#mpmath==1.2.1
 msgpack @ file:///C:/ci/msgpack-python_1612287368835/work
 multipledispatch==0.6.0
 mypy-extensions==0.4.3
@@ -177,7 +177,7 @@ numexpr @ file:///C:/ci/numexpr_1618856738664/work
 numpy==1.22.2
 numpydoc @ file:///tmp/build/80754af9/numpydoc_1605117425582/work
 nvidia-ml-py3==7.352.0
-oauthlib==3.2.0
+#oauthlib==3.2.0
 olefile==0.46
 openpyxl @ file:///tmp/build/80754af9/openpyxl_1615411699337/work
 opt-einsum==3.3.0
@@ -204,7 +204,7 @@ pluggy @ file:///C:/ci/pluggy_1615976358795/work
 ply==3.11
 prometheus-client @ file:///tmp/build/80754af9/prometheus_client_1618088486455/work
 prompt-toolkit @ file:///tmp/build/80754af9/prompt-toolkit_1616415428029/work
-protobuf==3.19.4
+#protobuf==3.19.4
 psutil==5.9.0
 ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1609355006118/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
 py @ file:///tmp/build/80754af9/py_1607971587848/work
@@ -218,7 +218,7 @@ pydocstyle @ file:///tmp/build/80754af9/pydocstyle_1616182067796/work
 pyerfa @ file:///C:/ci/pyerfa_1619391071834/work
 pyflakes @ file:///home/ktietz/src/ci_ipy2/pyflakes_1612551159640/work
 Pygments @ file:///tmp/build/80754af9/pygments_1615143339740/work
-PyJWT==2.3.0
+#PyJWT==2.3.0
 PyLaTeX==1.4.1
 pylint @ file:///C:/ci/pylint_1617136058775/work
 pyls-black @ file:///tmp/build/80754af9/pyls-black_1607553132291/work
@@ -239,7 +239,7 @@ python-jsonrpc-server @ file:///tmp/build/80754af9/python-jsonrpc-server_1600278
 python-language-server @ file:///tmp/build/80754af9/python-language-server_1607972495879/work
 pytz @ file:///tmp/build/80754af9/pytz_1612215392582/work
 PyWavelets @ file:///C:/ci/pywavelets_1601658407916/work
-pywin32==227
+#pywin32==227
 pywin32-ctypes==0.2.0
 pywinpty==0.5.7
 PyYAML==5.4.1
@@ -295,12 +295,12 @@ sympy @ file:///C:/ci/sympy_1618255511605/work
 tables==3.6.1
 tabulate==0.8.9
 tblib @ file:///tmp/build/80754af9/tblib_1597928476713/work
-tenacity==8.0.1
-tensorboard==2.8.0
-tensorboard-data-server==0.6.1
-tensorboard-plugin-wit==1.8.1
-tensorflow==2.8.0
-tensorflow-io-gcs-filesystem==0.24.0
+#tenacity==8.0.1
+#tensorboard==2.8.0
+#tensorboard-data-server==0.6.1
+#tensorboard-plugin-wit==1.8.1
+#tensorflow==2.8.0
+#tensorflow-io-gcs-filesystem==0.24.0
 termcolor==1.1.0
 terminado==0.9.4
 testpath @ file:///home/ktietz/src/ci/testpath_1611930608132/work
@@ -311,7 +311,7 @@ three-merge @ file:///tmp/build/80754af9/three-merge_1607553261110/work
 tifffile @ file:///tmp/build/80754af9/tifffile_1619636090847/work
 toml @ file:///tmp/build/80754af9/toml_1616166611790/work
 toolz @ file:///home/linux1/recipes/ci/toolz_1610987900194/work
-torch==1.10.2
+#torch==1.10.2
 tornado @ file:///C:/ci/tornado_1606942392901/work
 tqdm @ file:///tmp/build/80754af9/tqdm_1615925068909/work
 traitlets @ file:///home/ktietz/src/ci/traitlets_1611929699868/work

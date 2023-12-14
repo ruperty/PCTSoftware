@@ -24,16 +24,17 @@ if __name__ == '__main__':
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
 	parser.add_argument('-p', '--project', type=str, help="comet project name", default="evolve")
+	parser.add_argument("-l", "--log", help="log experiment to comet", action="store_false")
 
 	args = parser.parse_args()
 	start=args.start
 	iters=args.iters
+	log_experiment= args.log
 
 	verbose=False
 
 	comparisons = False 
 	comparisons_print_plots = True
-	log_experiment=True
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
 	workspace='wind-turbine'
@@ -44,7 +45,7 @@ if __name__ == '__main__':
 	drive = get_gdrive()
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
-	overwrite=False
+	overwrite=True
 
 	list=[]
 	for file in eval(args.files):    
