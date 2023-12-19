@@ -24,7 +24,7 @@ if __name__ == '__main__':
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
 	parser.add_argument('-p', '--project', type=str, help="comet project name", default="evolve")
-	parser.add_argument("-l", "--log", help="log experiment to comet", action="store_false")
+	parser.add_argument("-l", "--log", help="log experiment to comet, include option to turn off logging", action="store_false") # 
 
 	args = parser.parse_args()
 	start=args.start
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 	drive = get_gdrive()
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
-	overwrite=True
+	overwrite=False
 
 	list=[]
 	for file in eval(args.files):    
