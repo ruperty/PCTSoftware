@@ -38,7 +38,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         
         print(score)
         
@@ -56,7 +56,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score, 25.052665371959325)
@@ -69,7 +69,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         
@@ -85,7 +85,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         
@@ -104,7 +104,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
 
@@ -122,7 +122,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         
@@ -140,7 +140,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         
@@ -158,7 +158,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         self.assertAlmostEqual(score,  5.263805245212976)        
@@ -170,7 +170,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         
@@ -187,7 +187,7 @@ class TestEvolveCartpole(unittest.TestCase):
         hep = HPCTEvolveProperties()
 
         hash_num, desc, ps  = hep.configure_evolver_from_properties_file(file=file, print_properties=True, verbose=self.verbose, toolbox=toolbox, pop_size=self.pop_size, gens=self.gens, environment_properties=self.environment_properties)        
-        output_file, evr, score = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
+        output_file, evr, score, exp = hep.run_configured_evolver( file=file, print_properties=True, hash_num=hash_num)
         print(score)
         
         

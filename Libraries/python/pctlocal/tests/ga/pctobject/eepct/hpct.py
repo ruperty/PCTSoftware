@@ -2276,7 +2276,7 @@ class HPCTEvolveProperties(PCTRunProperties):
         if skip:
             return None,None,None,None
 
-        if args['log_experiment']:
+        if args and 'log_experiment' in args and args['log_experiment']:
             experiment = Experiment(api_key=args['api_key'],
                                     project_name=args['project_name'],
                                     workspace=args['workspace'])
