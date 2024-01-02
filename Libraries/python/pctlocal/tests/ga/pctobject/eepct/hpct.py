@@ -374,7 +374,7 @@ class HPCTArchitecture(object):
 
     #def configure(self, levels=None, additional=None):
     def configure(self, additional=None):
-        "Create the function templates fro the whole architecture from the architecture properties specification."
+        "Create the function templates for the whole architecture from the architecture properties specification."
         if additional is not None:
             self.arch = {**self.arch, **additional}
         if HPCTARCH.HIERARCHY in self.arch:
@@ -428,7 +428,7 @@ class HPCTArchitecture(object):
                         self.levels_zerotop.set_function_properties(function)
 
     def get_function_properties(self, level_type, control_function_type):
-        "Get the properties of a control unti function definition at a level type. E.g. HPCTLEVEL.ZERO, HPCTFUNCTION.PERCEPTION"
+        "Get the properties of a control unit function definition at a level type. E.g. HPCTLEVEL.ZERO, HPCTFUNCTION.PERCEPTION"
         if level_type == HPCTLEVEL.ZEROTOP:
             return self.levels_zerotop.get_function_properties(control_function_type)
 
