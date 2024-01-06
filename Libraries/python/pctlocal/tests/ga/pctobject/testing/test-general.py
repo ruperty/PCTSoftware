@@ -2,12 +2,23 @@ import json, socket, psutil
 
 from pct.putils import FunctionsList
 from pct.putils import floatListsToString
-from pct.functions import Constant
+from pct.functions import Constant, Proportional
 from pct.hierarchy import PCTHierarchy
 #from pct.network import ConnectionManager
 
-test = 11
+test = 12
 
+if test == 12:
+    const = Constant(1, name='const')
+    ns = const.namespace
+    print(const())
+    pr = Proportional(name='pr', links=const, namespace=ns)
+    pr.summary()
+    assert pr() == 1
+
+
+
+    
 
 if test == 11:
     hpct = PCTHierarchy(1,1)
