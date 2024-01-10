@@ -223,20 +223,32 @@ class HPCTArchitecture(object):
     "The definition of what the architecture of a hierarchy will be in terms of the type of functions at each position in the control unit and at each level."
     def __init__(self, arch=None, mode=0, lower_float=-10, upper_float=10):
         if arch == None:
+            mode_set = False
             if mode ==0:
                 arch = self.mode00(lower_float, upper_float)
-
+                mode_set = True
             if mode == 1:
                 arch = self.mode01(lower_float, upper_float)
+                mode_set = True
 
             if mode == 2:
                 arch = self.mode02(lower_float, upper_float)
+                mode_set = True
 
             if mode == 3:
                 arch = self.mode03(lower_float, upper_float)
+                mode_set = True
 
             if mode == 4:
                 arch = self.mode04(lower_float, upper_float)
+                mode_set = True
+
+            if mode == 5:
+                arch = self.mode05(lower_float, upper_float)
+                mode_set = True
+
+        if not mode_set:            
+            raise Exception(f'Mode {mode} not supported!')
 
         self.arch = arch
         self.levels_zerotop = None
@@ -336,6 +348,23 @@ class HPCTArchitecture(object):
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
                         HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTARCH.LEVELS: {
+                            # Overriding some functions at levels.
+                            HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.TOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}}
+                        }
+                    }
+            }
+
+    def mode05(self, lower_float, upper_float):
+        arch = {
+            HPCTARCH.HIERARCHY: {
+                        # Default definition of types of functions within a hierarchy.
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EADerivativeWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float, 'lower_history':0}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
@@ -2449,18 +2478,40 @@ class HPCTGenerateEvolvers(object):
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
+    def process_archtypes(self, arch_types):
+        if arch_types.startswith('['):
+            return eval(arch_types)
 
-    def process_csv(self, file, args="", cmdline=None):
+        lookup = {'zerotop': HPCTLEVEL.ZEROTOP, 'top': HPCTLEVEL.TOP, 'ref': HPCTFUNCTION.REFERENCE, 'per': HPCTFUNCTION.PERCEPTION, 'com': HPCTFUNCTION.COMPARATOR, 'our': HPCTFUNCTION.OUTPUT }
+
+        arr = arch_types.split('|')
+        print(arr)
+        all = []
+        for item in arr:
+            elements = item.split('^')
+            level = lookup[elements[0]]
+            func = lookup[elements[1]]
+            values = elements[2].split('~')
+            var = [level, func, HPCTVARIABLE.TYPE, values[0]]
+            cls = [level, func, HPCTVARIABLE.FUNCTION_CLASS, values[1]]
+            props = [level, func, HPCTVARIABLE.PROPERTIES, eval(values[2])]
+            all.append(var)
+            all.append(cls)
+            all.append(props)
+
+        pass
+        return all
+
+    def process_csv(self, file, args="", cmdline=None, initial_index=1):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
             fname_list = []
-            actr=0
+            actr=initial_index
             for row in reader:
                 # print(row)
                 if reader.line_num==1:
                     header = row
                 else:
-                    actr=actr+1
                     record = {}
                     for ctr, item in enumerate(header):
                         record[item] = row[ctr]
@@ -2476,7 +2527,7 @@ class HPCTGenerateEvolvers(object):
                     if record['arch_types'] == '':
                         structs['types'] = []
                     else:
-                        structs['types'] = eval(record['arch_types'])
+                        structs['types'] = self.process_archtypes(record['arch_types']) 
                     structs['mode'] = eval(record['arch_mode'])  
                     arch_props['structs']=[structs]
                     arch_config={}
@@ -2526,7 +2577,6 @@ class HPCTGenerateEvolvers(object):
                         environment_properties=None
                     else:
                         environment_properties=eval(record['environment_properties']) 
-
                     
                     arch={}
                     arch['name']=aname
@@ -2541,6 +2591,8 @@ class HPCTGenerateEvolvers(object):
                     fargs = record['args']
 
                     self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
+                    actr=actr+1
+
             cmd = f'python -m {cmdline} {record["env"]} "{fname_list}" {args}'
             print(cmd, end='\n')
 
