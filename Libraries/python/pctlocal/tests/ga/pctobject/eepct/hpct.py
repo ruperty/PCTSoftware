@@ -262,11 +262,11 @@ class HPCTArchitecture(object):
         arch = {
             HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
-                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
@@ -281,11 +281,11 @@ class HPCTArchitecture(object):
         arch = {
             HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
-                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZERO: {HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: None}},
@@ -304,11 +304,11 @@ class HPCTArchitecture(object):
         arch = {
             HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
-                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
@@ -324,11 +324,11 @@ class HPCTArchitecture(object):
         arch = {
             HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
-                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
@@ -343,11 +343,11 @@ class HPCTArchitecture(object):
         arch = {
             HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
-                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
@@ -360,11 +360,11 @@ class HPCTArchitecture(object):
         arch = {
             HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
-                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EADerivativeWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float, 'lower_history':0}},
-                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EADerivativeWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_history':0, 'upper_history':20}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower': lower_float, 'upper': upper_float}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
