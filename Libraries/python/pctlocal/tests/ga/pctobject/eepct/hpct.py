@@ -328,7 +328,7 @@ class HPCTArchitecture(object):
                         HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
                         HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
@@ -347,7 +347,7 @@ class HPCTArchitecture(object):
                         HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
                         HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Binary', HPCTVARIABLE.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
@@ -364,7 +364,7 @@ class HPCTArchitecture(object):
                         HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
                         HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
-                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
                             HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
@@ -575,11 +575,13 @@ class HPCTIndividual(PCTHierarchy):
         function_type = HPCTFUNCTION.ACTION
         for actionIndex in range(num_actions):
 
-            parameters, _ = self.get_function_parameters(
+            parameters, fn_class = self.get_function_parameters(
                 level_type=level_type, function_type=function_type)
             parameters['targetcolumns'] = columns
 
-            action = EAFunctionFactory.createFunctionWithNamespace('EAWeightedSum', namespace=self.namespace)
+            # action = EAFunctionFactory.createFunctionWithNamespace('EAWeightedSum', namespace=self.namespace)
+            action = EAFunctionFactory.createFunctionWithNamespace(fn_class, namespace=self.namespace)
+            
             action.set_name(f'Action{actionIndex+1}')
             action.create_properties(parameters)
 
@@ -1869,7 +1871,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                 ind, score = HPCTIndividual.run_from_config(top_config, self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
                     steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
-                    flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties)
+                    flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties, suffixes=True)
 
                 if evolve_verbose>0:
                     print(f'score = {score:8.3f}' )
@@ -1886,11 +1888,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                                                   meantime=None, score=score, output_file=f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')
 
                     fig_file = f'{self.local_out_dir}/fig{gen:03}.png'
-                    ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True)
-
-                
-
-
+                    ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True, funcdata=True)
 
                 # newind = CommonToolbox.getInstance().get_toolbox().clone(top_ind)
                 # newind.change_namespace() 
@@ -2733,7 +2731,7 @@ def evolve_from_properties(args):
     max= args['max']
     tic = time.perf_counter()
     out_dir= args['drive'] + f'data{sep}ga{sep}'
-    node_size, font_size=150, 10
+    node_size, font_size=200, 6
     root = args['root_path']
     file = root + args['configs_dir'] + env_name +sep+ filename + ".properties"
     

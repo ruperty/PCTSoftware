@@ -9,8 +9,12 @@ from pct.hierarchy import PCTHierarchy
 test = 13
 
 if test == 13:
-    wtss = [0]
-    weights = [float(f'{wt:4.3}') for wt in wtss]
+
+    value = -0.0468
+    print(f'{value:4.2f}')
+
+    # wtss = [0]
+    # weights = [float(f'{wt:4.3}') for wt in wtss]
 
 
 if test == 12:
