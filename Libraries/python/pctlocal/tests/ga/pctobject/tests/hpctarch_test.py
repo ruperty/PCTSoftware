@@ -15,11 +15,11 @@ class TestHPCTArchConfig(unittest.TestCase):
     def setUpClass(cls):
         # hpct_architecture_properties ={
         #         HPCTARCH.HIERARCHY:{
-        #             HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES:{'lower':-1, 'upper':1}},
-        #             HPCTFUNCTION.REFERENCE: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES:{'lower':-5, 'upper':5}},
+        #             HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES:{'lower_float':-1, 'upper_float':1}},
+        #             HPCTFUNCTION.REFERENCE: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES:{'lower_float':-5, 'upper_float':5}},
         #             HPCTFUNCTION.COMPARATOR: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-        #             HPCTFUNCTION.OUTPUT: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES:{'lower':-2, 'upper':2}},
-        #             HPCTFUNCTION.ACTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES:{'lower':-50, 'upper':50}},
+        #             HPCTFUNCTION.OUTPUT: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAProportional', HPCTVARIABLE.PROPERTIES:{'lower_float':-2, 'upper_float':2}},
+        #             HPCTFUNCTION.ACTION: {HPCTARCH.VARIABLE_TYPE: 'Float', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES:{'lower_float':-50, 'upper_float':50}},
         #             HPCTARCH.LEVELS: { 
         #                 HPCTLEVEL.ZERO: { HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES:None}},
         #                 HPCTLEVEL.ZEROTOP: { HPCTFUNCTION.PERCEPTION: {HPCTARCH.VARIABLE_TYPE: 'Binary', HPCTARCH.FUNCTION_CLASS: 'EAWeightedSum', HPCTVARIABLE.PROPERTIES:None},
@@ -32,17 +32,17 @@ class TestHPCTArchConfig(unittest.TestCase):
         cls.arch = HPCTArchitecture()
         
         cls.arch.configure() 
-        cls.arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': -50, 'upper': 50})
-        cls.arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': -5, 'upper': 5})
-        cls.arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': -2, 'upper': 2})
-        cls.arch.set(HPCTLEVEL.N, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': -5, 'upper': 5})
-        cls.arch.set(HPCTLEVEL.N, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': -2, 'upper': 2})
+        cls.arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower_float': -50, 'upper_float': 50})
+        cls.arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower_float': -5, 'upper_float': 5})
+        cls.arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower_float': -2, 'upper_float': 2})
+        cls.arch.set(HPCTLEVEL.N, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower_float': -5, 'upper_float': 5})
+        cls.arch.set(HPCTLEVEL.N, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower_float': -2, 'upper_float': 2})
 
         cls.arch1 = HPCTArchitecture()
         #cls.arch1.configure(1)
         cls.arch1.configure()
-        cls.arch1.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': -50, 'upper': 50})
-        cls.arch1.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': -2, 'upper': 2})
+        cls.arch1.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower_float': -50, 'upper_float': 50})
+        cls.arch1.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower_float': -2, 'upper_float': 2})
 
 
 
@@ -52,12 +52,12 @@ class TestHPCTArchConfig(unittest.TestCase):
         c1, v1, p1 = self.arch1.get_function_properties(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.PERCEPTION)
         self.assertEqual(c1, 'EAWeightedSum')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -10, 'upper': 10})
+        self.assertEqual(p1, {'lower_float': -10, 'upper_float': 10})
 
         c1, v1, p1 = self.arch1.get_function_properties(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.ACTION)
         self.assertEqual(c1, 'EAWeightedSum')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -50, 'upper': 50})
+        self.assertEqual(p1, {'lower_float': -50, 'upper_float': 50})
 
         c1, v1, p1 = self.arch1.get_function_properties(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE)
         self.assertEqual(c1, 'EAConstant')
@@ -67,7 +67,7 @@ class TestHPCTArchConfig(unittest.TestCase):
         c1, v1, p1 = self.arch1.get_function_properties(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.OUTPUT)
         self.assertEqual(c1, 'EAProportional')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -2, 'upper': 2})
+        self.assertEqual(p1, {'lower_float': -2, 'upper_float': 2})
 
         c1, v1, p1 = self.arch1.get_function_properties(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.COMPARATOR)
         self.assertEqual(c1, 'Subtract')
@@ -80,25 +80,25 @@ class TestHPCTArchConfig(unittest.TestCase):
         #print(c1, v1, p1)
         self.assertEqual(c1, 'EAWeightedSum')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -10, 'upper': 10})
+        self.assertEqual(p1, {'lower_float': -10, 'upper_float': 10})
 
         c1, v1, p1 = self.arch.get_function_properties(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION)
         #print(c1, v1, p1)
         self.assertEqual(c1, 'EAWeightedSum')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -50, 'upper': 50})
+        self.assertEqual(p1, {'lower_float': -50, 'upper_float': 50})
 
         c1, v1, p1 = self.arch.get_function_properties(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE)
         #print(c1, v1, p1)
         self.assertEqual(c1, 'EAWeightedSum')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -5, 'upper': 5})
+        self.assertEqual(p1, {'lower_float': -5, 'upper_float': 5})
 
         c1, v1, p1 = self.arch.get_function_properties(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT)
         #print(c1, v1, p1)
         self.assertEqual(c1, 'EAProportional')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -2, 'upper': 2} )
+        self.assertEqual(p1, {'lower_float': -2, 'upper_float': 2} )
 
         c1, v1, p1 = self.arch.get_function_properties(HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE)
         #print(c1, v1, p1)
@@ -113,13 +113,13 @@ class TestHPCTArchConfig(unittest.TestCase):
         #print(c1, v1, p1)
         self.assertEqual(c1, 'EAWeightedSum')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -5, 'upper': 5})
+        self.assertEqual(p1, {'lower_float': -5, 'upper_float': 5})
 
         c1, v1, p1 = self.arch.get_function_properties(HPCTLEVEL.N, HPCTFUNCTION.OUTPUT)
         #print(c1, v1, p1)
         self.assertEqual(c1, 'EAProportional')
         self.assertEqual(v1, 'Float')
-        self.assertEqual(p1, {'lower': -2, 'upper': 2})
+        self.assertEqual(p1, {'lower_float': -2, 'upper_float': 2})
 
 
 

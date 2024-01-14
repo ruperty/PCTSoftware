@@ -27,7 +27,7 @@ if test == 4:
 
 if test == 5:
     file = 'configs'+ os.sep + 'configs-wt.csv'
-    args = "-b"
+    args = "-b -a -l"
     cmd='impl.evolve_multi_wt'
     initial_index=1000
 

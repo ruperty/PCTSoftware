@@ -247,6 +247,10 @@ class HPCTArchitecture(object):
                 arch = self.mode05(lower_float, upper_float)
                 mode_set = True
 
+            if mode == 6:
+                arch = self.mode06(lower_float, upper_float)
+                mode_set = True
+
         if not mode_set:            
             raise Exception(f'Mode {mode} not supported!')
 
@@ -355,15 +359,35 @@ class HPCTArchitecture(object):
                         }
                     }
             }
+    
+        return arch
 
     def mode05(self, lower_float, upper_float):
+        arch = {
+            HPCTARCH.HIERARCHY: {
+                        # Default definition of types of functions within a hierarchy.
+                        HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
+                        HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
+                        HPCTARCH.LEVELS: {
+                            # Overriding some functions at levels.
+                            HPCTLEVEL.ZEROTOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}},
+                            HPCTLEVEL.TOP: {HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Literal', HPCTVARIABLE.FUNCTION_CLASS: 'EAConstant', HPCTVARIABLE.PROPERTIES: None}}
+                        }
+                    }
+            }
+        return arch
+
+    def mode06(self, lower_float, upper_float):
         arch = {
             HPCTARCH.HIERARCHY: {
                         # Default definition of types of functions within a hierarchy.
                         HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EADerivativeWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_history':0, 'upper_history':20}},
                         HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
                         HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
@@ -374,6 +398,7 @@ class HPCTArchitecture(object):
             }
 
         return arch
+
 
 
     def __repr__(self):

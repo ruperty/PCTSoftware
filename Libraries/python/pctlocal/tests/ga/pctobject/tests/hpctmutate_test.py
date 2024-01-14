@@ -35,11 +35,11 @@ class TestHPCTMutateTopInputs(unittest.TestCase):
         arch = HPCTArchitecture()
         #arch.configure(3)
         arch.configure()
-        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
-        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
-        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
-        arch.set(HPCTLEVEL.N, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
-        arch.set(HPCTLEVEL.N, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
+        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
+        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
+        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
+        arch.set(HPCTLEVEL.N, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
+        arch.set(HPCTLEVEL.N, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
 
         seed, debug, pop_size, processes, runs, nevals, num_actions=3, 3, 1, 1, 500, 2, 2
         min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
@@ -259,11 +259,11 @@ class TestHPCTMutateNoTopInputs(unittest.TestCase):
         arch = HPCTArchitecture()
         #arch.configure(3)
         arch.configure()
-        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
-        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
-        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
-        arch.set(HPCTLEVEL.N, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
-        arch.set(HPCTLEVEL.N, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower': lower, 'upper': upper})
+        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.ACTION, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
+        arch.set(HPCTLEVEL.ZERO, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
+        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
+        arch.set(HPCTLEVEL.N, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
+        arch.set(HPCTLEVEL.N, HPCTFUNCTION.OUTPUT, HPCTVARIABLE.PROPERTIES, {'lower_float': lower, 'upper_float': upper})
 
         seed, debug, pop_size, processes, runs, nevals, num_actions=8, 3, 1, 1, 500, 2, 2
         min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
