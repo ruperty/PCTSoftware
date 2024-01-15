@@ -4,10 +4,10 @@ import random, enum, time, copy, math, logging, csv
 # from memory_profiler import profile
 from datetime import datetime
 #from epct.evolvers import CommonToolbox
-
-# with warnings.catch_warnings():
-#     warnings.filterwarnings("ignore",category=DeprecationWarning)
-from comet_ml import Experiment
+import warnings 
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore",category=DeprecationWarning)
+    from comet_ml import Experiment
 
 
 from deap import base, creator

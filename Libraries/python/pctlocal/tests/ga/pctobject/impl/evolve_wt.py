@@ -21,12 +21,11 @@ if __name__ == '__main__':
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument("-v", "--hpct_verbose", help="hierarchy output", action="store_true")
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
-	parser.add_argument("-l", "--log", help="log experiment to comet", action="store_false")
+	parser.add_argument("-l", "--log", help="log experiment to comet", action="store_true")
 	parser.add_argument("-db", "--debug", type=int, help="details of population in each gen, inc. mutate and merge", default=0)
 	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
 	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
 	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
-
 
 	args = parser.parse_args()
 	env_name = args.env_name 

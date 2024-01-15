@@ -1,4 +1,5 @@
 import json, socket, psutil
+import numpy as np
 
 from pct.putils import FunctionsList
 from pct.putils import floatListsToString
@@ -10,8 +11,13 @@ test = 13
 
 if test == 13:
 
-    value = -0.0468
-    print(f'{value:4.2f}')
+    for i in range(700,711):
+        
+        print(i)
+        v = np.exp(i)
+
+    # value = -0.0468
+    # print(f'{value:4.2f}')
 
     # wtss = [0]
     # weights = [float(f'{wt:4.3}') for wt in wtss]
