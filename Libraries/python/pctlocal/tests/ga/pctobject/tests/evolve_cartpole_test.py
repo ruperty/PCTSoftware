@@ -18,6 +18,10 @@ class TestEvolveCartpole(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        if hasattr(creator, 'FitnessMin'):
+            del creator.FitnessMin
+            del creator.Individual
+
         creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
         creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)        
         cls.pop_size = 4

@@ -16,6 +16,9 @@ from eepct.hpct import HPCTLEVEL
 from eepct.hpct import HPCTEvolver
 from eepct.hpct import HPCTIndividual
 
+if hasattr(creator, 'FitnessMin'):
+        del creator.FitnessMin
+        del creator.Individual
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
 

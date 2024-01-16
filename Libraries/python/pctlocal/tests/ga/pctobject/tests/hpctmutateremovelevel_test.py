@@ -18,6 +18,11 @@ from eepct.hpct import HPCTIndividual
 from eepct.hpct import HPCTEvolver
 from eepct.hpct import HPCTEvolverWrapper, Memory
 
+
+if hasattr(creator, 'FitnessMin'):
+        del creator.FitnessMin
+        del creator.Individual
+
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
 

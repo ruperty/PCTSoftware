@@ -1,4 +1,4 @@
-import json, socket, psutil
+import json, socket, psutil, random
 import numpy as np
 
 from pct.putils import FunctionsList
@@ -7,7 +7,26 @@ from pct.functions import Constant, Proportional
 from pct.hierarchy import PCTHierarchy
 #from pct.network import ConnectionManager
 
-test = 13
+from epct.structure import ParameterFactory
+
+test = 14
+
+
+if test == 14:
+
+    random.seed(1)
+    smooth_factor_parameter = ParameterFactory.createParameter('Float')
+    smooth_factor_parameter.set_properties({'lower_float':0, 'upper_float':1})
+
+    # evolve_properties1 = {'alpha':0.5}
+    ep = {'mu':0.25, 'sigma':0.5, 'attr_mut_pb':1}
+    smooth_factor = smooth_factor_parameter.get_list(1)[0]
+    print(smooth_factor)
+
+    for i in range(100):
+        smooth_factor, mut = smooth_factor_parameter.mutate_single(smooth_factor, ep)
+        if smooth_factor > 1:
+            print(i, smooth_factor)
 
 if test == 13:
 

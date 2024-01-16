@@ -251,8 +251,8 @@ class HPCTArchitecture(object):
                 arch = self.mode06(lower_float, upper_float)
                 mode_set = True
 
-        if not mode_set:            
-            raise Exception(f'Mode {mode} not supported!')
+            if not mode_set:            
+                raise Exception(f'Mode {mode} not supported!')
 
         self.arch = arch
         self.levels_zerotop = None
