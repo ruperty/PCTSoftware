@@ -104,7 +104,8 @@
             //"args": ["WindTurbine", "WT02-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-db", "2"],
             //"args": ["WindTurbine", "WT01-RewardError-SummedError-Mode00"],
             //"args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00", "-b"], //, "-l"],
-            "args": ["WindTurbine", "WT1001-RewardError-RootMeanSquareError-Mode06", "-o", "-b", "-a"], //, "-b",
+            //"args": ["WindTurbine", "WT1001-RewardError-RootMeanSquareError-Mode06", "-o", "-b", "-a"], //, "-b",
+            "args": ["WindTurbine", "WT070-RewardError-SummedError-Mode03", "-o", "-b", "-a"], //, "-b",
             "console": "internalConsole"
         },
         {
