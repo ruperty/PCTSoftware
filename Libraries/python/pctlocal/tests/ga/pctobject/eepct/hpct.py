@@ -369,7 +369,7 @@ class HPCTArchitecture(object):
                         HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
                         HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
@@ -387,7 +387,7 @@ class HPCTArchitecture(object):
                         HPCTFUNCTION.PERCEPTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EADerivativeWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_history':0, 'upper_history':20}},
                         HPCTFUNCTION.REFERENCE: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float}},
                         HPCTFUNCTION.COMPARATOR: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'Subtract', HPCTVARIABLE.PROPERTIES: None},
-                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
+                        HPCTFUNCTION.OUTPUT: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
                         HPCTFUNCTION.ACTION: {HPCTVARIABLE.TYPE: 'Float', HPCTVARIABLE.FUNCTION_CLASS: 'EASigmoidSmoothWeightedSum', HPCTVARIABLE.PROPERTIES: {'lower_float': lower_float, 'upper_float': upper_float, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}},
                         HPCTARCH.LEVELS: {
                             # Overriding some functions at levels.
@@ -538,6 +538,8 @@ class HPCTIndividual(PCTHierarchy):
 
             self.configure_nodes(levels_columns_grid)
             self.set_action_function(env, levels_columns_grid, num_actions)
+
+
 
     # @classmethod
     # def raw_to_config(cls, rawstr):
@@ -1309,13 +1311,22 @@ class HPCTEvolver(BaseEvolver):
         env_inputs, self.toplevel_inputs, self.zerolevel_inputs = self.create_inputs(self.env_inputs_indexes, self.env_inputs_names,
             self.toplevel_inputs_indexes, self.zerolevel_inputs_indexes, env)
 
+        # hpct = HPCTIndividual(env=env, env_inputs=env_inputs, toplevel_inputs=self.toplevel_inputs,
+        #            zerolevel_inputs=self.zerolevel_inputs, history=self.history, error_collector=error_collector,
+        #            levels_columns_grid=levels_columns_grid, 
+        #            arch=self.arch,
+        #            references=self.references, num_actions=self.num_actions)  
+    
+        # hpct.set_suffixes()
+        # return hpct
 
         return cls(env=env, env_inputs=env_inputs, toplevel_inputs=self.toplevel_inputs,
                    zerolevel_inputs=self.zerolevel_inputs, history=self.history, error_collector=error_collector,
                    levels_columns_grid=levels_columns_grid, 
-                #     env_inputs_names=self.env_inputs_names, 
                    arch=self.arch,
-                   references=self.references, num_actions=self.num_actions)  # , lower_float=self.lower_float, upper_float=self.upper_float)
+                   references=self.references, num_actions=self.num_actions)  
+    
+
 
     def mate(self, indvidual1, indvidual2):
         "Mate two individuals producing two children."
@@ -2388,9 +2399,10 @@ class HPCTEvolveProperties(PCTRunProperties):
                 draw_file= self.wrapper_properties['local_out_dir'] + sep + desc + '-evolve-best' + '.png'
                 if move == None:
                     move={}
-                print(draw_file)
+                print('Best hierarchy', draw_file)
             
             if experiment or draw_file:            
+                # best.set_suffixes()
                 best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size, experiment=experiment)
 
 
@@ -2754,6 +2766,7 @@ def evolve_from_properties(args):
     verbose= args['verbosed']
     min=True
     max= args['max']
+    draw_file = args['draw_file']
     tic = time.perf_counter()
     out_dir= args['drive'] + f'data{sep}ga{sep}'
     node_size, font_size=200, 6
@@ -2792,7 +2805,7 @@ def evolve_from_properties(args):
     log_dir=sep.join((out_dir, env_name, desc))
     makedirs(log_dir,exist_ok = True) 
     	
-    properties_file, evr, score, experiment = hep.run_configured_evolver( file=file, print_properties=True, draw_file=False, out_dir=out_dir, hash_num=hash_num, 
+    properties_file, evr, score, experiment = hep.run_configured_evolver( file=file, print_properties=True, draw_file=draw_file, out_dir=out_dir, hash_num=hash_num, 
                                                              output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, args=args)
     
     if properties_file != None:

@@ -22,6 +22,7 @@ if __name__ == '__main__':
 	parser.add_argument("-v", "--hpct_verbose", help="hierarchy output", action="store_true")
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
 	parser.add_argument("-l", "--log", help="log experiment to comet", action="store_true")
+	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")
 	parser.add_argument("-db", "--debug", type=int, help="details of population in each gen, inc. mutate and merge", default=0)
 	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
 	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
@@ -37,6 +38,7 @@ if __name__ == '__main__':
 	hpct_verbose= args.hpct_verbose
 	log_experiment= args.log
 	overwrite = args.overwrite
+	draw_file = args.draw_file
 	comparisons = False 
 	comparisons_print_plots = True
 	
@@ -54,7 +56,7 @@ if __name__ == '__main__':
 	# overwrite=False
 
 	for i in range(start, iters+start, 1):
-		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite,
+		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
 						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'comparisons': comparisons, 
 					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key,
 					'project_name':project_name, 'workspace':workspace, 'experiment_name':experiment_name, 'log_testing_to_experiment':log_testing_to_experiment

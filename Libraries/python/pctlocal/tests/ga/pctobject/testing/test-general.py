@@ -9,7 +9,17 @@ from pct.hierarchy import PCTHierarchy
 
 from epct.structure import ParameterFactory
 
-test = 14
+test = 15
+
+if test == 15:
+    import hashlib
+    hash_string = "{'series': 'steady', 'zero_threshold': 0.25, 'reward_type': 'surface1'}[1, 2, 4][0]NoneRewardError-RootMeanSquareError-Mode05RootMeanSquareErrorRewardErrorHPCTLEVEL.ZEROTOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.TYPE^FloatHPCTLEVEL.ZEROTOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.FUNCTION_CLASS^EAVariableHPCTLEVEL.ZEROTOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.PROPERTIES^{'lower_float': -1, 'upper_float': 1}HPCTLEVEL.TOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.TYPE^FloatHPCTLEVEL.TOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.FUNCTION_CLASS^EAVariableHPCTLEVEL.TOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.PROPERTIES^{'lower_float': -1, 'upper_float': 1}51100101.00.91000-1.01.05522100.00.90.75"
+    hash_num = hashlib.md5(hash_string.encode()).hexdigest()
+    print(hash_num)
+
+    hash_string = "{'series': 'steady', 'zero_threshold': 1.0, 'reward_type': 'surface1'}[1, 2, 4][0]NoneRewardError-RootMeanSquareError-Mode05RootMeanSquareErrorRewardErrorHPCTLEVEL.ZEROTOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.TYPE^FloatHPCTLEVEL.ZEROTOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.FUNCTION_CLASS^EAVariableHPCTLEVEL.ZEROTOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.PROPERTIES^{'lower_float': -1, 'upper_float': 1}HPCTLEVEL.TOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.TYPE^FloatHPCTLEVEL.TOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.FUNCTION_CLASS^EAVariableHPCTLEVEL.TOP^HPCTFUNCTION.REFERENCE^HPCTVARIABLE.PROPERTIES^{'lower_float': -1, 'upper_float': 1}51100101.00.91000-1.01.05522100.00.90.75"
+    hash_num = hashlib.md5(hash_string.encode()).hexdigest()
+    print(hash_num)
 
 
 if test == 14:
