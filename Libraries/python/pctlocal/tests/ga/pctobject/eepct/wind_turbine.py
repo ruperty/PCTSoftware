@@ -44,10 +44,10 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     draw_file = False
     model_file = outdir + 'res_model.html'
 
-    artifact = Artifact(property_file, "Properties file")
-    artifact.add(file)
 
     if experiment:
+        artifact = Artifact(property_file, "Properties file")
+        artifact.add(file)
         experiment.log_artifact(artifact)
 
     (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_hpct_wind(
@@ -147,7 +147,8 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     if comparisons:    
         print(res_baseline_simu)
         print(res_baseline_logs)
-        print(res_model)
+
+    print(res_model)
 
     if experiment:
         print(res_model)

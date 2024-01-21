@@ -1121,7 +1121,10 @@ class HPCTEvolver(BaseEvolver):
         self.toplevel_inputs_indexes = environment_properties['toplevel_inputs_indexes'] 
         self.zerolevel_inputs_indexes = environment_properties['zerolevel_inputs_indexes']
         self.num_actions = environment_properties['num_actions']
-        self.environment_properties = environment_properties['environment_properties']
+        if 'environment_properties' in environment_properties:
+            self.environment_properties = environment_properties['environment_properties']
+        else:
+            self.environment_properties = {}
         self.render  = self.get_property_value('render', environment_properties, False)
         self.early_termination   = self.get_property_value('early_termination', environment_properties, False)
 
@@ -1337,7 +1340,8 @@ class HPCTEvolver(BaseEvolver):
         child1.checklinks = True
         child2.checklinks = True
 
-        # return child1, child2
+        # child1.check_namespace()
+        # child2.check_namespace()
 
         # actions, at level 0
         child1actions = child1.get_postprocessor()
@@ -2401,8 +2405,14 @@ class HPCTEvolveProperties(PCTRunProperties):
                     move={}
                 print('Best hierarchy', draw_file)
             
-            if experiment or draw_file:            
-                # best.set_suffixes()
+            if experiment or draw_file:      
+                # best.check_namespace()      
+                best.summary(extra=True, check_namespace=True)      
+                FunctionsList.getInstance().report(namespace=best.get_namespace())
+                best.set_suffixes()
+                best.summary(extra=True, check_namespace=True)      
+                FunctionsList.getInstance().report(namespace=best.get_namespace())
+                # best.check_namespace()      
                 best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size, experiment=experiment)
 
 

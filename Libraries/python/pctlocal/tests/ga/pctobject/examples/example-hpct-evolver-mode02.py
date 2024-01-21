@@ -39,11 +39,13 @@ if __name__ == "__main__":
     toplevel_inputs_indexes=None
     seed=1
     debug=2
+    min = True
                 
         
     environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'render':False, 'early_termination': False,
         'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env_name, 'num_actions':num_actions, 'references':references}
-    hpct_run_properties ={ 'hpct_verbose':False, 'debug':debug , 'runs':runs, 'nevals':nevals, 'seed':seed,  'error_collector_type' :  'InputsError', 'error_response_type' : 'RootMeanSquareError'}   
+    hpct_run_properties ={ 'hpct_verbose':False, 'debug':debug , 'runs':runs, 'nevals':nevals, 'seed':seed,  'error_collector_type' :  'InputsError', 
+                          'error_response_type' : 'RootMeanSquareError', 'min': min}   
     evolve_properties = {'attr_mut_pb':0.8,'structurepb':1} #, 'attr_cx_uniform_pb':0.5, 'alpha':0.5} 
     hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit }    
   
@@ -57,7 +59,7 @@ if __name__ == "__main__":
     random.seed(seed)
     evolver = HPCTEvolver(**evolver_properties)
     #print(evolver_properties)
-    evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True, local_out_dir='output')
+    evr = HPCTEvolverWrapper(evolver=evolver, min=min, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True, local_out_dir='output')
 
     test=1
 
@@ -65,8 +67,12 @@ if __name__ == "__main__":
         ind = evr.toolbox.individual()          
         ind1, = evr.toolbox.mutate(ind)
         #ind.summary()
-        ind1.summary()
-        
+        ind1.summary(extra=True, check_namespace=True)
+        ind1.set_suffixes()
+        ind1.summary(extra=True, check_namespace=True)
+        ind1.draw(file="c:/tmp/im.png")
+
+
         #print(ind.formatted_config())
         #print(ind1.formatted_config())
         
@@ -74,6 +80,21 @@ if __name__ == "__main__":
         ind1 = evr.toolbox.individual()          
         ind2 = evr.toolbox.individual()          
         ind21,ind22 = evr.toolbox.mate(ind1, ind2)
+        
+
+        ind1.check_namespace()
+        ind2.check_namespace()
+        ind21.check_namespace()
+        ind22.check_namespace()
+
+        # ind1.summary(extra=True, check_namespace=True)    
+        # print("End of first")    
+        # ind2.summary(extra=True, check_namespace=True)
+        # print("End of second")    
+        # ind21.summary(extra=True, check_namespace=True)
+        # print("End of first mated")    
+        # ind22.summary(extra=True, check_namespace=True)
+        # print("End of second mated")    
         
 
         
