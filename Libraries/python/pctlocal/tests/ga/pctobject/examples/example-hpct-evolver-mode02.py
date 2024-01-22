@@ -34,7 +34,8 @@ if __name__ == "__main__":
 
     error_collector_type , error_response_type = 'InputsError', 'RootMeanSquareError'
     pop_size, processes, runs, nevals, num_actions= 10, 1, 500, 1, 1
-    min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
+    min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 2, 1, 2, 100
+    # min_levels_limit, max_levels_limit, min_columns_limit, max_columns_limit, error_limit = 1, 5, 1, 5, 100
     zerolevel_inputs_indexes=None
     toplevel_inputs_indexes=None
     seed=1
@@ -61,16 +62,26 @@ if __name__ == "__main__":
     #print(evolver_properties)
     evr = HPCTEvolverWrapper(evolver=evolver, min=min, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True, local_out_dir='output')
 
-    test=1
+    test=2
 
     if test==1:
-        ind = evr.toolbox.individual()          
+        ind = evr.toolbox.individual()         
+        print(ind.get_namespace()) 
         ind1, = evr.toolbox.mutate(ind)
+        print(ind1.get_namespace()) 
+        FunctionsList.getInstance().report()
+        
         #ind.summary()
+        print()
         ind1.summary(extra=True, check_namespace=True)
+        
+        FunctionsList.getInstance().report(namespace=ind1.get_namespace())
         ind1.set_suffixes()
+        print()
         ind1.summary(extra=True, check_namespace=True)
-        ind1.draw(file="c:/tmp/im.png")
+        print()
+        FunctionsList.getInstance().report(namespace=ind1.get_namespace())
+        # ind1.draw(file="c:/tmp/im.png")
 
 
         #print(ind.formatted_config())

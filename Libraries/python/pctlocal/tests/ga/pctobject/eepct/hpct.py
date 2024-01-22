@@ -525,6 +525,7 @@ class HPCTIndividual(PCTHierarchy):
         namespace = None
         if env is not None:
             namespace = env.namespace
+        print('create individual', namespace)
         super().__init__(levels=levels, cols=cols, history=history, error_collector=error_collector, namespace=namespace)
 
         self.arch = arch
@@ -538,6 +539,8 @@ class HPCTIndividual(PCTHierarchy):
 
             self.configure_nodes(levels_columns_grid)
             self.set_action_function(env, levels_columns_grid, num_actions)
+
+        self.get_postprocessor()[0].summary(extra=True, higher_namespace=namespace)  
 
 
 
@@ -1323,6 +1326,9 @@ class HPCTEvolver(BaseEvolver):
         # hpct.set_suffixes()
         # return hpct
 
+        print('create from evolver', env.namespace)
+
+
         return cls(env=env, env_inputs=env_inputs, toplevel_inputs=self.toplevel_inputs,
                    zerolevel_inputs=self.zerolevel_inputs, history=self.history, error_collector=error_collector,
                    levels_columns_grid=levels_columns_grid, 
@@ -1339,6 +1345,16 @@ class HPCTEvolver(BaseEvolver):
         child2.change_namespace() 
         child1.checklinks = True
         child2.checklinks = True
+
+        print('mate indvidual1', indvidual1.namespace)
+        indvidual1.get_postprocessor()[0].summary(extra=True, higher_namespace=indvidual1.get_namespace())  
+        print('mate indvidual2', indvidual2.namespace)
+        indvidual2.get_postprocessor()[0].summary(extra=True, higher_namespace=indvidual2.get_namespace())  
+        print('mate child1', child1.namespace)
+        child1.get_postprocessor()[0].summary(extra=True, higher_namespace=child1.get_namespace())  
+        print('mate child2', child2.namespace)
+        child2.get_postprocessor()[0].summary(extra=True, higher_namespace=child2.get_namespace())  
+
 
         # child1.check_namespace()
         # child2.check_namespace()
@@ -1413,6 +1429,13 @@ class HPCTEvolver(BaseEvolver):
         mutant.reset_checklinks()
         mutated_structure = 0
         mutated=False
+
+        print('mutate hpct', hpct.namespace)
+        hpct.get_postprocessor()[0].summary(extra=True, higher_namespace=hpct.get_namespace())  
+
+        print('mutate mutant', mutant.namespace)
+        mutant.get_postprocessor()[0].summary(extra=True, higher_namespace=mutant.get_namespace())  
+
 
         if self.debug > 1:
             print(f'gen {self.gen:03} member {self.member:03}', mutant.get_grid(), mutant.namespace)
@@ -1901,13 +1924,6 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     else:
                         print(f'Running gen {gen:03}', end = ' ')
                     
-                # print('temp setting of hpct_verbose to True')
-                # hpct_verbose=True
-                # ind, score = HPCTIndividual.run_from_config(top_config, self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
-                #     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
-                #     steps=self.evolver.runs, hpct_verbose=hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
-                #     flip_error_response=self.evolver.flip_error_response, environment_properties=self.evolver.environment_properties)
-
                 ind, score = HPCTIndividual.run_from_config(top_config, self.min, render=render,  error_collector_type=self.evolver.error_collector_type, 
                     error_response_type=self.evolver.error_response_type, error_properties=self.evolver.error_properties, error_limit=self.evolver.error_limit, 
                     steps=self.evolver.runs, hpct_verbose=self.hpct_verbose, early_termination=self.evolver.early_termination, seed=self.evolver.seed, 
@@ -1930,33 +1946,6 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     fig_file = f'{self.local_out_dir}/fig{gen:03}.png'
                     ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True, funcdata=True)
 
-                # newind = CommonToolbox.getInstance().get_toolbox().clone(top_ind)
-                # newind.change_namespace() 
-                # environment = newind.get_preprocessor()[0]
-                # if hasattr(environment, 'env'):
-                #     if isinstance(environment, OpenAIGym):
-                #         environment.set_render(True)
-                #         if self.save_arch_gen:
-                #             self.evolver.fig_file = f'fig{gen:03}.png'
-                #         # if gen == 1:
-                #         #     best = self.best_of_gens[0]
-                #         #     environment_zero = best.get_preprocessor()[0]
-                #         #     print('Displaying gen 0')
-                #         #     environment_zero.set_render(True)
-                #         #     self.evolver.evaluate(best)
-                #         #     print('>> Press enter to continue:')
-                #         #     input()
-                #         #     print('Displaying gen 0')
-                #         #     environment_zero.set_render(True)
-                #         #     self.evolver.evaluate(best)
-                #         #     environment_zero.set_render(False)
-                #         #     print(best, best.get_parameters_list())
-                #         print(f'Displaying gen {gen}')
-                #         self.evolver.evaluate(newind)
-                #         self.evolver.fig_file = None
-                #         environment.set_render(False)
-                #         environment.close()
-                #         print(top_ind, top_ind.get_parameters_list())
 
         return self.timing_sum/gens, log_string
 
@@ -2407,11 +2396,21 @@ class HPCTEvolveProperties(PCTRunProperties):
             
             if experiment or draw_file:      
                 # best.check_namespace()      
-                best.summary(extra=True, check_namespace=True)      
-                FunctionsList.getInstance().report(namespace=best.get_namespace())
+                # best.summary(extra=True, check_namespace=True)      
+                best.get_postprocessor()[0].summary(extra=True, higher_namespace=best.get_namespace())   
+                print()
+                FunctionsList.getInstance().report(namespace=best.get_namespace(), name='Action1')
+                print()
+                # FunctionsList.getInstance().report()
                 best.set_suffixes()
-                best.summary(extra=True, check_namespace=True)      
-                FunctionsList.getInstance().report(namespace=best.get_namespace())
+
+                # best.summary(extra=True, check_namespace=True)      
+                best.get_postprocessor()[0].summary(extra=True, higher_namespace=best.get_namespace())      
+                print()
+                FunctionsList.getInstance().report(namespace=best.get_namespace(), name='Action1sgsm')
+                print()
+                # FunctionsList.getInstance().report()
+                # FunctionsList.getInstance().report(namespace=best.get_namespace())
                 # best.check_namespace()      
                 best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size, experiment=experiment)
 
