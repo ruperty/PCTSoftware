@@ -525,7 +525,7 @@ class HPCTIndividual(PCTHierarchy):
         namespace = None
         if env is not None:
             namespace = env.namespace
-        print('create individual', namespace)
+        # print('create individual', namespace)
         super().__init__(levels=levels, cols=cols, history=history, error_collector=error_collector, namespace=namespace)
 
         self.arch = arch
@@ -540,7 +540,7 @@ class HPCTIndividual(PCTHierarchy):
             self.configure_nodes(levels_columns_grid)
             self.set_action_function(env, levels_columns_grid, num_actions)
 
-        self.get_postprocessor()[0].summary(extra=True, higher_namespace=namespace)  
+        # self.get_postprocessor()[0].summary(extra=True, higher_namespace=namespace)  
 
 
 
@@ -1326,7 +1326,7 @@ class HPCTEvolver(BaseEvolver):
         # hpct.set_suffixes()
         # return hpct
 
-        print('create from evolver', env.namespace)
+        # print('create from evolver', env.namespace)
 
 
         return cls(env=env, env_inputs=env_inputs, toplevel_inputs=self.toplevel_inputs,
@@ -1346,15 +1346,14 @@ class HPCTEvolver(BaseEvolver):
         child1.checklinks = True
         child2.checklinks = True
 
-        print('mate indvidual1', indvidual1.namespace)
-        indvidual1.get_postprocessor()[0].summary(extra=True, higher_namespace=indvidual1.get_namespace())  
-        print('mate indvidual2', indvidual2.namespace)
-        indvidual2.get_postprocessor()[0].summary(extra=True, higher_namespace=indvidual2.get_namespace())  
-        print('mate child1', child1.namespace)
-        child1.get_postprocessor()[0].summary(extra=True, higher_namespace=child1.get_namespace())  
-        print('mate child2', child2.namespace)
-        child2.get_postprocessor()[0].summary(extra=True, higher_namespace=child2.get_namespace())  
-
+        # print('mate indvidual1', indvidual1.namespace)
+        # indvidual1.get_postprocessor()[0].summary(extra=True, higher_namespace=indvidual1.get_namespace())  
+        # print('mate indvidual2', indvidual2.namespace)
+        # indvidual2.get_postprocessor()[0].summary(extra=True, higher_namespace=indvidual2.get_namespace())  
+        # print('mate child1', child1.namespace)
+        # child1.get_postprocessor()[0].summary(extra=True, higher_namespace=child1.get_namespace())  
+        # print('mate child2', child2.namespace)
+        # child2.get_postprocessor()[0].summary(extra=True, higher_namespace=child2.get_namespace())  
 
         # child1.check_namespace()
         # child2.check_namespace()
@@ -1430,11 +1429,11 @@ class HPCTEvolver(BaseEvolver):
         mutated_structure = 0
         mutated=False
 
-        print('mutate hpct', hpct.namespace)
-        hpct.get_postprocessor()[0].summary(extra=True, higher_namespace=hpct.get_namespace())  
+        # print('mutate hpct', hpct.namespace)
+        # hpct.get_postprocessor()[0].summary(extra=True, higher_namespace=hpct.get_namespace())  
 
-        print('mutate mutant', mutant.namespace)
-        mutant.get_postprocessor()[0].summary(extra=True, higher_namespace=mutant.get_namespace())  
+        # print('mutate mutant', mutant.namespace)
+        # mutant.get_postprocessor()[0].summary(extra=True, higher_namespace=mutant.get_namespace())  
 
 
         if self.debug > 1:
@@ -1863,12 +1862,12 @@ class HPCTEvolverWrapper(EvolverWrapper):
         self.genealogy.update(self.pop)
 
         if evolve_verbose>0:
-            logs = 'gen   pop   min       mean      max        mut  muts  timing'
+            logs = 'gen   pop          min         mean          max   mut muts  timing'
             print(logs)
         if log:
             # logs = '###  gen   pop    min       mean      max        mut  muts  timing'
-            logs = '###  gen  pop      min       mean        max   mut muts  timing'
-            log_string = ''.join((log_string, '# ', logs, '\n'))
+            logs = '###  gen  pop          min         mean          max   mut muts  timing'
+            log_string = ''.join((log_string, logs, '\n'))
             logger.info(logs)
 
         self.best_of_gens=[]
@@ -2397,18 +2396,20 @@ class HPCTEvolveProperties(PCTRunProperties):
             if experiment or draw_file:      
                 # best.check_namespace()      
                 # best.summary(extra=True, check_namespace=True)      
-                best.get_postprocessor()[0].summary(extra=True, higher_namespace=best.get_namespace())   
-                print()
-                FunctionsList.getInstance().report(namespace=best.get_namespace(), name='Action1')
-                print()
+                # I believe best is a clone so need to run change_namespace to enter into functions list
+                best.change_namespace()
+                # best.get_postprocessor()[0].summary(extra=True, higher_namespace=best.get_namespace())   
+                # print()
+                # FunctionsList.getInstance().report(namespace=best.get_namespace(), name='Action1')
+                # print()
                 # FunctionsList.getInstance().report()
                 best.set_suffixes()
 
                 # best.summary(extra=True, check_namespace=True)      
-                best.get_postprocessor()[0].summary(extra=True, higher_namespace=best.get_namespace())      
-                print()
-                FunctionsList.getInstance().report(namespace=best.get_namespace(), name='Action1sgsm')
-                print()
+                # best.get_postprocessor()[0].summary(extra=True, higher_namespace=best.get_namespace())      
+                # print()
+                # FunctionsList.getInstance().report(namespace=best.get_namespace(), name='Action1sgsm')
+                # print()
                 # FunctionsList.getInstance().report()
                 # FunctionsList.getInstance().report(namespace=best.get_namespace())
                 # best.check_namespace()      

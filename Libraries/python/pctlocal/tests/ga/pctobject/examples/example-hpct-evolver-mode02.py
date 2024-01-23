@@ -62,7 +62,18 @@ if __name__ == "__main__":
     #print(evolver_properties)
     evr = HPCTEvolverWrapper(evolver=evolver, min=min, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True, local_out_dir='output')
 
-    test=2
+    test=3
+
+    if test==3:
+        ind = evr.toolbox.individual()     
+        ind.get_postprocessor()[0].summary(extra=True, higher_namespace=ind.get_namespace())  
+        tb = CommonToolbox.getInstance().get_toolbox()
+        ind1 = tb.clone(ind)
+        ind1.get_postprocessor()[0].summary(extra=True, higher_namespace=ind1.get_namespace())  
+        ind1.change_namespace()
+        FunctionsList.getInstance().report()
+
+
 
     if test==1:
         ind = evr.toolbox.individual()         

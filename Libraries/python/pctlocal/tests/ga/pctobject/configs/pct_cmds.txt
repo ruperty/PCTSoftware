@@ -575,6 +575,14 @@ python -m impl.evolve_wt WindTurbine WT1000-RewardError-RootMeanSquareError-Mode
 python examples\example-hpct-evolver-mode02.py > c:/tmp/test.txt
 
 
+python -m impl.evolve_multi_wt WindTurbine "['WT070-RewardError-SummedError-Mode03']"  -b -l -o -a -df -s 61 -p test-evolve
+
+
+
+
+
+
+
 
 
 

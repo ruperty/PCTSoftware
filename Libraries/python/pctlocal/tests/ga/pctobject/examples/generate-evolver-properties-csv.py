@@ -13,6 +13,7 @@ args = "-i 1 -s 93"
 test = 5
 cmd='impl.evolve_multi'
 initial_index=1
+
 if test == 1:
     file = 'configs'+ os.sep + 'configs-cp.csv'
 
@@ -27,9 +28,9 @@ if test == 4:
 
 if test == 5:
     file = 'configs'+ os.sep + 'configs-wt.csv'
-    args = "-b -a -l -p test-evolve"
+    args = "-b -a -l -o -p evolve01"
     cmd='impl.evolve_multi_wt'
-    initial_index=1000
+    # initial_index=1000
 
 hge = HPCTGenerateEvolvers()  
 hge.process_csv(file, args, cmdline=cmd, initial_index=initial_index)
