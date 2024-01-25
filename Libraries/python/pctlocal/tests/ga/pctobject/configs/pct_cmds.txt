@@ -579,12 +579,40 @@ python -m impl.evolve_multi_wt WindTurbine "['WT070-RewardError-SummedError-Mode
 
 
 
+python -m impl.evolve_multi_wt WindTurbine "['WT001-RewardError-RootMeanSquareError-Mode00', 'WT002-RewardError-RootMeanSquareError-Mode00', 'WT003-RewardError-RootMeanSquareError-Mode00', 'WT004-RewardError-RootMeanSquareError-Mode01', 'WT005-RewardError-RootMeanSquareError-Mode01', 'WT006-RewardError-RootMeanSquareError-Mode01', 'WT007-RewardError-RootMeanSquareError-Mode02', 'WT008-RewardError-RootMeanSquareError-Mode02', 'WT009-RewardError-RootMeanSquareError-Mode02', 'WT010-RewardError-RootMeanSquareError-Mode03', 'WT011-RewardError-RootMeanSquareError-Mode03', 'WT012-RewardError-RootMeanSquareError-Mode03', 'WT013-RewardError-RootMeanSquareError-Mode04', 'WT014-RewardError-RootMeanSquareError-Mode04', 'WT015-RewardError-RootMeanSquareError-Mode04', 'WT016-RewardError-RootMeanSquareError-Mode05', 'WT017-RewardError-RootMeanSquareError-Mode05', 'WT018-RewardError-RootMeanSquareError-Mode05', 'WT019-RewardError-RootMeanSquareError-Mode06', 'WT020-RewardError-RootMeanSquareError-Mode06', 'WT021-RewardError-RootMeanSquareError-Mode06']" -b -a -l -o -p evolve01 -pl "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" -c 4
 
 
 
 
 
 
+5.9.1 RewardError-RootMeanSquareError
+
+surface1
+
+From WT001
+
+A value of around 5500 gives a good result of around 1172.
+
+Mode 0 gives good results except where the top level input is from the yaw error. There are only 2 yaw movements.
+
+
+
+
+
+5.9.2 RewardError-SummedError
+
+
+
+surface1
+
+WT31-45
+
+
+
+
+
+Mode00
 
 
 
