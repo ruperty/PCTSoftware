@@ -27,6 +27,7 @@ if __name__ == '__main__':
 	parser.add_argument('-p', '--project', type=str, help="comet project name", default="evolve")
 	parser.add_argument("-l", "--log", help="log experiment to comet, include option to turn off logging", action="store_true") 
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
+	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
 
 	args = parser.parse_args()
 	start=args.start
@@ -34,6 +35,7 @@ if __name__ == '__main__':
 	log_experiment= args.log
 	overwrite = args.overwrite
 	draw_file = args.draw_file
+	hierarchy_plots = args.plots
 
 	verbose=False
 
@@ -68,7 +70,8 @@ if __name__ == '__main__':
 					arg = {'seed': i, 'file': filen, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite,
                     'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'comparisons': comparisons, 
 					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key,
-					'project_name':project_name, 'workspace':workspace, 'experiment_name':experiment_name, 'draw_file' :draw_file
+					'project_name':project_name, 'workspace':workspace, 'experiment_name':experiment_name, 'draw_file' :draw_file,
+					'hierarchy_plots': hierarchy_plots
 					}#,'gens':args.gens, 'pop':args.pop }
 					list.append(arg) 
 

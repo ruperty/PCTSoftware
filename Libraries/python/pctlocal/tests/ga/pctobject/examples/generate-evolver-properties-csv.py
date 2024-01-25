@@ -28,7 +28,7 @@ if test == 4:
 
 if test == 5:
     file = 'configs'+ os.sep + 'configs-wt.csv'
-    args = "-b -a -l -o -p evolve01"
+    args = "-b -a -l -o -p evolve01 -pl \"[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]\""
     cmd='impl.evolve_multi_wt'
     # initial_index=1000
 

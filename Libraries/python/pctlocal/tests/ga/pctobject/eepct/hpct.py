@@ -2770,6 +2770,7 @@ class HPCTGenerateEvolvers(object):
 
 
 def evolve_from_properties(args):
+    hierarchy_plots=eval(args['hierarchy_plots'])
     seed=args['seed']
     filename=args['file']
     env_name=args['env_name']
@@ -2819,6 +2820,10 @@ def evolve_from_properties(args):
                                                              output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, args=args)
     
     if properties_file != None:
+        if hierarchy_plots and len(hierarchy_plots) > 0:
+            hierarchy, score = PCTHierarchy.run_from_file(properties_file,  plots=hierarchy_plots, history=True, experiment=experiment)
+            print(f'After plots, score={score:4.3f}')
+
         toc = time.perf_counter()
         elapsed = toc-tic        
         print(f'Seed {seed} Evolve time: {elapsed:4.2f}')

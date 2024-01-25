@@ -25,8 +25,7 @@ if __name__ == '__main__':
 	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")
 	parser.add_argument("-db", "--debug", type=int, help="details of population in each gen, inc. mutate and merge", default=0)
 	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
-	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
-	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
+	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
 
 	args = parser.parse_args()
 	env_name = args.env_name 
@@ -39,6 +38,7 @@ if __name__ == '__main__':
 	log_experiment= args.log
 	overwrite = args.overwrite
 	draw_file = args.draw_file
+	hierarchy_plots = args.plots
 	comparisons = False 
 	comparisons_print_plots = True
 	
@@ -58,7 +58,7 @@ if __name__ == '__main__':
 	for i in range(start, iters+start, 1):
 		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
 						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'comparisons': comparisons, 
-					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key,
+					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key, 'hierarchy_plots': hierarchy_plots,
 					'project_name':project_name, 'workspace':workspace, 'experiment_name':experiment_name, 'log_testing_to_experiment':log_testing_to_experiment
 		}#,'gens':args.gens, 'pop':args.pop }
 					
