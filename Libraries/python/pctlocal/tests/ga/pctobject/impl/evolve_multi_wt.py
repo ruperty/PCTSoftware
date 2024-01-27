@@ -10,7 +10,7 @@ from eepct.wind_turbine import evolve_wt_from_properties
 
 
 if __name__ == '__main__':
-    
+
 	parser = argparse.ArgumentParser()
 	parser.add_argument("env_name", help="the environment name")
 	parser.add_argument("files", help="the properties file name list")
@@ -44,7 +44,6 @@ if __name__ == '__main__':
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
 	workspace='wind-turbine'
-	experiment_name = 'steady'
 
 	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':False}
@@ -70,7 +69,7 @@ if __name__ == '__main__':
 					arg = {'seed': i, 'file': filen, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite,
                     'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'comparisons': comparisons, 
 					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key,
-					'project_name':project_name, 'workspace':workspace, 'experiment_name':experiment_name, 'draw_file' :draw_file,
+					'project_name':project_name, 'workspace':workspace, 'draw_file' :draw_file,
 					'hierarchy_plots': hierarchy_plots
 					}#,'gens':args.gens, 'pop':args.pop }
 					list.append(arg) 

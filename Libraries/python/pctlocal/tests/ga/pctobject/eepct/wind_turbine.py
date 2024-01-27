@@ -6,6 +6,14 @@ from os import sep, path, makedirs
 from pct.hierarchy import PCTHierarchy
 from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
 from eepct.hpct import evolve_from_properties
+from pct.putils import printtime, NumberStats
+
+import warnings 
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore",category=DeprecationWarning)
+    from comet_ml import Experiment
+
+
 
 # with warnings.catch_warnings():
 #     warnings.filterwarnings("ignore",category=DeprecationWarning)
@@ -35,7 +43,6 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     else:
         outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
     makedirs(outdir, exist_ok=True)
-
 
     lastsepIndex = filename.rfind(sep)
     propIndex = filename.rfind('.properties')
@@ -151,7 +158,6 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     print(res_model)
 
     if experiment:
-        print(res_model)
         experiment.log_metric('pc_test_result', res_model['power_control'])
         experiment.log_metric('yaw_count', res_model['yaw count'])
         experiment.log_metric('mean_ye', res_model['average yaw error'])
@@ -159,6 +165,30 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
 
 
 def evolve_wt_from_properties(args):
+
+    if args and 'log_experiment' in args and args['log_experiment']:
+        env_name=args['env_name']
+        filename=args['file']
+        root = args['root_path']
+        pfile = root + args['configs_dir'] + env_name +sep+ filename + ".properties"
+
+        ep = PCTHierarchy.get_environment_properties(pfile)
+        ex_name = ep['series']
+        args['experiment_name']= ex_name
+        args['project_name'] = args['project_name']+"-" + ex_name
+        experiment = Experiment(api_key=args['api_key'],
+                                project_name=args['project_name'],
+                                workspace=args['workspace'])
+
+        # experiment.log_parameters(model_params)
+        # experiment.log_code(path.basename(__file__))		
+        experiment.set_name(ex_name)
+    else:
+        experiment = None
+
+    args['experiment']=experiment
+
+    start = printtime('Start')
 
     filepath, experiment = evolve_from_properties(args)
     if filepath is None:
@@ -175,10 +205,10 @@ def evolve_wt_from_properties(args):
 
     index1=filepath.rindex(sep)
     file = filepath[index1+1:]
-    print(file)
+    # print(file)
     index2=filepath.rindex(sep, 0, index1)
     property_dir=filepath[index2+1:index1]
-    print(property_dir)
+    # print(property_dir)
     #configs_root=args['root_path']
     drive=args['drive']
 
@@ -193,6 +223,11 @@ def evolve_wt_from_properties(args):
                         early=early, comparisons=args['comparisons'], comparisons_print_plots=args['comparisons_print_plots'], 
                         property_dir=property_dir, property_file=file, plots=plots, log_testing_to_experiment=log_testing_to_experiment)
 
+    end = printtime('End')	
+    elapsed = end-start        
+    print(f'Elapsed time: {elapsed:4.2f}')
+    NumberStats.getInstance().report()
     if experiment:
         experiment.end()
+
 

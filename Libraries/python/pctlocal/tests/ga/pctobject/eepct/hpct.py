@@ -20,7 +20,6 @@ from pct.hierarchy import PCTHierarchy, PCTRunProperties
 from pct.nodes import PCTNode
 from pct.errors import BaseErrorCollector
 from pct.functions import FunctionFactory, HPCTFUNCTION
-from pct.putils import floatListsToString, FunctionsList, UniqueNamer
 
 from pct.environments import EnvironmentFactory, OpenAIGym
 
@@ -2048,6 +2047,9 @@ class HPCTEvolveProperties(PCTRunProperties):
 
     #     return configs_strings
 
+
+
+
     #@classmethod
     def load_properties(self, file=None, nevals=None, seed=None, print_properties=False,
                         gens=None, pop_size=None, evolve=False):
@@ -2324,23 +2326,24 @@ class HPCTEvolveProperties(PCTRunProperties):
         return hash_num, self.file_properties['desc'], properties_str
 
     def run_configured_evolver(self, file=None, out_dir=None, output=False, hash_num=None, overwrite=False, test=False, log=False, draw_file=False, 
-                               with_edge_labels=True,figsize=(12,12), node_size=200, font_size=8, print_properties=False, move=None, args=None):
+                               with_edge_labels=True,figsize=(12,12), node_size=200, font_size=8, print_properties=False, move=None, args=None, experiment=None):
         
         desc = self.file_properties['desc']
         skip, dir = self.create_output_directories(output, out_dir, self.environment_properties['env_name'], desc, hash_num, overwrite)
         if skip:
             return None,None,None,None
 
-        if args and 'log_experiment' in args and args['log_experiment']:
-            experiment = Experiment(api_key=args['api_key'],
-                                    project_name=args['project_name'],
-                                    workspace=args['workspace'])
+        if experiment is None:
+            if args and 'log_experiment' in args and args['log_experiment']:
+                experiment = Experiment(api_key=args['api_key'],
+                                        project_name=args['project_name'],
+                                        workspace=args['workspace'])
 
-            # experiment.log_parameters(model_params)
-            # experiment.log_code(path.basename(__file__))		
-            experiment.set_name(args['experiment_name'])
-        else:
-            experiment = None
+                # experiment.log_parameters(model_params)
+                # experiment.log_code(path.basename(__file__))		
+                experiment.set_name(args['experiment_name'])
+            else:
+                experiment = None
 
 
         if experiment:
@@ -2530,7 +2533,7 @@ class HPCTGenerateEvolvers(object):
         lookup = {'zerotop': HPCTLEVEL.ZEROTOP, 'top': HPCTLEVEL.TOP, 'ref': HPCTFUNCTION.REFERENCE, 'per': HPCTFUNCTION.PERCEPTION, 'com': HPCTFUNCTION.COMPARATOR, 'our': HPCTFUNCTION.OUTPUT }
 
         arr = arch_types.split('|')
-        print(arr)
+        # print(arr)
         all = []
         for item in arr:
             elements = item.split('^')
@@ -2772,7 +2775,6 @@ class HPCTGenerateEvolvers(object):
 def evolve_from_properties(args):
     hierarchy_plots=eval(args['hierarchy_plots'])
     seed=args['seed']
-    filename=args['file']
     env_name=args['env_name']
     verbose= args['verbosed']
     min=True
@@ -2781,9 +2783,14 @@ def evolve_from_properties(args):
     tic = time.perf_counter()
     out_dir= args['drive'] + f'data{sep}ga{sep}'
     node_size, font_size=200, 6
+    filename=args['file']
     root = args['root_path']
     file = root + args['configs_dir'] + env_name +sep+ filename + ".properties"
-    
+    if 'experiment' in args:
+        experiment = args['experiment']
+    else:
+        experiment = None
+
     if max:
         pass
         min=False
@@ -2817,7 +2824,8 @@ def evolve_from_properties(args):
     makedirs(log_dir,exist_ok = True) 
     	
     properties_file, evr, score, experiment = hep.run_configured_evolver( file=file, print_properties=True, draw_file=draw_file, out_dir=out_dir, hash_num=hash_num, 
-                                                             output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, args=args)
+                                                             output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, args=args, 
+                                                             experiment=experiment)
     
     if properties_file != None:
         if hierarchy_plots and len(hierarchy_plots) > 0:

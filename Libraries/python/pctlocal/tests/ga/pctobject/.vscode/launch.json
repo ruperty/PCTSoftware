@@ -107,7 +107,8 @@
             //"args": ["WindTurbine", "WT01-RewardError-SummedError-Mode00"],
             //"args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00", "-b"], //, "-l"],
             //"args": ["WindTurbine", "WT1000-RewardError-RootMeanSquareError-Mode05", "-o", "-b", "-a", "-df"], //, "-b",
-            "args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00", "-l", "-o", "-b", "-a", "-df", "-p", "test-evolve", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
+            "args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00", "-l", "-o", "-b", "-a", "-df", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
+            // "args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00", "-l", "-o", "-b", "-a", "-df", "-p", "test-evolve", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
             // "args": ["WindTurbine", "WT1001-RewardError-RootMeanSquareError-Mode06", "-o", "-b", "-a"], //, "-b",
             // "args": ["WindTurbine", "WT070-RewardError-SummedError-Mode03", "-o", "-b", "-a"], //, "-b",
             "console": "internalConsole"

@@ -1,9 +1,9 @@
 
 #import logging
-import argparse
+import argparse, os
+from datetime import datetime
 from cutils.paths import get_root_path, get_gdrive
 from eepct.wind_turbine import evolve_wt_from_properties
-
 #logger = logging.getLogger(__name__)
 
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
 	workspace='wind-turbine'
-	experiment_name = 'steady'
+	# experiment_name = 'steady'
 			
 	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':hpct_verbose}
@@ -59,12 +59,13 @@ if __name__ == '__main__':
 		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
 						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'comparisons': comparisons, 
 					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key, 'hierarchy_plots': hierarchy_plots,
-					'project_name':project_name, 'workspace':workspace, 'experiment_name':experiment_name, 'log_testing_to_experiment':log_testing_to_experiment
+					'project_name':project_name, 'workspace':workspace, 'log_testing_to_experiment':log_testing_to_experiment
 		}#,'gens':args.gens, 'pop':args.pop }
 					
 		pf = evolve_wt_from_properties(arg)
 		pass
-	
+
+
 
 		
 
