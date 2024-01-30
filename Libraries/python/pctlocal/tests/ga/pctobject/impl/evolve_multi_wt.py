@@ -24,7 +24,7 @@ if __name__ == '__main__':
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)	
 	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")
-	parser.add_argument('-p', '--project', type=str, help="comet project name", default="evolve")
+	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
 	parser.add_argument("-l", "--log", help="log experiment to comet, include option to turn off logging", action="store_true") 
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
 	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
