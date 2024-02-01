@@ -2416,7 +2416,7 @@ class HPCTEvolveProperties(PCTRunProperties):
                 # FunctionsList.getInstance().report()
                 # FunctionsList.getInstance().report(namespace=best.get_namespace())
                 # best.check_namespace()      
-                best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size, experiment=experiment)
+                best.draw(file=draw_file, with_edge_labels=with_edge_labels, node_size=node_size, figsize=figsize, font_size=font_size, experiment=experiment, funcdata=True)
 
 
         # write results
@@ -2773,7 +2773,10 @@ class HPCTGenerateEvolvers(object):
 
 
 def evolve_from_properties(args):
-    hierarchy_plots=eval(args['hierarchy_plots'])
+    if args['hierarchy_plots'] is not None:
+        hierarchy_plots=eval(args['hierarchy_plots'])
+    else:
+        hierarchy_plots = None
     seed=args['seed']
     env_name=args['env_name']
     verbose= args['verbosed']
