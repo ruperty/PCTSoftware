@@ -7,43 +7,43 @@
 
         {
             "name": "webots_ind",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-hpct-evolver-create-ind-wrestler"
         },
         {
             "name": "cartpole_ind",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-hpct-evolver-create-ind-cartpole"
         },
         {
             "name": "evolve_cp",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-evolve_cp_from_properties_file_minimise"
         },
         {
             "name": "evolve_ww",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-evolve_ww_from_properties_file_maximise"
         },
         {
             "name": "draw_from_properties_file",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-draw_from_properties_file"
         },
         {
             "name": "run_from_properties_file",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-run_from_file"
         },
         {
             "name": "run_files_from_dir",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "impl.run_files_from_dir",
             "args": ["-d", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
@@ -52,21 +52,23 @@
         },
         {
             "name": "run_from_file_win",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "impl/run_from_file.py",
             // "args": ["-d", "c:\\Users\\ruper\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\cdf7cc1497ad143c0b04a3d9e72ab783"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\RewardError-RootMeanSquareError-Mode04\\ga-001.859-s093-2x3-m004-115c9fee5c1bbf61791fbc6c839f8c48.properties", "-s", "93"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode04\\ga-4894.662-s001-2x2-m004-WT013-7581260baa879f8e656e5d49e826c435.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp", "-ep", "{'series': 'steady', 'zero_threshold': 5, 'range':'test'}"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode05\\ga-12121.622-s001-5x4-m005-WT1000-fd01a577beb596eed301a799a881c4b3.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1sgsm':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp", "-ep", "{'series': 'steady', 'zero_threshold': 0.25, 'range':'test'}"],
-            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode05\\ga-12121.622-s001-5x4-m005-WT1000-fd01a577beb596eed301a799a881c4b3.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1sgsm':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp" ],
+            //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-2265.537-s001-2x5-m000-WT016-2eed401cbb4fda60caececd2c42edee1.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp" ],
+            //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-2265.537-s001-2x5-m000-WT016-2eed401cbb4fda60caececd2c42edee1.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ],
+            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-7330.439-s003-5x5-m000-WT002-19c39a9f207699b8d226d4f209b4923e.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\RewardError-RootMeanSquareError-Mode04\\ga-003.290-s093-2x2-m004-fc6e6e2cf01f87ea71e04b6690ad0cc3.properties", "-s", "93"],
             // "args": ["-v", "-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC09-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.335-s052-2x3-m004-5cad8b8d1bd1050938961f16248cd5cc.properties"],
             "console": "internalConsole"
         },
         {
             "name": "run_from_file_wsl",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "impl.run_from_file",
             // "args": ["--file", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties", "-e",  "-p", "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},  {'plot_items': {'OL0C0sm':'out0', 'OL0C1sm':'out1'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]" , "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
@@ -76,7 +78,7 @@
         },
         {
             "name": "draw_from_file",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "impl.draw_from_file",
             //"program": "impl/draw_from_file.py",
@@ -86,7 +88,7 @@
         },
         {
             "name": "evolve_win",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "impl/evolve.py",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
@@ -98,7 +100,7 @@
         },
         {
             "name": "evolve_wt_win",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "impl/evolve_wt.py",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
@@ -108,7 +110,7 @@
             //"args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00", "-b"], //, "-l"],
             //"args": ["WindTurbine", "WT1000-RewardError-RootMeanSquareError-Mode05", "-o", "-b", "-a", "-df"], //, "-b",
             //"args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00", "-l", "-o", "-b", "-a", "-df", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
-            "args": ["WindTurbine", "WT008-RewardError-RootMeanSquareError-Mode00x", "-o", "-b", "-a", "-df" , "-l"], //, "-b",
+            "args": ["WindTurbine", "WT008-RewardError-RootMeanSquareError-Mode00x", "-l", "-o", "-b", "-a", "-df", "-pl", "scEdges" ], //, "-b",
             // "args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00", "-l", "-o", "-b", "-a", "-df", "-p", "test-evolve", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
             // "args": ["WindTurbine", "WT1001-RewardError-RootMeanSquareError-Mode06", "-o", "-b", "-a"], //, "-b",
             // "args": ["WindTurbine", "WT070-RewardError-SummedError-Mode03", "-o", "-b", "-a"], //, "-b",
@@ -116,7 +118,7 @@
         },
         {
             "name": "evolve_multi_win",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "impl/evolve_multi.py",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
@@ -126,7 +128,7 @@
         },
         {
             "name": "evolve_wt_multi_win",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "impl/evolve_multi_wt.py",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
@@ -136,7 +138,7 @@
         },
         {
             "name": "evolve_wsl",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "impl.evolve",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "2"],
@@ -148,92 +150,92 @@
 
         {
             "name": "mutate_ind",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-hpct-evolver-mutate-ind-cartpole"
         },
         {
             "name": "generate_properties_file",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.generate-evolver-properties-csv"
         },
         {
             "name": "example-arch",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-arch"
         },
         {
             "name": "example-run-from-file",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-run_from_file"
         },
         {
             "name": "load-from-config",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-load-from-config"
         },
         {
             "name": "from-config",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-hpct-from-config"
         },
         {
             "name": "mode02-evolve",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "examples.example-hpct-evolver-mode02"
         },       
         {
             "name": "hierarchy-draw",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "testing.test-hierarchy-draw"
         },
         {
             "name": "run-old-mountaincar",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "testing.run-mountaincar-from-properties_file"
         },
         {
             "name": " 16_evolve_mountaincar",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "testing.16_evolve_mountaincar"
         },
         {
             "name": " 14_evolve_pendulum",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "testing.14_evolve_pendulum"
         },
         {
             "name": "general",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "testing.test-general"
         },
         {
             "name": "Python: Current File",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
         },
         {
             "name": "test-networkx",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "testing.test-networkx"
         },
         {
             "name": "deap-aplha",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "testing.test-deap-aplha"
         }

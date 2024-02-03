@@ -2526,9 +2526,16 @@ class HPCTGenerateEvolvers(object):
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
+    def get_arch_types_from_shortcode(self, code):
+        if code == 'scTopVars':
+            return "zerotop^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}|top^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}"
+
     def process_archtypes(self, arch_types):
         if arch_types.startswith('['):
             return eval(arch_types)
+
+        if arch_types.startswith('sc'):
+            arch_types = self.get_arch_types_from_shortcode(arch_types)
 
         lookup = {'zerotop': HPCTLEVEL.ZEROTOP, 'top': HPCTLEVEL.TOP, 'ref': HPCTFUNCTION.REFERENCE, 'per': HPCTFUNCTION.PERCEPTION, 'com': HPCTFUNCTION.COMPARATOR, 'our': HPCTFUNCTION.OUTPUT }
 
@@ -2775,7 +2782,10 @@ class HPCTGenerateEvolvers(object):
 
 def evolve_from_properties(args):
     if args['hierarchy_plots'] is not None:
-        hierarchy_plots=eval(args['hierarchy_plots'])
+        if args['hierarchy_plots'].startswith('sc'):
+            hierarchy_plots=args['hierarchy_plots']
+        else:
+            hierarchy_plots=eval(args['hierarchy_plots'])
     else:
         hierarchy_plots = None
     seed=args['seed']

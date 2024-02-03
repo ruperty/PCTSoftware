@@ -42,7 +42,8 @@ if __name__ == '__main__':
         eprops = eval(args.eprops)
     plots = args.plots
     if plots is not None:
-        plots=eval(plots)
+        if not plots.startswith('sc'):
+            plots=eval(plots)   
         history=True
     else:
         history=False
