@@ -60,7 +60,8 @@
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode04\\ga-4894.662-s001-2x2-m004-WT013-7581260baa879f8e656e5d49e826c435.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp", "-ep", "{'series': 'steady', 'zero_threshold': 5, 'range':'test'}"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode05\\ga-12121.622-s001-5x4-m005-WT1000-fd01a577beb596eed301a799a881c4b3.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1sgsm':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp", "-ep", "{'series': 'steady', 'zero_threshold': 0.25, 'range':'test'}"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-2265.537-s001-2x5-m000-WT016-2eed401cbb4fda60caececd2c42edee1.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp" ],
-            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-2265.537-s001-2x5-m000-WT016-2eed401cbb4fda60caececd2c42edee1.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ],
+            //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-2265.537-s001-2x5-m000-WT016-2eed401cbb4fda60caececd2c42edee1.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ],
+            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-7330.439-s003-5x5-m000-WT002-19c39a9f207699b8d226d4f209b4923e.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\RewardError-RootMeanSquareError-Mode04\\ga-003.290-s093-2x2-m004-fc6e6e2cf01f87ea71e04b6690ad0cc3.properties", "-s", "93"],
             // "args": ["-v", "-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC09-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.335-s052-2x3-m004-5cad8b8d1bd1050938961f16248cd5cc.properties"],
             "console": "internalConsole"
@@ -109,7 +110,7 @@
             //"args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00", "-b"], //, "-l"],
             //"args": ["WindTurbine", "WT1000-RewardError-RootMeanSquareError-Mode05", "-o", "-b", "-a", "-df"], //, "-b",
             //"args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00", "-l", "-o", "-b", "-a", "-df", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
-            "args": ["WindTurbine", "WT008-RewardError-RootMeanSquareError-Mode00x", "-o", "-b", "-a", "-df", "-pl", "scEdges" ], //, "-b",
+            "args": ["WindTurbine", "WT008-RewardError-RootMeanSquareError-Mode00x", "-l", "-o", "-b", "-a", "-df", "-pl", "scEdges" ], //, "-b",
             // "args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00", "-l", "-o", "-b", "-a", "-df", "-p", "test-evolve", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
             // "args": ["WindTurbine", "WT1001-RewardError-RootMeanSquareError-Mode06", "-o", "-b", "-a"], //, "-b",
             // "args": ["WindTurbine", "WT070-RewardError-SummedError-Mode03", "-o", "-b", "-a"], //, "-b",
