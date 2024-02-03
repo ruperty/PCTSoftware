@@ -182,7 +182,7 @@ def evolve_wt_from_properties(args):
 
         # experiment.log_parameters(model_params)
         # experiment.log_code(path.basename(__file__))	
-        prefix = filename[2:5]	
+        prefix = filename[2:6]	
         final_ex_name = f'{ex_name[0:1]}-{prefix}-{args["seed"]:02}'
         experiment.set_name(final_ex_name)
     else:

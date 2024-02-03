@@ -2471,7 +2471,12 @@ class HPCTEvolveProperties(PCTRunProperties):
 
 class HPCTGenerateEvolvers(object):
     "Generate files of evolver properties, from array of options."
-    def __init__(self, iters=0, envs=None, collection=None, configs=None, properties=None, varieties=None):
+    def __init__(self, iters=0, envs=None, collection=None, configs=None, properties=None, varieties=None, common_configs=None):
+        if common_configs:
+            self.common_configs=common_configs
+        else:
+            self.common_configs={}
+
         if iters>0:
             for env in envs:
                 makedirs('configs' + sep + env, exist_ok=True)
@@ -2557,6 +2562,17 @@ class HPCTGenerateEvolvers(object):
         pass
         return all
 
+    def get_config_value(self, record, key):
+        if key in record:
+            value = record[key]
+        else:
+            if key in self.common_configs:
+                value = self.common_configs[key]
+            else:
+                raise Exception(f'Config value for <{key}> must be specified in csv file or on cmd line.')
+
+        return value
+
     def process_csv(self, file, args="", cmdline=None, initial_index=1):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
@@ -2573,7 +2589,8 @@ class HPCTGenerateEvolvers(object):
                         
                     #print(record)
 
-                    aname = f'{record["arch_name"]}{actr:03}'
+                    arch_name = self.get_config_value(record, 'arch_name')
+                    aname = f'{arch_name}{actr:04}'
 
                     arch_props = {}
                     arch_props['collectors']=[record['error_collector']]
@@ -2590,36 +2607,49 @@ class HPCTGenerateEvolvers(object):
                     archs={}
                     archs['arch']=arch_config                
                     collection={}
-                    collection[record['env']]=archs
+                    
+                    env = self.get_config_value(record, 'env')
+                    collection[env]=archs
                     #print()
                     #print(collection)
                     
                     config={}
-                    if record['seed'] == '':
-                        config['seed'] = None
-                    else:
-                        config['seed']=eval(record['seed']) 
-                    config['pop_size']=eval(record['pop_size']) 
-                    config['gens']=eval(record['gens']) 
-                    config['attr_mut_pb']=eval(record['attr_mut_pb']) 
-                    config['structurepb']=eval(record['structurepb']) 
-                    config['runs']=eval(record['runs']) 
-                    config['lower_float']=eval(record['lower_float']) 
-                    config['upper_float']=eval(record['upper_float']) 
-                    config['max_levels_limit']=eval(record['max_levels_limit']) 
-                    config['max_columns_limit']=eval(record['max_columns_limit']) 
-                    if record['early_termination'] == 'TRUE':
+                    seed = self.get_config_value(record, 'seed')
+                    config['seed'] = seed
+
+                    # if record['seed'] == '':
+                    #     config['seed'] = None
+                    # else:
+                    #     config['seed']=eval(record['seed'])
+
+                    config['pop_size'] = self.get_config_value(record, 'pop_size')
+                    config['gens']= self.get_config_value(record, 'gens')
+                    config['attr_mut_pb']= self.get_config_value(record, 'attr_mut_pb')
+                    config['structurepb']= self.get_config_value(record, 'structurepb')
+                    config['runs']= self.get_config_value(record, 'runs')
+                    config['lower_float']= self.get_config_value(record, 'lower_float') 
+                    config['upper_float']= self.get_config_value(record, 'upper_float')
+                    config['min_levels_limit']= self.get_config_value(record, 'min_levels_limit')
+                    config['min_columns_limit']= self.get_config_value(record, 'min_columns_limit')
+                    config['max_levels_limit']= self.get_config_value(record, 'max_levels_limit')
+                    config['max_columns_limit']= self.get_config_value(record, 'max_columns_limit')
+                    early_termination = self.get_config_value(record, 'early_termination')
+                    config['early_termination'] = early_termination 
+
+                    if early_termination == 'TRUE':
                         config['early_termination']=True 
-                    else:
+                    if early_termination == 'FALSE':
                         config['early_termination']=False
-                    config['min_levels_limit']=eval(record['min_levels_limit']) 
-                    config['min_columns_limit']=eval(record['min_columns_limit']) 
-                    if record['error_limit'] == '':
+
+                    error_limit = self.get_config_value(record, 'error_limit')
+
+                    if error_limit == '':
                         config['error_limit']=None    
                     else:
-                        config['error_limit']=eval(record['error_limit']) 
-                    config['p_crossover']=eval(record['p_crossover']) 
-                    config['p_mutation']=eval(record['p_mutation']) 
+                        config['error_limit']=error_limit
+
+                    config['p_crossover']= self.get_config_value(record, 'p_crossover')
+                    config['p_mutation']= self.get_config_value(record, 'p_mutation')
                     
                     ep = record['error_properties']
                     if ep == '':
@@ -2645,10 +2675,13 @@ class HPCTGenerateEvolvers(object):
 
                     fargs = record['args']
 
-                    self.generate_option_files(1, record['env'], eval(record['num_actions']), arch, config, record['num_evals'], error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
+                    num_actions = self.get_config_value(record, 'num_actions')
+                    num_evals = self.get_config_value(record, 'num_evals')
+
+                    self.generate_option_files(1, env, num_actions, arch, config, num_evals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
                     actr=actr+1
 
-            cmd = f'python -m {cmdline} {record["env"]} "{fname_list}" {args}'
+            cmd = f'python -m {cmdline} {env} "{fname_list}" {args}'
             print(cmd, end='\n')
             pass
 
