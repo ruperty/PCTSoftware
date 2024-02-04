@@ -11,7 +11,7 @@ from pct.putils import printtime, NumberStats
 import warnings 
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore",category=DeprecationWarning)
-    from comet_ml import Experiment
+    from comet_ml import Experiment, api
 
 
 
@@ -176,14 +176,24 @@ def evolve_wt_from_properties(args):
         ex_name = ep['series']
         args['experiment_name']= ex_name
         args['project_name'] = args['project_name']+"-" + ex_name
+
+        prefix = filename[2:6]	
+        final_ex_name = f'{ex_name[0:1]}-{prefix}-{args["seed"]:02}'
+
+        capi = api.API(api_key=args['api_key'])
+        experiment_exists = capi.get( workspace=args['workspace'] + '/' + args['project_name'] +'/' + final_ex_name)
+
+        if experiment_exists:
+            print("Experiment", final_ex_name, "already exists in", args['project_name'])
+            return
+
+
         experiment = Experiment(api_key=args['api_key'],
                                 project_name=args['project_name'],
                                 workspace=args['workspace'])
 
         # experiment.log_parameters(model_params)
         # experiment.log_code(path.basename(__file__))	
-        prefix = filename[2:5]	
-        final_ex_name = f'{ex_name[0:1]}-{prefix}-{args["seed"]:02}'
         experiment.set_name(final_ex_name)
     else:
         experiment = None

@@ -9,7 +9,16 @@ from pct.hierarchy import PCTHierarchy
 
 from epct.structure import ParameterFactory
 
-test = 15
+test = 16
+
+if test == 16:
+    import comet_ml
+    api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
+    api = comet_ml.api.API(api_key=api_key)
+    experiment = api.get("wind-turbine/evolve-steady/s-0616-01xx")
+    print(experiment)
+    print(experiment.name)
+
 
 if test == 15:
     import hashlib
