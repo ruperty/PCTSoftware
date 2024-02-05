@@ -34,7 +34,7 @@ if test == 5:
     file = 'configs'+ os.sep + 'configs-wt.csv'
     # file = 'configs'+ os.sep + 'configs-wt-reward-sum.csv'
     # args = "-b -l -o -pl \"[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]\" -p evolve-batch -i 3 -c 2"
-    args = "-b -l -o -pl scEdges -p evolve -c 2"
+    args = "-b -l -o -pl scEdges -p evolve -c 3 -s 1 -i 3"
     cmd='impl.evolve_multi_wt'
     # initial_index=1000
 

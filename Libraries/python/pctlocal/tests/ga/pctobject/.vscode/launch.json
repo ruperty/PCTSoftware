@@ -61,7 +61,10 @@
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode05\\ga-12121.622-s001-5x4-m005-WT1000-fd01a577beb596eed301a799a881c4b3.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1sgsm':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp", "-ep", "{'series': 'steady', 'zero_threshold': 0.25, 'range':'test'}"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-2265.537-s001-2x5-m000-WT016-2eed401cbb4fda60caececd2c42edee1.properties", "-p", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ,  "-o", "c:/tmp" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-2265.537-s001-2x5-m000-WT016-2eed401cbb4fda60caececd2c42edee1.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ],
-            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-7330.439-s003-5x5-m000-WT002-19c39a9f207699b8d226d4f209b4923e.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
+
+            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.535-s001-4x5-m000-WT0035-35495ec6d6a5eb084827b06c45c4fe7c.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
+            //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.539-s001-2x4-m000-WT0036-ec9ab7481dd95aec3648d84987570bf2.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
+
             // "args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\RewardError-RootMeanSquareError-Mode04\\ga-003.290-s093-2x2-m004-fc6e6e2cf01f87ea71e04b6690ad0cc3.properties", "-s", "93"],
             // "args": ["-v", "-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC09-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.335-s052-2x3-m004-5cad8b8d1bd1050938961f16248cd5cc.properties"],
             "console": "internalConsole"

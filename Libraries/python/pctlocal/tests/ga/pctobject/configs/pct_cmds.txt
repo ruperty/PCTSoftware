@@ -688,3 +688,123 @@ python -m impl.evolve_multi_wt WindTurbine "['WT0616-ReferencedInputsError-RootM
 
 
 
+
+
+
+
+
+
+
+python -m impl.evolve_multi_wt WindTurbine "['WT0323-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0324-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0325-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0326-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0327-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0328-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0329-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0330-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0331-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0332-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0333-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0334-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0335-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0336-RewardError-SummedError-Mode00']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0337-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0365-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0366-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0367-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0368-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0369-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0370-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0371-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0372-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0373-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0374-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0375-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0376-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0377-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0378-RewardError-SummedError-Mode01']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0407-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0408-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0409-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0410-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0411-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0412-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0413-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0414-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0415-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0416-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0417-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0418-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0419-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0420-RewardError-SummedError-Mode02']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0449-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0450-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0451-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0452-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0453-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0454-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0455-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0456-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0457-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0458-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0459-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0460-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0461-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0462-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0533-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0534-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0535-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0536-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0537-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0538-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0539-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0540-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0541-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0542-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0543-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0544-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0545-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0546-RewardError-SummedError-Mode05']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0575-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0576-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0577-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0578-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0579-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0580-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0581-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0582-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0583-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0584-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0585-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0586-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0587-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0588-RewardError-SummedError-Mode06']"  -b -l -o -pl scEdges -p evolve -c 2
+
+
+
+
+python -m impl.evolve_multi_wt WindTurbine "['WT0491-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0492-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0493-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0494-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0495-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0496-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0497-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0498-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0499-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0500-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0501-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0502-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0503-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+python -m impl.evolve_multi_wt WindTurbine "['WT0504-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve -c 2
+
+
+
+
+python -m impl.evolve_multi_wt WindTurbine "['WT0430-RewardError-SummedError-Mode03']"  -b -l -o -pl scEdges -p evolve-batch -c 8 -s 1 -i 100
+python -m impl.evolve_multi_wt WindTurbine "['WT0126-RewardError-RootMeanSquareError-Mode02']" -x -b -l -o -pl scEdges -p evolve-batch  -s 1 -i 100 -c 8
+python -m impl.evolve_multi_wt WindTurbine "['WT0117-RewardError-RootMeanSquareError-Mode02']" -x -b -l -o -pl scEdges -p evolve-batch  -s 1 -i 100 -c 8
+python -m impl.evolve_multi_wt WindTurbine "['WT0208-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-batch  -s 1 -i 100 -c 8
+python -m impl.evolve_multi_wt WindTurbine "['WT0135-RewardError-RootMeanSquareError-Mode03']"  -b -l -o -pl scEdges -p evolve-batch -c 8  -s 1 -i 100
+
