@@ -1839,7 +1839,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     top_ind.write_config_to_file1(in_file=self.in_file, seed=self.evolver.seed, fseed=self.fseed, log=False, log_string=None, 
                                                   meantime=None, score=score, output_file=f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')
 
-                    fig_file = f'{self.local_out_dir}/fig{gen:03}.png'
+                    fig_file = f'{self.local_out_dir}{sep}fig{gen:03}.png'
                     ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True, funcdata=True)
 
 
@@ -2778,7 +2778,7 @@ def evolve_from_properties(args):
     
     if properties_file != None:
         if hierarchy_plots and len(hierarchy_plots) > 0:
-            hierarchy, score = PCTHierarchy.run_from_file(properties_file, plots=hierarchy_plots, history=True, experiment=experiment, plots_dir=args['plots_dir'])
+            hierarchy, score = PCTHierarchy.run_from_file(properties_file, plots=hierarchy_plots, history=True, experiment=experiment, plots_dir=args['plots_dir'], min=min)
             print(f'After plots, score={score:4.3f}')
 
         toc = time.perf_counter()

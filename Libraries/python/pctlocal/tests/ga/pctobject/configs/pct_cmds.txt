@@ -705,3 +705,11 @@ python -m impl.evolve_multi_wt WindTurbine "['WT0117-RewardError-RootMeanSquareE
 python -m impl.evolve_multi_wt WindTurbine "['WT0208-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-batch  -s 1 -i 100 -c 8
 python -m impl.evolve_multi_wt WindTurbine "['WT0135-RewardError-RootMeanSquareError-Mode03']"  -b -l -o -pl scEdges -p evolve-batch -c 8  -s 1 -i 100
 
+
+
+python -m impl.evolve_multi_wt WindTurbine "['WT1000-RewardError-RootMeanSquareError-Mode00']"  -b -o
+python -m impl.evolve_multi_wt WindTurbine "['WT1001-RewardError-SummedError-Mode00']"  -b -o
+python -m impl.evolve_multi_wt WindTurbine "['WT1002-ReferencedInputsError-RootMeanSquareError-Mode00']"  -b -o
+
+
+
