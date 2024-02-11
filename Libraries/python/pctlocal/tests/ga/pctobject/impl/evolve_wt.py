@@ -41,7 +41,7 @@ if __name__ == '__main__':
 	hierarchy_plots = args.plots
 	comparisons = False 
 	comparisons_print_plots = True
-	
+	plots_dir = 'c:/tmp'
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
@@ -59,7 +59,7 @@ if __name__ == '__main__':
 		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
 						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'comparisons': comparisons, 
 					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key, 'hierarchy_plots': hierarchy_plots,
-					'project_name':project_name, 'workspace':workspace, 'log_testing_to_experiment':log_testing_to_experiment
+					'project_name':project_name, 'workspace':workspace, 'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
 		}#,'gens':args.gens, 'pop':args.pop }
 					
 		pf = evolve_wt_from_properties(arg)

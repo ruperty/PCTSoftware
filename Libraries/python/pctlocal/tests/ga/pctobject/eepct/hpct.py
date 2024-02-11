@@ -924,108 +924,6 @@ class HPCTIndividual(PCTHierarchy):
             hpct.set_suffixes()
         return hpct
 
-    # def formatted_config(self, places=3):
-    #     str_list=[]
-    #     hpct = self.get_parameters_list()
-    #     levels = len(hpct)
-    #     level = 0
-    #     str_list.append(f'grid: {self.get_grid()}\n')
-    #     for lvl in hpct:
-    #         #print(lvl)
-    #         if level==0:
-    #             str_list.append(f'env: {lvl[0]} act: ')
-    #             str_list.append(floatListsToString(lvl[1],places))                
-    #             str_list.append('\n')                #str_list.append(f'env: {lvl[0]} act: {lvl[1]:0.3f}\n')
-    #         else:
-    #             str_list.append(f'level{level-1} \n')
-    #             column = 0
-    #             for col in lvl:
-    #                 str_list.append(f'col: {column} ')
-    #                 str_list.append(f'ref: ')
-    #                 str_list.append(floatListsToString(col[0], places))
-    #                 str_list.append(f' per: ')
-    #                 str_list.append(floatListsToString(col[1], places))
-    #                 str_list.append(f' out: ')
-    #                 str_list.append(floatListsToString(col[2], places))
-    #                 if level < levels-1:
-    #                     str_list.append('\n')
-    #                 column = column + 1
-    #         level=level+1
-            
-    #     return ''.join(str_list)
-    
-    
-    # @classmethod
-    # def run_from_file(cls, filename, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
-        
-    #     hep = HPCTEvolveProperties()
-    #     hep.load_db(filename)
-
-    #     error_collector_type = hep.db['error_collector_type'].strip()
-    #     error_response_type = hep.db['error_response_type']
-    #     error_limit = eval(hep.db['error_limit'])
-    #     environment_properties = eval(hep.db['environment_properties'])
-        
-    #     error_properties = hep.get_error_properties()
-   
-    #     if runs==None:
-    #         runs = eval(hep.db['runs'])
-    #     config = eval(hep.db['config'])
-    #     if seed is None:
-    #         seed = eval(hep.db['seed'])
-    #     print(f'Seed={seed}')
-    #     if early_termination is None:
-    #         early_termination = eval(hep.db['early_termination'])
-
-    #     ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-    #                                             error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
-    #                                             environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
-    #                                             suffixes=True, plots_dir=outdir)
-        
-       
-        
-    # return score 
-        
-    
-
-    # @classmethod
-    # def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
-    #     error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
-    #     seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
-    #     history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, environment_properties=None):
-    #     "Run an individual from a provided configuration."
-    #     #if hpct_verbose:
-    #     #print(config)
-    #     ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
-    #     env = ind.get_preprocessor()[0]
-    #     env.set_properties(environment_properties)
-    #     env.set_render(render)
-    #     env.early_termination = early_termination
-    #     env.reset(full=False, seed=seed)
-    #     error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
-
-    #     ind.set_error_collector(error_collector)
-    #     if hpct_verbose:
-    #         ind.summary()
-    #         print(ind.formatted_config())
-    #     ind.run(steps, hpct_verbose)
-    #     env.close()
-        
-    #     # draw network file
-    #     move = {} if move == None else move
-    #     if draw_file is not None:
-    #         ind.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
-    #         print(draw_file)
-        
-    #     if history:
-    #         for plot in plots:
-    #             fig = ind.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
-
-    #     score=ind.get_error_collector().error()
-        
-    #     return ind, score
-
-
 
 
 class HPCTNode(PCTNode):
@@ -1151,11 +1049,11 @@ class HPCTEvolver(BaseEvolver):
 
         self.min = hpct_run_properties['min']
 
-        self.error_limit = self.get_property_value('error_limit', hpct_run_properties, 100)
-        self.nevals = self.get_property_value('nevals', hpct_run_properties, 2)
+        self.error_limit = self.get_property_value('error_limit', hpct_run_properties, None)
+        self.nevals = self.get_property_value('nevals', hpct_run_properties, None)
         self.history = self.get_property_value('history', hpct_run_properties, False)
-        self.runs = self.get_property_value('runs', hpct_run_properties, 500)
-        self.seed = self.get_property_value('seed', hpct_run_properties, 2)
+        self.runs = self.get_property_value('runs', hpct_run_properties, None)
+        self.seed = self.get_property_value('seed', hpct_run_properties, None)
         self.hpct_verbose = self.get_property_value('hpct_verbose', hpct_run_properties, False)
         self.debug = self.get_property_value('debug', hpct_run_properties, 0)
         self.flip_error_response = self.get_property_value('flip_error_response', hpct_run_properties, 0)
@@ -1983,7 +1881,11 @@ class HPCTEvolveProperties(PCTRunProperties):
                 if eval_convert:
                     properties_var[property_name] = eval(self.db[property_name])
                 elif float_convert:
-                    properties_var[property_name] = float(self.db[property_name])                    
+                    val = eval(self.db[property_name])
+                    if val is None:
+                        properties_var[property_name] = val                                            
+                    else:
+                        properties_var[property_name] = float(val)                    
                 elif int_convert:
                     if property_name == 'runs' and eval(self.db[property_name]) is None:                            
                             properties_var[property_name] = math.inf
@@ -2876,7 +2778,7 @@ def evolve_from_properties(args):
     
     if properties_file != None:
         if hierarchy_plots and len(hierarchy_plots) > 0:
-            hierarchy, score = PCTHierarchy.run_from_file(properties_file,  plots=hierarchy_plots, history=True, experiment=experiment)
+            hierarchy, score = PCTHierarchy.run_from_file(properties_file, plots=hierarchy_plots, history=True, experiment=experiment, plots_dir=args['plots_dir'])
             print(f'After plots, score={score:4.3f}')
 
         toc = time.perf_counter()
