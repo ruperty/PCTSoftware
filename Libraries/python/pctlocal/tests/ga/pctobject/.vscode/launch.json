@@ -58,7 +58,9 @@
             // "args": ["-d", "c:\\Users\\ruper\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\cdf7cc1497ad143c0b04a3d9e72ab783"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\RewardError-RootMeanSquareError-Mode04\\ga-001.859-s093-2x3-m004-115c9fee5c1bbf61791fbc6c839f8c48.properties", "-s", "93"],
 
-            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\ga-005.997-s001-3x3-m005-WT0601-9ecd0308fa6c27d1a2a6cc2168efe592.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
+            //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\ga-005.997-s001-3x3-m005-WT0601-9ecd0308fa6c27d1a2a6cc2168efe592.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
+            //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-0001-0007-277.211.config" ], //, "-v" ],
+            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-001-236.475.config" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.535-s001-4x5-m000-WT0035-35495ec6d6a5eb084827b06c45c4fe7c.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.539-s001-2x4-m000-WT0036-ec9ab7481dd95aec3648d84987570bf2.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
 
@@ -114,7 +116,7 @@
 
             // "args": ["WindTurbine", "WT1000-RewardError-RootMeanSquareError-Mode00", "-o", "-b", "-a", "-df", "-pl", "scEdges"  ], //, "-b",
             // "args": ["WindTurbine", "WT1001-RewardError-SummedError-Mode00", "-o", "-b", "-a", "-df", "-pl", "scEdges"  ], //, "-b",
-            "args": ["WindTurbine", "WT0601-ReferencedInputsError-RootMeanSquareError-Mode05", "-o", "-b", "-a", "-df", "-pl", "scEdges"  ], //, "-b",
+            "args": ["WindTurbine", "WT0601-ReferencedInputsError-RootMeanSquareError-Mode05", "-o", "-b", "-a", "-aa", "-df", "-pl", "scEdges"  ], //, "-b",
 
             // "args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00",  "-o", "-b", "-a", "-df", "-p", "test-evolve", "-l", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
             // "args": ["WindTurbine", "WT1001-RewardError-RootMeanSquareError-Mode06", "-o", "-b", "-a"], //, "-b",

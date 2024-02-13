@@ -13,6 +13,7 @@ if __name__ == '__main__':
 	parser.add_argument("env_name", help="the environment name")
 	parser.add_argument("file", help="the properties file name")
 	parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_true")
+	parser.add_argument("-aa", "--save_arch_all", help="save architecture of entire population of each generation", action="store_true")
 	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_true")
 	parser.add_argument("-d", "--display_env", help="display best of each generation", action="store_true")
 	parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=1)
@@ -39,6 +40,8 @@ if __name__ == '__main__':
 	overwrite = args.overwrite
 	draw_file = args.draw_file
 	hierarchy_plots = args.plots
+	save_arch_all = args.save_arch_all
+
 	comparisons = False 
 	comparisons_print_plots = True
 	plots_dir = 'c:/tmp'
@@ -48,7 +51,7 @@ if __name__ == '__main__':
 	workspace='wind-turbine'
 	# experiment_name = 'steady'
 			
-	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
+	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': save_arch_all,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':hpct_verbose}
 	drive = get_gdrive()
 	root_path=get_root_path()

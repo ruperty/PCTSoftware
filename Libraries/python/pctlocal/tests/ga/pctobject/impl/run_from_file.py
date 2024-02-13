@@ -34,6 +34,7 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--plots", type=str, help="plots definition")
     parser.add_argument('-o', '--outdir', type=str, help="directory to save plots")
     parser.add_argument('-ep', '--eprops', type=str, help="environment properties")
+    parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 
     args = parser.parse_args()
 
@@ -49,7 +50,8 @@ if __name__ == '__main__':
         history=False
 
     try:
-        hierarchy, score = PCTHierarchy.run_from_file(args.file, env_props=eprops, seed=args.seed, render=args.display, move=None, plots=plots, history=history, hpct_verbose= args.verbose, runs=None, outdir=args.outdir, early_termination=args.early)
+        hierarchy, score = PCTHierarchy.run_from_file(args.file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
+                        plots=plots, history=history, hpct_verbose= args.verbose, runs=None, plots_dir=args.outdir, early_termination=args.early)
         print(f'Score={score:0.3f}')
     except FileNotFoundError:
         print(f'File {args.file} does not exist.')

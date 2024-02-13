@@ -1034,11 +1034,6 @@ class HPCTEvolver(BaseEvolver):
         self.min_columns_limit = self.get_property_value('min_columns_limit', hpct_structure_properties, 1)
         self.max_columns_limit = self.get_property_value('max_columns_limit', hpct_structure_properties, 3)
 
-        # self. = self.get_property_value('', hpct_run_properties, '')
-
-        #self.error_collector_type = self.get_property_value('error_collector_type', hpct_run_properties, 'InputsError')
-        #self.error_response_type = self.get_property_value('error_response_type', hpct_run_properties, 'RootMeanSquareError')
-        #self.error_properties = self.get_property_value('error_properties', hpct_run_properties, 'error:smooth_factor,0.5')
         self.error_collector_type = self.get_property_value('error_collector_type', hpct_run_properties, None)
         self.error_response_type = self.get_property_value('error_response_type', hpct_run_properties, None)        
         self.error_properties = self.get_property_value('error_properties', hpct_run_properties, None)
@@ -1072,7 +1067,11 @@ class HPCTEvolver(BaseEvolver):
             value = collection[type]
         return value
 
+    def set_in_file(self, in_file):
+        self.in_file = in_file
 
+    def set_local_out_dir(self, local_out_dir):
+        self.local_out_dir = local_out_dir
 
     def create_inputs(self, env_inputs_indexes, env_inputs_names, toplevel_inputs_indexes, zerolevel_inputs_indexes, env):
         "Linking the hierarchy inputs to the environment."
@@ -1123,7 +1122,7 @@ class HPCTEvolver(BaseEvolver):
     def evaluate(self, hpct):
         "Run a hierarchy in its environment returning the evaluation score."
         if self.save_arch_all:
-            self.fig_file = f'arch-{self.gen:04}-{self.member:04}.png'
+            self.fig_file = f'{self.local_out_dir}{sep}arch-{self.gen:04}-{self.member:04}.png'
 
         score = 0
         if self.debug > 2:
@@ -1135,6 +1134,8 @@ class HPCTEvolver(BaseEvolver):
 
         env = hpct.get_preprocessor()[0]
         for i in range(self.nevals):
+            if self.hpct_verbose:
+                print(f'gen {self.gen:04} member {self.member:04} eval {i}')
             hpct.reset()
             env.reset(full=False, seed=self.seed+i)
             if self.debug > 3:
@@ -1155,25 +1156,14 @@ class HPCTEvolver(BaseEvolver):
                     # hpct.summary()
                     print(hpct.namespace)                
                     hpct.print_links(2, 0, "reference", 1)
-                
-                # refL2C0 = hpct.hierarchy[2][0].get_function("reference")
-                # print(refL2C0.namespace)
-                # refL2C0.summary()
-                # for link in refL2C0.links:
-                #     print(link.namespace)
-                #     link.summary()
-                #     print("&&& ", link.name, [link])
-                #     print(link)
-                # FunctionsList.getInstance().report(namespace=hpct.namespace, name='RL2C0')
-                # FunctionsList.getInstance().report(namespace=hpct.namespace, name='OL3C0')
-
-                # FunctionsList.getInstance().report()
-                # UniqueNamer.getInstance().report()
-            
+                            
             hpct.run(steps=self.runs, verbose=self.hpct_verbose)
-            # if i==0:
-            #     env.close()
+
             current_error=hpct.get_error_collector().error()
+            if self.save_arch_all:                        
+                hpct.write_config_to_file1(in_file=self.in_file, seed=self.seed+i, fseed=None, log=False, log_string=None, meantime=None, 
+                                            score=current_error, output_file=f'{self.local_out_dir}{sep}conf-{self.gen:04}-{self.member:04}-{current_error:07.3f}.config')
+
             score += current_error
 
         env.close()
@@ -1746,6 +1736,8 @@ class HPCTEvolverWrapper(EvolverWrapper):
         self.min=min
         if not local_out_dir is None:
             makedirs(local_out_dir, exist_ok=True)
+        self.evolver.set_in_file(in_file)
+        self.evolver.set_local_out_dir(local_out_dir)
                 
     # @profile
     def run(self, gens=25, evolve_verbose=False, deap_verbose=False, log=False, experiment=None):
@@ -1837,7 +1829,7 @@ class HPCTEvolverWrapper(EvolverWrapper):
                     #                              self.evolver.error_collector_type, self.evolver.error_limit, score, f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')                
 
                     top_ind.write_config_to_file1(in_file=self.in_file, seed=self.evolver.seed, fseed=self.fseed, log=False, log_string=None, 
-                                                  meantime=None, score=score, output_file=f'{self.local_out_dir}/conf-{gen:03}-{score:07.3f}.config')
+                                                  meantime=None, score=score, output_file=f'{self.local_out_dir}{sep}conf-{gen:04}-{score:07.3f}.config')
 
                     fig_file = f'{self.local_out_dir}{sep}fig{gen:03}.png'
                     ind.draw(file=fig_file, node_size=self.node_size, font_size=self.font_size, with_edge_labels=True, funcdata=True)
