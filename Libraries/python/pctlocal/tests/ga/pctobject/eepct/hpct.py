@@ -2467,10 +2467,11 @@ class HPCTGenerateEvolvers(object):
 
         return value
 
-    def process_csv(self, file, args="", cmdline=None, initial_index=1):
+    def process_csv(self, file, args="", cmdline=None, initial_index=1, batch=1000):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
             fname_list = []
+            batches = []
             actr=initial_index
             for row in reader:
                 # print(row)
@@ -2573,10 +2574,20 @@ class HPCTGenerateEvolvers(object):
                     num_evals = self.get_config_value(record, 'num_evals')
 
                     self.generate_option_files(1, env, num_actions, arch, config, num_evals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
+                    if actr % batch == 0:
+                        cmd = f'python -m {cmdline} {env} "{fname_list}" {args}'
+                        batches.append(cmd)
+                        # print(cmd, end='\n')
+                        fname_list = []
+
                     actr=actr+1
 
             cmd = f'python -m {cmdline} {env} "{fname_list}" {args}'
-            print(cmd, end='\n')
+            batches.append(cmd)
+
+            for cmd in batches:
+                print()
+                print(cmd, end='\n')
             pass
 
 
