@@ -27,16 +27,19 @@ if test == 4:
     file = 'configs'+ os.sep + 'configs-pm.csv'
 
 if test == 5:
-    # common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : 4, 'gens': 2, 'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'error_limit': 500, 'early_termination': False, 'p_crossover': 0.9, 'p_mutation': 0.75, 'num_evals': 1}
-    common_configs = {}
+    common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : 100, 'gens': 10, 'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 'p_mutation': 0.75, 'num_evals': 1}
+    # common_configs = {}
 
-
-    file = 'configs'+ os.sep + 'configs-wt.csv'
-    # file = 'configs'+ os.sep + 'configs-wt-reward-sum.csv'
-    # args = "-b -l -o -pl \"[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]\" -p evolve-batch -i 3 -c 2"
-    args = "-b -l -o -pl scEdges -p evolve -c 2"
-    cmd='impl.evolve_multi_wt'
+    # filename = 'configs-wt.csv'
+    filename = 'configs-wt-0001-0616.csv'
+    
     # initial_index=1000
+    file = 'configs'+ os.sep + filename
+
+    # args = "-b -l -o -pl scEdges -p evolve-batch -c 3 -s 1 -i 3"
+    args = "-b -l -o -pl scEdges -p evolve" 
+    # args = "-b -o"
+    cmd='impl.evolve_multi_wt'
 
 hge = HPCTGenerateEvolvers(common_configs=common_configs)  
 hge.process_csv(file, args, cmdline=cmd, initial_index=initial_index)

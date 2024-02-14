@@ -38,7 +38,7 @@ if __name__ == '__main__':
 	hierarchy_plots = args.plots
 
 	verbose=False
-
+	plots_dir = 'c:/tmp'
 	comparisons = False 
 	comparisons_print_plots = True
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
@@ -70,7 +70,7 @@ if __name__ == '__main__':
                     'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'comparisons': comparisons, 
 					'comparisons_print_plots':comparisons_print_plots, 'log_experiment':log_experiment, 'api_key':api_key,
 					'project_name':project_name, 'workspace':workspace, 'draw_file' :draw_file,
-					'hierarchy_plots': hierarchy_plots
+					'hierarchy_plots': hierarchy_plots, 'plots_dir': plots_dir
 					}#,'gens':args.gens, 'pop':args.pop }
 					list.append(arg) 
 

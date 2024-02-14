@@ -212,7 +212,7 @@ class TestHPCTIndividual2Level(unittest.TestCase):
         references=[11, 2]
 
         error_limit=100 
-        
+        runs=500
         nevals=1
         debug=0
         error_collector_type , error_response_type, error_properties= 'InputsError', 'RootMeanSquareError', 'error:smooth_factor,0.5'
@@ -221,7 +221,7 @@ class TestHPCTIndividual2Level(unittest.TestCase):
             'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env, 'num_actions':num_actions, 'references':references}
 
         hpct_run_properties ={ 'error_collector_type':error_collector_type, 'error_response_type': error_response_type,'min': True,
-            'error_properties':error_properties, 'error_limit': error_limit,  'nevals':nevals,
+            'error_properties':error_properties, 'error_limit': error_limit,  'nevals':nevals, 'runs':runs, 
             'history':False, 'hpct_verbose':False,  'debug':debug, 'seed':seed}    
 
 

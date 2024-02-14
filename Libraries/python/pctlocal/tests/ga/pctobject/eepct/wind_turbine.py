@@ -28,7 +28,7 @@ def get_environment_properties(root=None, wt='WindTurbine', property_dir=None, p
 
     return environment_properties
 
-def wind_turbine_results(environment_properties=None, experiment=None, root=None, wt='WindTurbine', verbose=None, early=None, 
+def wind_turbine_results(environment_properties=None, experiment=None, root=None, wt='WindTurbine', verbose=None, early=None, min=None,
                          comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None, plots=None, log_testing_to_experiment=False):
 
     prefix = property_file[:property_file.find(".properties")]
@@ -64,7 +64,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         stop_index=model_params['stop_index_test'],
         experiment=experiment,
         datatype='test',
-        log_testing_to_experiment=log_testing_to_experiment
+        log_testing_to_experiment=log_testing_to_experiment, min=min
         )
 
     if comparisons:
@@ -232,7 +232,7 @@ def evolve_wt_from_properties(args):
         print(environment_properties)
 
     wind_turbine_results(environment_properties=environment_properties, experiment=experiment, root=drive, verbose=args['verbosed']['hpct_verbose'], 
-                        early=early, comparisons=args['comparisons'], comparisons_print_plots=args['comparisons_print_plots'], 
+                        early=early, comparisons=args['comparisons'], comparisons_print_plots=args['comparisons_print_plots'], min= not args['max'],
                         property_dir=property_dir, property_file=file, plots=plots, log_testing_to_experiment=log_testing_to_experiment)
 
     end = printtime('End')	
