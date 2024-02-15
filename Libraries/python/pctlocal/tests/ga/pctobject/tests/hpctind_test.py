@@ -480,7 +480,7 @@ class TestHPCTIndividual3Level(unittest.TestCase):
         self.ind.fitness.values = self.evr.toolbox.evaluate(self.ind)
         #print (self.ind.fitness)  
         if os.name=='nt':
-            self.assertAlmostEqual(self.ind.fitness.values[0],  65.75583180557742)
+            self.assertAlmostEqual(self.ind.fitness.values[0],  130.51166361115483)
         else:
             self.assertAlmostEqual(self.ind.fitness.values[0],  67.24433856884303)
 

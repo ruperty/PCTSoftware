@@ -28,7 +28,10 @@ if test == 4:
     file = 'configs'+ os.sep + 'configs-pm.csv'
 
 if test == 5:
-    common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : 100, 'gens': 10, 'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 'p_mutation': 0.75, 'num_evals': 1}
+    common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : 100, 'gens': 10, 
+                      'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
+                      'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
+                      'p_mutation': 0.75, 'num_evals': 1}
     # common_configs = {}
 
     # filename = 'configs-wt.csv'
@@ -37,9 +40,9 @@ if test == 5:
     # initial_index=1000
     file = 'configs'+ os.sep + filename
 
-    args = "-b -l -o -pl scEdges -p evolve-batch -c 3 -s 1 -i 3"
-    # args = "-b -l -o -pl scEdges -p evolve" 
-    # args = "-b -o"
+    # args = "-b -l -o -pl scEdges -p evolve-batch -c 3 -s 1 -i 3"
+    args = "-b -l -o -pl scEdges -p evolve" 
+
     cmd='impl.evolve_multi_wt'
 
 hge = HPCTGenerateEvolvers(common_configs=common_configs)  
