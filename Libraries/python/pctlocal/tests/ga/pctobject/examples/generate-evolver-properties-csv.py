@@ -13,7 +13,6 @@ args = "-i 1 -s 93"
 test = 5
 cmd='impl.evolve_multi'
 initial_index=1
-batch = 50
 
 if test == 1:
     file = 'configs'+ os.sep + 'configs-cp.csv'
@@ -28,8 +27,9 @@ if test == 4:
     file = 'configs'+ os.sep + 'configs-pm.csv'
 
 if test == 5:
-    test5 = 2
-    
+    test5 = 3
+    batch = 20
+
     cmd='impl.evolve_multi_wt'
     common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : 100, 'gens': 10, 
                     'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
@@ -45,6 +45,13 @@ if test == 5:
         filename = 'configs-wt-0001-0616-steady-w2test.csv'       
         initial_index=1000
         args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
+
+    if test5 == 3:
+        filename = 'configs-wt-0001-0616-variable.csv'       
+        # args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
+        args = "-b -l -o -pl scEdges -p evolve" 
+
+
 
     file = 'configs'+ os.sep + filename
 
