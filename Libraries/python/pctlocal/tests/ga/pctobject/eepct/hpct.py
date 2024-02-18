@@ -17,6 +17,7 @@ from deap import tools, algorithms
 from dataclasses import dataclass
 
 from epct.po_evolvers import HPCTIndividual
+from epct.po_architecture import HPCTLEVEL, HPCTVARIABLE
 from pct.hierarchy import PCTHierarchy, PCTRunProperties
 from pct.nodes import PCTNode
 from pct.functions import FunctionFactory, HPCTFUNCTION

@@ -27,7 +27,7 @@ if test == 4:
     file = 'configs'+ os.sep + 'configs-pm.csv'
 
 if test == 5:
-    test5 = 1
+    test5 = 3
     batch = 20
 
     cmd='impl.evolve_multi_wt'
@@ -48,7 +48,8 @@ if test == 5:
 
     if test5 == 3:
         filename = 'configs-wt-0001-0616-variable.csv'       
-        args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
+        # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
+        args = "-b -l -o -pl scEdges -p evolve-batch -c 8 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve" 
 
 
