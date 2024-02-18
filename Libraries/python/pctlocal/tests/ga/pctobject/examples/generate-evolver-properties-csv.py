@@ -48,8 +48,8 @@ if test == 5:
 
     if test5 == 3:
         filename = 'configs-wt-0001-0616-variable.csv'       
-        # args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
-        args = "-b -l -o -pl scEdges -p evolve" 
+        args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
+        # args = "-b -l -o -pl scEdges -p evolve" 
 
 
 
