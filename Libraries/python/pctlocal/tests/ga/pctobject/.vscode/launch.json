@@ -118,7 +118,9 @@
             // "args": ["WindTurbine", "WT1001-RewardError-SummedError-Mode00", "-o", "-b", "-a", "-df", "-pl", "scEdges"  ], //, "-b",
             //"args": ["WindTurbine", "WT0601-ReferencedInputsError-RootMeanSquareError-Mode05", "-o", "-b", "-a", "-aa", "-df", "-pl", "scEdges"  ], //, "-b",
             
-            "args": ["WindTurbine", "WT1000-RewardError-RootMeanSquareError-Mode00", "-o", "-b", "-a", "-df", "-pl", "scEdges"  ], //, "-b",
+            //"args": ["WindTurbine", "WT1000-RewardError-RootMeanSquareError-Mode00", "-o", "-b", "-a", "-df", "-pl", "scEdges"  ], //, "-b",
+            "args": ["WindTurbine", "WT1074-RewardError-SummedError-Mode03", "-o", "-b", "-a", "-df", "-pl", "scEdges"  ], //, "-b",
+            
 
             // "args": ["WindTurbine", "WT001-RewardError-RootMeanSquareError-Mode00",  "-o", "-b", "-a", "-df", "-p", "test-evolve", "-l", "-pl", "[ {'plot_items': {'IYE':'ye'}, 'title':'YawError'},  {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" ], //, "-b",
             // "args": ["WindTurbine", "WT1001-RewardError-RootMeanSquareError-Mode06", "-o", "-b", "-a"], //, "-b",
