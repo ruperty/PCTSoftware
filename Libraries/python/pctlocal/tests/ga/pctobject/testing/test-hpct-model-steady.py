@@ -3,11 +3,11 @@
 from os import sep, listdir
 from os.path import isfile
 from cutils.paths import get_gdrive
-
+# from statistics import sum
 from eepct.wind_turbine import wind_turbine_results, get_environment_properties
 
 log_experiment = None
-comparisons = False #True #False
+comparisons = True # False #True #False
 comparisons_print_plots = True
 WT='WindTurbine'
 environment_properties=None
@@ -45,21 +45,21 @@ if test==1:
 if test ==2:
 
          
-    plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, 
-             {'plot_items': {'IWD':'wd'}, 'title':'Wind'}, 
-             {'plot_items': {'CL1C1':'eLM', 'ILM':'ilm'},'title':'LMErrors'}, 
-             {'plot_items': {'CL1C0':'eYE'},'title':'YEErrors'}, 
-            #  {'plot_items': {'CL1C1':'eLM', 'CL1C0':'eYE'},'title':'RefErrors'}, 
-             {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
+    # plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, 
+    #          {'plot_items': {'IWD':'wd'}, 'title':'Wind'}, 
+    #          {'plot_items': {'CL1C1':'eLM', 'ILM':'ilm'},'title':'LMErrors'}, 
+    #          {'plot_items': {'CL1C0':'eYE'},'title':'YEErrors'}, 
+    #         #  {'plot_items': {'CL1C1':'eLM', 'CL1C0':'eYE'},'title':'RefErrors'}, 
+    #          {'plot_items': {'Action1ws':'Action1ws'}, 'title':'Output'}]   
     
     plots=[]
 
-    # property_dir = 'RewardError-SummedError-Mode00'
-    # file = 'ga-28251.409-s001-2x2-m000-WT21-be71d6baeeb226c7e272315e736ecb42.properties'
+    property_dir = 'RewardError-SummedError-Mode03'
+    file = 'ga-3692779.547-s001-2x3-m003-WT0430-8d7129ec82d81370fb660b36a069003d.properties'
 
-    property_dir = 'ReferencedInputsError-RootMeanSquareError-Mode04-old'
-    # # file = 'ga-006.223-s001-2x3-m004-WT181-404dfa64508ea87ebf6941a9f9332ac7.properties'
-    file = 'ga-005.701-s001-2x3-m004-WT182-541d9dd89dbd748f186d68b0ad296597.properties'
+    # property_dir = 'RewardError-RootMeanSquareError-Mode04'
+    # file = 'ga-001.537-s001-3x3-m004-WT0208-cb9e85fe4c8b9fa355086b0a6a8cc911.properties'
+
 
     
     if environment_properties is None:
@@ -68,8 +68,17 @@ if test ==2:
         environment_properties['range'] = 'test'
         # environment_properties['reward_type']= 'power'
         print(environment_properties)
-    wind_turbine_results(environment_properties=environment_properties, experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file, plots=plots)
+    
+    print(file)
+    energy_gain, power_improvement, rel_net_prod_change, net_prod_change = wind_turbine_results(environment_properties=environment_properties, experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file, plots=plots)
 
+    print(f'energy_gain = {energy_gain:4.2f}')
+    print(f'power_improvement = {power_improvement.sum():4.2f}')
+    print(f'rel_net_prod_change = {sum(rel_net_prod_change):4.2f}')
+    print(f'net_prod_change = {sum(net_prod_change):4.2f}')
+
+
+    
 
 
 
