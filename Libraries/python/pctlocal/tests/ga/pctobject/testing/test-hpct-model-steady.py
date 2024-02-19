@@ -54,13 +54,17 @@ if test ==2:
     
     plots=[]
 
-    property_dir = 'RewardError-SummedError-Mode03'
-    file = 'ga-3692779.547-s001-2x3-m003-WT0430-8d7129ec82d81370fb660b36a069003d.properties'
+    # property_dir = 'RewardError-SummedError-Mode03'
+    # file = 'ga-3692779.547-s001-2x3-m003-WT0430-8d7129ec82d81370fb660b36a069003d.properties'
 
     # property_dir = 'RewardError-RootMeanSquareError-Mode04'
     # file = 'ga-001.537-s001-3x3-m004-WT0208-cb9e85fe4c8b9fa355086b0a6a8cc911.properties'
 
+    # property_dir = 'RewardError-RootMeanSquareError-Mode02'
+    # file = 'ga-001.540-s003-2x2-m002-WT0126-a273ff73692771f3d7680dbfa89b9613.properties'
 
+    property_dir = 'RewardError-SummedError-Mode05'
+    file = 'ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties'
     
     if environment_properties is None:
         environment_properties = get_environment_properties(root=root, property_dir=property_dir, property_file=file)
