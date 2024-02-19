@@ -92,7 +92,8 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
             outdir=outdir
             )
 
-
+    rel_net_prod_change=[]
+    net_prod_change=[]
     if comparisons_print_plots and comparisons:
         power_prod_change, conso_yaw_change, net_prod_change, rel_net_prod_change,yaw_error_rel_change = get_comparaison_metrics(wind_dir,power_control,power_simu,nac_pos_model, nac_pos_baseline_simu, yaw_params['yaw_rate_max'], yaw_params['yaw_consumption'], 50)    
         fig, axs = plt.subplots(6, sharex=True, figsize=(15,25), gridspec_kw={'height_ratios': [3, 1, 1,1,1,1]})
