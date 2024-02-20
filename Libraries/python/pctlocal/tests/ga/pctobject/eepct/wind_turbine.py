@@ -167,7 +167,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         experiment.log_metric('energy_gain', energy_gain)
 
 
-    return energy_gain, power_improvement, rel_net_prod_change, net_prod_change
+    return energy_gain, power_improvement, power_prod_change, conso_yaw_change, net_prod_change,rel_net_prod_change,yaw_error_rel_change
 
 
 def evolve_wt_from_properties(args):
