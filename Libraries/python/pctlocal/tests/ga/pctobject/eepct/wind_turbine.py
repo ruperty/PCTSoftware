@@ -44,9 +44,9 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
     makedirs(outdir, exist_ok=True)
 
-    lastsepIndex = filename.rfind(sep)
-    propIndex = filename.rfind('.properties')
-    filenamePrefix = filename[lastsepIndex+1:propIndex]
+    # lastsepIndex = filename.rfind(sep)
+    # propIndex = filename.rfind('.properties')
+    # filenamePrefix = filename[lastsepIndex+1:propIndex]
     # draw_file = outdir + 'draw-'+filenamePrefix+'.png'
     draw_file = False
     model_file = outdir + 'res_model.html'
@@ -92,7 +92,8 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
             outdir=outdir
             )
 
-
+    rel_net_prod_change=[]
+    net_prod_change=[]
     if comparisons_print_plots and comparisons:
         power_prod_change, conso_yaw_change, net_prod_change, rel_net_prod_change,yaw_error_rel_change = get_comparaison_metrics(wind_dir,power_control,power_simu,nac_pos_model, nac_pos_baseline_simu, yaw_params['yaw_rate_max'], yaw_params['yaw_consumption'], 50)    
         fig, axs = plt.subplots(6, sharex=True, figsize=(15,25), gridspec_kw={'height_ratios': [3, 1, 1,1,1,1]})
@@ -157,11 +158,16 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
 
     print(res_model)
 
+    energy_gain =  100*(res_model['power_control']/res_model['power_trad']-1)
+
     if experiment:
         experiment.log_metric('pc_test_result', res_model['power_control'])
         experiment.log_metric('yaw_count', res_model['yaw count'])
         experiment.log_metric('mean_ye', res_model['average yaw error'])
-        experiment.log_metric('energy_gain', 100*(res_model['power_control']/res_model['power_trad']-1))
+        experiment.log_metric('energy_gain', energy_gain)
+
+
+    return energy_gain, power_improvement, rel_net_prod_change, net_prod_change
 
 
 def evolve_wt_from_properties(args):
