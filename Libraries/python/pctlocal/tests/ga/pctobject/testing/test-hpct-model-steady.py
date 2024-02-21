@@ -44,6 +44,39 @@ if test==1:
 
 if test ==2:
 
+    def run(property_dir, file, environment_properties):
+
+        if environment_properties is None:
+            environment_properties = get_environment_properties(root=root, property_dir=property_dir, property_file=file)
+            environment_properties['keep_history'] = True
+            # environment_properties['range'] = 'test'
+            environment_properties['range'] = 'train'
+            # environment_properties['reward_type']= 'power'
+            print(environment_properties)
+
+        print(file)
+        energy_gain, power_improvement, power_prod_change, conso_yaw_change, net_prod_change,rel_net_prod_change,yaw_error_rel_change = wind_turbine_results(environment_properties=environment_properties, experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file, plots=plots)
+
+        print(f'energy_gain = {energy_gain:4.2f}')
+        print(f'power_improvement = {power_improvement.mean():4.2f}')
+        # print(f'power_improvement = {power_improvement.sum():4.2f}')
+
+        print(f'power_prod_change = {mean(power_prod_change):4.2f}')
+        # print(f'power_prod_change = {sum(power_prod_change):4.2f}')
+
+        print(f'conso_yaw_change = {mean(conso_yaw_change):4.2f}')
+        # print(f'conso_yaw_change = {sum(conso_yaw_change):4.2f}')
+    
+        # print(f'net_prod_change = {mean(net_prod_change):4.2f}')
+        print(f'net_prod_change = {sum(net_prod_change):4.2f}')
+
+        print(f'rel_net_prod_change = {mean(rel_net_prod_change):4.2f}')
+        # print(f'rel_net_prod_change = {sum(rel_net_prod_change):4.2f}')
+
+        print(f'yaw_error_rel_change = {mean(yaw_error_rel_change):4.2f}')
+        # print(f'yaw_error_rel_change = {sum(yaw_error_rel_change):4.2f}')
+
+
          
     # plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, 
     #          {'plot_items': {'IWD':'wd'}, 'title':'Wind'}, 
@@ -54,6 +87,14 @@ if test ==2:
     
     plots=[]
 
+    configs = [
+        ['RewardError-SummedError-Mode03', 'ga-3692779.547-s001-2x3-m003-WT0430-8d7129ec82d81370fb660b36a069003d.properties'],
+        ['RewardError-RootMeanSquareError-Mode04','ga-001.537-s001-3x3-m004-WT0208-cb9e85fe4c8b9fa355086b0a6a8cc911.properties'],
+        ['RewardError-RootMeanSquareError-Mode02','ga-001.540-s003-2x2-m002-WT0126-a273ff73692771f3d7680dbfa89b9613.properties'],
+        ['RewardError-SummedError-Mode05','ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties'],
+        ['RewardError-RootMeanSquareError-Mode04', 'ga-6523.563-s001-3x3-m004-WT0177-27a4cf793a6d9ddc86f755e87e246f35.properties']
+        ]
+
     # property_dir = 'RewardError-SummedError-Mode03'
     # file = 'ga-3692779.547-s001-2x3-m003-WT0430-8d7129ec82d81370fb660b36a069003d.properties'
 
@@ -63,37 +104,12 @@ if test ==2:
     # property_dir = 'RewardError-RootMeanSquareError-Mode02'
     # file = 'ga-001.540-s003-2x2-m002-WT0126-a273ff73692771f3d7680dbfa89b9613.properties'
 
-    property_dir = 'RewardError-SummedError-Mode05'
-    file = 'ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties'
+    # property_dir = 'RewardError-SummedError-Mode05'
+    # file = 'ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties'
     
-    if environment_properties is None:
-        environment_properties = get_environment_properties(root=root, property_dir=property_dir, property_file=file)
-        environment_properties['keep_history'] = True
-        environment_properties['range'] = 'test'
-        # environment_properties['reward_type']= 'power'
-        print(environment_properties)
-    
-    print(file)
-    energy_gain, power_improvement, power_prod_change, conso_yaw_change, net_prod_change,rel_net_prod_change,yaw_error_rel_change = wind_turbine_results(environment_properties=environment_properties, experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file, plots=plots)
 
-    print(f'energy_gain = {energy_gain:4.2f}')
-    print(f'power_improvement = {power_improvement.mean():4.2f}')
-    print(f'power_improvement = {power_improvement.sum():4.2f}')
-
-    print(f'power_prod_change = {mean(power_prod_change):4.2f}')
-    print(f'power_prod_change = {sum(power_prod_change):4.2f}')
-
-    print(f'conso_yaw_change = {mean(conso_yaw_change):4.2f}')
-    print(f'conso_yaw_change = {sum(conso_yaw_change):4.2f}')
-   
-    print(f'net_prod_change = {mean(net_prod_change):4.2f}')
-    print(f'net_prod_change = {sum(net_prod_change):4.2f}')
-
-    print(f'rel_net_prod_change = {mean(rel_net_prod_change):4.2f}')
-    print(f'rel_net_prod_change = {sum(rel_net_prod_change):4.2f}')
-
-    print(f'yaw_error_rel_change = {mean(yaw_error_rel_change):4.2f}')
-    print(f'yaw_error_rel_change = {sum(yaw_error_rel_change):4.2f}')
+    for config in configs:
+        run(config[0], config[1], environment_properties)
 
     
 
