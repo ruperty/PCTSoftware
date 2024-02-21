@@ -38,10 +38,12 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     wind_timeseries,start, stop, model_params,yaw_params,keep_history, rt = get_properties(environment_properties)
 
     history=True
-    if 'range' in environment_properties and environment_properties['range']=='test':
-        outdir='c:'+sep+'tmp'+sep+'WindTurbine-test'+sep+prefix+sep
-    else:
-        outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
+    series = environment_properties['series']
+    outdir='c:'+sep+'tmp'+sep+'WindTurbine'+ sep + environment_properties['range'] + sep + series + sep + prefix +sep
+    # if 'range' in environment_properties and environment_properties['range']=='test':
+    #     outdir='c:'+sep+'tmp'+sep+'WindTurbine-test'+sep+prefix+sep
+    # else:
+    #     outdir='c:'+sep+'tmp'+sep+'WindTurbine'+sep+prefix+sep
     makedirs(outdir, exist_ok=True)
 
     # lastsepIndex = filename.rfind(sep)
@@ -50,7 +52,6 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     # draw_file = outdir + 'draw-'+filenamePrefix+'.png'
     draw_file = False
     model_file = outdir + 'res_model.html'
-
 
     if experiment:
         artifact = Artifact(property_file, "Properties file")
@@ -138,7 +139,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         axs[5].set_ylabel(ylabel='net power output \nincrease (per cent)', fontsize=20,)
 
         fig.tight_layout()
-        plt.savefig(outdir + 'steady_dataset',dpi=600)
+        plt.savefig(outdir + f'{series}_dataset',dpi=600)
 
 
         fig, axs = plt.subplots(2, sharex=True)
@@ -150,24 +151,26 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         plt.setp(axs[1], ylabel='wind speed (m/s)')
         plt.setp(axs[0], ylabel='wind direction (deg)')
         plt.legend()
-        plt.savefig(outdir + 'steady_results',dpi=1000)
+        plt.savefig(outdir + f'{series}_results',dpi=1000)
 
     if comparisons:    
-        print(res_baseline_simu)
         print(res_baseline_logs)
+        print(res_baseline_simu)
 
     print(res_model)
 
     energy_gain =  100*(res_model['power_control']/res_model['power_trad']-1)
+    net_energy_gain = ( ( (sum(net_prod_change) + res_model['power_trad'])/res_model['power_trad'])-1) * 100
 
     if experiment:
         experiment.log_metric('pc_test_result', res_model['power_control'])
         experiment.log_metric('yaw_count', res_model['yaw count'])
         experiment.log_metric('mean_ye', res_model['average yaw error'])
         experiment.log_metric('energy_gain', energy_gain)
+        experiment.log_metric('net_eg', net_energy_gain)
 
 
-    return energy_gain, power_improvement, power_prod_change, conso_yaw_change, net_prod_change,rel_net_prod_change,yaw_error_rel_change
+    return energy_gain, net_energy_gain, power_improvement, power_prod_change, conso_yaw_change, net_prod_change,rel_net_prod_change,yaw_error_rel_change
 
 
 def evolve_wt_from_properties(args):
@@ -237,9 +240,12 @@ def evolve_wt_from_properties(args):
         # environment_properties['reward_type']= 'power'
         print(environment_properties)
 
-    wind_turbine_results(environment_properties=environment_properties, experiment=experiment, root=drive, verbose=args['verbosed']['hpct_verbose'], 
+    energy_gain, net_energy_gain, _ , _, _, _,_,_ = wind_turbine_results(environment_properties=environment_properties, experiment=experiment, root=drive, verbose=args['verbosed']['hpct_verbose'], 
                         early=early, comparisons=args['comparisons'], comparisons_print_plots=args['comparisons_print_plots'], min= not args['max'],
                         property_dir=property_dir, property_file=file, plots=plots, log_testing_to_experiment=log_testing_to_experiment)
+
+    print(f'energy_gain = {energy_gain:4.2f}')
+    print(f'net_energy_gain = {net_energy_gain:4.2f}')
 
     end = printtime('End')	
     elapsed = end-start        

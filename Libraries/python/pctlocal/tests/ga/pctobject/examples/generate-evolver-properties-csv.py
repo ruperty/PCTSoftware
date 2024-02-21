@@ -27,7 +27,7 @@ if test == 4:
     file = 'configs'+ os.sep + 'configs-pm.csv'
 
 if test == 5:
-    test5 = 3
+    test5 = 1
     batch = 20
 
     cmd='impl.evolve_multi_wt'

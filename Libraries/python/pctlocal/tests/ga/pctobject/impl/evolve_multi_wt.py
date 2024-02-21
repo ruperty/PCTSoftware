@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
 	verbose=False
 	plots_dir = 'c:/tmp'
-	comparisons = False 
+	comparisons = True 
 	comparisons_print_plots = True
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project

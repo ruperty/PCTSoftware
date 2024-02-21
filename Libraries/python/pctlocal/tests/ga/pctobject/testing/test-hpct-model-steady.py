@@ -49,33 +49,30 @@ if test ==2:
         if environment_properties is None:
             environment_properties = get_environment_properties(root=root, property_dir=property_dir, property_file=file)
             environment_properties['keep_history'] = True
-            # environment_properties['range'] = 'test'
-            environment_properties['range'] = 'train'
+            environment_properties['range'] = 'test'
+            # environment_properties['range'] = 'train'
             # environment_properties['reward_type']= 'power'
             print(environment_properties)
 
         print(file)
-        energy_gain, power_improvement, power_prod_change, conso_yaw_change, net_prod_change,rel_net_prod_change,yaw_error_rel_change = wind_turbine_results(environment_properties=environment_properties, experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file, plots=plots)
+        energy_gain, net_energy_gain, _ , _, _, _,_,_ = wind_turbine_results(environment_properties=environment_properties, experiment=log_experiment, root=root, verbose=verbose, early=early, comparisons=comparisons, comparisons_print_plots=comparisons_print_plots, property_dir=property_dir, property_file=file, plots=plots)
 
         print(f'energy_gain = {energy_gain:4.2f}')
-        print(f'power_improvement = {power_improvement.mean():4.2f}')
-        # print(f'power_improvement = {power_improvement.sum():4.2f}')
+        print(f'net_energy_gain = {net_energy_gain:4.2f}')
 
-        print(f'power_prod_change = {mean(power_prod_change):4.2f}')
-        # print(f'power_prod_change = {sum(power_prod_change):4.2f}')
-
-        print(f'conso_yaw_change = {mean(conso_yaw_change):4.2f}')
-        # print(f'conso_yaw_change = {sum(conso_yaw_change):4.2f}')
-    
-        # print(f'net_prod_change = {mean(net_prod_change):4.2f}')
-        print(f'net_prod_change = {sum(net_prod_change):4.2f}')
-
-        print(f'rel_net_prod_change = {mean(rel_net_prod_change):4.2f}')
-        # print(f'rel_net_prod_change = {sum(rel_net_prod_change):4.2f}')
-
-        print(f'yaw_error_rel_change = {mean(yaw_error_rel_change):4.2f}')
+        # print(f'power_improvement = {power_improvement.mean():4.2f}')
+        # # print(f'power_improvement = {power_improvement.sum():4.2f}')
+        # print(f'power_prod_change = {mean(power_prod_change):4.2f}')
+        # # print(f'power_prod_change = {sum(power_prod_change):4.2f}')
+        # print(f'conso_yaw_change = {mean(conso_yaw_change):4.2f}')
+        # # print(f'conso_yaw_change = {sum(conso_yaw_change):4.2f}')
+        # # print(f'net_prod_change = {mean(net_prod_change):4.2f}')
+        # print(f'net_prod_change = {sum(net_prod_change):4.2f}')
+        # print(f'rel_net_prod_change = {mean(rel_net_prod_change):4.2f}')
+        # # print(f'rel_net_prod_change = {sum(rel_net_prod_change):4.2f}')
+        # print(f'yaw_error_rel_change = {mean(yaw_error_rel_change):4.2f}')
         # print(f'yaw_error_rel_change = {sum(yaw_error_rel_change):4.2f}')
-
+        print()
 
          
     # plots = [  {'plot_items': {'IYE':'ye'}, 'title':'YawError'}, 

@@ -42,7 +42,7 @@ if __name__ == '__main__':
 	hierarchy_plots = args.plots
 	save_arch_all = args.save_arch_all
 
-	comparisons = False 
+	comparisons = True 
 	comparisons_print_plots = True
 	plots_dir = 'c:/tmp'
 	log_testing_to_experiment = False
