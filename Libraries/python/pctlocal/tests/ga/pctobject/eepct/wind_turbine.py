@@ -153,11 +153,20 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         plt.legend()
         plt.savefig(outdir + f'{series}_results',dpi=1000)
 
+
+    average_yaw_error_decrease_base = 0
+    average_yaw_error_decrease_simu = 0
+
     if comparisons:    
         print(res_baseline_logs)
         print(res_baseline_simu)
+        average_yaw_error_decrease_base = 100 - (100 * res_model['average yaw error']/res_baseline_logs['yaw count_trad_baseline_logs'])
+        average_yaw_error_decrease_simu = 100 - (100 * res_model['average yaw error']/res_baseline_simu['yaw count_trad_baseline_simu'])
 
     print(res_model)
+
+    print(f'average_yaw_error_decrease_base={average_yaw_error_decrease_base:4.2f}')
+    print(f'average_yaw_error_decrease_simu={average_yaw_error_decrease_simu:4.2f}')
 
     energy_gain =  100*(res_model['power_control']/res_model['power_trad']-1)
     net_energy_gain = ( ( (sum(net_prod_change) + res_model['power_trad'])/res_model['power_trad'])-1) * 100
