@@ -160,8 +160,8 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     if comparisons:    
         print(res_baseline_logs)
         print(res_baseline_simu)
-        average_yaw_error_decrease_base = 100 - (100 * res_model['average yaw error']/res_baseline_logs['yaw count_trad_baseline_logs'])
-        average_yaw_error_decrease_simu = 100 - (100 * res_model['average yaw error']/res_baseline_simu['yaw count_trad_baseline_simu'])
+        average_yaw_error_decrease_base = 100 * (res_baseline_logs['yaw count_trad_baseline_logs'] - res_model['average yaw error'])/res_baseline_logs['yaw count_trad_baseline_logs']
+        average_yaw_error_decrease_simu = 100 * (res_baseline_simu['yaw count_trad_baseline_simu'] - res_model['average yaw error'])/res_baseline_simu['yaw count_trad_baseline_simu']
 
     print(res_model)
 
@@ -177,6 +177,8 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         experiment.log_metric('mean_ye', res_model['average yaw error'])
         experiment.log_metric('energy_gain', energy_gain)
         experiment.log_metric('net_eg', net_energy_gain)
+        experiment.log_metric('avg_ye_dec_base', average_yaw_error_decrease_base)
+        experiment.log_metric('avg_ye_dec_simu', average_yaw_error_decrease_simu)
 
 
     return energy_gain, net_energy_gain, power_improvement, power_prod_change, conso_yaw_change, net_prod_change,rel_net_prod_change,yaw_error_rel_change
