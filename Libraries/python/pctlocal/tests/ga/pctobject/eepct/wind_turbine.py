@@ -160,8 +160,8 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     if comparisons:    
         print(res_baseline_logs)
         print(res_baseline_simu)
-        average_yaw_error_decrease_base = 100 * (res_baseline_logs['yaw count_trad_baseline_logs'] - res_model['average yaw error'])/res_baseline_logs['yaw count_trad_baseline_logs']
-        average_yaw_error_decrease_simu = 100 * (res_baseline_simu['yaw count_trad_baseline_simu'] - res_model['average yaw error'])/res_baseline_simu['yaw count_trad_baseline_simu']
+        average_yaw_error_decrease_base = 100 * (res_baseline_logs['average yaw error_baseline_logs'] - res_model['average yaw error'])/res_baseline_logs['average yaw error_baseline_logs']
+        average_yaw_error_decrease_simu = 100 * (res_baseline_simu['average yaw error_baseline_simu'] - res_model['average yaw error'])/res_baseline_simu['average yaw error_baseline_simu']
 
     print(res_model)
 
