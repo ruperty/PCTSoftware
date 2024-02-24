@@ -27,7 +27,7 @@ if test == 4:
     file = 'configs'+ os.sep + 'configs-pm.csv'
 
 if test == 5:
-    test5 = 3
+    test5 = 4
     batch = 20
 
     cmd='impl.evolve_multi_wt'
@@ -42,15 +42,26 @@ if test == 5:
         # args = "-b -l -o -pl scEdges -p evolve" 
 
     if test5 == 2:
-        filename = 'configs-wt-0001-0616-steady-w2test.csv'       
-        initial_index=1000
+        filename = 'configs-wt-1000-1083-steady-w2test.csv'       
+        initial_index=2000
         args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
 
     if test5 == 3:
+
         filename = 'configs-wt-0001-0616-variable.csv'       
         # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
+        # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve-batch -c 8 -s 1 -i 3"
-        args = "-b -l -o -pl scEdges -p evolve" 
+        # args = "-b -l -o -pl scEdges -p evolve" 
+
+    if test5 == 4:
+        common_configs['pop_size'] = 1000
+        # common_configs['gens'] = 2
+        # filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
+        filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
+        initial_index=2000
+        args = "-b -l -o -pl scEdges -p evolve-misc -c 6 -s 1 -i 99"
+        # args = "-b -l -o -pl scEdges -p evolve-misc "
 
 
 

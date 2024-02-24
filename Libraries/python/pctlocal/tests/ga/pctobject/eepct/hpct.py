@@ -109,9 +109,22 @@ class HPCTGenerateEvolvers(object):
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
-    def get_arch_types_from_shortcode(self, code):
-        if code == 'scTopVars':
-            return "zerotop^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}|top^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}"
+    def get_arch_types_from_shortcode(self, codes):
+        rtn = ""
+        
+        arr = codes.split('^')
+        for code in arr:
+            if code == 'scTopVars':
+                rtn = rtn + "zerotop^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}|top^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}"
+            
+            if code == 'scActBinSig':
+                delimiter = ""
+                if len(rtn)>0:
+                    delimiter = "|"
+                rtn = rtn + delimiter + "zero^act^Binary~EASigmoidSmoothWeightedSum~{ 'lower_float': -1,'upper_float': 1, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}"
+
+        return rtn
+
 
     def process_archtypes(self, arch_types):
         if arch_types.startswith('['):
@@ -120,7 +133,9 @@ class HPCTGenerateEvolvers(object):
         if arch_types.startswith('sc'):
             arch_types = self.get_arch_types_from_shortcode(arch_types)
 
-        lookup = {'zerotop': HPCTLEVEL.ZEROTOP, 'top': HPCTLEVEL.TOP, 'ref': HPCTFUNCTION.REFERENCE, 'per': HPCTFUNCTION.PERCEPTION, 'com': HPCTFUNCTION.COMPARATOR, 'our': HPCTFUNCTION.OUTPUT }
+        lookup = {'zero': HPCTLEVEL.ZERO,'zerotop': HPCTLEVEL.ZEROTOP, 'top': HPCTLEVEL.TOP, 
+                  'ref': HPCTFUNCTION.REFERENCE, 'per': HPCTFUNCTION.PERCEPTION, 'com': HPCTFUNCTION.COMPARATOR, 
+                  'out': HPCTFUNCTION.OUTPUT, 'act': HPCTFUNCTION.ACTION  }
 
         arr = arch_types.split('|')
         # print(arr)
@@ -258,7 +273,7 @@ class HPCTGenerateEvolvers(object):
                     num_evals = self.get_config_value(record, 'num_evals')
 
                     self.generate_option_files(1, env, num_actions, arch, config, num_evals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
-                    if actr % batch == 0:
+                    if ((actr - initial_index)+1) % batch == 0:
                         cmd = f'python -m {cmdline} {env} "{fname_list}" {args}'
                         batches.append(cmd)
                         # print(cmd, end='\n')
