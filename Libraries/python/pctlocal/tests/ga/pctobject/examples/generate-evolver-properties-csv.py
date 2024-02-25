@@ -55,12 +55,12 @@ if test == 5:
         # args = "-b -l -o -pl scEdges -p evolve" 
 
     if test5 == 4:
-        common_configs['pop_size'] = 1000
+        # common_configs['pop_size'] = 1000
         # common_configs['gens'] = 2
         # filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
         filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
         initial_index=2000
-        args = "-b -l -o -pl scEdges -p evolve-misc -c 6 -s 1 -i 99"
+        args = "-b -l -o -pl scEdges -p evolve-misc -c 4 -s 1 -i 99"
         # args = "-b -l -o -pl scEdges -p evolve-misc "
 
 

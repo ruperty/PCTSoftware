@@ -1,4 +1,7 @@
 import numpy as np
+
+from pct.environments import MicroGrid
+
 from tcl_env_dqn import MicroGridEnv, ACTIONS
 
 from matplotlib import pyplot
@@ -6,9 +9,21 @@ from tqdm import tqdm
 
 steps=1
 
-test = 1
+test = 2
 
-if test ==1:
+if test == 1:
+
+    # env = OpenAIGym(env_name='CartPole-v1', seed=1, name='XXX')
+
+
+
+    env = MicroGrid(seed=1)
+
+
+
+    pass
+
+if test == 2:
 
     # Initialize the environment
     env = MicroGridEnv()
@@ -19,6 +34,7 @@ if test ==1:
     state = env.reset()
     # Call render to prepare the visualization
     env.render()
+    ctr = 1
     # Interact with the environment (here we choose random actions) until the terminal state is reached
     while True:
         # Pick an action from the action space (here we pick an index between 0 and 80)
@@ -28,8 +44,9 @@ if test ==1:
         # Perform a step in the environment given the chosen action
         state, reward, terminal, _ = env.step(action)
         env.render()
-        print(reward)
+        print(ctr, state, reward, terminal)
         rewards.append(reward)
+        ctr = ctr + 1
         if terminal:
             break
     print("Total Reward:",sum(rewards))

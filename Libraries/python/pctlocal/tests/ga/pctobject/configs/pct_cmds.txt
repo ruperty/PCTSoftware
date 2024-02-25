@@ -1532,6 +1532,109 @@ PS C:\Users\ruper\Versioning\PCTSoftware\Libraries\python\pctlocal\tests\ga\pcto
 
 
 
+mode04
+
+python -m impl.evolve_multi_wt WindTurbine "['WT2000-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2001-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2002-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2003-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2004-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2005-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2006-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2007-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2008-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2009-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2010-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2011-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2012-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2013-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2014-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2015-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2016-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2017-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2018-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2019-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2020-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2021-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2022-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2023-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2024-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2025-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2026-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2027-RewardError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2028-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2029-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2030-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2031-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2032-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2033-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2034-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2035-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2036-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2037-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2038-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2039-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2040-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2041-RewardError-RootMeanSquareError-Mode04']" -x -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2042-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2043-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2044-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2045-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2046-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2047-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2048-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2049-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2050-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2051-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2052-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2053-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2054-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2055-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2056-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2057-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2058-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2059-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2060-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2061-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2062-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2063-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2064-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2065-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2066-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2067-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2068-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2069-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2070-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2071-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2072-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2073-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2074-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2075-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2076-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2077-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2078-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2079-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2080-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2081-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2082-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2083-RewardError-SummedError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2084-ReferencedInputsError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2085-ReferencedInputsError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2086-ReferencedInputsError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+python -m impl.evolve_multi_wt WindTurbine "['WT2087-ReferencedInputsError-RootMeanSquareError-Mode04']"  -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+
+python -m impl.evolve_multi_wt WindTurbine "['WT2000-RewardError-RootMeanSquareError-Mode04', 'WT2001-RewardError-RootMeanSquareError-Mode04', 'WT2002-RewardError-RootMeanSquareError-Mode04', 'WT2003-RewardError-RootMeanSquareError-Mode04', 'WT2004-RewardError-RootMeanSquareError-Mode04', 'WT2005-RewardError-RootMeanSquareError-Mode04', 'WT2006-RewardError-RootMeanSquareError-Mode04', 'WT2007-RewardError-RootMeanSquareError-Mode04', 'WT2008-RewardError-RootMeanSquareError-Mode04', 'WT2009-RewardError-RootMeanSquareError-Mode04', 'WT2010-RewardError-RootMeanSquareError-Mode04', 'WT2011-RewardError-RootMeanSquareError-Mode04', 'WT2012-RewardError-RootMeanSquareError-Mode04', 'WT2013-RewardError-RootMeanSquareError-Mode04', 'WT2014-RewardError-RootMeanSquareError-Mode04', 'WT2015-RewardError-RootMeanSquareError-Mode04', 'WT2016-RewardError-RootMeanSquareError-Mode04', 'WT2017-RewardError-RootMeanSquareError-Mode04', 'WT2018-RewardError-RootMeanSquareError-Mode04', 'WT2019-RewardError-RootMeanSquareError-Mode04']" -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+
+python -m impl.evolve_multi_wt WindTurbine "['WT2020-RewardError-RootMeanSquareError-Mode04', 'WT2021-RewardError-RootMeanSquareError-Mode04', 'WT2022-RewardError-RootMeanSquareError-Mode04', 'WT2023-RewardError-RootMeanSquareError-Mode04', 'WT2024-RewardError-RootMeanSquareError-Mode04', 'WT2025-RewardError-RootMeanSquareError-Mode04', 'WT2026-RewardError-RootMeanSquareError-Mode04', 'WT2027-RewardError-RootMeanSquareError-Mode04', 'WT2028-RewardError-RootMeanSquareError-Mode04 -x', 'WT2029-RewardError-RootMeanSquareError-Mode04 -x', 'WT2030-RewardError-RootMeanSquareError-Mode04 -x', 'WT2031-RewardError-RootMeanSquareError-Mode04 -x', 'WT2032-RewardError-RootMeanSquareError-Mode04 -x', 'WT2033-RewardError-RootMeanSquareError-Mode04 -x', 'WT2034-RewardError-RootMeanSquareError-Mode04 -x', 'WT2035-RewardError-RootMeanSquareError-Mode04 -x', 'WT2036-RewardError-RootMeanSquareError-Mode04 -x', 'WT2037-RewardError-RootMeanSquareError-Mode04 -x', 'WT2038-RewardError-RootMeanSquareError-Mode04 -x', 'WT2039-RewardError-RootMeanSquareError-Mode04 -x']" -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+
+python -m impl.evolve_multi_wt WindTurbine "['WT2040-RewardError-RootMeanSquareError-Mode04 -x', 'WT2041-RewardError-RootMeanSquareError-Mode04 -x', 'WT2042-RewardError-SummedError-Mode04', 'WT2043-RewardError-SummedError-Mode04', 'WT2044-RewardError-SummedError-Mode04', 'WT2045-RewardError-SummedError-Mode04', 'WT2046-RewardError-SummedError-Mode04', 'WT2047-RewardError-SummedError-Mode04', 'WT2048-RewardError-SummedError-Mode04', 'WT2049-RewardError-SummedError-Mode04', 'WT2050-RewardError-SummedError-Mode04', 'WT2051-RewardError-SummedError-Mode04', 'WT2052-RewardError-SummedError-Mode04', 'WT2053-RewardError-SummedError-Mode04', 'WT2054-RewardError-SummedError-Mode04', 'WT2055-RewardError-SummedError-Mode04', 'WT2056-RewardError-SummedError-Mode04', 'WT2057-RewardError-SummedError-Mode04', 'WT2058-RewardError-SummedError-Mode04', 'WT2059-RewardError-SummedError-Mode04']" -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+
+python -m impl.evolve_multi_wt WindTurbine "['WT2060-RewardError-SummedError-Mode04', 'WT2061-RewardError-SummedError-Mode04', 'WT2062-RewardError-SummedError-Mode04', 'WT2063-RewardError-SummedError-Mode04', 'WT2064-RewardError-SummedError-Mode04', 'WT2065-RewardError-SummedError-Mode04', 'WT2066-RewardError-SummedError-Mode04', 'WT2067-RewardError-SummedError-Mode04', 'WT2068-RewardError-SummedError-Mode04', 'WT2069-RewardError-SummedError-Mode04', 'WT2070-RewardError-SummedError-Mode04', 'WT2071-RewardError-SummedError-Mode04', 'WT2072-RewardError-SummedError-Mode04', 'WT2073-RewardError-SummedError-Mode04', 'WT2074-RewardError-SummedError-Mode04', 'WT2075-RewardError-SummedError-Mode04', 'WT2076-RewardError-SummedError-Mode04', 'WT2077-RewardError-SummedError-Mode04', 'WT2078-RewardError-SummedError-Mode04', 'WT2079-RewardError-SummedError-Mode04']" -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+
+python -m impl.evolve_multi_wt WindTurbine "['WT2080-RewardError-SummedError-Mode04', 'WT2081-RewardError-SummedError-Mode04', 'WT2082-RewardError-SummedError-Mode04', 'WT2083-RewardError-SummedError-Mode04', 'WT2084-ReferencedInputsError-RootMeanSquareError-Mode04', 'WT2085-ReferencedInputsError-RootMeanSquareError-Mode04', 'WT2086-ReferencedInputsError-RootMeanSquareError-Mode04', 'WT2087-ReferencedInputsError-RootMeanSquareError-Mode04']" -b -l -o -pl scEdges -p evolve-misc -c 8 -s 1 -i 99
+
+
+
 
 
 
