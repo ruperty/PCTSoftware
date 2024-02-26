@@ -1,8 +1,10 @@
 import numpy as np
 
-from pct.environments import MicroGrid
+# from pct.environments import MicroGrid
 
 from tcl_env_dqn import MicroGridEnv, ACTIONS
+
+# from tcl_env_dqn import MicroGridEnv
 
 from matplotlib import pyplot
 from tqdm import tqdm
