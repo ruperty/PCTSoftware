@@ -1,5 +1,5 @@
 import numpy as np
-from tcl_env_dqn import MicroGridEnv, ACTIONS
+from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv, ACTIONS
 
 from matplotlib import pyplot
 from tqdm import tqdm
