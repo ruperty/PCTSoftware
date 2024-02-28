@@ -5,10 +5,11 @@ from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv, ACTIONS
 
 from matplotlib import pyplot
 from tqdm import tqdm
+from pct.environments import MicroGrid
 
 steps=1
 
-test = 2
+test = 1
 
 if test == 1:
 
@@ -17,6 +18,7 @@ if test == 1:
 
 
     env = MicroGrid(seed=1)
+    env.summary()
 
 
 

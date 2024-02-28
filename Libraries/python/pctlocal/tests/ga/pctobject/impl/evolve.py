@@ -21,6 +21,8 @@ if __name__ == '__main__':
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument("-v", "--hpct_verbose", help="hierarchy output", action="store_true")
 	parser.add_argument("-db", "--debug", type=int, help="details of population in each gen, inc. mutate and merge", default=0)
+	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
+	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")
 	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
 	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
 
@@ -31,7 +33,9 @@ if __name__ == '__main__':
 	start=args.start
 	iters=args.iters                
 	early = args.early 
+	hierarchy_plots = args.plots
 	max=args.max        
+	draw_file = args.draw_file
 	hpct_verbose= args.hpct_verbose
 		
 	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
@@ -42,8 +46,8 @@ if __name__ == '__main__':
 	overwrite=True
 
 	for i in range(start, iters+start, 1):
-		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite,
-						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir
+		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
+						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots
 		}#,'gens':args.gens, 'pop':args.pop }
 					
 		pf = evolve_from_properties(arg)

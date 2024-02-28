@@ -245,14 +245,14 @@ class HPCTGenerateEvolvers(object):
                     config['p_crossover']= self.get_config_value(record, 'p_crossover')
                     config['p_mutation']= self.get_config_value(record, 'p_mutation')
                     
-                    ep = record['error_properties']
-                    if ep == '':
+                    ep = self.get_config_value(record, 'error_properties')                     
+                    if ep is None or ep == '':
                         error_properties=None
                     else:
                         error_properties=eval(record['error_properties']) 
 
-                    envp = record['environment_properties']
-                    if envp == '':
+                    envp = self.get_config_value(record, 'environment_properties')    
+                    if envp is None or envp == '':
                         environment_properties=None
                     else:
                         environment_properties=eval(record['environment_properties']) 
