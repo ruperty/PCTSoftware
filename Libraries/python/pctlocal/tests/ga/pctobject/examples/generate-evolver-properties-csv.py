@@ -10,7 +10,7 @@ import os
 from eepct.hpct import HPCTGenerateEvolvers
 
 args = "-i 1 -s 93"
-test = 6
+test = 5
 cmd='impl.evolve_multi'
 initial_index=1
 batch = 20
@@ -61,7 +61,7 @@ if test == 5:
         filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
         # filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
         initial_index=2000
-        args = "-b -l -o -pl scEdges -p evolve-misc -c 2 -s 1 -i 99"
+        args = "-b -l -o -pl scEdges -p evolve-misc -c 4 -s 1 -i 9"
         # args = "-b -l -o -pl scEdges -p evolve-misc "
 
 
@@ -73,9 +73,9 @@ if test == 6:
     common_configs = {'env' : 'MicroGrid', 'num_actions' : 4, 'seed': 1, 'arch_name' : 'MG', 'pop_size' : 4, 'gens': 2, 
                     'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 24, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
                     'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
-                    'p_mutation': 0.75, 'num_evals': 1, 'error_limit': None, 'error_properties' : None, 'environment_properties': None}
+                    'p_mutation': 0.75, 'num_evals': 1, 'error_limit': None, 'error_properties' : None, 'environment_properties': {'day' : 1}}
 
-    file = 'configs'+ os.sep + filename
+file = 'configs'+ os.sep + filename
 
 hge = HPCTGenerateEvolvers(common_configs=common_configs)  
 hge.process_csv(file, args, cmdline=cmd, initial_index=initial_index, batch=batch)

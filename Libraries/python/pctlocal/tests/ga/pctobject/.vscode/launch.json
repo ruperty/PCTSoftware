@@ -99,7 +99,7 @@
             //"args": ["WindTurbine", "WT02-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-db", "2"],
             //"args": ["WindTurbine", "WT01-RewardError-SummedError-Mode00"],
             // "args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00"],
-            "args": ["MicroGrid", "MG0001-RewardError-RootMeanSquareError-Mode04"],
+            "args": ["MicroGrid", "MG0001-RewardError-RootMeanSquareError-Mode04", "-v"],
 
             
             "console": "internalConsole"

@@ -9,7 +9,7 @@ from pct.environments import MicroGrid
 
 steps=1
 
-test = 1
+test = 2
 
 if test == 1:
 

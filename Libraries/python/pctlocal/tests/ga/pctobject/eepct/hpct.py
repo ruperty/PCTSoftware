@@ -255,7 +255,7 @@ class HPCTGenerateEvolvers(object):
                     if envp is None or envp == '':
                         environment_properties=None
                     else:
-                        environment_properties=eval(record['environment_properties']) 
+                        environment_properties=envp 
                     
                     arch={}
                     arch['name']=aname
