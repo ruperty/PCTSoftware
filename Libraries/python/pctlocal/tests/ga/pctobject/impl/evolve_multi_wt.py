@@ -20,7 +20,7 @@ if __name__ == '__main__':
 	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
 	parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
 	parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_true")
-	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_true")
+	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)	
 	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")

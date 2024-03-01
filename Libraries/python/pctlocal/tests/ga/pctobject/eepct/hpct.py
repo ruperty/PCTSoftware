@@ -1,48 +1,27 @@
 
 
-import random, enum, time, copy, math, logging, csv
-# from memory_profiler import profile
-from datetime import datetime
-#from epct.evolvers import CommonToolbox
-import warnings 
-with warnings.catch_warnings():
-    warnings.filterwarnings("ignore",category=DeprecationWarning)
-    from comet_ml import Experiment
+import time, csv
+
+# import warnings 
+# with warnings.catch_warnings():
+#     warnings.filterwarnings("ignore",category=DeprecationWarning)
+#     from comet_ml import Experiment
 
 
 from deap import base, creator
-from os import makedirs, sep, path
-from enum import IntEnum, auto
-from deap import tools, algorithms
-from dataclasses import dataclass
+from os import makedirs, sep
 
 from epct.po_evolvers import HPCTIndividual
 from epct.po_architecture import HPCTLEVEL, HPCTVARIABLE
-from pct.hierarchy import PCTHierarchy, PCTRunProperties
-from pct.nodes import PCTNode
-from pct.functions import FunctionFactory, HPCTFUNCTION
+from pct.hierarchy import PCTHierarchy
+from pct.functions import HPCTFUNCTION
 
-from pct.environments import EnvironmentFactory, OpenAIGym
-
-from pct.functions import IndexedParameter
-from epct.evolvers import BaseEvolver, CommonToolbox, EvolverWrapper, check_hash_file_exists
+from epct.evolvers import  CommonToolbox
 from epct.po_evolvers import HPCTEvolveProperties
-from epct.structure import ParameterFactory
-from pct.putils import stringListToListOfStrings
-
-from pct.errors import BaseErrorCollector
-from epct.functions import EAFunctionFactory
 
 
 
-logger = logging.getLogger(__name__)
-
-
-
-
-
-
-
+# logger = logging.getLogger(__name__)
 
 
 

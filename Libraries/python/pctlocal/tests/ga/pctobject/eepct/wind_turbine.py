@@ -1,23 +1,18 @@
 import warnings
-import matplotlib.pyplot as plt
-
-from matplotlib.ticker import FuncFormatter
-from os import sep, path, makedirs
-from pct.hierarchy import PCTHierarchy
-from pct.yaw_module import get_dataset_from_simu, get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
-from eepct.hpct import evolve_from_properties
-from pct.putils import printtime, NumberStats
-
-import warnings 
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore",category=DeprecationWarning)
     from comet_ml import Experiment, api
+    from comet_ml import Artifact
 
+import matplotlib.pyplot as plt
 
+from matplotlib.ticker import FuncFormatter
+from os import sep, makedirs
+from pct.hierarchy import PCTHierarchy
+from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
+from eepct.hpct import evolve_from_properties
+from pct.putils import printtime, NumberStats
 
-# with warnings.catch_warnings():
-#     warnings.filterwarnings("ignore",category=DeprecationWarning)
-from comet_ml import Artifact
 
 def get_environment_properties(root=None, wt='WindTurbine', property_dir=None, property_file=None):
 
@@ -210,7 +205,7 @@ def evolve_wt_from_properties(args):
 
         experiment = Experiment(api_key=args['api_key'],
                                 project_name=args['project_name'],
-                                workspace=args['workspace'])
+                                workspace=args['workspace'], display_summary_level=0)
 
         # experiment.log_parameters(model_params)
         # experiment.log_code(path.basename(__file__))	

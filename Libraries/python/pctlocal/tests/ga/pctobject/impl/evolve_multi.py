@@ -22,7 +22,7 @@ if __name__ == '__main__':
 	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
 	parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
 	parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
-	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
+	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_true")
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
 	
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 	start=args.start
 	iters=args.iters
 			
-	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
+	verbosed = {'debug': 0,  'evolve_verbose': 0, 'deap_verbose': False, 'save_arch_all': False,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':False}
 	drive = get_gdrive()
 	root_path=get_root_path()
