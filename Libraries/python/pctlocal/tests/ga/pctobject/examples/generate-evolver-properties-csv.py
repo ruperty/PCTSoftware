@@ -60,7 +60,7 @@ if test == 5:
         # filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
         filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
         initial_index=2000
-        args = "-b -l -o -pl scEdges -p evolve-misc -c 4 -s 1 -i 99"
+        args = "-b -l -o -pl scEdges -p evolve-misc -c 6 -s 1 -i 9"
         # args = "-b -l -o -pl scEdges -p evolve-misc "
 
 
