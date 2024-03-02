@@ -45,7 +45,7 @@ if __name__ == '__main__':
 	project_name=args.project
 	workspace='wind-turbine'
 
-	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
+	verbosed = {'debug': 0,  'evolve_verbose': 0, 'deap_verbose': False, 'save_arch_all': False,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':False}
 	drive = get_gdrive()
 	root_path=get_root_path()
