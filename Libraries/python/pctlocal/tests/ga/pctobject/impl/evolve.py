@@ -12,9 +12,9 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument("env_name", help="the environment name")
 	parser.add_argument("file", help="the properties file name")
-	parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_false")
-	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_false")
-	parser.add_argument("-d", "--display_env", help="display best of each generation", action="store_false")
+	parser.add_argument("-a", "--save_arch_gen", help="save architecture of each generation", action="store_true")
+	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_true")
+	parser.add_argument("-d", "--display_env", help="display best of each generation", action="store_true")
 	parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=1)
 	parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
 	parser.add_argument('-e', '--early', help="early termination", action="store_true")
@@ -22,7 +22,8 @@ if __name__ == '__main__':
 	parser.add_argument("-v", "--hpct_verbose", help="hierarchy output", action="store_true")
 	parser.add_argument("-db", "--debug", type=int, help="details of population in each gen, inc. mutate and merge", default=0)
 	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
-	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")
+	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")	
+	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
 	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
 	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
 
@@ -35,6 +36,7 @@ if __name__ == '__main__':
 	early = args.early 
 	hierarchy_plots = args.plots
 	max=args.max        
+	overwrite = args.overwrite
 	draw_file = args.draw_file
 	hpct_verbose= args.hpct_verbose
 		
@@ -43,7 +45,6 @@ if __name__ == '__main__':
 	drive = get_gdrive()
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
-	overwrite=True
 
 	for i in range(start, iters+start, 1):
 		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
