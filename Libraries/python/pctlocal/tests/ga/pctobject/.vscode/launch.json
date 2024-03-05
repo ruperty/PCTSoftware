@@ -5,30 +5,30 @@
     "version": "0.2.0",
     "configurations": [
 
-        {
-            "name": "webots_ind",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-hpct-evolver-create-ind-wrestler"
-        },
-        {
-            "name": "cartpole_ind",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-hpct-evolver-create-ind-cartpole"
-        },
-        {
-            "name": "evolve_cp",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-evolve_cp_from_properties_file_minimise"
-        },
-        {
-            "name": "evolve_ww",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-evolve_ww_from_properties_file_maximise"
-        },
+        // {
+        //     "name": "webots_ind",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-hpct-evolver-create-ind-wrestler"
+        // },
+        // {
+        //     "name": "cartpole_ind",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-hpct-evolver-create-ind-cartpole"
+        // },
+        // {
+        //     "name": "evolve_cp",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-evolve_cp_from_properties_file_minimise"
+        // },
+        // {
+        //     "name": "evolve_ww",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-evolve_ww_from_properties_file_maximise"
+        // },
         {
             "name": "draw_from_properties_file",
             "type": "debugpy",
@@ -61,7 +61,8 @@
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\ga-005.997-s001-3x3-m005-WT0601-9ecd0308fa6c27d1a2a6cc2168efe592.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-0001-0007-277.211.config" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-001-236.475.config" ], //, "-v" ],
-            "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\961c97debb4ee95d8c8ee89904cf544e\\conf-0001-000.405.config" ],
+            // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\961c97debb4ee95d8c8ee89904cf544e\\conf-0001-000.405.config" ],
+            "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\961c97debb4ee95d8c8ee89904cf544e\\conf-0001-0007-000.410.config" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.535-s001-4x5-m000-WT0035-35495ec6d6a5eb084827b06c45c4fe7c.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.539-s001-2x4-m000-WT0036-ec9ab7481dd95aec3648d84987570bf2.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
 
@@ -100,7 +101,7 @@
             //"args": ["WindTurbine", "WT02-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-db", "2"],
             //"args": ["WindTurbine", "WT01-RewardError-SummedError-Mode00"],
             // "args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00"],
-            "args": ["MicroGrid", "MG0001-RewardError-RootMeanSquareError-Mode04" , "-v" , "-o"], //, "-v"],
+            "args": ["MicroGrid", "MG0001-RewardError-RootMeanSquareError-Mode04" ,"-b", "-o", "-a", "-aa"], //, "-v"],
             "console": "internalConsole"
         },
         {
@@ -163,72 +164,72 @@
 
 
 
-        {
-            "name": "mutate_ind",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-hpct-evolver-mutate-ind-cartpole"
-        },
-        {
-            "name": "generate_properties_file",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.generate-evolver-properties-csv"
-        },
-        {
-            "name": "example-arch",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-arch"
-        },
-        {
-            "name": "example-run-from-file",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-run_from_file"
-        },
-        {
-            "name": "load-from-config",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-load-from-config"
-        },
-        {
-            "name": "from-config",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-hpct-from-config"
-        },
-        {
-            "name": "mode02-evolve",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "examples.example-hpct-evolver-mode02"
-        },       
+        // {
+        //     "name": "mutate_ind",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-hpct-evolver-mutate-ind-cartpole"
+        // },
+        // {
+        //     "name": "generate_properties_file",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.generate-evolver-properties-csv"
+        // },
+        // {
+        //     "name": "example-arch",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-arch"
+        // },
+        // {
+        //     "name": "example-run-from-file",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-run_from_file"
+        // },
+        // {
+        //     "name": "load-from-config",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-load-from-config"
+        // },
+        // {
+        //     "name": "from-config",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-hpct-from-config"
+        // },
+        // {
+        //     "name": "mode02-evolve",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "examples.example-hpct-evolver-mode02"
+        // },       
         {
             "name": "hierarchy-draw",
             "type": "debugpy",
             "request": "launch",
             "module": "testing.test-hierarchy-draw"
         },
-        {
-            "name": "run-old-mountaincar",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "testing.run-mountaincar-from-properties_file"
-        },
-        {
-            "name": " 16_evolve_mountaincar",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "testing.16_evolve_mountaincar"
-        },
-        {
-            "name": " 14_evolve_pendulum",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "testing.14_evolve_pendulum"
-        },
+        // {
+        //     "name": "run-old-mountaincar",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "testing.run-mountaincar-from-properties_file"
+        // },
+        // {
+        //     "name": " 16_evolve_mountaincar",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "testing.16_evolve_mountaincar"
+        // },
+        // {
+        //     "name": " 14_evolve_pendulum",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "testing.14_evolve_pendulum"
+        // },
         {
             "name": "general",
             "type": "debugpy",
@@ -242,18 +243,18 @@
             "program": "${file}",
             "console": "integratedTerminal"
         },
-        {
-            "name": "test-networkx",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "testing.test-networkx"
-        },
-        {
-            "name": "deap-aplha",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "testing.test-deap-aplha"
-        }
+        // {
+        //     "name": "test-networkx",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "testing.test-networkx"
+        // },
+        // {
+        //     "name": "deap-aplha",
+        //     "type": "debugpy",
+        //     "request": "launch",
+        //     "module": "testing.test-deap-aplha"
+        // }
 
 
         
