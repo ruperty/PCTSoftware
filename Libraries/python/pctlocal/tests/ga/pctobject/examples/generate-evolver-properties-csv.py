@@ -10,7 +10,7 @@ import os
 from eepct.hpct import HPCTGenerateEvolvers
 
 args = "-i 1 -s 93"
-test = 5
+test = 6
 cmd='impl.evolve_multi'
 initial_index=1
 batch = 20
@@ -58,8 +58,8 @@ if test == 5:
     if test5 == 4:
         # common_configs['pop_size'] = 1000
         # common_configs['gens'] = 2
-        filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
-        # filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
+        # filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
+        filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
         initial_index=2000
         args = "-b -l -o -pl scEdges -p evolve-misc -c 4 -s 1 -i 9"
         # args = "-b -l -o -pl scEdges -p evolve-misc "
