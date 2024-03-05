@@ -9,20 +9,21 @@ from pct.environments import MicroGrid
 
 steps=1
 
-test = 2
+test = 3
+
+if test == 3:
+    env = MicroGridEnv()
+    env.seed(1)
+    state = env.reset(day=1)
+    action = [3,3,1,1]
+    state, reward, terminal, _ = env.step(action)
+    print(state, reward)
 
 if test == 1:
-
-    # env = OpenAIGym(env_name='CartPole-v1', seed=1, name='XXX')
-
-
-
     env = MicroGrid(seed=1)
+    env(True)
     env.summary()
 
-
-
-    pass
 
 if test == 2:
 

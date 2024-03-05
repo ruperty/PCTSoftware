@@ -55,6 +55,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "impl/run_from_file.py",
+            // python impl/run_from_file.py -f "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\961c97debb4ee95d8c8ee89904cf544e\\conf-0001-0007-000.410.config" -v
             // "args": ["-d", "c:\\Users\\ruper\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\cdf7cc1497ad143c0b04a3d9e72ab783"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\RewardError-RootMeanSquareError-Mode04\\ga-001.859-s093-2x3-m004-115c9fee5c1bbf61791fbc6c839f8c48.properties", "-s", "93"],
 
@@ -62,7 +63,7 @@
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-0001-0007-277.211.config" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-001-236.475.config" ], //, "-v" ],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\961c97debb4ee95d8c8ee89904cf544e\\conf-0001-000.405.config" ],
-            "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\961c97debb4ee95d8c8ee89904cf544e\\conf-0001-0007-000.410.config" ],
+            "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\961c97debb4ee95d8c8ee89904cf544e\\conf-0001-0007-000.410.config" , "-v"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.535-s001-4x5-m000-WT0035-35495ec6d6a5eb084827b06c45c4fe7c.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.539-s001-2x4-m000-WT0036-ec9ab7481dd95aec3648d84987570bf2.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
 
@@ -238,6 +239,7 @@
         },
         {
             "name": "Python: Current File",
+            "justMyCode": false,
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
