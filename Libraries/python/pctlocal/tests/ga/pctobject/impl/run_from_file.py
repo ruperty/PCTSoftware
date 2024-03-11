@@ -1,5 +1,5 @@
 
-import argparse
+import argparse, time
 from os import sep, listdir
 from cutils.paths import  get_gdrive
 from pct.hierarchy import PCTHierarchy
@@ -50,9 +50,15 @@ if __name__ == '__main__':
         history=False
 
     try:
+        tic = time.perf_counter()
+
         hierarchy, score = PCTHierarchy.run_from_file(args.file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
                         plots=plots, history=history, hpct_verbose= args.verbose, runs=None, plots_dir=args.outdir, early_termination=args.early)
         print(f'Score={score:0.3f}')
+        
+        toc = time.perf_counter()
+        elapsed = toc-tic        
+        print(f'Evolve time: {elapsed:4.2f}')
     except FileNotFoundError:
         print(f'File {args.file} does not exist.')
     
