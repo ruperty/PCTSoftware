@@ -102,7 +102,7 @@
             //"args": ["WindTurbine", "WT02-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-db", "2"],
             //"args": ["WindTurbine", "WT01-RewardError-SummedError-Mode00"],
             // "args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00"],
-            "args": ["MicroGrid", "MG0001-RewardError-RootMeanSquareError-Mode04" ,"-b", "-o", "-a", "-aa"], //, "-v"],
+            "args": ["MicroGrid", "MG0001-RewardError-SummedError-Mode04" ,"-b", "-o", "-x" ], //, "-p", "test-microgrid", "-l"], //, "-v"],
             "console": "internalConsole"
         },
         {
@@ -245,6 +245,18 @@
             "program": "${file}",
             "console": "integratedTerminal"
         },
+        {
+            "name": "Python: Current File with profiler",
+            "type": "python",
+            "request": "launch",
+            "module": "cProfile",
+            "args": [
+                "-o", "c:/tmp/tmp.prof", "${file}"
+            ]
+        }
+
+
+
         // {
         //     "name": "test-networkx",
         //     "type": "debugpy",

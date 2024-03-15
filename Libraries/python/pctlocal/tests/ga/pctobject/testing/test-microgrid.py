@@ -6,10 +6,11 @@ from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv, ACTIONS
 from matplotlib import pyplot
 from tqdm import tqdm
 from pct.environments import MicroGrid
+from pct.putils import Timer
 
 steps=1
 
-test = 3
+test = 2
 
 if test == 3:
     env = MicroGridEnv()
@@ -27,6 +28,7 @@ if test == 1:
 
 if test == 2:
 
+    timer = Timer()
     # Initialize the environment
     env = MicroGridEnv()
     env.seed(1)
@@ -38,29 +40,34 @@ if test == 2:
     env.render()
     ctr = 1
     # Interact with the environment (here we choose random actions) until the terminal state is reached
+    timer.start()
     while True:
         # Pick an action from the action space (here we pick an index between 0 and 80)
         action = env.action_space.sample()
         # Using the index we get the actual action that we will send to the environment
-        print(ACTIONS[action])
+        # print(ACTIONS[action])
         # Perform a step in the environment given the chosen action
         state, reward, terminal, _ = env.step(action)
         env.render()
-        print(ctr, state, reward, terminal)
+        # print(ctr, state, reward, terminal)
         rewards.append(reward)
-        ctr = ctr + 1
+        ctr += 1
         if terminal:
             break
+
+    print(ctr)
+    timer.stop()
     print("Total Reward:",sum(rewards))
-    print(ACTIONS)
+    print(f'Mean time: {timer.mean()}')
+    # print(ACTIONS)
 
     # Plot the TCL SoCs 
-    states = np.array(rewards)
-    pyplot.plot(rewards)
-    pyplot.title("rewards")
-    pyplot.xlabel("Time")
-    pyplot.ylabel("rewards")
-    pyplot.show()
+    # states = np.array(rewards)
+    # pyplot.plot(rewards)
+    # pyplot.title("rewards")
+    # pyplot.xlabel("Time")
+    # pyplot.ylabel("rewards")
+    # pyplot.show()
 
     # con = Constant(1, namespace=yaw.namespace)
     # yaw.add_link(con)
