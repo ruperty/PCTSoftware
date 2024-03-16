@@ -73,16 +73,17 @@ if test == 'WindTurbine':
 if test == 'MicroGrid':
 
     filename = 'configs-mg.csv'       
-    args = "-b -o"
-    num_evals = 10
-    pop_size =  100
-    gens = 10
+    args = "-b -o -x"
+    num_evals = 1
+    pop_size =  4
+    gens = 1
 
     common_configs = {'env' : 'MicroGrid', 'num_actions' : 4, 'seed': 1, 'arch_name' : 'MG', 'pop_size' : pop_size, 'gens': gens, 
                     'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 24, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
                     'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
                     'p_mutation': 0.75, 'num_evals': num_evals, 'error_limit': None, 'error_properties' : None, 
-                    'environment_properties': {'iterations' : 24, 'initial_seed' : 1, 'day_mode' : 'ordered', 'initial_day' :1 }}
+                    'environment_properties': {'iterations' : 24, 'day_mode' : 'ordered', 'initial_day' :1 }}
+                    # 'environment_properties': {'iterations' : 24, 'initial_seed' : 1, 'day_mode' : 'ordered', 'initial_day' :1 }}
 
 file = 'configs'+ os.sep + filename
 

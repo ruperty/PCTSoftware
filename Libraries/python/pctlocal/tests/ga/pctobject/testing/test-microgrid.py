@@ -7,18 +7,40 @@ from matplotlib import pyplot
 from tqdm import tqdm
 from pct.environments import MicroGrid
 from pct.putils import Timer
+from pct.microgrid import MicroGridEnvPlus
 
 steps=1
 
-test = 2
+test = 4
+
+if test == 4:
+    env = MicroGridEnvPlus()
+    properties = {'iterations' : 24, 'day_mode' : 'ordered', 'initial_day' :1 }
+    env.seed(1)
+    env.initialise(properties)
+    state = env.reset(day=1)
+    action = [2,2,1,1]
+    state, reward, terminal, _ = env.step(action)
+    print([eval(f'{i:4.3f}') for i in state], reward)
+    # env = MicroGridEnv()
+    # env.seed(1)
+    state = env.reset(day=2)
+    state, reward, terminal, _ = env.step(action)
+    print([eval(f'{i:4.3f}') for i in state], reward)
+
 
 if test == 3:
     env = MicroGridEnv()
     env.seed(1)
     state = env.reset(day=1)
-    action = [3,3,1,1]
+    action = [2,2,1,1]
     state, reward, terminal, _ = env.step(action)
-    print(state, reward)
+    print([eval(f'{i:4.3f}') for i in state], reward)
+    # env = MicroGridEnv()
+    # env.seed(1)
+    state = env.reset(day=1)
+    state, reward, terminal, _ = env.step(action)
+    print([eval(f'{i:4.3f}') for i in state], reward)
 
 if test == 1:
     env = MicroGrid(seed=1)

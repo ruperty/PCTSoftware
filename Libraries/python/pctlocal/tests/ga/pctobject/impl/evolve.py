@@ -4,7 +4,8 @@ import argparse
 from cutils.paths import get_root_path, get_gdrive
 from eepct.hpct import evolve_from_properties
 
-#logger = logging.getLogger(__name__)
+# python impl/evolve.py MicroGrid MG0001-RewardError-SummedError-Mode04 -b -o -x -v 
+# python impl/evolve.py MicroGrid MG0001-RewardError-SummedError-Mode04 -b -o -x -a -aa -df 
 
 
 if __name__ == '__main__':
