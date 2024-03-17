@@ -11,8 +11,8 @@ import os
 
 from eepct.hpct import HPCTGenerateEvolvers
 
-# test = 'WindTurbine'
-test = 'MicroGrid'
+test = 'WindTurbine'
+# test = 'MicroGrid'
 
 
 args = "-i 1 -s 93"
@@ -33,7 +33,7 @@ if test == 4:
     file = 'configs'+ os.sep + 'configs-pm.csv'
 
 if test == 'WindTurbine':
-    test = 4
+    test = 1
     batch = 20
 
     cmd='impl.evolve_multi_wt'
@@ -44,7 +44,7 @@ if test == 'WindTurbine':
 
     if test == 1:
         filename = 'configs-wt-0001-0616-steady.csv'
-        args = "-b -l -o -pl scEdges -p evolve-batch -c 6 -s 1 -i 3"
+        args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve" 
 
     if test == 2:
@@ -59,6 +59,7 @@ if test == 'WindTurbine':
         # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve-batch -c 8 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve" 
+        args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
 
     if test == 4:
         # common_configs['pop_size'] = 1000
@@ -77,12 +78,13 @@ if test == 'MicroGrid':
     num_evals = 1
     pop_size =  4
     gens = 1
-
+    #day_mode = 'ordered'
+    day_mode = [5]
     common_configs = {'env' : 'MicroGrid', 'num_actions' : 4, 'seed': 1, 'arch_name' : 'MG', 'pop_size' : pop_size, 'gens': gens, 
                     'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 24, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
                     'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
                     'p_mutation': 0.75, 'num_evals': num_evals, 'error_limit': None, 'error_properties' : None, 
-                    'environment_properties': {'iterations' : 24, 'day_mode' : 'ordered', 'initial_day' :1 }}
+                    'environment_properties': {'iterations' : 24, 'day_mode' : day_mode, 'initial_day' :1 }}
                     # 'environment_properties': {'iterations' : 24, 'initial_seed' : 1, 'day_mode' : 'ordered', 'initial_day' :1 }}
 
 file = 'configs'+ os.sep + filename

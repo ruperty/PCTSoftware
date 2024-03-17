@@ -18,15 +18,15 @@ if test == 4:
     properties = {'iterations' : 24, 'day_mode' : 'ordered', 'initial_day' :1 }
     env.seed(1)
     env.initialise(properties)
-    state = env.reset(day=1)
     action = [2,2,1,1]
-    state, reward, terminal, _ = env.step(action)
-    print([eval(f'{i:4.3f}') for i in state], reward)
-    # env = MicroGridEnv()
-    # env.seed(1)
-    state = env.reset(day=2)
-    state, reward, terminal, _ = env.step(action)
-    print([eval(f'{i:4.3f}') for i in state], reward)
+    for i in range(2): 
+        for day in range(1,11,1): 
+            state = env.reset(day=day)
+            state, reward, terminal, _ = env.step(action)
+            print([eval(f'{i:4.3f}') for i in state], reward)
+
+
+
 
 
 if test == 3:
