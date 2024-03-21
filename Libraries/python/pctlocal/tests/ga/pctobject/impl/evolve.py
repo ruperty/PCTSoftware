@@ -4,6 +4,8 @@ import argparse
 from cutils.paths import get_root_path, get_gdrive
 from eepct.hpct import evolve_from_properties
 
+# python impl/evolve.py WindTurbine WT0416-RewardError-SummedError-Mode02 -b -o 
+
 # python impl/evolve.py MicroGrid MG0001-RewardError-SummedError-Mode04 -b -o -x -v 
 # python impl/evolve.py MicroGrid MG0001-RewardError-SummedError-Mode04 -b -o -x -a -aa -df 
 

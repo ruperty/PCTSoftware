@@ -4,6 +4,9 @@ from cutils.paths import get_root_path, get_gdrive
 from eepct.wind_turbine import evolve_wt_from_properties
 
 
+# python impl/evolve_wt.py WindTurbine WT0416-RewardError-SummedError-Mode02 -b -o 
+
+
 if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser()
