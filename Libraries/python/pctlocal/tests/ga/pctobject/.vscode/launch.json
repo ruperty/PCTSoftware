@@ -101,9 +101,9 @@
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
             //"args": ["Pendulum", "PM00-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-s", "93"],
             //"args": ["WindTurbine", "WT02-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-db", "2"],
-            //"args": ["WindTurbine", "WT01-RewardError-SummedError-Mode00"],
+            "args": ["WindTurbine", "WT01-RewardError-SummedError-Mode00", "-p", "test-evolve"],
             // "args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00"],
-            "args": ["MicroGrid", "MG0001-RewardError-SummedError-Mode04" ,"-b", "-o", "-x", "-a", "-aa", "-df"  ], //, "-a", "-aa", "-df" ], //, "-p", "test-microgrid", "-l"], //, "-v"],
+            // "args": ["MicroGrid", "MG0001-RewardError-SummedError-Mode04" ,"-b", "-o", "-x", "-a", "-aa", "-df"  ], //, "-a", "-aa", "-df" ], //, "-p", "test-microgrid", "-l"], //, "-v"],
             "console": "internalConsole"
         },
         {

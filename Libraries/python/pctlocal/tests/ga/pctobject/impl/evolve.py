@@ -3,6 +3,7 @@
 import argparse
 from cutils.paths import get_root_path, get_gdrive
 from eepct.hpct import evolve_from_properties
+from epct.environment_processing import EnvironmentProcessingFactory
 
 # python impl/evolve.py WindTurbine WT0416-RewardError-SummedError-Mode02 -b -o 
 
@@ -28,8 +29,8 @@ if __name__ == '__main__':
 	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
 	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")	
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
-	# parser.add_argument('-p', '--pop', type=int, help="population size", default=100)
-	# parser.add_argument('-g', '--gens', type=int, help="number of generations")
+	parser.add_argument("-l", "--log", help="log experiment to comet", action="store_true")
+	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
 
 
 	args = parser.parse_args()
@@ -44,6 +45,12 @@ if __name__ == '__main__':
 	draw_file = args.draw_file
 	hpct_verbose= args.hpct_verbose
 	save_arch_all = args.save_arch_all
+	log_experiment= args.log
+
+	log_testing_to_experiment = False
+	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
+	project_name=args.project
+
 		
 	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': save_arch_all,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':hpct_verbose}
@@ -51,11 +58,16 @@ if __name__ == '__main__':
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
 
+	arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
+					'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots
+	}#,'gens':args.gens, 'pop':args.pop }
+	env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')	
+	env_proc.set_properties(args=arg)
+	arg['workspace']=env_proc.get_workspace()
+
+
 	for i in range(start, iters+start, 1):
-		arg = {'seed': i, 'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
-						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots
-		}#,'gens':args.gens, 'pop':args.pop }
-					
+		arg['seed']=i
 		pf = evolve_from_properties(arg)
 		pass
 	
