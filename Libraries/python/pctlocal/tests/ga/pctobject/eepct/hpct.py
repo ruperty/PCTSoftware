@@ -11,14 +11,12 @@ import time, csv
 from deap import base, creator
 from os import makedirs, sep
 
-from epct.po_evolvers import HPCTIndividual
 from epct.po_architecture import HPCTLEVEL, HPCTVARIABLE
-from pct.hierarchy import PCTHierarchy
 from pct.functions import HPCTFUNCTION
 
 from epct.evolvers import  CommonToolbox
 from epct.po_evolvers import HPCTEvolveProperties
-
+from epct.environment_processing import EnvironmentProcessingFactory
 
 
 # logger = logging.getLogger(__name__)
@@ -394,80 +392,6 @@ class HPCTGenerateEvolvers(object):
 
         return default
     
-
-
-def evolve_from_properties(args):
-    if args['hierarchy_plots'] is not None:
-        if args['hierarchy_plots'].startswith('sc'):
-            hierarchy_plots=args['hierarchy_plots']
-        else:
-            hierarchy_plots=eval(args['hierarchy_plots'])
-    else:
-        hierarchy_plots = None
-    seed=args['seed']
-    env_name=args['env_name']
-    verbose= args['verbosed']
-    min=True
-    max= args['max']
-    draw_file = args['draw_file']
-    tic = time.perf_counter()
-    out_dir= args['drive'] + f'data{sep}ga{sep}'
-    node_size, font_size=200, 6
-    filename=args['file']
-    root = args['root_path']
-    file = root + args['configs_dir'] + env_name +sep+ filename + ".properties"
-    if 'experiment' in args:
-        experiment = args['experiment']
-    else:
-        experiment = None
-
-    if max:
-        pass
-        min=False
-        if hasattr(creator, 'FitnessMax'):
-                pass
-        else:
-                creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-                creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMax)
-    else:
-        # flip=False
-        min=True
-        if hasattr(creator, 'FitnessMin'):
-                pass
-        else:
-                creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
-                creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)
-
-    toolbox = base.Toolbox()
-    CommonToolbox.getInstance().set_toolbox(toolbox)
-
-    print(f'Start seed={seed} min={min} file={filename}')
-
-    hep = HPCTEvolveProperties()
-    output=True
-    overwrite=args['overwrite']
-
-	# # print(verbose)
-    hash_num, desc, properties_str = hep.configure_evolver_from_properties_file(file=file, seed=seed, verbose=verbose, toolbox=toolbox,  min=min, print_properties=False)        
-
-    log_dir=sep.join((out_dir, env_name, desc))
-    makedirs(log_dir,exist_ok = True) 
-    	
-    properties_file, evr, score, experiment = hep.run_configured_evolver( file=file, print_properties=True, draw_file=draw_file, out_dir=out_dir, hash_num=hash_num, 
-                                                             output=output, overwrite=overwrite, node_size=node_size, font_size=font_size, log=True, args=args, 
-                                                             experiment=experiment)
-    
-    if properties_file != None:
-        if hierarchy_plots and len(hierarchy_plots) > 0:
-            hierarchy, score = PCTHierarchy.run_from_file(properties_file, plots=hierarchy_plots, history=True, experiment=experiment, plots_dir=args['plots_dir'], min=min)
-            print(f'After plots, score={score:4.3f}')
-
-        toc = time.perf_counter()
-        elapsed = toc-tic        
-        print(f'Seed {seed} Evolve time: {elapsed:4.2f}')
-
-    return properties_file, experiment
-
 
     
     

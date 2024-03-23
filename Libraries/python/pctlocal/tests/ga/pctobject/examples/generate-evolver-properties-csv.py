@@ -33,7 +33,7 @@ if test == 4:
     file = 'configs'+ os.sep + 'configs-pm.csv'
 
 if test == 'WindTurbine':
-    test = 1
+    test = 3
     batch = 20
 
     cmd='impl.evolve_multi_wt'
@@ -56,10 +56,7 @@ if test == 'WindTurbine':
 
         filename = 'configs-wt-0001-0616-variable.csv'       
         # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
-        # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
-        # args = "-b -l -o -pl scEdges -p evolve-batch -c 8 -s 1 -i 3"
-        # args = "-b -l -o -pl scEdges -p evolve" 
-        args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
+        args = "-b -l -o -pl scEdges -p test-evolve -ep \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
 
     if test == 4:
         # common_configs['pop_size'] = 1000
