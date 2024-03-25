@@ -47,3 +47,4 @@ Libraries/python/pctlocal/tests/ga/pctobject/impl/__pycache__/*.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/*.npy
 Libraries/python/pctlocal/tests/ga/pctobject/cutils/__pycache__/*.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/configs/MicroGrid/*.properties
+Libraries/python/pctlocal/tests/ga/pctobject/data/data/ga/WindTurbine/RewardError-SummedError-Mode05/ga--1329.244-s001-3x4-m005-WT0538-84e9319ab9338cc3ef3ccda71e862f2e.properties

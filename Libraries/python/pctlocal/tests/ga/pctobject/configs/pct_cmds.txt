@@ -1637,6 +1637,10 @@ python -m impl.evolve_multi_wt WindTurbine "['WT2080-RewardError-SummedError-Mod
 python -m impl.evolve_wt WindTurbine WT0416-RewardError-SummedError-Mode02 -b -o -v
 
 
+python -m impl.evolve WindTurbine WT0538-RewardError-SummedError-Mode05 -s 3 -o -b -pl scEdges -p test-evolve -ep "{'comparisons' : True, 'comparisons_print_plots': True}"
+          
+
+
 
 
 
