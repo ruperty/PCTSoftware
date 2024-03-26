@@ -100,6 +100,12 @@ class HPCTGenerateEvolvers(object):
                     delimiter = "|"
                 rtn = rtn + delimiter + "zero^act^Binary~EASigmoidSmoothWeightedSum~{ 'lower_float': -1,'upper_float': 1, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50}"
 
+            if code == 'scActFlt538':
+                delimiter = ""
+                if len(rtn)>0:
+                    delimiter = "|"
+                rtn = rtn + delimiter + "zero^act^Binary~EASigmoidSmoothWeightedSum~{ 'lower_float': -1,'upper_float': 1, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50, 'initial_range':2, 'initial_slope': 10}"
+
         return rtn
 
 

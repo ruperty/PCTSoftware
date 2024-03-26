@@ -36,7 +36,7 @@ if test == 4:
 if test == 'WindTurbine':
     test = 1
     batch = 20
-    pop_size =  100
+    pop_size = 100
     gens = 10
 
     cmd='impl.evolve_multi_wt'

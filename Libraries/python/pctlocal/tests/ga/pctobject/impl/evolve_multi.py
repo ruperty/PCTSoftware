@@ -22,7 +22,7 @@ if __name__ == '__main__':
 	parser.add_argument("-b", "--run_gen_best", help="run best of each generation", action="store_true")
 	parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 	parser.add_argument('-c', '--cpu', type=int, help="number of processes", default=8)
-	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
+	parser.add_argument('-p', '--project', type=str, help="comet project name")#, default="test-evolve")
 	parser.add_argument("-rp", "--results_props", type=str, help="properties for the results for an environment")
 	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
 	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")

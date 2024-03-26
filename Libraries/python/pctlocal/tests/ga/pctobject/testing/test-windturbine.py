@@ -6,7 +6,7 @@ import os
 
 import numpy.testing as npt
 
-from epct.po_evolvers import HPCTEvolveProperties, HPCTIndividual
+from epct.po_evolvers import HPCTIndividual
 # from cutils.paths import get_root_path, get_gdrive
 from deap import base, creator
 from epct.evolvers import CommonToolbox
@@ -27,10 +27,10 @@ class TestEvolveWindTurbine():
 
         creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
         creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)        
-        if get_debug_level() > 1:
-            self.pop_size,  self.gens = 100, 10     
-        else:     
-            self.pop_size,  self.gens = 4, 1
+        # if get_debug_level() > 1:
+        self.pop_size,  self.gens = 100, 10     
+        # else:     
+        #     self.pop_size,  self.gens = 4, 1
         debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
         hpct_verbose= False #True # log of every control system iteration
         evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
@@ -53,7 +53,7 @@ class TestEvolveWindTurbine():
         root_path = self.prefix + os.sep
         configs_dir = ""
         args = {'file': filename, 'env_name': env_name, 'verbosed':verbosed, 'overwrite':True, 'draw_file' :False,
-                        'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'seed': 1,    
+                        'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'seed': 3,    
                         'comparisons' : True, 'comparisons_print_plots': False, 'hierarchy_plots': None,
                         'pop_size': self.pop_size, 'gens' : self.gens }
 

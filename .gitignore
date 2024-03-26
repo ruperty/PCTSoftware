@@ -49,3 +49,5 @@ Libraries/python/pctlocal/tests/ga/pctobject/cutils/__pycache__/*.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/configs/MicroGrid/*.properties
 Libraries/python/pctlocal/tests/ga/pctobject/configs/WindTurbine/*.properties
 Libraries/python/pctlocal/tests/ga/pctobject/configs/wt/*.txt
+Libraries/python/pctlocal/tests/ga/pctobject/data/data/ga/WindTurbine/RewardError-SummedError-Mode05/*.properties
+Libraries/python/pctlocal/tests/ga/pctobject/configs/WindTurbine/*.bak
