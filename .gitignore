@@ -48,3 +48,4 @@ Libraries/python/pctlocal/tests/ga/pctobject/*.npy
 Libraries/python/pctlocal/tests/ga/pctobject/cutils/__pycache__/*.pyc
 Libraries/python/pctlocal/tests/ga/pctobject/configs/MicroGrid/*.properties
 Libraries/python/pctlocal/tests/ga/pctobject/configs/WindTurbine/*.properties
+Libraries/python/pctlocal/tests/ga/pctobject/configs/wt/*.txt
