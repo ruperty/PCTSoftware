@@ -31,7 +31,7 @@ if __name__ == '__main__':
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
 	# parser.add_argument("-l", "--log", help="log experiment to comet", action="store_true")
 	parser.add_argument('-p', '--project', type=str, help="comet project name", default="test-evolve")
-	parser.add_argument("-ep", "--env_props", type=str, help="properties for environment")
+	parser.add_argument("-rp", "--results_props", type=str, help="properties for the results for an environment")
 
 
 	args = parser.parse_args()
@@ -47,9 +47,8 @@ if __name__ == '__main__':
 	hpct_verbose= args.hpct_verbose
 	save_arch_all = args.save_arch_all
 	# log_experiment= args.log
-	env_props = eval(args.env_props)
+	results_props = eval(args.results_props)
 	plots_dir = 'c:/tmp'
-
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
@@ -63,9 +62,8 @@ if __name__ == '__main__':
 
 	arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
 					'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
-					'api_key':api_key, 'hierarchy_plots': hierarchy_plots,
-					'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
-	} | env_props
+					'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
+	} | results_props
 	
 
 	# env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')	

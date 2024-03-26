@@ -7,7 +7,8 @@ Created on Mon Apr 17 2023
 
 # python examples/generate-evolver-properties-csv.py
 
-import os
+
+from os import sep
 
 from eepct.hpct import HPCTGenerateEvolvers
 
@@ -21,30 +22,32 @@ initial_index=1
 batch = 20
 
 if test == 1:
-    file = 'configs'+ os.sep + 'configs-cp.csv'
+    file = 'configs'+ sep + 'configs-cp.csv'
 
 if test == 2:
-    file = 'configs'+ os.sep + 'configs-mc.csv'
+    file = 'configs'+ sep + 'configs-mc.csv'
 
 if test == 3:
-    file = 'configs'+ os.sep + 'configs-ww.csv'
+    file = 'configs'+ sep + 'configs-ww.csv'
 
 if test == 4:
-    file = 'configs'+ os.sep + 'configs-pm.csv'
+    file = 'configs'+ sep + 'configs-pm.csv'
 
 if test == 'WindTurbine':
-    test = 3
+    test = 1
     batch = 20
+    pop_size =  100
+    gens = 10
 
     cmd='impl.evolve_multi_wt'
-    common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : 100, 'gens': 10, 
+    common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : pop_size, 'gens': gens, 
                     'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
                     'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
                     'p_mutation': 0.75, 'num_evals': 1}
 
     if test == 1:
-        filename = 'configs-wt-0001-0616-steady.csv'
-        args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
+        filename = 'wt' + sep +'configs-wt-0001-0616-steady.csv'
+        args = "-b -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve" 
 
     if test == 2:
@@ -56,7 +59,7 @@ if test == 'WindTurbine':
 
         filename = 'configs-wt-0001-0616-variable.csv'       
         # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
-        args = "-b -l -o -pl scEdges -p test-evolve -ep \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
+        args = "-b -l -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
 
     if test == 4:
         # common_configs['pop_size'] = 1000
@@ -84,7 +87,7 @@ if test == 'MicroGrid':
                     'environment_properties': {'iterations' : 24, 'day_mode' : day_mode, 'initial_day' :1 }}
                     # 'environment_properties': {'iterations' : 24, 'initial_seed' : 1, 'day_mode' : 'ordered', 'initial_day' :1 }}
 
-file = 'configs'+ os.sep + filename
+file = 'configs'+ sep + filename
 
 hge = HPCTGenerateEvolvers(common_configs=common_configs)  
 hge.process_csv(file, args, cmdline=cmd, initial_index=initial_index, batch=batch)
