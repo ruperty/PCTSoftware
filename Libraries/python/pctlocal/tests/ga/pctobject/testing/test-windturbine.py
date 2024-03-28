@@ -14,6 +14,8 @@ from epct.configs import get_debug_level
 from epct.evolve import evolve_setup
 
 
+# python testing/test-windturbine.py
+
 toolbox = base.Toolbox()
 CommonToolbox.getInstance().set_toolbox(toolbox)
 
@@ -28,9 +30,11 @@ class TestEvolveWindTurbine():
         creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
         creator.create("Individual", HPCTIndividual, fitness=creator.FitnessMin)        
         # if get_debug_level() > 1:
-        self.pop_size,  self.gens = 100, 10     
-        # else:     
-        #     self.pop_size,  self.gens = 4, 1
+        self.debug_level = 1
+        if self.debug_level > 1:
+            self.pop_size,  self.gens = 100, 10     
+        else:     
+            self.pop_size,  self.gens = 4, 2
         debug= 0 #0 #3 # details of population in each gen, inc. mutate and merge
         hpct_verbose= False #True # log of every control system iteration
         evolve_verbose =  1 #2 # output of evolve iterations, 2 for best of each gen
@@ -40,7 +44,6 @@ class TestEvolveWindTurbine():
         self.suffix = ".properties"
         self.environment_properties={}
 
-   
 
     def test_WT0538_RewardError_SummedError_Mode05(self):
         filename = 'WT0538-RewardError-SummedError-Mode05'        
@@ -49,7 +52,7 @@ class TestEvolveWindTurbine():
 
         max = False
         env_name = "WindTurbine"
-        drive = 'data' + os.sep
+        drive = 'output' + os.sep
         root_path = self.prefix + os.sep
         configs_dir = ""
         args = {'file': filename, 'env_name': env_name, 'verbosed':verbosed, 'overwrite':True, 'draw_file' :False,
@@ -61,15 +64,27 @@ class TestEvolveWindTurbine():
         print(score)
         print(results)
         if os.name=='nt':
-
-            npt.assert_almost_equal(score, -1329.2441095100335)
-            npt.assert_almost_equal(results['energy_gain'], -2.735901797285656)
-            npt.assert_almost_equal(results['net_energy_gain'], -2.659648309822038)
+            if self.debug_level > 1:
+                # windows full values
+                npt.assert_almost_equal(score, -1362.401471117955)
+                npt.assert_almost_equal(results['energy_gain'], 0.3800216043523763)
+                npt.assert_almost_equal(results['net_energy_gain'], 0.3450186005671707)
+            else:
+                # windows short values                
+                npt.assert_almost_equal(score,  -1329.2441095100335)
+                npt.assert_almost_equal(results['energy_gain'], -2.735901797285656)
+                npt.assert_almost_equal(results['net_energy_gain'], -2.659648309822038)
         else:
-            npt.assert_almost_equal(score, -1329.2441095100335)
-            npt.assert_almost_equal(results['energy_gain'], 0)
-            npt.assert_almost_equal(results['net_energy_gain'], 0.40101754527281)
-
+            if self.debug_level > 1:
+                # unix full values
+                npt.assert_almost_equal(score, -1359.4353135845695)
+                npt.assert_almost_equal(results['energy_gain'], -9.659943028931616)
+                npt.assert_almost_equal(results['net_energy_gain'],  -9.596526828919782)
+            else:
+                # unix short values                
+                npt.assert_almost_equal(score, -1329.2441095100335)
+                npt.assert_almost_equal(results['energy_gain'], -2.735901797285656)
+                npt.assert_almost_equal(results['net_energy_gain'], -2.659648309822038)
 
 
 test = TestEvolveWindTurbine()

@@ -5,7 +5,7 @@ Created on Mon Apr 17 2023
 @author: ryoung
 """
 
-# python examples/generate-evolver-properties-csv.py
+# python examples/generate-evolver-properties-csv.py > configs/wt/steady-cmds.txt
 
 
 from os import sep
@@ -39,7 +39,6 @@ if test == 'WindTurbine':
     pop_size = 100
     gens = 10
 
-    cmd='impl.evolve_multi_wt'
     common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : pop_size, 'gens': gens, 
                     'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
                     'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
@@ -47,7 +46,8 @@ if test == 'WindTurbine':
 
     if test == 1:
         filename = 'wt' + sep +'configs-wt-0001-0616-steady.csv'
-        args = "-b -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
+        args = "-b -o -pl scEdges -p evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 "
+        # args = "-b -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve" 
 
     if test == 2:
