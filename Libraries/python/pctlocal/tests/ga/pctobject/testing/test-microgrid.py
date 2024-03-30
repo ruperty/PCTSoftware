@@ -11,9 +11,26 @@ from pct.microgrid import MicroGridEnvPlus
 
 steps=1
 
-test = 4
+# test = "mg+reset"
+test = "mg+days"
 
-if test == 4:
+
+if test == "mg+days":
+    its=264
+    env = MicroGridEnvPlus()
+    properties = {'iterations' : its, 'day_mode' : 'ordered', 'initial_day' :1 }
+    env.seed(1)
+    env.initialise(properties)
+    state = env.reset()
+    action = [2,2,1,1]
+    for it in range(its): 
+        state, reward, terminal, _ = env.step(action)
+        print(it, env.day, [eval(f'{i:4.3f}') for i in state], f'{reward:4.3f}', state[7]*24)
+        if (it + 1) % 24 == 0:
+            env.reset()
+
+
+if test == "mg+reset":
     env = MicroGridEnvPlus()
     properties = {'iterations' : 24, 'day_mode' : 'ordered', 'initial_day' :1 }
     env.seed(1)
@@ -23,7 +40,7 @@ if test == 4:
         for day in range(1,11,1): 
             state = env.reset(day=day)
             state, reward, terminal, _ = env.step(action)
-            print([eval(f'{i:4.3f}') for i in state], reward)
+            print([eval(f'{i:4.3f}') for i in state], reward, state[7]*24)
 
 
 
@@ -81,28 +98,5 @@ if test == 2:
     timer.stop()
     print("Total Reward:",sum(rewards))
     print(f'Mean time: {timer.mean()}')
-    # print(ACTIONS)
-
-    # Plot the TCL SoCs 
-    # states = np.array(rewards)
-    # pyplot.plot(rewards)
-    # pyplot.title("rewards")
-    # pyplot.xlabel("Time")
-    # pyplot.ylabel("rewards")
-    # pyplot.show()
-
-    # con = Constant(1, namespace=yaw.namespace)
-    # yaw.add_link(con)
-    # env_props={'series': 'steady'}
-    # yaw.set_properties(env_props)
-    # print(yaw.get_config())
-    # actions = [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1,1,1,1,1,1,1,1, 1, 1]
-    # for i in range(len(actions)):
-    #     con.set_value(actions[i])
-    #     print(i, end=" ")
-    #     yaw.run(steps=steps, verbose=True)
-    #     print()
-    # yaw.close()
-
-    # git test
-
+    
+    
