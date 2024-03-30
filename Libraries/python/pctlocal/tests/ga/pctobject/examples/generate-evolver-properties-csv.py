@@ -5,7 +5,7 @@ Created on Mon Apr 17 2023
 @author: ryoung
 """
 
-# python examples/generate-evolver-properties-csv.py > configs/wt/steady-cmds.txt
+# python examples/generate-evolver-properties-csv.py > configs/wt/variable-cmds.txt
 
 
 from os import sep
@@ -34,7 +34,7 @@ if test == 4:
     file = 'configs'+ sep + 'configs-pm.csv'
 
 if test == 'WindTurbine':
-    test = 1
+    test = 3
     batch = 20
     pop_size = 100
     gens = 10
@@ -50,25 +50,25 @@ if test == 'WindTurbine':
         # args = "-b -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve" 
 
-    if test == 2:
-        filename = 'configs-wt-1000-1083-steady-w2test.csv'       
-        initial_index=2000
-        args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
+    # if test == 2:
+    #     filename = 'configs-wt-1000-1083-steady-w2test.csv'       
+    #     initial_index=2000
+    #     args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
 
     if test == 3:
 
-        filename = 'configs-wt-0001-0616-variable.csv'       
+        filename = 'wt' + sep + 'configs-wt-0001-0616-variable.csv'       
         # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
-        args = "-b -l -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
+        args = "-b -o -pl scEdges -p evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6"
 
-    if test == 4:
-        # common_configs['pop_size'] = 1000
-        # common_configs['gens'] = 2
-        # filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
-        filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
-        initial_index=2000
-        args = "-b -l -o -pl scEdges -p evolve-misc -c 4 -s 1 -i 9"
-        # args = "-b -l -o -pl scEdges -p evolve-misc "
+    # if test == 4:
+    #     # common_configs['pop_size'] = 1000
+    #     # common_configs['gens'] = 2
+    #     # filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
+    #     filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
+    #     initial_index=2000
+    #     args = "-b -l -o -pl scEdges -p evolve-misc -c 4 -s 1 -i 9"
+    #     # args = "-b -l -o -pl scEdges -p evolve-misc "
 
 
 if test == 'MicroGrid':
