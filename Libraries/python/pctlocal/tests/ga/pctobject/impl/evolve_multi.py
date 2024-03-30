@@ -46,7 +46,6 @@ if __name__ == '__main__':
 	drive = get_gdrive()
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
-	overwrite=True
 
 	list=[]
 	for file in eval(args.files):    
