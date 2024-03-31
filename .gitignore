@@ -51,3 +51,4 @@ Libraries/python/pctlocal/tests/ga/pctobject/configs/WindTurbine/*.properties
 Libraries/python/pctlocal/tests/ga/pctobject/configs/wt/*.txt
 Libraries/python/pctlocal/tests/ga/pctobject/data/data/ga/WindTurbine/RewardError-SummedError-Mode05/*.properties
 Libraries/python/pctlocal/tests/ga/pctobject/configs/WindTurbine/*.bak
+Libraries/python/pctlocal/tests/ga/pctobject/configs/wt/.~lock.configs-wt-0001-0616-variable.csv#
