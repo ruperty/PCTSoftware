@@ -1,13 +1,11 @@
 import numpy as np
-from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv, ACTIONS
-
-# from tcl_env_dqn import MicroGridEnv
+import drl_microgrid_ems.tcl_env_dqn as drlmg0
 
 from matplotlib import pyplot
 from tqdm import tqdm
 from pct.environments import MicroGrid
 from pct.putils import Timer
-from pct.microgrid import MicroGridEnvPlus
+from pct.microgrid import MicroGridEnv0Plus
 
 steps=1
 
@@ -17,7 +15,7 @@ test = "mg+days"
 
 if test == "mg+days":
     its=264
-    env = MicroGridEnvPlus()
+    env = MicroGridEnv0Plus()
     properties = {'iterations' : its, 'day_mode' : 'ordered', 'initial_day' :1 }
     env.seed(1)
     env.initialise(properties)
@@ -31,7 +29,7 @@ if test == "mg+days":
 
 
 if test == "mg+reset":
-    env = MicroGridEnvPlus()
+    env = MicroGridEnv0Plus()
     properties = {'iterations' : 24, 'day_mode' : 'ordered', 'initial_day' :1 }
     env.seed(1)
     env.initialise(properties)
@@ -47,7 +45,7 @@ if test == "mg+reset":
 
 
 if test == 3:
-    env = MicroGridEnv()
+    env = drlmg0.MicroGridEnv0()
     env.seed(1)
     state = env.reset(day=1)
     action = [2,2,1,1]
@@ -69,7 +67,7 @@ if test == 2:
 
     timer = Timer()
     # Initialize the environment
-    env = MicroGridEnv()
+    env = drlmg0.MicroGridEnv0()
     env.seed(1)
     # Save the rewards in a list
     rewards = []
