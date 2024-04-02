@@ -3,10 +3,10 @@
 
 import argparse
 from os import sep, makedirs
-from eepct.hpct import HPCTIndividual
+from epct.po_evolvers import HPCTIndividual
 
 
-def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, node_size=200):
+def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, node_size=200, suffixes=False):
 
     lastsepIndex = filename.rfind(sep)
     propIndex = filename.rfind('.properties')
@@ -19,7 +19,8 @@ def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, n
     env_name = hpct.get_environment().get_name()
     hname = env_name + '\n' + etype + '\nscore=' + f'{float(filenamePrefix[3:10]):0.3f}'
     hpct.set_name(hname)
-    hpct.set_suffixes()
+    if suffixes:
+        hpct.set_suffixes()
     # print(hpct.formatted_config(3))
     hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size, funcdata=funcdata)
     print('Image saved to '+draw_file)
@@ -47,8 +48,9 @@ if __name__ == '__main__':
     parser.add_argument('-n', '--node_size',  type=int, help="node size", default="200")
     parser.add_argument("-m", "--move", type=str, help="node positioning")
     parser.add_argument("-d", "--funcdata", help="include function labels", action="store_true")
+    parser.add_argument("-s", "--suffixes", help="add function suffixes", action="store_true")
 
     args = parser.parse_args()
 
-    drawit(filename=args.file, outdir=args.outdir, funcdata=args.funcdata, font_size=args.font_size, node_size=args.node_size, move=eval(args.move))
+    drawit(filename=args.file, outdir=args.outdir, funcdata=args.funcdata, font_size=args.font_size, node_size=args.node_size, move=eval(args.move), suffixes=args.suffixes)
 
