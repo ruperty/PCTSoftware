@@ -4,12 +4,8 @@ import time, random
 
 from deap import base, creator
 from epct.evolvers import CommonToolbox
-from eepct.hpct import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolverWrapper
-from eepct.hpct import HPCTFUNCTION
-from eepct.hpct import HPCTLEVEL
-from eepct.hpct import HPCTVARIABLE
-from eepct.hpct import Memory
-
+from epct.po_evolvers import HPCTIndividual, HPCTEvolver, HPCTArchitecture, HPCTEvolverWrapper
+from epct.po_architecture import HPCTLEVEL, HPCTFUNCTION, HPCTVARIABLE
 from pct.putils import FunctionsList
 
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
@@ -23,7 +19,7 @@ CommonToolbox.getInstance().set_toolbox(toolbox)
 
 if __name__ == "__main__":
 
-    test=2
+    test=3
 
     lower, upper = -1, 1 
     arch = HPCTArchitecture(lower_float=lower, upper_float=upper)
@@ -40,11 +36,11 @@ if __name__ == "__main__":
         
         arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable')
         arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float')
-        arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -5,'upper': 5})
+        arch.set(HPCTLEVEL.ZEROTOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower_float': -5,'upper_float': 5})
         
         arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.FUNCTION_CLASS, 'EAVariable')
         arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.TYPE, 'Float')
-        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower': -100,'upper': 100})
+        arch.set(HPCTLEVEL.TOP, HPCTFUNCTION.REFERENCE, HPCTVARIABLE.PROPERTIES, { 'lower_float': -100,'upper_float': 100})
 
     env_name = 'CartPoleV1'
     env_inputs_indexes=[1, 0, 3, 2]
@@ -58,18 +54,21 @@ if __name__ == "__main__":
     toplevel_inputs_indexes=None
     seed=1
     debug=0
-                
+
+    if test==3:
+        debug=2
+
     if test==1:
         # test remove level
         seed=5
         debug=0
         
 
-        
+    min = True
     environment_properties = {'env_inputs_indexes': env_inputs_indexes, 'zerolevel_inputs_indexes':zerolevel_inputs_indexes, 'render':False, 'early_termination': False,
         'toplevel_inputs_indexes':toplevel_inputs_indexes, 'env_inputs_names':env_inputs_names, 'env_name':env_name, 'num_actions':num_actions, 'references':references}
-    hpct_run_properties ={ 'hpct_verbose':False, 'debug':debug , 'runs':runs, 'nevals':nevals, 'seed':seed,  'error_collector_type' :  'InputsError', 'error_response_type' : 'RootMeanSquareError'}   
-    evolve_properties = {'attr_mut_pb':0.8,'structurepb':1} #, 'attr_cx_uniform_pb':0.5, 'alpha':0.5} 
+    hpct_run_properties ={'min': min, 'hpct_verbose':False, 'debug':debug , 'runs':runs, 'nevals':nevals, 'seed':seed,  'error_collector_type' :  'InputsError', 'error_response_type' : 'RootMeanSquareError'}   
+    evolve_properties = {'attr_mut_pb':1,'structurepb':0.9} #, 'attr_cx_uniform_pb':0.5, 'alpha':0.5} 
     hpct_structure_properties ={ 'min_levels_limit':min_levels_limit, 'max_levels_limit':max_levels_limit, 'min_columns_limit':min_columns_limit, 'max_columns_limit':max_columns_limit }    
   
 
@@ -82,9 +81,16 @@ if __name__ == "__main__":
     random.seed(seed)
     evolver = HPCTEvolver(**evolver_properties)
     #print(evolver_properties)
-    evr = HPCTEvolverWrapper(evolver=evolver, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.8, p_mutation=0.5, display_env=True, local_out_dir='output')
+    evr = HPCTEvolverWrapper(evolver=evolver, min=min, pop_size=pop_size, toolbox=toolbox, processes=processes, p_crossover=0.9, p_mutation=0.75, display_env=True, local_out_dir='output')
 
 
+    if test==3:        
+        # test top float mutate
+        for seed in range(1000):
+            random.seed(seed)
+            ind = evr.toolbox.individual()          
+            ind1, = evr.toolbox.mutate(ind, choice=2)
+            # ind1.validate_links()
 
     if test==2:        
         # test top float mutate

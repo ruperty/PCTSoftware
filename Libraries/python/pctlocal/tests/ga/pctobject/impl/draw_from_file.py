@@ -19,9 +19,11 @@ def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, n
     env_name = hpct.get_environment().get_name()
     hname = env_name + '\n' + etype + '\nscore=' + f'{float(filenamePrefix[3:10]):0.3f}'
     hpct.set_name(hname)
+    hpct.validate_links()
     if suffixes:
         hpct.set_suffixes()
-    # print(hpct.formatted_config(3))
+    print(hpct.formatted_config(3))
+    hpct.summary()
     hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size, funcdata=funcdata)
     print('Image saved to '+draw_file)
 

@@ -9,7 +9,8 @@ from epct.evolve import evolve_setup
 
 # python impl/evolve.py MicroGrid MG0001-RewardError-SummedError-Mode04 -b -o -x -v 
 # python impl/evolve.py MicroGrid MG0001-RewardError-SummedError-Mode04 -b -o -x -a -aa -df 
-
+# python impl/evolve.py WindTurbine WT0095-RewardError-RootMeanSquareError-Mode02 -b -a -aa -rp "{'comparisons' : True, 'comparisons_print_plots': False}" -db 2 > out.txt
+            
 
 if __name__ == '__main__':
 
@@ -54,7 +55,7 @@ if __name__ == '__main__':
 	project_name=args.project
 
 		
-	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': save_arch_all,
+	verbosed = {'debug': args.debug,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': save_arch_all,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':hpct_verbose}
 	drive = get_gdrive()
 	root_path=get_root_path()
