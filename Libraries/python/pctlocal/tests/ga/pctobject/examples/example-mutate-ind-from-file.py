@@ -68,6 +68,7 @@ for seed in range(6, 7, 1):
 	print(ind.get_grid())	
 	for i in range(2):
 		print(i, end=" ")
+		ind()
 		ind, = evr.toolbox.mutate(ind, choice=2, add_nodes=4)
 		print(ind.get_grid())	
 		pass
