@@ -35,7 +35,7 @@ if test == 4:
     file = 'configs'+ sep + 'configs-pm.csv'
 
 if test == 'WindTurbine':
-    test = "variable"
+    test = "steady"
     batch = 20
     pop_size = 100
     gens = 10
@@ -47,7 +47,7 @@ if test == 'WindTurbine':
 
     if test == "steady":
         filename = 'wt' + sep +'configs-wt-0001-0616-steady.csv'
-        args = "-b -pl scEdges -p evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 "
+        args = "-b -pl scEdges -p evolve1 -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6 "
         # args = "-b -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve" 
 
