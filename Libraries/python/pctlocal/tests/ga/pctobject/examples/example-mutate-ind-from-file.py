@@ -46,7 +46,7 @@ else:
 toolbox = base.Toolbox()
 CommonToolbox.getInstance().set_toolbox(toolbox)
 
-verbose = {'debug': 4,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
+verbose = {'debug': 2,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
 				'save_arch_gen': False, 'run_gen_best':False, 'display_env': False, 'hpct_verbose':False}
 
 
@@ -70,7 +70,13 @@ for seed in range(6, 7, 1):
 		print(i, end=" ")
 		ind()
 		ind, = evr.toolbox.mutate(ind, choice=2, add_nodes=4)
-		print(ind.get_grid())	
+		print(ind.get_grid())			
+              
+		link=ind.get_node(1,0).get_function_from_collection(HPCTFUNCTION.REFERENCE).get_links()[0]
+		if isinstance(link, str):
+			print('LNAME:',link)      
+		else:    
+			print(link.get_name())      
 		pass
 
 

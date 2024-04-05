@@ -35,7 +35,7 @@ if test == 4:
     file = 'configs'+ sep + 'configs-pm.csv'
 
 if test == 'WindTurbine':
-    test = 3
+    test = "variable"
     batch = 20
     pop_size = 100
     gens = 10
@@ -45,7 +45,7 @@ if test == 'WindTurbine':
                     'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
                     'p_mutation': 0.75, 'num_evals': 1}
 
-    if test == 1:
+    if test == "steady":
         filename = 'wt' + sep +'configs-wt-0001-0616-steady.csv'
         args = "-b -pl scEdges -p evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 "
         # args = "-b -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
@@ -56,11 +56,11 @@ if test == 'WindTurbine':
     #     initial_index=2000
     #     args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
 
-    if test == 3:
+    if test == "variable":
 
         filename = 'wt' + sep + 'configs-wt-0001-0616-variable.csv'       
         # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
-        args = "-b -pl scEdges -p evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6"
+        args = "-b -pl scEdges -p evolve1 -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6"
 
     # if test == 4:
     #     # common_configs['pop_size'] = 1000
