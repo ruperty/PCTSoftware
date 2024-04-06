@@ -61,22 +61,45 @@ evr = HPCTEvolverWrapper(**hep.wrapper_properties)
 
 # ind.hierarchy = hpct.hierarchy 
 
-for seed in range(6, 7, 1):
+test = 3
+
+if test == 3:
+	seed = 1
 	print(f'seed={seed}')
 	random.seed(seed)
 	ind = evr.toolbox.individual()
 	print(ind.get_grid())	
-	for i in range(2):
-		print(i, end=" ")
-		ind()
-		ind, = evr.toolbox.mutate(ind, choice=2, add_nodes=4)
-		print(ind.get_grid())			
-              
-		link=ind.get_node(1,0).get_function_from_collection(HPCTFUNCTION.REFERENCE).get_links()[0]
-		if isinstance(link, str):
-			print('LNAME:',link)      
-		else:    
-			print(link.get_name())      
-		pass
+	ind1, = evr.toolbox.mutate(ind, choice=2, add_nodes=1)
+	ind1()
+
+
+if test == 2:
+	for seed in range(100):
+		print(f'seed={seed}')
+		random.seed(seed)
+		ind = evr.toolbox.individual()
+		print(ind.get_grid())	
+		ind1, = evr.toolbox.mutate(ind, choice=2, add_nodes=1)
+		ind1()
+       
+
+if test == 1:
+	for seed in range(6, 7, 1):
+		print(f'seed={seed}')
+		random.seed(seed)
+		ind = evr.toolbox.individual()
+		print(ind.get_grid())	
+		for i in range(2):
+			print(i, end=" ")
+			ind, = evr.toolbox.mutate(ind, choice=2, add_nodes=4)
+			print(ind.get_grid())			
+			ind()
+				
+			link=ind.get_node(1,0).get_function_from_collection(HPCTFUNCTION.REFERENCE).get_links()[0]
+			if isinstance(link, str):
+				print('LNAME:',link)      
+			else:    
+				print(link.get_name())      
+			pass
 
 
