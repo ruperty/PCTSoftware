@@ -35,7 +35,7 @@ if test == 4:
     file = 'configs'+ sep + 'configs-pm.csv'
 
 if test == 'WindTurbine':
-    test = "steady"
+    test = "variable"
     batch = 20
     pop_size = 100
     gens = 10
