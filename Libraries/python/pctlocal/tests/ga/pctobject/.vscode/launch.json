@@ -110,7 +110,7 @@
             // // "args": ["WindTurbine", "WT0595-ReferencedInputsError-RootMeanSquareError-Mode06x", "-o", "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}"],
             "args": ["WindTurbine", "WT0177-RewardError-RootMeanSquareError-Mode04",  "-s", "4", "-b",  "-pl", "scEdges" , "-p", "evolve1-batch", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}"],
             // "args": ["WindTurbine", "WT0538-RewardError-SummedError-Mode05", "-s", "3", "-b",  "-pl", "scEdges" , "-p", "test-evolve", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
-            "args": ["WindTurbine", "WT0603-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b",  "-pl", "scEdges" , "-p", "evolve1-batch", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}", "-s", "2"],
+            // "args": ["WindTurbine", "WT0603-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b",  "-pl", "scEdges" , "-p", "evolve1-batch", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}", "-s", "2"],
             // "args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00"],
             // "args": ["MicroGrid", "MG0001-RewardError-SummedError-Mode04" ,"-b", "-o", "-x", "-a", "-aa", "-df"  ], //, "-a", "-aa", "-df" ], //, "-p", "test-microgrid", "-l"], //, "-v"],
             "console": "internalConsole"
