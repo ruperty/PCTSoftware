@@ -1,6 +1,6 @@
 
 
-import time, csv
+import csv
 
 # import warnings 
 # with warnings.catch_warnings():
@@ -8,20 +8,10 @@ import time, csv
 #     from comet_ml import Experiment
 
 
-from deap import base, creator
 from os import makedirs, sep
 
 from epct.po_architecture import HPCTLEVEL, HPCTVARIABLE
 from pct.functions import HPCTFUNCTION
-
-from epct.evolvers import  CommonToolbox
-from epct.po_evolvers import HPCTEvolveProperties
-from epct.environment_processing import EnvironmentProcessingFactory
-
-
-# logger = logging.getLogger(__name__)
-
-
 
 
 class HPCTGenerateEvolvers(object):
