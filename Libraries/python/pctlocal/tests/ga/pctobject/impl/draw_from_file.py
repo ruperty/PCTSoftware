@@ -23,7 +23,7 @@ def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, n
     if suffixes:
         hpct.set_suffixes()
     print(hpct.formatted_config(3))
-    # hpct.summary()
+    hpct.summary()
     hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size, funcdata=funcdata)
     print('Image saved to '+draw_file)
 
@@ -31,6 +31,7 @@ def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, n
     draw_file = outdir + sep + 'draw-'+filenamePrefix + '_A' +'.png'
     hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size, funcdata=funcdata)
     print(hpct.formatted_config(3))
+    hpct.summary()
     print('Image saved to '+draw_file)
 
 
