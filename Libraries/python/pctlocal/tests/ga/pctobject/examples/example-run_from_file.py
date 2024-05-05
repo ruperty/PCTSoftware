@@ -26,6 +26,7 @@ try:
     hierarchy.consolidate()
     hierarchy.run()
     print(f'Score={score:0.3f}')
+    print(hierarchy.get_config())
 except FileNotFoundError:
     print(f'File {file} does not exist.')
     
