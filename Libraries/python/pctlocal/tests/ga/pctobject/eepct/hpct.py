@@ -233,10 +233,12 @@ class HPCTGenerateEvolvers(object):
                     arch={}
                     arch['name']=aname
                     arch['env_inputs_indexes']=eval(record['env_inputs_indexes'])
-                    if len(record['zerolevel_inputs_indexes']) > 0:
-                        arch['zerolevel_inputs_indexes']=eval(record['zerolevel_inputs_indexes'])
-                    if len(record['toplevel_inputs_indexes']) > 0:
-                        arch['toplevel_inputs_indexes']=eval(record['toplevel_inputs_indexes'])
+                    zlii = self.get_config_value(record, 'zerolevel_inputs_indexes')  
+                    if zlii and len(zlii) > 0:
+                        arch['zerolevel_inputs_indexes']=eval(zlii)
+                    tlii = self.get_config_value(record, 'toplevel_inputs_indexes')  
+                    if tlii and len(tlii) > 0:
+                        arch['toplevel_inputs_indexes']=eval(tlii)
                     arch['references']=eval(record['references'])
                     arch['env_inputs_names']=record['env_inputs_names']
 

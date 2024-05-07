@@ -7,6 +7,7 @@ Created on Mon Apr 17 2023
 
 # python examples/generate-evolver-properties-csv.py > configs/wt/variable-cmds.txt
 # python examples/generate-evolver-properties-csv.py > configs/wt/steady-cmds.txt
+# python examples/generate-evolver-properties-csv.py > configs/wt/steady-cmds-700.txt
 
 
 from os import sep
@@ -19,7 +20,8 @@ test = 'WindTurbine'
 
 args = "-i 1 -s 93"
 cmd='impl.evolve_multi'
-initial_index=1
+initial_index=701
+# initial_index=1
 batch = 20
 
 if test == 1:
@@ -40,38 +42,32 @@ if test == 'WindTurbine':
     pop_size = 100
     gens = 10
 
-    common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : pop_size, 'gens': gens, 
-                    'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
-                    'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
-                    'p_mutation': 0.75, 'num_evals': 1}
+    if initial_index == 1:
+        common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT', 'pop_size' : pop_size, 'gens': gens, 
+                        'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
+                        'max_levels_limit': 5, 'min_columns_limit': 2, 'max_columns_limit': 5, 'early_termination': False, 'p_crossover': 0.9, 
+                        'p_mutation': 0.75, 'num_evals': 1}
 
-    if test == "steady":
-        filename = 'wt' + sep +'configs-wt-0001-0616-steady.csv'
+    if initial_index == 701:
+        common_configs = {'env' : 'WindTurbine', 'num_actions' : 1, 'seed': 1, 'arch_name' : 'WT',  'gens': gens, 'error_limit': None,
+                        'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 1000, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
+                        'min_columns_limit': 2, 'early_termination': False, 'p_crossover': 0.9, 'error_properties': None,
+                        'p_mutation': 0.75, 'num_evals': 1, 'zerolevel_inputs_indexes':None, 'toplevel_inputs_indexes':None}
+
+
+    if initial_index == 1:
+        filename = 'wt' + sep +'configs-wt-0001-0616-'+test+'.csv'
         # args = "-b -pl scEdges -p evolve1 -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6 "
         args = "-b -pl scEdges -p evolve1-batch -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6 -s 2 -i 4"
         # args = "-b -o -pl scEdges -p test-evolve -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 3 -s 1 -i 3"
         # args = "-b -l -o -pl scEdges -p evolve" 
 
-    # if test == 2:
-    #     filename = 'configs-wt-1000-1083-steady-w2test.csv'       
-    #     initial_index=2000
-    #     args = "-b -l -o -pl scEdges -p test-evolve -c 3 -s 1 -i 3"
+    if initial_index == 701:
+        filename = 'wt' + sep +'configs-wt-0701-0732-'+test+'.csv'
+        args = "-b -pl scEdges -p evolve1-batch -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6 -s 1 -i 1"
 
-    if test == "variable":
 
-        filename = 'wt' + sep + 'configs-wt-0001-0616-variable.csv'       
-        # args = "-b -l -o -pl scEdges -p test-evolve -c 8 -s 1 -i 3"
-        # args = "-b -pl scEdges -p evolve1 -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6"
-        args = "-b -pl scEdges -p evolve1-batch -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6 -s 2 -i 4"
 
-    # if test == 4:
-    #     # common_configs['pop_size'] = 1000
-    #     # common_configs['gens'] = 2
-    #     # filename = 'configs-wt-2000-mode04-scActBinSig-variable.csv'       
-    #     filename = 'configs-wt-2000-mode04-scActBinSig-steady.csv'       
-    #     initial_index=2000
-    #     args = "-b -l -o -pl scEdges -p evolve-misc -c 4 -s 1 -i 9"
-    #     # args = "-b -l -o -pl scEdges -p evolve-misc "
 
 
 if test == 'MicroGrid':
