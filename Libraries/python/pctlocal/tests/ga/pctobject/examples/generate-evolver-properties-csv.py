@@ -22,7 +22,7 @@ args = "-i 1 -s 93"
 cmd='impl.evolve_multi'
 initial_index=701
 # initial_index=1
-batch = 20
+batch = 10
 
 if test == 1:
     file = 'configs'+ sep + 'configs-cp.csv'
@@ -39,7 +39,7 @@ if test == 4:
 if test == 'WindTurbine':
     # test = "variable"
     test = "steady"
-    batch = 20
+    batch = 10
     pop_size = 100
     gens = 10
 
