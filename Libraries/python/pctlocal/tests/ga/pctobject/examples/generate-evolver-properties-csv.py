@@ -65,7 +65,7 @@ if test == 'WindTurbine':
 
     if initial_index == 701:
         filename = 'wt' + sep +'configs-wt-0701-0732-'+test+'.csv'
-        args = "-b -pl scEdges -p evolve1-batch -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6 -s 1 -i 1"
+        args = "-b -pl scEdges -p evolve1-added -rp \"{'comparisons' : True, 'comparisons_print_plots': True}\" -c 6 -s 1 -i 1"
 
 
 
