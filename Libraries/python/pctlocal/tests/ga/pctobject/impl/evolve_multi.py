@@ -1,6 +1,6 @@
 
 
-
+from comet_ml import Experiment
 import argparse
 
 from os import cpu_count
