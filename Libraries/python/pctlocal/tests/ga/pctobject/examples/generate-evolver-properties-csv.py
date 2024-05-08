@@ -8,6 +8,7 @@ Created on Mon Apr 17 2023
 # python examples/generate-evolver-properties-csv.py > configs/wt/variable-cmds.txt
 # python examples/generate-evolver-properties-csv.py > configs/wt/steady-cmds.txt
 # python examples/generate-evolver-properties-csv.py > configs/wt/steady-cmds-700.txt
+# python examples/generate-evolver-properties-csv.py > configs/wt/variable-cmds-700.txt
 
 
 from os import sep
@@ -22,7 +23,7 @@ args = "-i 1 -s 93"
 cmd='impl.evolve_multi'
 initial_index=701
 # initial_index=1
-batch = 20
+batch = 10
 
 if test == 1:
     file = 'configs'+ sep + 'configs-cp.csv'
@@ -37,9 +38,9 @@ if test == 4:
     file = 'configs'+ sep + 'configs-pm.csv'
 
 if test == 'WindTurbine':
-    # test = "variable"
-    test = "steady"
-    batch = 20
+    test = "variable"
+    # test = "steady"
+    batch = 10
     pop_size = 100
     gens = 10
 
