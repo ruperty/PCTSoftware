@@ -16,7 +16,7 @@ test = "mg+days"
 if test == "mg+days":
     its=48
     env = MicroGridEnvPlus()
-    properties = {'iterations' : its, 'day_mode' : 'ordered', 'initial_day' :1 }
+    properties = {'day_mode' : 'ordered', 'initial_day' :1 }
     env.seed(1)
     env.initialise(properties)
     state = env.reset()
