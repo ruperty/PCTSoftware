@@ -139,6 +139,19 @@ class HPCTGenerateEvolvers(object):
 
         return value
 
+    def get_eval_config_value(self, record, key):
+        if key in record:
+            value = eval(record[key])
+        else:
+            if key in self.common_configs:
+                value = eval(self.common_configs[key])
+            else:
+                value = None
+
+        return value
+
+
+
     def process_csv(self, file, args="", cmdline=None, initial_index=1, batch=1000):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
@@ -232,7 +245,11 @@ class HPCTGenerateEvolvers(object):
                     
                     arch={}
                     arch['name']=aname
-                    arch['env_inputs_indexes']=eval(record['env_inputs_indexes'])
+                    arch['env_inputs_indexes']=self.get_eval_config_value(record, 'env_inputs_indexes')
+
+                    ###
+
+
                     zlii = self.get_config_value(record, 'zerolevel_inputs_indexes')  
                     if zlii and len(zlii) > 0:
                         arch['zerolevel_inputs_indexes']=eval(zlii)

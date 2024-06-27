@@ -49,7 +49,10 @@ if __name__ == '__main__':
 	hpct_verbose= args.hpct_verbose
 	save_arch_all = args.save_arch_all
 	# log_experiment= args.log
-	results_props = eval(args.results_props)
+	if args.results_props==None:
+		results_props = None
+	else:
+		results_props = eval(args.results_props)
 	plots_dir = 'c:/tmp'
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
@@ -62,12 +65,16 @@ if __name__ == '__main__':
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
 
-	arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
-					'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
-					'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
-	} | results_props
-	
-
+	if results_props:
+		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
+						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
+						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
+		} | results_props
+	else:
+		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
+						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
+						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
+		} 
 	# env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')	
 	# env_proc.set_properties(args=arg)
 	# arg['workspace']=env_proc.get_workspace()
