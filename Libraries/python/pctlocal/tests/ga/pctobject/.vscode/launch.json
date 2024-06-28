@@ -63,7 +63,8 @@
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-0001-0007-277.211.config" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-001-236.475.config" ], //, "-v" ],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-SummedError-Mode04\\40c6dd979d42a21fc4a537729b9f9e1b\\conf-0001-0006-000.913.config" ],
-            "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-SummedError-Mode04\\40c6dd979d42a21fc4a537729b9f9e1b\\conf-0001-000.938.config" ],
+            // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-SummedError-Mode04\\40c6dd979d42a21fc4a537729b9f9e1b\\conf-0001-000.938.config" ],
+            "args": ["-d", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-CurrentError-Mode00\\ga-072.000-s001-2x2-m000-ARC0701-2d69637946c807c4e1834aabdddb1c8f.properties", "-v"],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\ga-000.017-s001-3x5-m004-MG0001-9b7851aa082d1178ee05750f4b5815ce.properties"], // "-v"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.535-s001-4x5-m000-WT0035-35495ec6d6a5eb084827b06c45c4fe7c.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.539-s001-2x4-m000-WT0036-ec9ab7481dd95aec3648d84987570bf2.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
@@ -79,7 +80,8 @@
             "module": "impl.run_from_file",
             // "args": ["--file", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties", "-e",  "-p", "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},  {'plot_items': {'OL0C0sm':'out0', 'OL0C1sm':'out1'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]" , "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
             // "args": ["-d", "--file", "/mnt/c/Users/ruper/My Drive/data/ga/Pendulum/PM09-RewardError-RootMeanSquareError-Mode04/ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties", "-e",  "-p", "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},  {'plot_items': {'OL0C0sm':'out0', 'OL0C1sm':'out1'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]" , "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
-            "args": ["--file", "/mnt/c/Users/ruper/My Drive/data/ga/Pendulum/PM09-RewardError-RootMeanSquareError-Mode04/ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties"],
+            "args": ["-d", "--file", "/mnt/c/Users/ruper/My Drive/data/ga/Pendulum/PM09-RewardError-RootMeanSquareError-Mode04/ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties", "-e",  "-p", "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},  {'plot_items': {'OL0C0sm':'out0', 'OL0C1sm':'out1'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]" , "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
+            // "args": ["--file", "/mnt/c/Users/ruper/My Drive/data/ga/Pendulum/PM09-RewardError-RootMeanSquareError-Mode04/ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties"],
             "console": "internalConsole"
         },
         {
@@ -120,7 +122,7 @@
             // // "args": ["WindTurbine", "WT0595-ReferencedInputsError-RootMeanSquareError-Mode06x", "-o", "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}"],
             // "args": ["WindTurbine", "WT0177-RewardError-RootMeanSquareError-Mode04",  "-o", "-s", "3", "-b",  "-pl", "scEdges" , "-p", "test-evolve", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
             // "args": ["WindTurbine", "WT0701-RewardError-RootMeanSquareError-Mode04",  "-o", "-s", "1", "-b",  "-pl", "scEdges" , "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
-            "args": ["ARC", "ARC0701-FitnessError-CurrentError-Mode00",  "-o", "-b"],
+            "args": ["ARC", "ARC0701-FitnessError-CurrentError-Mode00",  "-o", "-b", "-d", "-a"],
             // "args": ["WindTurbine", "WT0538-RewardError-SummedError-Mode05", "-s", "3", "-b",  "-pl", "scEdges" , "-p", "test-evolve", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
             // "args": ["WindTurbine", "WT0603-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b",  "-pl", "scEdges" , "-p", "evolve1-batch", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}", "-s", "2"],
             // "args": ["WindTurbine", "WT01-RewardError-RootMeanSquareError-Mode00"],

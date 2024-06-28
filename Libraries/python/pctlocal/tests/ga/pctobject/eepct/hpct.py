@@ -128,6 +128,16 @@ class HPCTGenerateEvolvers(object):
         pass
         return all
 
+    def get_none_config_value(self, record, key):
+        value = None
+        if key in record:
+            value = record[key]
+        else:
+            if key in self.common_configs:
+                value = self.common_configs[key]
+
+        return value
+
     def get_config_value(self, record, key):
         if key in record:
             value = record[key]
@@ -256,8 +266,12 @@ class HPCTGenerateEvolvers(object):
                     tlii = self.get_config_value(record, 'toplevel_inputs_indexes')  
                     if tlii and len(tlii) > 0:
                         arch['toplevel_inputs_indexes']=eval(tlii)
-                    arch['references']=eval(record['references'])
-                    arch['env_inputs_names']=record['env_inputs_names']
+
+                    # arch['references']=eval(record['references'])
+
+
+                    arch['references']=self.get_none_config_value(record, 'references')
+                    arch['env_inputs_names']=self.get_none_config_value(record, 'env_inputs_names')
 
                     fargs = record['args']
 
