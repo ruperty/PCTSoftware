@@ -64,7 +64,7 @@
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\ReferencedInputsError-RootMeanSquareError-Mode05\\763a53c324dddad7ac6e964c1ce3d2ba\\conf-001-236.475.config" ], //, "-v" ],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-SummedError-Mode04\\40c6dd979d42a21fc4a537729b9f9e1b\\conf-0001-0006-000.913.config" ],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-SummedError-Mode04\\40c6dd979d42a21fc4a537729b9f9e1b\\conf-0001-000.938.config" ],
-            "args": ["-d", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-CurrentError-Mode00\\ga-072.000-s001-2x2-m000-ARC0701-2d69637946c807c4e1834aabdddb1c8f.properties", "-v"],
+            "args": ["-d", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-CurrentError-Mode00\\57a39e04bcd34c8aaeadd7466e7c095d\\ga-072.000-s001-2x2-m000-ARC0701-2d69637946c807c4e1834aabdddb1c8f.properties", "-v"],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\ga-000.017-s001-3x5-m004-MG0001-9b7851aa082d1178ee05750f4b5815ce.properties"], // "-v"],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.535-s001-4x5-m000-WT0035-35495ec6d6a5eb084827b06c45c4fe7c.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
             //"args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode00\\ga-001.539-s001-2x4-m000-WT0036-ec9ab7481dd95aec3648d84987570bf2.properties", "-p", "scEdges" ,  "-o", "c:/tmp" ], //, "-v" ],
