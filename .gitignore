@@ -53,3 +53,4 @@ Libraries/python/pctlocal/tests/ga/pctobject/data/data/ga/WindTurbine/RewardErro
 Libraries/python/pctlocal/tests/ga/pctobject/configs/WindTurbine/*.bak
 Libraries/python/pctlocal/tests/ga/pctobject/configs/wt/.~lock.configs-wt-0001-0616-variable.csv#
 Libraries/python/pctlocal/tests/ga/pctobject/configs/WindTurbine/WT0538-RewardError-SummedError-Mode05.properties
+Libraries/python/pctlocal/tests/ga/pctobject/configs/ARC/ARC0701-FitnessError-CurrentError-Mode00.properties
