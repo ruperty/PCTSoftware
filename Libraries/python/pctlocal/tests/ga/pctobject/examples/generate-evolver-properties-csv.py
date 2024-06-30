@@ -22,7 +22,7 @@ test = 'arc'
 
 args = "-i 1 -s 93"
 cmd='impl.evolve_multi'
-initial_index=701
+initial_index=1
 # initial_index=1
 batch = 10
 
@@ -89,15 +89,15 @@ if test == 'MicroGrid':
 if test == 'arc':
 
     filename = 'ar' + sep +'configs-arc.csv'
-    args = "-b -o"
+    args = "-b -pl scEdges -p test-evolve"
     num_evals = 1
-    pop_size =  4
-    gens = 1
+    pop_size =  100
+    gens = 2
     properties = {'dir': 'C:/packages/arc-prize-2024/training', 'code':'1_007bbfb7.dat', 'fitness_type': 'dim_only'}
     common_configs = {'env' : 'ARC', 'num_actions' : 2, 'seed': 1, 'arch_name' : 'ARC', 'pop_size' : pop_size, 'gens': gens, 
-                    'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 10, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 2, 
-                    'max_levels_limit': 2, 'min_columns_limit': 2, 'max_columns_limit': 2, 'early_termination': False, 'p_crossover': 0.9, 
-                    'p_mutation': 0.75, 'num_evals': num_evals, 'error_limit': None, 'error_properties' : None, 
+                    'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 10, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
+                    'max_levels_limit': 2, 'min_columns_limit': 1, 'max_columns_limit': 2, 'early_termination': False, 'p_crossover': 0.9, 
+                    'p_mutation': 0.75, 'num_evals': num_evals, 'error_limit': 1000, 'error_properties' : None, 'arch_types': 'scTopVars',
                     'environment_properties': properties}
 
 

@@ -55,9 +55,10 @@ class HPCTGenerateEvolvers(object):
             for response in responses:
                     for struct in structs:
                         desc, filename = self.description(collector,response,  f'Mode{struct["mode"]:02}', arch_name)
-                        if len(fargs)>0:
+                        if fargs and len(fargs)>0:
                             fname_list.append(f'{filename} {fargs}')
                         else:
+                            fargs = ''
                             fname_list.append(filename)
                         fpars = self.fixed_parameters(env, arch, num_actions, environment_properties)
                         cpars = self.configurable_parameters( config, collector, response, nevals)
@@ -186,10 +187,11 @@ class HPCTGenerateEvolvers(object):
                     arch_props['collectors']=[record['error_collector']]
                     arch_props['responses']=[record['error_response']]
                     structs = {}
-                    if record['arch_types'] == '':
+                    arch_types = self.get_config_value(record, 'arch_types')
+                    if arch_types == '':
                         structs['types'] = []
                     else:
-                        structs['types'] = self.process_archtypes(record['arch_types']) 
+                        structs['types'] = self.process_archtypes(arch_types) 
                     structs['mode'] = eval(record['arch_mode'])  
                     arch_props['structs']=[structs]
                     arch_config={}
@@ -260,10 +262,10 @@ class HPCTGenerateEvolvers(object):
                     ###
 
 
-                    zlii = self.get_config_value(record, 'zerolevel_inputs_indexes')  
+                    zlii = self.get_none_config_value(record, 'zerolevel_inputs_indexes')  
                     if zlii and len(zlii) > 0:
                         arch['zerolevel_inputs_indexes']=eval(zlii)
-                    tlii = self.get_config_value(record, 'toplevel_inputs_indexes')  
+                    tlii = self.get_none_config_value(record, 'toplevel_inputs_indexes')  
                     if tlii and len(tlii) > 0:
                         arch['toplevel_inputs_indexes']=eval(tlii)
 
@@ -273,7 +275,7 @@ class HPCTGenerateEvolvers(object):
                     arch['references']=self.get_none_config_value(record, 'references')
                     arch['env_inputs_names']=self.get_none_config_value(record, 'env_inputs_names')
 
-                    fargs = record['args']
+                    fargs = self.get_none_config_value(record, 'args')
 
                     num_actions = self.get_config_value(record, 'num_actions')
                     num_evals = self.get_config_value(record, 'num_evals')

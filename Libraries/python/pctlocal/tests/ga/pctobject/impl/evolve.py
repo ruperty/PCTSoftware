@@ -49,10 +49,7 @@ if __name__ == '__main__':
 	hpct_verbose= args.hpct_verbose
 	save_arch_all = args.save_arch_all
 	# log_experiment= args.log
-	if args.results_props==None:
-		results_props = None
-	else:
-		results_props = eval(args.results_props)
+	results_props = eval(args.results_props) if args.results_props else None
 	plots_dir = 'c:/tmp'
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'

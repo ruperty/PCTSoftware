@@ -28,7 +28,7 @@ if __name__ == '__main__':
     parser.add_argument('-f', '--file', type=str, help="file name")
     parser.add_argument('-r', '--runs', type=int, help="number of runs", default="500")
     parser.add_argument('-e', '--early', help="early termination", action="store_true")
-    parser.add_argument('-d', '--display', help="display environment", action="store_false")
+    parser.add_argument('-d', '--display', help="display environment", action="store_true")
     parser.add_argument("-v", "--verbose", help="print output ", action="store_true")
     parser.add_argument("-s", "--seed", type=int, help="seed value", default="1")
     parser.add_argument("-p", "--plots", type=str, help="plots definition")
