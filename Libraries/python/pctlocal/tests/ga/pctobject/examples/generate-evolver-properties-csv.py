@@ -95,9 +95,9 @@ if test == 'arc':
     gens = 2
     properties = {'dir': 'C:/packages/arc-prize-2024/training', 'code':'1_007bbfb7.dat', 'fitness_type': 'dim_only'}
     common_configs = {'env' : 'ARC', 'num_actions' : 2, 'seed': 1, 'arch_name' : 'ARC', 'pop_size' : pop_size, 'gens': gens, 
-                    'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 10, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
+                    'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 20, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
                     'max_levels_limit': 2, 'min_columns_limit': 1, 'max_columns_limit': 2, 'early_termination': False, 'p_crossover': 0.9, 
-                    'p_mutation': 0.75, 'num_evals': num_evals, 'error_limit': 1000, 'error_properties' : None, 'arch_types': 'scTopVars',
+                    'p_mutation': 0.75, 'num_evals': num_evals, 'error_limit': 1000, 'error_properties' : None, 'arch_types': '',
                     'environment_properties': properties}
 
 
