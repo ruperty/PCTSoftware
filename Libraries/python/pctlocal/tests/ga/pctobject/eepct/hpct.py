@@ -317,7 +317,12 @@ class HPCTGenerateEvolvers(object):
                 propstr = f'property{ctr} = {prop},{value}'        
                 ppars = ''.join((ppars, propstr, '\n'))
                 ctr+=1
-            
+
+            if response == 'MovingSumError' or response == 'MovingAverageError': 
+                propstr = f'property{ctr} = {prop},{value}'        
+                ppars = ''.join((ppars, propstr, '\n'))
+                ctr+=1
+
             if collector == 'ReferencedInputsError' and  prop == 'error:referenced_inputs':
                 propstr = f'property{ctr} = {prop},{value}'        
                 ppars = ''.join((ppars, propstr, '\n'))
