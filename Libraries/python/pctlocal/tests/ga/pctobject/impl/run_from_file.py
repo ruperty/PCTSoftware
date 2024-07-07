@@ -58,7 +58,7 @@ if __name__ == '__main__':
         
         toc = time.perf_counter()
         elapsed = toc-tic        
-        print(f'Evolve time: {elapsed:4.2f}')
+        print(f'Run time: {elapsed:4.2f}')
     except FileNotFoundError:
         print(f'File {args.file} does not exist.')
     
