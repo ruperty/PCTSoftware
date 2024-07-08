@@ -20,7 +20,8 @@ from pct.hierarchy import PCTHierarchy
 
 # python -m impl.run_from_file -f "G:\My Drive\data\ga\WindTurbine\RewardError-RootMeanSquareError-Mode00\ga-10029.013-s001-5x5-m000-WT02-b4354dca23203327d0d71349f5990f93.properties" -p "[ {'plot_items': {'IWD':'wd'}, 'title':'Wind'},  {'plot_items': {'Action1ws':'out'}, 'title':'Output'}]" -o "c:/tmp" -ep "{'series': 'steady', 'zero_threshold': 1, 'range':'test'}"
 
-
+# python -m impl.run_from_file -f "G:\My Drive\data\ga\ARC\FitnessError-MovingSumError-Mode07\ga-000.000-s002-1x1-m007-ARC0003-3c9f34d3de0f2c8bb8d4a45f69f71702-consolidated.properties" -d
+       
 
 if __name__ == '__main__':
 
