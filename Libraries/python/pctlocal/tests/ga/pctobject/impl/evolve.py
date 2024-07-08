@@ -63,7 +63,7 @@ if __name__ == '__main__':
 	root_path=get_root_path()
 	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
 
-	if results_props:
+	if results_props is not None:
 		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
 						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
 						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir

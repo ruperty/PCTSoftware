@@ -131,7 +131,7 @@
             // "args": ["ARC", "ARC0002-FitnessError-CurrentError-Mode04",  "-o", "-b", "-d", "-pl", "scEdges" , "-p", "test-evolve"],
             // "args": ["ARC", "ARC0003-FitnessError-MovingSumError-Mode07",  "-o", "-b", "-d", "-a" ],
             // "args": ["ARC", "ARC0003-FitnessError-MovingSumError-Mode07",  "-o", "-b", "-d", "-pl", "scEdges" , "-p", "test-evolve"],
-            "args": ["ARC", "ARC0003-FitnessError-MovingSumError-Mode07",  "-o", "-b", "-pl", "scEdges" , "-p", "test-evolve"],
+            "args": ["ARC", "ARC0001-FitnessError-MovingSumError-Mode07",  "-o", "-b", "-pl", "scEdges" , "-p", "test-evolve", "-rp", "{}"],
             // "args": ["WindTurbine", "WT0538-RewardError-SummedError-Mode05", "-s", "3", "-b",  "-pl", "scEdges" , "-p", "test-evolve", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
             // "args": ["WindTurbine", "WT0603-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b",  "-pl", "scEdges" ],
             // "args": ["WindTurbine", "WT0603-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b",  "-pl", "scEdges" , "-p", "evolve1-batch", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}", "-s", "2"],
