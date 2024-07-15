@@ -91,7 +91,7 @@ if test == 'arc':
     filename = 'ar' + sep +'configs-arc.csv'
     args = "-b -pl scEdges -p test-evolve"
     num_evals = 1
-    pop_size =  25
+    pop_size =  100
     gens = 10
     properties = {'dir': 'C:/packages/arc-prize-2024/training', 'code':'1_007bbfb7.dat', 'action_set': 'dims_only',  'history': 5, 'initial': 1000, 'index':0}
     common_configs = {'env' : 'ARC', 'seed': 1, 'arch_name' : 'ARC', 'pop_size' : pop_size, 'gens': gens, 
