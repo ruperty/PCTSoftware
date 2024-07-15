@@ -277,7 +277,7 @@ class HPCTGenerateEvolvers(object):
 
                     fargs = self.get_none_config_value(record, 'args')
 
-                    num_actions = self.get_config_value(record, 'num_actions')
+                    num_actions = self.get_none_config_value(record, 'num_actions')
                     num_evals = self.get_config_value(record, 'num_evals')
 
                     self.generate_option_files(1, env, num_actions, arch, config, num_evals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
