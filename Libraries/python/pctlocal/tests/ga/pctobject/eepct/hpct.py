@@ -82,8 +82,23 @@ class HPCTGenerateEvolvers(object):
         
         arr = codes.split('^')
         for code in arr:
+            if code == 'scPerBinSigned':
+                delimiter = ""
+                if len(rtn)>0:
+                    delimiter = "|"
+                rtn = rtn + delimiter + "zerotop^per^BinarySigned~EAWeightedSum|top^per^BinarySigned~EAWeightedSum"
+
+            if code == 'scTopVarsInt':
+                delimiter = ""
+                if len(rtn)>0:
+                    delimiter = "|"
+                rtn = rtn + delimiter + "zerotop^ref^Integer~EAVariable~{ 'lower_int': -10,'upper_int': 10}|top^ref^Integer~EAVariable~{ 'lower_int': -10,'upper_int': 10}"
+
             if code == 'scTopVars':
-                rtn = rtn + "zerotop^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}|top^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}"
+                delimiter = ""
+                if len(rtn)>0:
+                    delimiter = "|"
+                rtn = rtn + delimiter + "zerotop^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}|top^ref^Float~EAVariable~{ 'lower_float': -1,'upper_float': 1}"
             
             if code == 'scActBinSig':
                 delimiter = ""
@@ -121,7 +136,10 @@ class HPCTGenerateEvolvers(object):
             values = elements[2].split('~')
             var = [level, func, HPCTVARIABLE.TYPE, values[0]]
             cls = [level, func, HPCTVARIABLE.FUNCTION_CLASS, values[1]]
-            props = [level, func, HPCTVARIABLE.PROPERTIES, eval(values[2])]
+            if len(values)>2:
+                props = [level, func, HPCTVARIABLE.PROPERTIES, eval(values[2])]
+            else:
+                props = [level, func, HPCTVARIABLE.PROPERTIES, None]
             all.append(var)
             all.append(cls)
             all.append(props)
@@ -227,6 +245,9 @@ class HPCTGenerateEvolvers(object):
                     config['max_columns_limit']= self.get_config_value(record, 'max_columns_limit')
                     early_termination = self.get_config_value(record, 'early_termination')
                     config['early_termination'] = early_termination 
+
+                    evolve_termination_value = self.get_config_value(record, 'evolve_termination_value')
+                    config['evolve_termination_value'] = evolve_termination_value 
 
                     if early_termination == 'TRUE':
                         config['early_termination']=True 

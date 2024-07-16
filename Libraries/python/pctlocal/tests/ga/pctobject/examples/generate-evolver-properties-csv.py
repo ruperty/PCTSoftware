@@ -93,12 +93,12 @@ if test == 'arc':
     num_evals = 1
     pop_size =  100
     gens = 10
+    evolve_termination_value = 0
     properties = {'dir': 'C:/packages/arc-prize-2024/training', 'code':'1_007bbfb7.dat', 'action_set': 'dims_only',  'history': 5, 'initial': 1000, 'index':0}
-    common_configs = {'env' : 'ARC', 'seed': 1, 'arch_name' : 'ARC', 'pop_size' : pop_size, 'gens': gens, 
+    common_configs = {'env' : 'ARC', 'seed': 1, 'arch_name' : 'ARC', 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
                     'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : 100, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
                     'max_levels_limit': 2, 'min_columns_limit': 1, 'max_columns_limit': 2, 'early_termination': True, 'p_crossover': 0.9, 
-                    'p_mutation': 0.75, 'num_evals': num_evals, 'error_limit': 10000,  'arch_types': '',
-                    'environment_properties': properties}
+                    'p_mutation': 0.75, 'num_evals': num_evals, 'error_limit': 10000, 'environment_properties': properties}
 
 
 
