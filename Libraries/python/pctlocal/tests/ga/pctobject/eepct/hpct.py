@@ -60,6 +60,8 @@ class HPCTGenerateEvolvers(object):
                         else:
                             fargs = ''
                             fname_list.append(filename)
+                        self.collate_history(response, environment_properties, error_properties)
+                        
                         fpars = self.fixed_parameters(env, arch, num_actions, environment_properties)
                         cpars = self.configurable_parameters( config, collector, response, nevals)
                         ppars = self.additional_properties(error_properties, response, collector)
@@ -77,6 +79,18 @@ class HPCTGenerateEvolvers(object):
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
+    def collate_history(self, response, environment_properties, error_properties):
+        # error_limit=None 
+        modified=False                     
+
+        if response == 'MovingSumError' or response == 'MovingSumAverage':
+            environment_properties['history'] = error_properties['error:history']        
+            environment_properties['initial'] = error_properties['error:initial']        
+            modified = True
+
+        return modified                     
+        
+
     def get_arch_types_from_shortcode(self, codes):
         rtn = ""
         
