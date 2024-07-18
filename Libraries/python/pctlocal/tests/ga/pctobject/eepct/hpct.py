@@ -75,7 +75,7 @@ class HPCTGenerateEvolvers(object):
                         self.write_to_file(filepath, text)
                         # cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
                         flist = [filename]
-                        cmd = f'python -m {cmdline} {env} "{flist}" {fargs} {args}'
+                        cmd = f'python -m {cmdline} {env} {filename} {fargs} {args}'
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
@@ -317,14 +317,14 @@ class HPCTGenerateEvolvers(object):
 
                     self.generate_option_files(1, env, num_actions, arch, config, num_evals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
                     if ((actr - initial_index)+1) % batch == 0:
-                        cmd = f'python -m {cmdline} {env} "{fname_list}" {args}'
+                        cmd = f'python -m {cmdline}_multi {env} "{fname_list}" {args}'
                         batches.append(cmd)
                         # print(cmd, end='\n')
                         fname_list = []
 
                     actr=actr+1
 
-            cmd = f'python -m {cmdline} {env} "{fname_list}" {args}'
+            cmd = f'python -m {cmdline}_multi {env} "{fname_list}" {args}'
             batches.append(cmd)
 
             for cmd in batches:
