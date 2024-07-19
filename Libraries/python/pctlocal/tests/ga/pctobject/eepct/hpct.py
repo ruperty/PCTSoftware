@@ -171,6 +171,23 @@ class HPCTGenerateEvolvers(object):
 
         return value
 
+
+    def get_eval_config_value_override_empty(self, record, key):
+        if key in record:
+            val = record[key]
+            if val == '':
+                value = val
+            else:
+                value = eval(record[key])
+
+        if value == '':    
+            if key in self.common_configs:
+                value = self.common_configs[key]
+            else:
+                raise Exception(f'Config value for <{key}> must be specified in csv file or on cmd line.')
+
+        return value
+
     def get_config_value(self, record, key):
         if key in record:
             value = record[key]
@@ -284,7 +301,7 @@ class HPCTGenerateEvolvers(object):
                     else:
                         error_properties=eval(record['error_properties']) 
 
-                    envp = self.get_config_value(record, 'environment_properties')    
+                    envp = self.get_eval_config_value_override_empty(record, 'environment_properties')    
                     if envp is None or envp == '':
                         environment_properties=None
                     else:
