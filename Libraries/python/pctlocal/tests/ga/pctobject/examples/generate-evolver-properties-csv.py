@@ -89,7 +89,7 @@ if test == 'MicroGrid':
 if test == 'arc':
 
     filename = 'ar' + sep +'configs-arc.csv'
-    args = "-b -pl scEdges -p test-evolve"
+    args = "-b -pl scEdges -p test-evolve -i 5"
     num_evals = 1
     pop_size =  100
     gens = 10
