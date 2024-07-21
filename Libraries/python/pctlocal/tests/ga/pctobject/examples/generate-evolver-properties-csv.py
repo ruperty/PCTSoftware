@@ -9,6 +9,7 @@ Created on Mon Apr 17 2023
 # python examples/generate-evolver-properties-csv.py > configs/wt/steady-cmds.txt
 # python examples/generate-evolver-properties-csv.py > configs/wt/steady-cmds-700.txt
 # python examples/generate-evolver-properties-csv.py > configs/wt/variable-cmds-700.txt
+# python examples/generate-evolver-properties-csv.py > configs/ar/test-cmds.txt
 
 
 from os import sep
