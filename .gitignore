@@ -57,3 +57,4 @@ Libraries/python/pctlocal/tests/ga/pctobject/configs/ARC/*.properties
 
 Libraries/python/pctlocal/tests/ga/pctobject/*.html
 Libraries/python/pctlocal/tests/ga/pctobject/configs/ar/test-cmds.txt
+Libraries/python/pctlocal/tests/ga/pctobject/debug.log

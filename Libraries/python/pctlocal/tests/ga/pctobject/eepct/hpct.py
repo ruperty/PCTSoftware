@@ -173,6 +173,7 @@ class HPCTGenerateEvolvers(object):
 
 
     def get_eval_config_value_override_empty(self, record, key):
+        value = None
         if key in record:
             val = record[key]
             if val == '':
@@ -180,7 +181,7 @@ class HPCTGenerateEvolvers(object):
             else:
                 value = eval(record[key])
 
-        if value == '':    
+        if value is None or value == '':    
             if key in self.common_configs:
                 value = self.common_configs[key]
             else:
