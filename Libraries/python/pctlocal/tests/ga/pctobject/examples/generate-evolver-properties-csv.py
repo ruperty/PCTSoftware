@@ -92,7 +92,7 @@ if test == 'arc':
     filename = 'ar' + sep +'configs-arc.csv'
     args = "-b -pl scEdges,scZero -p test-evolve -o"
     num_evals = 1
-    pop_size =  1000
+    pop_size =  100
     gens = 15
     evolve_termination_value = 0
     properties = { 'code':'007bbfb7', 'index':0, 'dataset': 'train', 'control_set': ['dims'], 'input_set': ['env']}
