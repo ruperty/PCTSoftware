@@ -23,6 +23,9 @@ from pct.hierarchy import PCTHierarchy
 # python -m impl.run_from_file -f "G:\My Drive\data\ga\ARC\FitnessError-MovingSumError-Mode07\ga-000.000-s001-2x2-m007-ARC0001-5f9d673caf581b2dae007450c36e4b6e-consolidated.properties" -d
 # python -m impl.run_from_file -f "G:\My Drive\data\ga\ARC\FitnessError-MovingSumError-Mode07\a35508724f8a72147f6b43636bc60ce5\conf-0002-10620.000.config" -v > out-10620.txt
 # python -m impl.run_from_file -f "G:\My Drive\data\ga\ARC\FitnessError-MovingSumError-Mode07\a35508724f8a72147f6b43636bc60ce5\conf-0002-0002-112.000.config" -v > out-112.txt
+# python -m impl.run_from_file -f "G:\My Drive\data\ga\ARC\FitnessError-MovingSumError-Mode07\ga-000.000-s001-1x1-m007-ARC0010-5656dcbdd6a2d3061530d2d17723d8b2.properties"
+# 
+#  -v > out-112.txt
        
 
        
