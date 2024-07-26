@@ -93,7 +93,7 @@ if test == 'arc':
     args = "-b -pl scEdges,scZero -p test-evolve -o"
     num_evals = 1
     pop_size =  100
-    gens = 15
+    gens = 25
     evolve_termination_value = 0
     properties = { 'code':'007bbfb7', 'index':0, 'dataset': 'train', 'control_set': ['dims'], 'input_set': ['env']}
     common_configs = {'env' : 'ARC', 'seed': 1, 'arch_name' : 'ARC', 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
