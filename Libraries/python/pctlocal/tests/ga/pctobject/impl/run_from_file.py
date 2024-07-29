@@ -3,6 +3,8 @@ import argparse, time
 from os import sep, listdir
 from cutils.paths import  get_gdrive
 from pct.hierarchy import PCTHierarchy
+from pct.putils import PCTRunProperties
+from pct.environment_processing import EnvironmentProcessingFactory
 
 # py -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.548-s013-2x2-m004-5a08e6cdc09769db0267a14f0634b051.properties"
 # py -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC06-ReferencedInputsError-RootMeanSquareError-Mode03\ga-000.554-s068-2x2-m003-5342c97128d9ad23a0fea14a6d9c05e5.properties"
@@ -42,6 +44,7 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--plots", type=str, help="plots definition")
     parser.add_argument('-o', '--outdir', type=str, help="directory to save plots")
     parser.add_argument('-ep', '--eprops', type=str, help="environment properties")
+    parser.add_argument('-eep', '--eeprops', type=str, help="enhanced environment properties")
     parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
 
     args = parser.parse_args()
@@ -57,11 +60,23 @@ if __name__ == '__main__':
     else:
         history=False
 
+    eeprops = None
+    if args.eeprops is not None:
+        eeprops = eval(args.eeprops)
+        eprops, env_name = PCTRunProperties.get_environment_properties_from_filename(args.file)
+        eprops['dataset'] = 'test'
+        eprops['initial'] = eeprops['initial']
+        print(eprops)
+        env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')
+        eeprops = env_proc.enhanced_environment_properties(environment_properties=eprops)
+
+
     try:
         tic = time.perf_counter()
 
         hierarchy, score = PCTHierarchy.run_from_file(args.file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
-                        plots=plots, history=history, hpct_verbose= args.verbose, runs=None, plots_dir=args.outdir, early_termination=args.early)
+                        plots=plots, history=history, hpct_verbose= args.verbose, runs=None, plots_dir=args.outdir, early_termination=args.early, 
+                        enhanced_environment_properties=eeprops)
         print(f'Score={score:0.3f}')
         
         toc = time.perf_counter()
