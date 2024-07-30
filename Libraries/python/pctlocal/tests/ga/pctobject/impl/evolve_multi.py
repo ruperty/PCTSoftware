@@ -36,7 +36,7 @@ if __name__ == '__main__':
 	draw_file = args.draw_file
 	hierarchy_plots = args.plots
 	results_props = eval(args.results_props) if args.results_props else None
-	plots_dir = 'c:/tmp'
+	plots_dir = '/tmp/ARC'
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
