@@ -52,7 +52,7 @@ if test == 'simple':
     common_configs = {'env' : 'ARC', 'seed': 1, 'arch_name' : 'ARC', 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
                     'attr_mut_pb' : 1, 'structurepb' : 1, 'runs' : 100, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
                     'max_levels_limit': 4, 'min_columns_limit': 1, 'max_columns_limit': 4, 'early_termination': True, 'p_crossover': 0.9, 
-                    'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': 100, 'environment_properties': properties}
+                    'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': 10000, 'environment_properties': properties}
 
 
 file = 'configs'+ sep + filename
