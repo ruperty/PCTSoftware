@@ -13,6 +13,8 @@ from epct.evolve import evolve_setup
 # python impl/evolve.py WindTurbine WT0095-RewardError-RootMeanSquareError-Mode02 -b -a -aa -rp "{'comparisons' : True, 'comparisons_print_plots': False}" -db 4 > out.txt
 # python impl/evolve.py ARC ARC0001-FitnessError-MovingSumError-Mode07 -b -o -pl scEdges -p test-evolve -rp {}
 # python impl/evolve.py ARC ARC0004-FitnessError-MovingSumError-Mode05 -b -o -db 4  > debug.log
+# python impl/evolve.py ARC ARC0020-FitnessError-MovingSumError-Mode00 -a -b -o
+ 
 
 
 

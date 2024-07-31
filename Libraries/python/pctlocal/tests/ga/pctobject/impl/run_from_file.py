@@ -43,6 +43,7 @@ if __name__ == '__main__':
     parser.add_argument("-s", "--seed", type=int, help="seed value", default="1")
     parser.add_argument("-p", "--plots", type=str, help="plots definition")
     parser.add_argument('-o', '--outdir', type=str, help="directory to save plots")
+    parser.add_argument('-t', '--test', type=str, help="test variable", default="train")
     parser.add_argument('-ep', '--eprops', type=str, help="environment properties")
     parser.add_argument('-eep', '--eeprops', type=str, help="enhanced environment properties")
     parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
@@ -64,7 +65,7 @@ if __name__ == '__main__':
     if args.eeprops is not None:
         eeprops = eval(args.eeprops)
         eprops, env_name = PCTRunProperties.get_environment_properties_from_filename(args.file)
-        eprops['dataset'] = 'test'
+        eprops['dataset'] = args.test
         eprops['initial'] = eeprops['initial']
         print(eprops)
         env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')
