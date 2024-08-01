@@ -39,7 +39,7 @@ if project == 'dims_only':
     initial_index=1
     qty = 7
 
-    ls = [ ['env_only'] , ['env', 'inputs'] ]
+    ls = [ ['env'] , ['env', 'inputs'] ]
     for input_set in ls:
         for index in range(2):
             if index == 0:
