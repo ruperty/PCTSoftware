@@ -83,7 +83,7 @@ class HPCTGenerateEvolvers(object):
         # error_limit=None 
         modified=False                     
 
-        if response == 'MovingSumError' or response == 'MovingSumAverage':
+        if response == 'MovingSumError' or response == 'MovingAverageError':
             environment_properties['history'] = error_properties['error:history']        
             environment_properties['initial'] = error_properties['error:initial']        
             modified = True

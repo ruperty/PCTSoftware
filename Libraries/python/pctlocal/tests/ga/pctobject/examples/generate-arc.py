@@ -6,7 +6,7 @@ Created on Mon Apr 17 2023
 """
 
 
-# python examples/generate-arc.py > configs/ar/test-cmds.txt
+# python examples/generate-arc.py >> configs/ar/test-cmds.txt
 
 from os import sep
 
@@ -28,13 +28,13 @@ cmd='impl.evolve'
 batch = 10
 num_evals = 1
 pop_size =  100
-gens = 25
+gens = 50
 evolve_termination_value = 0
 runs = 250
 
 if project == 'dims_only':
 
-    filename = 'ar' + sep +'configs-dims-only.csv'
+    filename = 'ar' + sep +'configs-dims-only-sum.csv'
     args = f'-b -pl scEdges,scZero -p {project} -o'
     initial_index=1
     qty = 7

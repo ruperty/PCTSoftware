@@ -89,6 +89,7 @@ if __name__ == '__main__':
 
 	for i in range(start, iters+start, 1):
 		arg['seed']=i
+		print('overwrite', overwrite)
 		score = evolve_setup(arg)
 		pass
 	
