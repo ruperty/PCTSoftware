@@ -234,7 +234,9 @@ class HPCTGenerateEvolvers(object):
                     aname = f'{arch_name}{actr:04}'
 
                     arch_props = {}
-                    arch_props['collectors']=[record['error_collector']]
+                    # arch_props['collectors']=[record['error_collector']]
+                    arch_props['collectors'] = [self.get_config_value(record, 'error_collector')]
+
                     arch_props['responses']=[record['error_response']]
                     structs = {}
                     arch_types = self.get_config_value(record, 'arch_types')
@@ -300,7 +302,10 @@ class HPCTGenerateEvolvers(object):
                     if ep is None or ep == '':
                         error_properties=None
                     else:
-                        error_properties=eval(record['error_properties']) 
+                        if 'error_properties' in record:
+                            error_properties=eval(record['error_properties']) 
+                        else:
+                            error_properties=ep 
 
                     envp = self.get_eval_config_value_override_empty(record, 'environment_properties')    
                     if envp is None or envp == '':
