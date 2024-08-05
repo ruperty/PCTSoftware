@@ -317,9 +317,6 @@ class HPCTGenerateEvolvers(object):
                     arch['name']=aname
                     arch['env_inputs_indexes']=self.get_eval_config_value(record, 'env_inputs_indexes')
 
-                    ###
-
-
                     zlii = self.get_none_config_value(record, 'zerolevel_inputs_indexes')  
                     if zlii and len(zlii) > 0:
                         arch['zerolevel_inputs_indexes']=eval(zlii)
@@ -329,7 +326,6 @@ class HPCTGenerateEvolvers(object):
 
                     # arch['references']=eval(record['references'])
 
-
                     arch['references']=self.get_none_config_value(record, 'references')
                     arch['env_inputs_names']=self.get_none_config_value(record, 'env_inputs_names')
 
@@ -337,6 +333,9 @@ class HPCTGenerateEvolvers(object):
 
                     num_actions = self.get_none_config_value(record, 'num_actions')
                     num_evals = self.get_config_value(record, 'num_evals')
+
+                    if env == 'ARC':
+                        environment_properties['runs'] = eval(self.get_config_value(record, 'runs'))
 
                     self.generate_option_files(1, env, num_actions, arch, config, num_evals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
                     if ((actr - initial_index)+1) % batch == 0:
