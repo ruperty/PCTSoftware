@@ -83,7 +83,7 @@ if project == 'simple':
     initial_index=61
     filename = 'ar' + sep +'configs-simple.csv'
     args = "-b -pl scEdges,scZero -p simple -o"
-    runs = 300
+    # runs = 300
 
     # properties = { 'dir': f'C:/Users/{user}/Versioning/python/nbdev/epct/nbs/testfiles/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
     common_configs = {'env' : env, 'seed': seed, 'arch_name' : arch_name, 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
