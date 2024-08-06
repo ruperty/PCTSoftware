@@ -9,7 +9,28 @@ from pct.hierarchy import PCTHierarchy
 
 from epct.structure import ParameterFactory
 
-test = 16
+
+
+
+test = 17
+
+if test == 17:
+    import math
+    offset = 0 #160
+    fl = [0.0009175206687359605, 0.0007573602933916845, 0.0006067108042770997, 0.00047096867638174444, 0.0003537725262958702, 0.00025687917150207795, 0.00018032966272585327, 0.000122719444334507, 8.158153013937408e-05, 5.387493024500145e-05]
+    for i in range(len(fl)):
+        fl[i] += offset
+        
+    rel_tol = 0.001
+    abs_tol = 0.01
+    # mean_value = 0.0003801717708029173
+    mean_value = np.mean(fl)
+    print('mean_value', mean_value)
+    print()
+    for value in fl:
+        v = math.isclose(value, mean_value, rel_tol=rel_tol, abs_tol=abs_tol)
+        print(f'{mean_value:4.5f} {value:4.5f} {abs(mean_value-value):4.5f} {rel_tol*max(value, mean_value):4.5f} {v}')
+
 
 if test == 16:
     import comet_ml
