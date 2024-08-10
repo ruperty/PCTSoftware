@@ -61,12 +61,16 @@ if __name__ == '__main__':
     else:
         history=False
 
+    runs=None
+
     eeprops = None
     if args.eeprops is not None:
         eeprops = eval(args.eeprops)
         eprops, env_name = PCTRunProperties.get_environment_properties_from_filename(args.file)
         eprops['dataset'] = args.test
         eprops['initial'] = eeprops['initial']
+        eprops['runs'] = eeprops['runs']
+        runs = eprops['runs']
         print(eprops)
         env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')
         eeprops = env_proc.enhanced_environment_properties(environment_properties=eprops)
@@ -76,7 +80,7 @@ if __name__ == '__main__':
         tic = time.perf_counter()
 
         hierarchy, score = PCTHierarchy.run_from_file(args.file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
-                        plots=plots, history=history, hpct_verbose= args.verbose, runs=None, plots_dir=args.outdir, early_termination=args.early, 
+                        plots=plots, history=history, hpct_verbose= args.verbose, runs=runs, plots_dir=args.outdir, early_termination=args.early, 
                         enhanced_environment_properties=eeprops)
         print(f'Score={score:0.3f}')
         
