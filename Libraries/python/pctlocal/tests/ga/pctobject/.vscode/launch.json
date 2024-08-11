@@ -146,10 +146,11 @@
             // "args": ["-a", "ARC", "ARC0076-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0082-FitnessError-MovingAverageError-Mode04",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0063-FitnessError-MovingSumError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
-            // "args": [ "ARC", "ARC0061-FitnessError-MovingSumError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
+
+            "args": [ "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
 
             
-            "args": [ "ARC", "ARC0115-FitnessError-MovingSumError-Mode09",  "-b", "-pl", "scEdges,scZero,scFitness"],
+            // "args": [ "ARC", "ARC0115-FitnessError-MovingSumError-Mode09",  "-b", "-pl", "scEdges,scZero,scFitness"],
 
             // "args": ["-d", "ARC", "ARC0075-FitnessError-MovingSumError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],          
             // "args": ["-a", "ARC", "ARC0070-FitnessError-MovingSumError-Mode02",  "-b", "-pl", "scEdges,scZero", "-d" ],
