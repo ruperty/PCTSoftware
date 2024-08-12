@@ -7,8 +7,17 @@ from os import cpu_count
 from multiprocessing import Pool
 from cutils.paths import get_root_path, get_gdrive
 from epct.evolve import evolve_setup
+import os
+import os
 
 
+def remove_files_in_plots_dir(plots_dir):
+	
+	files = os.listdir(plots_dir)
+	for file in files:
+		file_path = os.path.join(plots_dir, file)
+		if os.path.isfile(file_path):
+			os.remove(file_path)
 
 
 if __name__ == '__main__':
@@ -40,7 +49,9 @@ if __name__ == '__main__':
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
-			
+
+	remove_files_in_plots_dir(plots_dir)
+
 	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':False}
 	drive = get_gdrive()

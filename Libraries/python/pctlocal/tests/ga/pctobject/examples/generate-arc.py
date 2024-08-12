@@ -8,6 +8,7 @@ Created on Mon Apr 17 2023
 
 # python examples/generate-arc.py > configs/ar/cmds-dims_only.txt
 # python examples/generate-arc.py > configs/ar/cmds-simple.txt
+# python examples/generate-arc.py >> configs/ar/cmds-simple.txt
 
 from os import sep
 
@@ -79,10 +80,19 @@ if project == 'dims_only':
 #             initial_index += qty
 
 if project == 'simple':
+    code = '00000003'
 
-    initial_index=61
-    filename = 'ar' + sep +'configs-simple.csv'
-    args = "-b -pl scEdges,scZero,scFitness -p simple -o"
+    if code == '00000001':
+        initial_index=61
+    elif code == '00000002':
+        initial_index=81
+    elif code == '00000003':
+        initial_index=101
+    elif code == '00000004':
+        initial_index=121
+
+    filename = f'ar{sep}configs-simple-{code}.csv'
+    args = f'-b -pl scEdges,scZero,scFitness -p simple-{code} -o'
     runs = 300
 
     # properties = { 'dir': f'C:/Users/{user}/Versioning/python/nbdev/epct/nbs/testfiles/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
@@ -93,4 +103,5 @@ if project == 'simple':
                     'error_properties':{'error:history': 10, 'error:initial': 100}, 'error_collector': error_collector, 'references': [0]}
 
     process(filename,common_configs, args, cmd, initial_index, batch)
+    print()
 
