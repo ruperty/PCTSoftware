@@ -75,7 +75,8 @@ class HPCTGenerateEvolvers(object):
                         self.write_to_file(filepath, text)
 
                         flist = [filename]
-                        cmd = f'python -m {cmdline}_multi {env} {filename} {fargs} {args}'
+                        cmd = f'python -m {cmdline}_multi {env} "{flist}" {args}'
+                        # cmd = f'python -m {cmdline} {env} {filename} {fargs} {args}'
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
