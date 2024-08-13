@@ -88,14 +88,14 @@ if project == 'simple':
         initial_index=81
     elif code == '00000003':
         initial_index=101
-        pop_size =  1000
-
+        pop_size =  100
+        cmd='impl.evolve'
     elif code == '00000004':
         initial_index=121
 
     filename = f'ar{sep}configs-simple-{code}.csv'
-    args = f'-b -pl scEdges,scZero,scFitness -p simple-{code} -o'
-    runs = 300
+    args = f'-b -pl scEdges,scZero,scFitness -p simple-{code} -o -i 5'
+    # runs = 300
 
     # properties = { 'dir': f'C:/Users/{user}/Versioning/python/nbdev/epct/nbs/testfiles/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
     common_configs = {'env' : env, 'seed': seed, 'arch_name' : arch_name, 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,

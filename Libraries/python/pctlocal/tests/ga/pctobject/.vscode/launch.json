@@ -147,9 +147,12 @@
             // "args": ["-a", "ARC", "ARC0074-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0076-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0101-FitnessError-MovingSumError-Mode08",  "-b", "-pl", "scEdges,scZero,scFitness"],
+           
+            "args": ["-a", "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
 
-            "args": ["-a", "ARC", "ARC0103-FitnessError-MovingAverageError-Mode04",  "-b", "-pl", "scEdges,scZero,scFitness"],
-        
+            // "args": ["-a", "ARC", "ARC0103-FitnessError-MovingAverageError-Mode04",  "-b", "-pl", "scEdges,scZero,scFitness"],
+
+            // "args": ["-d", "ARC", "ARC0001-FitnessError-MovingSumError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0070-FitnessError-MovingSumError-Mode02",  "-b", "-pl", "scEdges,scZero", "-d" ],
             // "args": ["-a", "ARC", "ARC0020-FitnessError-MovingSumError-Mode00",  "-b", "-pl", "scEdges,scZero" , "-d", "-p", "simple",  "-o"],
             // "args": ["ARC", "ARC0006-FitnessError-MovingSumError-Mode08",  "-b", "-pl", "scEdges,scZero", "-d"],
