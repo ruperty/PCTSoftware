@@ -51,3 +51,37 @@ python -m impl.evolve_multi ARC "['ARC0101-FitnessError-MovingAverageError-Mode0
 
 
 python -m impl.evolve ARC ARC0105-FitnessError-MovingAverageError-Mode07  -b -pl scEdges,scZero,scFitness -p memory 
+python -m impl.evolve ARC ARC0101-FitnessError-MovingAverageError-Mode00  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0102-FitnessError-MovingAverageError-Mode02  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0103-FitnessError-MovingAverageError-Mode04  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0104-FitnessError-MovingAverageError-Mode05  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0105-FitnessError-MovingAverageError-Mode07  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0106-FitnessError-MovingAverageError-Mode08  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0107-FitnessError-MovingAverageError-Mode09  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0108-FitnessError-MovingAverageError-Mode00  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0109-FitnessError-MovingAverageError-Mode02  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0110-FitnessError-MovingAverageError-Mode04  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0111-FitnessError-MovingAverageError-Mode05  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0112-FitnessError-MovingAverageError-Mode07  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0113-FitnessError-MovingAverageError-Mode08  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0114-FitnessError-MovingAverageError-Mode09  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+
+python -m impl.evolve_multi ARC "['ARC0101-FitnessError-MovingAverageError-Mode00', 'ARC0102-FitnessError-MovingAverageError-Mode02', 'ARC0103-FitnessError-MovingAverageError-Mode04', 'ARC0104-FitnessError-MovingAverageError-Mode05', 'ARC0105-FitnessError-MovingAverageError-Mode07', 'ARC0106-FitnessError-MovingAverageError-Mode08', 'ARC0107-FitnessError-MovingAverageError-Mode09', 'ARC0108-FitnessError-MovingAverageError-Mode00', 'ARC0109-FitnessError-MovingAverageError-Mode02', 'ARC0110-FitnessError-MovingAverageError-Mode04', 'ARC0111-FitnessError-MovingAverageError-Mode05', 'ARC0112-FitnessError-MovingAverageError-Mode07', 'ARC0113-FitnessError-MovingAverageError-Mode08', 'ARC0114-FitnessError-MovingAverageError-Mode09']" -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+
+python -m impl.evolve ARC ARC0101-FitnessError-MovingAverageError-Mode00  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0102-FitnessError-MovingAverageError-Mode02  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0103-FitnessError-MovingAverageError-Mode04  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0104-FitnessError-MovingAverageError-Mode05  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0105-FitnessError-MovingAverageError-Mode07  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0106-FitnessError-MovingAverageError-Mode08  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0107-FitnessError-MovingAverageError-Mode09  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0108-FitnessError-MovingAverageError-Mode00  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0109-FitnessError-MovingAverageError-Mode02  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0110-FitnessError-MovingAverageError-Mode04  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0111-FitnessError-MovingAverageError-Mode05  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0112-FitnessError-MovingAverageError-Mode07  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0113-FitnessError-MovingAverageError-Mode08  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+python -m impl.evolve ARC ARC0114-FitnessError-MovingAverageError-Mode09  -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+
+python -m impl.evolve_multi ARC "['ARC0101-FitnessError-MovingAverageError-Mode00', 'ARC0102-FitnessError-MovingAverageError-Mode02', 'ARC0103-FitnessError-MovingAverageError-Mode04', 'ARC0104-FitnessError-MovingAverageError-Mode05', 'ARC0105-FitnessError-MovingAverageError-Mode07', 'ARC0106-FitnessError-MovingAverageError-Mode08', 'ARC0107-FitnessError-MovingAverageError-Mode09', 'ARC0108-FitnessError-MovingAverageError-Mode00', 'ARC0109-FitnessError-MovingAverageError-Mode02', 'ARC0110-FitnessError-MovingAverageError-Mode04', 'ARC0111-FitnessError-MovingAverageError-Mode05', 'ARC0112-FitnessError-MovingAverageError-Mode07', 'ARC0113-FitnessError-MovingAverageError-Mode08', 'ARC0114-FitnessError-MovingAverageError-Mode09']" -b -pl scEdges,scZero,scFitness -p simple-00000003 -o -i 5
+
