@@ -88,6 +88,8 @@ if project == 'simple':
         initial_index=81
     elif code == '00000003':
         initial_index=101
+        pop_size =  1000
+
     elif code == '00000004':
         initial_index=121
 
