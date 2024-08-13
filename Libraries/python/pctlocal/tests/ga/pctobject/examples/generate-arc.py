@@ -80,7 +80,7 @@ if project == 'dims_only':
 #             initial_index += qty
 
 if project == 'simple':
-    code = '00000003'
+    code = '00000001'
 
     if code == '00000001':
         initial_index=61
@@ -88,7 +88,7 @@ if project == 'simple':
         initial_index=81
     elif code == '00000003':
         initial_index=101
-        pop_size =  1000
+        pop_size =  100
 
     elif code == '00000004':
         initial_index=121
