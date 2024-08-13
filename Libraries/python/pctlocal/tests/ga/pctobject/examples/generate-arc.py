@@ -80,7 +80,7 @@ if project == 'dims_only':
 #             initial_index += qty
 
 if project == 'simple':
-    code = '00000003'
+    code = '00000002'
 
     if code == '00000001':
         initial_index=61
