@@ -73,9 +73,10 @@ class HPCTGenerateEvolvers(object):
                         makedirs(filedir, exist_ok=True)
                         filepath = f'configs{sep}{env}{sep}{filename}.properties'
                         self.write_to_file(filepath, text)
-                        # cmd = f'python examples{sep}evolve.py {env} {filename} -p 666X' # -i {iters}'
+
                         flist = [filename]
-                        cmd = f'python -m {cmdline} {env} {filename} {fargs} {args}'
+                        cmd = f'python -m {cmdline}_multi {env} "{flist}" {args}'
+                        # cmd = f'python -m {cmdline} {env} {filename} {fargs} {args}'
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
