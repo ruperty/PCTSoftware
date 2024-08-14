@@ -216,7 +216,7 @@ class HPCTGenerateEvolvers(object):
 
 
 
-    def process_csv(self, file, args="", cmdline=None, initial_index=1, batch=1000):
+    def process_csv(self, file, args="", cmdline=None, initial_index=1, batch=1000, single_multi=False):
         with open(file, 'r', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile)
             fname_list = []
@@ -340,7 +340,7 @@ class HPCTGenerateEvolvers(object):
                     if env == 'ARC':
                         environment_properties['runs'] = eval(self.get_config_value(record, 'runs'))
 
-                    self.generate_option_files(1, env, num_actions, arch, config, num_evals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline)
+                    self.generate_option_files(1, env, num_actions, arch, config, num_evals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=cmdline, single_multi=single_multi)
                     if ((actr - initial_index)+1) % batch == 0:
                         cmd = f'python -m {cmdline}_multi {env} "{fname_list}" {args}'
                         batches.append(cmd)

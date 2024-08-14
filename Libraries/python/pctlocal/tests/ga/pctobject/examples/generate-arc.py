@@ -18,7 +18,7 @@ def process(filename,common_configs, args, cmd, initial_index, batch, single_mul
     file = 'configs'+ sep + filename
 
     hge = HPCTGenerateEvolvers(common_configs=common_configs, single_multi=single_multi)  
-    hge.process_csv(file, args, cmdline=cmd, initial_index=initial_index, batch=batch)
+    hge.process_csv(file, args, cmdline=cmd, initial_index=initial_index, batch=batch, single_multi=single_multi)
 
 
 from socket import gethostname    
@@ -83,7 +83,7 @@ if project == 'dims_only':
 #             initial_index += qty
 
 if project == 'simple':
-    code = '00000002'
+    code = '00000003'
 
     if code == '00000001':
         initial_index=61
@@ -92,15 +92,17 @@ if project == 'simple':
     elif code == '00000003':
         initial_index=101
         pop_size =  100        
-        error_limit = 10000
+        error_limit = 1000
         einitial = 100
+        single_multi = True
 
     elif code == '00000004':
         initial_index=121
 
     filename = f'ar{sep}configs-simple-{code}.csv'
-    args = f'-b -pl scEdges,scZero,scFitness -p simple-{code} -i 5'
-    # runs = 300
+    args = f'-b -pl scEdges,scZero,scFitness -p simple-{code} -o -i 5'
+    # args = f'-b -pl scEdges,scZero,scFitness -p s-{code}-test -i 5'
+
 
     # properties = { 'dir': f'C:/Users/{user}/Versioning/python/nbdev/epct/nbs/testfiles/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
     common_configs = {'env' : env, 'seed': seed, 'arch_name' : arch_name, 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
