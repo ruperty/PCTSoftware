@@ -16,7 +16,7 @@ from pct.functions import HPCTFUNCTION
 
 class HPCTGenerateEvolvers(object):
     "Generate files of evolver properties, from array of options."
-    def __init__(self, iters=0, envs=None, collection=None, configs=None, properties=None, varieties=None, common_configs=None):
+    def __init__(self, iters=0, envs=None, collection=None, configs=None, properties=None, varieties=None, common_configs=None, single_multi=False):
         if common_configs:
             self.common_configs=common_configs
         else:
@@ -34,9 +34,9 @@ class HPCTGenerateEvolvers(object):
                     key = '_'.join((env,arch['name']))
                     print(key)
                     config = configs[key]
-                    self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection)
+                    self.generate_option_files(iters, env, num_actions, arch, config, nevals, properties, collection, single_multi)
 
-    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=None):
+    def generate_option_files(self, iters, env, num_actions, arch, config, nevals, error_properties, environment_properties, collection, args, fname_list, fargs, cmdline=None, single_multi=False):
         "Generate properties file based upon architecture type."
         #print('arch', arch)
         import os
@@ -75,8 +75,10 @@ class HPCTGenerateEvolvers(object):
                         self.write_to_file(filepath, text)
 
                         flist = [filename]
-                        cmd = f'python -m {cmdline}_multi {env} "{flist}" {args}'
-                        # cmd = f'python -m {cmdline} {env} {filename} {fargs} {args}'
+                        if single_multi:
+                            cmd = f'python -m {cmdline}_multi {env} "{flist}" {args}'
+                        else:
+                            cmd = f'python -m {cmdline} {env} {filename} {fargs} {args}'
                         print(cmd, end='\n')
                         # print(f'set WW_CONFIG={filename}')
                 
