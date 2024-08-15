@@ -10,9 +10,15 @@ Created on Mon Apr 17 2023
 # python examples/generate-arc.py > configs/ar/cmds-simple.txt
 # python examples/generate-arc.py >> configs/ar/cmds-simple.txt
 
-from os import sep
+# python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p simple -sm -ii 61 > configs/ar/cmds-simple.txt
 
+
+
+
+from os import sep
+import argparse
 from eepct.hpct import HPCTGenerateEvolvers
+from socket import gethostname    
 
 def process(filename,common_configs, args, cmd, initial_index, batch, single_multi=False):
     file = 'configs'+ sep + filename
@@ -21,27 +27,50 @@ def process(filename,common_configs, args, cmd, initial_index, batch, single_mul
     hge.process_csv(file, args, cmdline=cmd, initial_index=initial_index, batch=batch, single_multi=single_multi)
 
 
-from socket import gethostname    
-user = 'ruper' if gethostname() == 'DESKTOP-5O07H5P' else 'ryoung'
 
-project = 'simple'
-# project = 'dims_only'
 
-args = "-i 1 -s 93"
-cmd='impl.evolve'
-# initial_index=1
-batch = 60
-num_evals = 1
-pop_size =  100
-gens = 50
-env = 'ARC'
-seed =  1
-arch_name = 'ARC'
-error_collector = 'FitnessError'
-evolve_termination_value = 0
-error_limit = 10000
-einitial = 100
-single_multi = False
+
+if __name__ == '__main__':
+
+    # user = 'ruper' if gethostname() == 'DESKTOP-5O07H5P' else 'ryoung'
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--file', type=str, help="file name")
+    parser.add_argument('-c', '--code', type=str, help="ARC code")
+    parser.add_argument('-a', '--aargs', type=str, help="additional arguments", default="")
+    parser.add_argument('-p', '--project', type=str, help="project name")
+    parser.add_argument('-sm', '--single_multi', help="single or multi", action="store_true")
+    parser.add_argument('-el', '--error_limit', type=int, help="error limit", default=1000)
+    parser.add_argument('-ei', '--einitial', type=int, help="error initial", default=100)
+    parser.add_argument('-ii', '--initial_index', type=int, help="initial index", default=1)
+    parser.add_argument('-pop', '--pop_size', type=int, help="pop size", default=100)
+    parser.add_argument('-g', '--gens', type=int, help="gens", default=50)  
+    parser.add_argument('-s', '--seed', type=int, help="seed", default=1)
+    args = parser.parse_args()
+
+
+    error_limit = args.error_limit
+    einitial = args.einitial
+    initial_index = args.initial_index
+    pop_size = args.pop_size
+    gens = args.gens
+    file = args.file
+    seed = args.seed
+    aargs = args.aargs
+
+    project = args.project
+    code = args.code
+    single_multi = args.single_multi
+
+    cmd='impl.evolve'
+    # initial_index=1
+    batch = 60
+    num_evals = 1
+    env = 'ARC'
+    arch_name = 'ARC'
+    error_collector = 'FitnessError'
+    evolve_termination_value = 0
+
 
 if project == 'dims_only':
     runs = 500
@@ -57,50 +86,10 @@ if project == 'dims_only':
 
     process(filename,common_configs, args, cmd, initial_index, batch)
 
-
-
-# if project == 'dims_only1':
-
-#     filename = 'ar' + sep +'configs-dims-only-sum.csv'
-#     args = f'-b -pl scEdges,scZero -p {project} -o'
-#     initial_index=1
-#     qty = 7
-
-#     ls = [ ['env'] , ['env', 'inputs'] ]
-#     for input_set in ls:
-#         for index in range(2):
-#             if index == 0:
-#                 properties = { 'code':'007bbfb7',  'dataset': 'train', 'control_set': ['dims'], 'input_set': input_set, 'index' : 0}
-#             else:
-#                 properties = { 'code':'007bbfb7',  'dataset': 'train', 'control_set': ['dims'], 'input_set': input_set}
-
-#             common_configs = {'env' : 'ARC', 'seed': 1, 'arch_name' : 'ARC', 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
-#                     'attr_mut_pb' : 1, 'structurepb' : 0.9, 'runs' : runs, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
-#                     'max_levels_limit': 2, 'min_columns_limit': 1, 'max_columns_limit': 2, 'early_termination': True, 'p_crossover': 0.9, 
-#                     'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': 10000, 'environment_properties': properties, 'error_properties':{'error:history': 20, 'error:initial': 100}}
-
-#             process(filename,common_configs, args, cmd, initial_index, batch)
-#             initial_index += qty
-
 if project == 'simple':
-    code = '00000003'
 
-    if code == '00000001':
-        initial_index=61
-    elif code == '00000002':
-        initial_index=81
-    elif code == '00000003':
-        initial_index=101
-        pop_size =  100        
-        error_limit = 1000
-        einitial = 100
-        single_multi = True
-
-    elif code == '00000004':
-        initial_index=121
-
-    filename = f'ar{sep}configs-simple-{code}.csv'
-    args = f'-b -pl scEdges,scZero,scFitness -p simple-{code} -o -i 5'
+    filename = f'ar{sep}{file}'
+    args = f'-b -pl scEdges,scZero,scFitness -p {project} {aargs}'
     # args = f'-b -pl scEdges,scZero,scFitness -p s-{code}-test -i 5'
 
 

@@ -68,7 +68,9 @@
 
 
             // "args": [ "-d",  "-t", "test", "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode09\\ga-000.030-s001-1x1-m009-ARC0087-20093f305eec87e83c03adcf2160635f.properties" , "-eep", "{'code': '00000003', 'dataset': 'test', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'history': 10, 'initial': 0, 'runs': 350}"],
-            "args": [ "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode09\\ga-000.030-s001-1x1-m009-ARC0087-20093f305eec87e83c03adcf2160635f.properties" , "-eep", "{'code': '00000003', 'dataset': 'test', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'history': 10, 'initial': 0, 'runs': 350, 'index': 1}"],
+            // "args": [ "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode09\\ga-000.030-s001-1x1-m009-ARC0087-20093f305eec87e83c03adcf2160635f.properties" , "-eep", "{'code': '00000003', 'dataset': 'test', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'history': 10, 'initial': 0, 'runs': 350, 'index': 1}"],
+            
+            "args": [ "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode07\\ga-000.000-s001-1x1-m007-ARC0038-5c44888d13537845a355a4959cfc8935-consolidated.properties" , "-eep", "{'code': '007bbfb7', 'dataset': 'train', 'control_set': ['dims'], 'input_set': ['env'], 'history': 10, 'initial': 100, 'runs': 20}"],
 
             
             "console": "internalConsole"
@@ -130,12 +132,12 @@
             // "args": ["ARC", "ARC0010-FitnessError-MovingSumError-Mode07",  "-b", "-pl", "scEdges,scZero", "-d"],
             // "args": ["-a", "ARC", "ARC0074-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0076-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
-            // "args": ["-a", "ARC", "ARC0101-FitnessError-MovingSumError-Mode08",  "-b", "-pl", "scEdges,scZero,scFitness"],
-           
-            "args": ["-a", "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
+            // "args": ["-a", "ARC", "ARC0101-FitnessError-MovingSumError-Mode08",  "-b", "-pl", "scEdges,scZero,scFitness"],          
+            // "args": ["-a", "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
+
+            "args": ["-a", "ARC", "ARC0064-FitnessError-MovingAverageError-Mode05",  "-b", "-pl", "scEdges,scZero,scFitness"],
 
             // "args": ["-a", "ARC", "ARC0103-FitnessError-MovingAverageError-Mode04",  "-b", "-pl", "scEdges,scZero,scFitness"],
-
             // "args": ["-d", "ARC", "ARC0001-FitnessError-MovingSumError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0070-FitnessError-MovingSumError-Mode02",  "-b", "-pl", "scEdges,scZero", "-d" ],
             // "args": ["-a", "ARC", "ARC0020-FitnessError-MovingSumError-Mode00",  "-b", "-pl", "scEdges,scZero" , "-d", "-p", "simple",  "-o"],
