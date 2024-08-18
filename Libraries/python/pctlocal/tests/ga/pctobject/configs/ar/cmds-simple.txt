@@ -49,3 +49,20 @@ COMET INFO: All assets have been sent, waiting for delivery confirmation
 COMET INFO: All assets have been sent, waiting for delivery confirmation
 COMET INFO: All assets have been sent, waiting for delivery confirmation
 COMET INFO: All assets have been sent, waiting for delivery confirmation
+
+
+
+
+python -m impl.evolve_multi ARC "['ARC0101-FitnessError-MovingAverageError-Mode00']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0102-FitnessError-MovingAverageError-Mode02']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0103-FitnessError-MovingAverageError-Mode07']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0104-FitnessError-MovingAverageError-Mode09']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0105-FitnessError-MovingAverageError-Mode10']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0106-FitnessError-MovingAverageError-Mode11']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0107-FitnessError-MovingAverageError-Mode12']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0108-FitnessError-MovingAverageError-Mode13']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0109-FitnessError-MovingAverageError-Mode14']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+python -m impl.evolve_multi ARC "['ARC0110-FitnessError-MovingAverageError-Mode15']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+
+python -m impl.evolve_multi ARC "['ARC0101-FitnessError-MovingAverageError-Mode00', 'ARC0102-FitnessError-MovingAverageError-Mode02', 'ARC0103-FitnessError-MovingAverageError-Mode07', 'ARC0104-FitnessError-MovingAverageError-Mode09', 'ARC0105-FitnessError-MovingAverageError-Mode10', 'ARC0106-FitnessError-MovingAverageError-Mode11', 'ARC0107-FitnessError-MovingAverageError-Mode12', 'ARC0108-FitnessError-MovingAverageError-Mode13', 'ARC0109-FitnessError-MovingAverageError-Mode14', 'ARC0110-FitnessError-MovingAverageError-Mode15']" -b -pl scEdges,scZero,scFitness -p simple -i 5
+

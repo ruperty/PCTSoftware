@@ -16,6 +16,9 @@ Created on Mon Apr 17 2023
 # python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple -sm -ii 81  >> configs/ar/cmds-simple.txt
 # python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple -sm -ii 81 -a "-i 5" >> configs/ar/cmds-simple.txt
 
+# python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple -sm -ii 101  >> configs/ar/cmds-simple.txt
+# python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple -sm -ii 101 -a "-i 5" >> configs/ar/cmds-simple.txt
+
 
 
 
