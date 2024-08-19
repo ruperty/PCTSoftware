@@ -19,6 +19,8 @@ Created on Mon Apr 17 2023
 # python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple -sm -ii 101  >> configs/ar/cmds-simple.txt
 # python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple -sm -ii 101 -a "-i 5" >> configs/ar/cmds-simple.txt
 
+# python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 101  >> configs/ar/cmds-simple.txt
+# python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 101 -a "-i 5" >> configs/ar/cmds-simple.txt
 
 
 
@@ -79,21 +81,21 @@ if __name__ == '__main__':
     evolve_termination_value = 0
 
 
-if project == 'dims_only':
-    runs = 500
-    initial_index = 1
-    filename = 'ar' + sep +'configs-dims-only.csv'
-    args = f'-b -pl scEdges,scZero -p {project} -o'
-    # properties = { 'code':'007bbfb7',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
-    common_configs = {'env' : env, 'seed': seed, 'arch_name' : arch_name, 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
-                    'attr_mut_pb' : 1, 'structurepb' : 1, 'runs' : runs, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
-                    'max_levels_limit': 4, 'min_columns_limit': 1, 'max_columns_limit': 4, 'early_termination': True, 'p_crossover': 0.9, 
-                    'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': 10000, # 'environment_properties': properties, 
-                    'error_properties':{'error:history': 10, 'error:initial': 100}, 'error_collector': error_collector, 'references': [0]}
+# if project == 'dims_only':
+#     runs = 500
+#     initial_index = 1
+#     filename = 'ar' + sep +'configs-dims-only.csv'
+#     args = f'-b -pl scEdges,scZero -p {project} -o'
+#     # properties = { 'code':'007bbfb7',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
+#     common_configs = {'env' : env, 'seed': seed, 'arch_name' : arch_name, 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
+#                     'attr_mut_pb' : 1, 'structurepb' : 1, 'runs' : runs, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
+#                     'max_levels_limit': 4, 'min_columns_limit': 1, 'max_columns_limit': 4, 'early_termination': True, 'p_crossover': 0.9, 
+#                     'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': 10000, # 'environment_properties': properties, 
+#                     'error_properties':{'error:history': 10, 'error:initial': 100}, 'error_collector': error_collector, 'references': [0]}
 
-    process(filename,common_configs, args, cmd, initial_index, batch)
+#     process(filename,common_configs, args, cmd, initial_index, batch)
 
-if project == 'simple':
+# if project == 'simple':
 
     filename = f'ar{sep}{file}'
     args = f'-b -pl scEdges,scZero,scFitness -p {project} {aargs}'
