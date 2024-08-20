@@ -47,6 +47,7 @@ if __name__ == '__main__':
     parser.add_argument('-f', '--file', type=str, help="file name")
     parser.add_argument('-c', '--code', type=str, help="ARC code")
     parser.add_argument('-a', '--aargs', type=str, help="additional arguments", default="")
+    parser.add_argument('-r', '--refs', type=str, help="references", default="")
     parser.add_argument('-p', '--project', type=str, help="project name")
     parser.add_argument('-sm', '--single_multi', help="single or multi", action="store_true")
     parser.add_argument('-el', '--error_limit', type=int, help="error limit", default=1000)
@@ -66,10 +67,12 @@ if __name__ == '__main__':
     file = args.file
     seed = args.seed
     aargs = args.aargs
-
     project = args.project
     code = args.code
     single_multi = args.single_multi
+    references = None
+    if args.refs != "":
+        references = eval(args.refs)
 
     cmd='impl.evolve'
     # initial_index=1
@@ -107,7 +110,7 @@ if __name__ == '__main__':
                     'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
                     'max_levels_limit': 4, 'min_columns_limit': 1, 'max_columns_limit': 4, 'early_termination': True, 'p_crossover': 0.9, 
                     'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': error_limit , 'error_properties':{'error:history': 10, 'error:initial': einitial}, 
-                    'error_collector': error_collector, 'references': [0]}
+                    'error_collector': error_collector, 'references': references}
 
     process(filename,common_configs, args, cmd, initial_index, batch, single_multi=single_multi)
     print()

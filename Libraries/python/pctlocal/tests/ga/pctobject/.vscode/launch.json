@@ -72,8 +72,12 @@
             
             // "args": [ "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode07\\ga-000.000-s001-1x1-m007-ARC0038-5c44888d13537845a355a4959cfc8935-consolidated.properties" , "-eep", "{'code': '007bbfb7', 'dataset': 'train', 'control_set': ['dims'], 'input_set': ['env'], 'history': 10, 'initial': 100, 'runs': 20}"],
 
-            "args": ["-e",   "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-001.000-s001-3x2-m013-ARC0071-762274bf398a0da8bb801f040d6df6aa.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000001', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 60, 'history': 10, 'initial': 100}"],
+            // "args": ["-e",   "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-001.000-s001-3x2-m013-ARC0071-762274bf398a0da8bb801f040d6df6aa.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000001', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 60, 'history': 10, 'initial': 100}"],
 
+            "args": ["-e",   "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-130.000-s001-2x3-m013-ARC0108-bc651b425a3a49af18921ff8cdd1afa9.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000003', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 60, 'history': 10, 'initial': 100}"],
+
+
+            
             
             "console": "internalConsole"
         },
@@ -103,7 +107,10 @@
             // "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-SummedError-Mode04\\ga--2630.155-s001-3x5-m004-WT0492-70523e6abb04009382b3cc2d58f6f5f5.properties", "-o", "c:\\tmp", "-m", "{'IYE':[-0.1,0], 'PL0C2sm':[0.1,0], 'PL0C4sm':[-0.5,0], 'OL1C0sm':[-0.2,0],'OL1C1sm':[0.2,0]}"],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-SummedError-Mode04\\ga--1363.726-s001-2x2-m004-WT0499-9a4bf07afec42e171caa4a836bea7cc2.properties", "-o", "c:\\tmp", "-m", "{'IYE':[-0.4,0.1]}"],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode04\\ga-003.136-s001-5x5-m004-WT0206-d056d43dc0016f6cb51ea2a377d1196a.properties", "-o", "c:\\tmp", "-m", "{'IYE':[-0.4,0.1]}"],
-            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode04\\ga-003.139-s001-2x2-m004-WT0205-41b508089a6176ffa44f740d5715c3d3.properties", "-o", "c:\\tmp", "-m", "{'IYE':[-0.4,0.1]}"],
+            // "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-RootMeanSquareError-Mode04\\ga-003.139-s001-2x2-m004-WT0205-41b508089a6176ffa44f740d5715c3d3.properties", "-o", "c:\\tmp", "-m", "{'IYE':[-0.4,0.1]}"],
+            
+            
+            "args": ["-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-130.000-s001-2x3-m013-ARC0108-bc651b425a3a49af18921ff8cdd1afa9.properties", "-o", "c:\\tmp\\ARC"],
 
 
             //"args": ["-f", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\\ga-000.385-s064-2x2-m000-f46606db9aa4aabc0af650882cabb6ac.properties", "-o", "G:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC00-ReferencedInputsError-RootMeanSquareError-Mode00\\f46606db9aa4aabc0af650882cabb6ac", "-m", "{'IV':[0.15,0.2],'IP':[-0.8,0.1], 'OL0C0p':[-0.4,-0.2],'OL0C1p':[0,-0.2], 'OL1C0p':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"],
