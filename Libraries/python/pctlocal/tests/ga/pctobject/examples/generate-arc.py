@@ -23,6 +23,18 @@ Created on Mon Apr 17 2023
 # python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 101  >> configs/ar/cmds-simple.txt
 # python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 101 -a "-i 5" >> configs/ar/cmds-simple.txt
 
+# All
+"""
+
+python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p simple-00000001 -sm -ii 61 -o > configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -sm -ii 81 -o >> configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 101 -o >> configs/ar/cmds-simple.txt
+
+
+"""
+
+
+
 
 
 from os import sep
@@ -57,6 +69,8 @@ if __name__ == '__main__':
     parser.add_argument('-pop', '--pop_size', type=int, help="pop size", default=100)
     parser.add_argument('-g', '--gens', type=int, help="gens", default=50)  
     parser.add_argument('-s', '--seed', type=int, help="seed", default=1)
+    parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
+
     args = parser.parse_args()
 
 
@@ -71,6 +85,10 @@ if __name__ == '__main__':
     project = args.project
     code = args.code
     single_multi = args.single_multi
+    overwrite = args.overwrite
+    ow = ""
+    if overwrite:
+        ow = "-o"
     references = None
     if args.refs != "":
         references = eval(args.refs)
@@ -102,7 +120,7 @@ if __name__ == '__main__':
 # if project == 'simple':
 
     filename = f'ar{sep}{file}'
-    args = f'-b -pl scEdges,scZero,scFitness -p {project} {aargs}'
+    args = f'-b -pl scEdges,scZero,scFitness -p {project} {aargs} {ow}'
     # args = f'-b -pl scEdges,scZero,scFitness -p s-{code}-test -i 5'
 
 

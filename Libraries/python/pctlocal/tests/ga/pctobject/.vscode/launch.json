@@ -112,7 +112,11 @@
             
             // "args": ["-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-130.000-s001-2x3-m013-ARC0108-bc651b425a3a49af18921ff8cdd1afa9.properties", "-o", "c:\\tmp\\ARC"],
 
-            "args": ["-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode15\\ga-052.000-s001-4x3-m015-ARC0110-1a18490dff3a3b77d80faaf62e1fe0a1.properties", "-o", "c:\\tmp\\ARC"],
+            // "args": ["-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode15\\ga-052.000-s001-4x3-m015-ARC0110-1a18490dff3a3b77d80faaf62e1fe0a1.properties", "-o", "c:\\tmp\\ARC", "-m", "{'PL3C1ws':[0.2,0]}"],
+            "args": ["-n", "100", "-d", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode15\\ga-052.000-s001-4x3-m015-ARC0110-1a18490dff3a3b77d80faaf62e1fe0a1.properties", "-o", "c:\\tmp\\ARC", "-m", "{'RL3C1v\\n-7.00':[0.4,0.2], 'PL3C1ws':[0.2,0.8], 'CL3C1':[0.4,0.2], 'OL3C1p':[0.8,0.2]}"],
+
+
+
             // "args": ["-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode15\\ga-052.000-s001-4x3-m015-ARC0110-1a18490dff3a3b77d80faaf62e1fe0a1-consolidated.properties", "-o", "c:\\tmp\\ARC"],
 
 
@@ -234,12 +238,13 @@
         //     "request": "launch",
         //     "module": "examples.example-hpct-evolver-mutate-ind-cartpole"
         // },
-        // {
-        //     "name": "generate_properties_file",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.generate-evolver-properties-csv"
-        // },
+        {
+            "name": "generate_arc",
+            "type": "debugpy",
+            "request": "launch",
+            "args": ["-f", "configs-simple-00000001.csv", "-c", "00000001", "-p", "simple-00000001", "-sm", "-ii", "61", "-o"],
+            "program": "examples/generate-arc.py"
+        },
         // {
         //     "name": "example-arch",
         //     "type": "debugpy",
