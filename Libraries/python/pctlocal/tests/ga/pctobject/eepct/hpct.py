@@ -239,8 +239,8 @@ class HPCTGenerateEvolvers(object):
                     arch_props = {}
                     # arch_props['collectors']=[record['error_collector']]
                     arch_props['collectors'] = [self.get_config_value(record, 'error_collector')]
+                    arch_props['responses']=[self.get_config_value(record, 'error_response')]
 
-                    arch_props['responses']=[record['error_response']]
                     structs = {}
                     arch_types = self.get_config_value(record, 'arch_types')
                     if arch_types == '':

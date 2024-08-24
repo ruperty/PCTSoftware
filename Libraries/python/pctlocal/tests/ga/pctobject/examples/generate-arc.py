@@ -26,9 +26,9 @@ Created on Mon Apr 17 2023
 # All
 """
 
-python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p simple-00000001 -sm -ii 61 -o > configs/ar/cmds-simple.txt
-python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -sm -ii 81 -o >> configs/ar/cmds-simple.txt
-python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 101 -o >> configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p simple-00000001 -sm -ii 61 > configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -sm -ii 91 >> configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 121 >> configs/ar/cmds-simple.txt
 
 
 """
@@ -101,7 +101,8 @@ if __name__ == '__main__':
     arch_name = 'ARC'
     error_collector = 'FitnessError'
     evolve_termination_value = 0
-
+    error_response = 'MovingAverageError'
+    runs = '750'
 
 # if project == 'dims_only':
 #     runs = 500
@@ -126,10 +127,10 @@ if __name__ == '__main__':
 
     # properties = { 'dir': f'C:/Users/{user}/Versioning/python/nbdev/epct/nbs/testfiles/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
     common_configs = {'env' : env, 'seed': seed, 'arch_name' : arch_name, 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
-                    'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 
+                    'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 'runs': runs,
                     'max_levels_limit': 4, 'min_columns_limit': 1, 'max_columns_limit': 4, 'early_termination': True, 'p_crossover': 0.9, 
                     'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': error_limit , 'error_properties':{'error:history': 10, 'error:initial': einitial}, 
-                    'error_collector': error_collector, 'references': references}
+                    'error_collector': error_collector, 'error_response': error_response, 'references': references}
 
     process(filename,common_configs, args, cmd, initial_index, batch, single_multi=single_multi)
     print()
