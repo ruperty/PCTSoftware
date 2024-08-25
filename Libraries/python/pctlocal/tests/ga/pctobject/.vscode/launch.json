@@ -74,10 +74,11 @@
 
             // "args": ["-e",   "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-001.000-s001-3x2-m013-ARC0071-762274bf398a0da8bb801f040d6df6aa.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000001', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 60, 'history': 10, 'initial': 100}"],
 
-            "args": ["-e",   "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-130.000-s001-2x3-m013-ARC0108-bc651b425a3a49af18921ff8cdd1afa9.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000003', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 60, 'history': 10, 'initial': 100}"],
+            // "args": ["-e",   "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-130.000-s001-2x3-m013-ARC0108-bc651b425a3a49af18921ff8cdd1afa9.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000003', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 60, 'history': 10, 'initial': 100}"],
 
+            "args": ["-e",  "-v",  "-o", "c:/tmp/arc", "-p", "[ {'plot_items': {'OL0C0p':'out','Action1sg':'act'}, 'title':'Output'} ]",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode14\\ga-001.000-s001-4x4-m014-ARC0083-08492bd14a9109fa3be798f9b98dff12-consolidated.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000001', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 750, 'history': 10, 'initial': 100, 'index':0}"],
 
-            
+             
             
             "console": "internalConsole"
         },

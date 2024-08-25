@@ -67,13 +67,14 @@ if __name__ == '__main__':
     if args.eeprops is not None:
         eeprops = eval(args.eeprops)
         eprops, env_name = PCTRunProperties.get_environment_properties_from_filename(args.file)
+        print(eprops)
+        print(eeprops)
         eprops['dataset'] = args.test
         eprops['initial'] = eeprops['initial']
         eprops['runs'] = eeprops['runs']
         runs = eprops['runs']
-        print(eprops)
         env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')
-        eeprops = env_proc.enhanced_environment_properties(environment_properties=eprops)
+        # eeprops = env_proc.enhanced_environment_properties(environment_properties=eprops)
 
 
     try:
@@ -87,9 +88,10 @@ if __name__ == '__main__':
         toc = time.perf_counter()
         elapsed = toc-tic        
         print(f'Run time: {elapsed:4.2f}')
-    except FileNotFoundError:
-        print(f'File {args.file} does not exist.')
-    
+    except FileNotFoundError as e:
+        print(e)  
+        
+        
 
 
 
