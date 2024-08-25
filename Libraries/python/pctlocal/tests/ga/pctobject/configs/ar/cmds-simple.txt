@@ -1,3 +1,9 @@
+
+python -m impl.evolve_multi ARC "['ARC0061-FitnessError-MovingAverageError-Mode00']" -b -pl scEdges,scZero,scFitness -p test  
+python -m impl.evolve_multi ARC "['ARC0062-FitnessError-MovingAverageError-Mode00']" -b -pl scEdges,scZero,scFitness -p test  
+
+
+
 python -m impl.evolve_multi ARC "['ARC0061-FitnessError-MovingAverageError-Mode00']" -b -pl scEdges,scZero,scFitness -p simple-00000001  
 python -m impl.evolve_multi ARC "['ARC0062-FitnessError-MovingAverageError-Mode00']" -b -pl scEdges,scZero,scFitness -p simple-00000001  
 python -m impl.evolve_multi ARC "['ARC0063-FitnessError-MovingAverageError-Mode02']" -b -pl scEdges,scZero,scFitness -p simple-00000001  
