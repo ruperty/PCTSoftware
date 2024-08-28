@@ -36,6 +36,9 @@ python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p si
 python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -sm -ii 91 -a "-i 5" -pop 1000 -o >> configs/ar/cmds-simple.txt
 python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 121 -a "-i 5" -pop 1000 -o >> configs/ar/cmds-simple.txt
 
+python examples/generate-arc.py -f configs-simple-00000004.csv -c 00000004 -p simple-00000004 -sm -ii 151 -mall 1 -macl 1 -pl scFitness -g 100 -o -a "-i 5" 
+
+
 
 """
 
@@ -76,10 +79,18 @@ if __name__ == '__main__':
     parser.add_argument('-g', '--gens', type=int, help="gens", default=50)  
     parser.add_argument('-s', '--seed', type=int, help="seed", default=1)
     parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
+    parser.add_argument('-mill', '--min_levels_limit', type=int, help="initial index", default=1)
+    parser.add_argument('-mall', '--max_levels_limit', type=int, help="initial index", default=4)    
+    parser.add_argument('-micl', '--min_columns_limit', type=int, help="initial index", default=1)
+    parser.add_argument('-macl', '--max_columns_limit', type=int, help="initial index", default=4)
+    parser.add_argument('-pl', '--plots', type=str, help="plots", default="scEdges,scZero,scFitness")
 
     args = parser.parse_args()
 
-
+    min_levels_limit = args.min_levels_limit
+    max_levels_limit = args.max_levels_limit
+    min_columns_limit = args.min_columns_limit
+    max_columns_limit = args.max_columns_limit
     error_limit = args.error_limit
     einitial = args.einitial
     initial_index = args.initial_index
@@ -133,8 +144,8 @@ if __name__ == '__main__':
 
     # properties = { 'dir': f'C:/Users/{user}/Versioning/python/nbdev/epct/nbs/testfiles/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
     common_configs = {'env' : env, 'seed': seed, 'arch_name' : arch_name, 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
-                    'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1, 'min_levels_limit': 1, 'runs': runs,
-                    'max_levels_limit': 4, 'min_columns_limit': 1, 'max_columns_limit': 4, 'early_termination': True, 'p_crossover': 0.9, 
+                    'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1, 'runs': runs, 
+                    'min_levels_limit': min_levels_limit, 'max_levels_limit': max_levels_limit, 'min_columns_limit': min_columns_limit, 'max_columns_limit': max_columns_limit, 'early_termination': True, 'p_crossover': 0.9, 
                     'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': error_limit , 'error_properties':{'error:history': 10, 'error:initial': einitial}, 
                     'error_collector': error_collector, 'error_response': error_response, 'references': references}
 
