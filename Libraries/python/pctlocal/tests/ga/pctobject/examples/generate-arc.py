@@ -36,7 +36,7 @@ python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p si
 python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -sm -ii 91 -a "-i 5" -pop 1000 -o >> configs/ar/cmds-simple.txt
 python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 121 -a "-i 5" -pop 1000 -o >> configs/ar/cmds-simple.txt
 
-python examples/generate-arc.py -f configs-simple-00000004.csv -c 00000004 -p simple-00000004 -ii 151 -mall 1 -macl 1 -pl scFitness -el 10000 -g 100 -o -a "-i 5" -o >> configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000004.csv -c 00000004 -p simple-00000004 -ii 151 -mall 1 -macl 1 -pl scFitness -el 10000 -a "-i 5" >> configs/ar/cmds-simple.txt
 
 
 
@@ -109,6 +109,7 @@ if __name__ == '__main__':
     references = None
     if args.refs != "":
         references = eval(args.refs)
+    plots = args.plots
 
     cmd='impl.evolve'
     # initial_index=1
@@ -138,7 +139,7 @@ if __name__ == '__main__':
 # if project == 'simple':
 
     filename = f'ar{sep}{file}'
-    args = f'-b -pl scEdges,scZero,scFitness -p {project} {aargs} {ow}'
+    args = f'-b -pl {plots} -p {project} {aargs} {ow}'
     # args = f'-b -pl scEdges,scZero,scFitness -p s-{code}-test -i 5'
 
 
