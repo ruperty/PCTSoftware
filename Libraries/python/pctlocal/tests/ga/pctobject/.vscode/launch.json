@@ -1,3 +1,6 @@
+
+
+
 {
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
@@ -72,10 +75,14 @@
             // "args": ["-e",  "-d",  "-o", "c:/tmp/arc", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode11\\ga-001.511-s004-2x1-m011-ARC0131-be5b1f33f91fa65dab36e798771232b8.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000003', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 750, 'history': 10, 'initial': 100}"],     
             // "args": ["-e",  "-d",  "-o", "c:/tmp/arc", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode00\\ga-000.056-s001-3x4-m000-ARC0121-3f2bd6bcf9af67ae4159e5fd1f4fa67e.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000003', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 750, 'history': 10, 'initial': 100}"],
 
-            "args": ["-e",  "-d",  "-o", "c:/tmp/arc", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode02\\ga-063.080-s004-1x1-m002-ARC0154-2e60e0477d1bd7f569bad1b748111bf1.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000004', 'dataset': 'test', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 750, 'history': 10, 'initial': 100}"],
+            // "args": ["-e",  "-d",  "-o", "c:/tmp/arc", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode02\\ga-063.080-s004-1x1-m002-ARC0154-2e60e0477d1bd7f569bad1b748111bf1.properties" , "-eep", "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000004', 'dataset': 'test', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 750, 'history': 10, 'initial': 100}"],
+            // "args": ["-e",  "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode02\\ga-000.333-s001-1x1-m002-ARC0153-3a608e8ee2d8dbf85f885e7ba8f4dd51.properties" , "-eep", "{ 'dataset': 'test' }"],
+            // "args": [ "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode00\\ga-000.077-s001-1x1-m000-ARC0121-afc2527538dbedc36c9728ec57c5ad71.properties" , "-eep", "{ 'dataset': 'test', 'runs': 50 }"],
+            // "args": [ "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode00\\ga-000.077-s001-1x1-m000-ARC0121-afc2527538dbedc36c9728ec57c5ad71.properties" , "-eep", "{ 'dataset': 'train', 'index': 0, 'runs': 50 }"],
 
-             
-            
+            "args": ["-s", "2", "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode10\\ga-000.009-s002-1x1-m010-ARC0129-a4e99bcb96514dea2bb7bd6276c5b9f5.properties" , "-eep", "{ 'dataset': 'test', 'runs': 375 }"],
+
+
             "console": "internalConsole"
         },
         {
@@ -146,7 +153,15 @@
             // "args": ["-a", "ARC", "ARC0074-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0076-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0101-FitnessError-MovingSumError-Mode08",  "-b", "-pl", "scEdges,scZero,scFitness"],          
-            "args": ["-a", "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
+            
+            
+            // "args": ["-a", "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
+            
+            
+            "args": ["-s", "2", "-a", "-d", "ARC", "ARC0129-FitnessError-MovingAverageError-Mode10",  "-b", "-pl", "scEdges,scZero,scFitness"],
+
+
+
             // "args": ["-a", "ARC", "ARC0064-FitnessError-MovingAverageError-Mode05",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0106-FitnessError-MovingAverageError-Mode11",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0071-FitnessError-MovingAverageError-Mode13",  "-b", "-pl", "scEdges,scZero,scFitness"],

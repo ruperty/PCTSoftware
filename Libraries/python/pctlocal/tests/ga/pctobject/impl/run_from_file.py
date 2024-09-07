@@ -67,17 +67,20 @@ if __name__ == '__main__':
     runs=None
 
     eeprops = None
+    eprops = None
     if args.eeprops is not None:
         eeprops = eval(args.eeprops)
         eprops, env_name = PCTRunProperties.get_environment_properties_from_filename(args.file)
-        print(eprops)
-        print(eeprops)
+        # print(eprops)
+        # print(eeprops)
         eprops['dataset'] = args.test
-        eprops['initial'] = eeprops['initial']
-        eprops['runs'] = eeprops['runs']
+        if 'initial' in eeprops:
+            eprops['initial'] = eeprops['initial']
+        if 'runs' in eeprops:
+            eprops['runs'] = eeprops['runs']
         runs = eprops['runs']
-        env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')
-        # eeprops = env_proc.enhanced_environment_properties(environment_properties=eprops)
+        # print(eprops)
+        # print(eeprops)
 
 
     try:
