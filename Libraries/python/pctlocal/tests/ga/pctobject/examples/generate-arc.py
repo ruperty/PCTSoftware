@@ -25,10 +25,16 @@ Created on Mon Apr 17 2023
 
 # All
 """
-python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p simple-00000001 -ii 61 -a "-i 3" > configs/ar/cmds-simple.txt
-python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -ii 91 -a "-i 3" >> configs/ar/cmds-simple.txt
-python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -ii 121 -a "-i 3" >> configs/ar/cmds-simple.txt
-python examples/generate-arc.py -f configs-simple-00000004.csv -c 00000004 -p simple-00000004 -ii 151 >> configs/ar/cmds-simple.txt
+
+-ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}"
+-ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000002',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}"
+-ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000003',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}"
+-ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000004',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}"
+
+python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p simple-00000001 -ii 61 -a "-i 3" -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}" > configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -ii 91 -a "-i 3" -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000002',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}" >> configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -ii 121 -a "-i 3" -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000003',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}" >> configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000004.csv -c 00000004 -p simple-00000004 -ii 151 -a "-i 3" -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000004',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}" >> configs/ar/cmds-simple.txt
 
 python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p simple-00000001 -sm -ii 61 > configs/ar/cmds-simple.txt
 python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -sm -ii 91 >> configs/ar/cmds-simple.txt
@@ -67,13 +73,13 @@ def process(filename,common_configs, args, cmd, initial_index, batch, single_mul
 
 if __name__ == '__main__':
 
-    # user = 'ruper' if gethostname() == 'DESKTOP-5O07H5P' else 'ryoung'
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', '--file', type=str, help="file name")
     parser.add_argument('-c', '--code', type=str, help="ARC code")
     parser.add_argument('-a', '--aargs', type=str, help="additional arguments", default="")
     parser.add_argument('-r', '--refs', type=str, help="references", default="")
+    parser.add_argument('-ep', '--env_props', type=str, help="environment properties", default=None)
     parser.add_argument('-p', '--project', type=str, help="project name")
     parser.add_argument('-sm', '--single_multi', help="single or multi", action="store_true")
     parser.add_argument('-el', '--error_limit', type=int, help="error limit", default=1000)
@@ -114,6 +120,9 @@ if __name__ == '__main__':
     if args.refs != "":
         references = eval(args.refs)
     plots = args.plots
+    env_props = args.env_props
+    if env_props is not None:
+        env_props = eval(env_props)
 
     cmd='impl.evolve'
     # initial_index=1
@@ -149,7 +158,7 @@ if __name__ == '__main__':
 
     # properties = { 'dir': f'C:/Users/{user}/Versioning/python/nbdev/epct/nbs/testfiles/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000001',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env']}
     common_configs = {'env' : env, 'seed': seed, 'arch_name' : arch_name, 'pop_size' : pop_size, 'gens': gens, 'evolve_termination_value': evolve_termination_value,
-                    'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1, 'runs': runs, 
+                    'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1, 'runs': runs, 'environment_properties': env_props, 
                     'min_levels_limit': min_levels_limit, 'max_levels_limit': max_levels_limit, 'min_columns_limit': min_columns_limit, 'max_columns_limit': max_columns_limit, 'early_termination': True, 'p_crossover': 0.9, 
                     'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': error_limit , 'error_properties':{'error:history': 10, 'error:initial': einitial}, 
                     'error_collector': error_collector, 'error_response': error_response, 'references': references}
