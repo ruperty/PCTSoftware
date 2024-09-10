@@ -36,6 +36,10 @@ python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p si
 python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -ii 121 -a "-i 3" -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000003',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}" >> configs/ar/cmds-simple.txt
 python examples/generate-arc.py -f configs-simple-00000004.csv -c 00000004 -p simple-00000004 -ii 151 -a "-i 3" -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000004',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}" >> configs/ar/cmds-simple.txt
 
+
+python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -ii 121 -a "-i 3" -pop 1000 -o -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000003',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5, 'atARCdisplay': 0.5}, 'fitness': 'AverageMaxOfDiff'}" >> configs/ar/cmds-simple.txt
+
+
 python examples/generate-arc.py -f configs-simple-00000001.csv -c 00000001 -p simple-00000001 -sm -ii 61 > configs/ar/cmds-simple.txt
 python examples/generate-arc.py -f configs-simple-00000002.csv -c 00000002 -p simple-00000002 -sm -ii 91 >> configs/ar/cmds-simple.txt
 python examples/generate-arc.py -f configs-simple-00000003.csv -c 00000003 -p simple-00000003 -sm -ii 121 >> configs/ar/cmds-simple.txt
