@@ -157,18 +157,18 @@
             // "args": ["ARC", "ARC0010-FitnessError-MovingSumError-Mode07",  "-b", "-pl", "scEdges,scZero", "-d"],
             // "args": ["-a", "ARC", "ARC0074-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0076-FitnessError-MovingAverageError-Mode02",  "-b", "-pl", "scEdges,scZero,scFitness"],
-            // "args": ["-a", "ARC", "ARC0101-FitnessError-MovingSumError-Mode08",  "-b", "-pl", "scEdges,scZero,scFitness"],          
-            
-            
+            // "args": ["-a", "ARC", "ARC0101-FitnessError-MovingSumError-Mode08",  "-b", "-pl", "scEdges,scZero,scFitness"],                      
             // "args": ["-a", "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness", "-p", "simple-00000001", "-o"],
 
-            "args": ["-a", "ARC", "ARC0068-FitnessError-MovingAverageError-Mode05",  "-b", "-pl", "scEdges,scZero,scFitness", "-s", "3", "-p", "simple-00000001", "-o"],
-            
-            
+            // "args": ["-a", "ARC", "ARC0068-FitnessError-MovingAverageError-Mode05",  "-b", "-pl", "scEdges,scZero,scFitness", "-s", "3", "-p", "simple-00000001", "-o"],
+
+            // "args": ["-a", "ARC", "ARC0063-FitnessError-MovingAverageError-Mode02-static",  "-b",  "-o", "-t", "none", "-p", "memory", "-cd" "Versioning\\python\\performance\\testfiles\\"],
+            // "args": ["-a", "ARC", "ARC0063-FitnessError-MovingAverageError-Mode02",  "-b",  "-o", "-t", "none", "-p", "memory", "-cd" "Versioning\\python\\performance\\testfiles\\"],
+            // "args": ["-a", "ARC", "ARC0063-FitnessError-MovingAverageError-Mode02-mateonly",  "-b",  "-o", "-t", "none", "-cd" "Versioning\\python\\performance\\testfiles\\"],
+            "args": ["-a", "ARC", "ARC0063-FitnessError-MovingAverageError-Mode02-mutonly",  "-b",  "-o", "-t", "none", "-cd" "Versioning\\python\\performance\\testfiles\\"],
+
+            // "args": ["-a", "ARC", "ARC0063-FitnessError-MovingAverageError-Mode02-static",  "-b",  "-p", "test", "-o", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],            
             // "args": ["-s", "2", "-a", "-d", "ARC", "ARC0129-FitnessError-MovingAverageError-Mode10",  "-b", "-pl", "scEdges,scZero,scFitness"],
-
-
-
             // "args": ["-a", "ARC", "ARC0064-FitnessError-MovingAverageError-Mode05",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0106-FitnessError-MovingAverageError-Mode11",  "-b", "-pl", "scEdges,scZero,scFitness"],
             // "args": ["-a", "ARC", "ARC0071-FitnessError-MovingAverageError-Mode13",  "-b", "-pl", "scEdges,scZero,scFitness"],
