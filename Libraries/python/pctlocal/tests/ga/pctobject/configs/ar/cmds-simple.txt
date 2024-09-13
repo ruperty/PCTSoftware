@@ -1,3 +1,7 @@
+
+
+python -m impl.evolve ARC ARC0063-FitnessError-MovingAverageError-Mode02  -b -p test 
+
 python -m impl.evolve ARC ARC0061-FitnessError-MovingAverageError-Mode00  -b -pl scEdges,scZero,scFitness -p simple-00000001 -i 3 
 python -m impl.evolve ARC ARC0062-FitnessError-MovingAverageError-Mode00  -b -pl scEdges,scZero,scFitness -p simple-00000001 -i 3 
 python -m impl.evolve ARC ARC0063-FitnessError-MovingAverageError-Mode02  -b -pl scEdges,scZero,scFitness -p simple-00000001 -i 3 
