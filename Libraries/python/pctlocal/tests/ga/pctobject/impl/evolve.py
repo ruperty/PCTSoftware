@@ -41,9 +41,10 @@ if __name__ == '__main__':
 	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
 	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")	
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
-	# parser.add_argument("-l", "--log", help="log experiment to comet", action="store_true")
 	parser.add_argument('-p', '--project', type=str, help="comet project name")#, default="test-evolve")
 	parser.add_argument("-rp", "--results_props", type=str, help="properties for the results for an environment")
+	parser.add_argument("-cd", "--configs_dir", type=str, help="directory of config files", default='Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/')
+	parser.add_argument("-t", "--tag", type=str, help="experiment tag", default=None)
 
 
 	args = parser.parse_args()
@@ -74,21 +75,20 @@ if __name__ == '__main__':
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': display_env, 'hpct_verbose':hpct_verbose}
 	drive = get_gdrive()
 	root_path=get_root_path()
-	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
+	configs_dir = args.configs_dir
+	tag = args.tag
 
 	if results_props is not None:
-		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
+		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file, 'tag':tag,
 						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
 						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
 		} | results_props
 	else:
-		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
+		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file, 'tag':tag,
 						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
 						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
 		} 
-	# env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')	
-	# env_proc.set_properties(args=arg)
-	# arg['workspace']=env_proc.get_workspace()
+
 
 
 	for i in range(start, iters+start, 1):
