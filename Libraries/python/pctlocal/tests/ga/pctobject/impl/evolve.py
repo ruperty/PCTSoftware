@@ -4,6 +4,7 @@ from comet_ml import Experiment
 import argparse
 from cutils.paths import get_root_path, get_gdrive
 from epct.evolve import evolve_setup
+import os
 
 
 # python impl/evolve.py WindTurbine WT0416-RewardError-SummedError-Mode02 -b -o 
@@ -61,6 +62,9 @@ if __name__ == '__main__':
 	# log_experiment= args.log
 	results_props = eval(args.results_props) if args.results_props else None
 	plots_dir = '/tmp/ARC'
+	# Create the directory if it doesn't exist
+	if not os.path.exists(plots_dir):
+		os.makedirs(plots_dir)
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
