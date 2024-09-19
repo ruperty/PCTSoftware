@@ -87,7 +87,8 @@
             // "args": ["-s", "3", "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode07\\ga-000.000-s003-1x1-m007-ARC0155-cdcf2663ca3a369279d1ec637af79300-consolidated.properties" , "-eep", "{ 'dataset': 'test', 'runs': 50 }"],
             // "args": ["-s", "1", "-d",  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode02\\ga-000.498-s001-1x1-m002-ARC0154-f4868f6f3fd045f75d246349f8ad51d0.properties" , "-eep", "{ 'dataset': 'test', 'runs': 100 }"],
 
-            "args": ["-s", "1", "-d", "-e", "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode02\\ga-000.446-s003-1x1-m002-ARC0257-a2d94c526ccdfed48c1867212a2f3ceb.properties" , "-eep", "{ 'dataset': 'train', 'runs': 100 }"],
+            // "args": ["-s", "1", "-d", "-e", "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode02\\ga-000.446-s003-1x1-m002-ARC0257-a2d94c526ccdfed48c1867212a2f3ceb.properties" , "-eep", "{ 'dataset': 'train', 'runs': 100 }"],
+            "args": ["-s", "1", "-d", "-e", "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode00\\ga-000.441-s003-1x1-m000-ARC0254-6308d2b93a9789d5511ae743e77cb332.properties" , "-eep", "{ 'dataset': 'test', 'runs': 100 }"],
 
 
             "console": "internalConsole"
