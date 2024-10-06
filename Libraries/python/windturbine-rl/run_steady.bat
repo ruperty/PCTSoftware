@@ -1,10 +1,100 @@
-python steady_script.py > steady01.log  
-python steady_script.py > steady02.log  
-python steady_script.py > steady03.log  
-python steady_script.py > steady04.log  
-python steady_script.py > steady05.log  
-python steady_script.py > steady06.log  
-python steady_script.py > steady07.log  
-python steady_script.py > steady08.log  
-python steady_script.py > steady09.log  
-python steady_script.py > steady10.log  
+python steady_script.py -s 1 -i 10 > steady000.log
+python steady_script.py -s 11 -i 10 > steady001.log
+python steady_script.py -s 21 -i 10 > steady002.log
+python steady_script.py -s 31 -i 10 > steady003.log
+python steady_script.py -s 41 -i 10 > steady004.log
+python steady_script.py -s 51 -i 10 > steady005.log
+python steady_script.py -s 61 -i 10 > steady006.log
+python steady_script.py -s 71 -i 10 > steady007.log
+python steady_script.py -s 81 -i 10 > steady008.log
+python steady_script.py -s 91 -i 10 > steady009.log
+python steady_script.py -s 101 -i 10 > steady010.log
+python steady_script.py -s 111 -i 10 > steady011.log
+python steady_script.py -s 121 -i 10 > steady012.log
+python steady_script.py -s 131 -i 10 > steady013.log
+python steady_script.py -s 141 -i 10 > steady014.log
+python steady_script.py -s 151 -i 10 > steady015.log
+python steady_script.py -s 161 -i 10 > steady016.log
+python steady_script.py -s 171 -i 10 > steady017.log
+python steady_script.py -s 181 -i 10 > steady018.log
+python steady_script.py -s 191 -i 10 > steady019.log
+python steady_script.py -s 201 -i 10 > steady020.log
+python steady_script.py -s 211 -i 10 > steady021.log
+python steady_script.py -s 221 -i 10 > steady022.log
+python steady_script.py -s 231 -i 10 > steady023.log
+python steady_script.py -s 241 -i 10 > steady024.log
+python steady_script.py -s 251 -i 10 > steady025.log
+python steady_script.py -s 261 -i 10 > steady026.log
+python steady_script.py -s 271 -i 10 > steady027.log
+python steady_script.py -s 281 -i 10 > steady028.log
+python steady_script.py -s 291 -i 10 > steady029.log
+python steady_script.py -s 301 -i 10 > steady030.log
+python steady_script.py -s 311 -i 10 > steady031.log
+python steady_script.py -s 321 -i 10 > steady032.log
+python steady_script.py -s 331 -i 10 > steady033.log
+python steady_script.py -s 341 -i 10 > steady034.log
+python steady_script.py -s 351 -i 10 > steady035.log
+python steady_script.py -s 361 -i 10 > steady036.log
+python steady_script.py -s 371 -i 10 > steady037.log
+python steady_script.py -s 381 -i 10 > steady038.log
+python steady_script.py -s 391 -i 10 > steady039.log
+python steady_script.py -s 401 -i 10 > steady040.log
+python steady_script.py -s 411 -i 10 > steady041.log
+python steady_script.py -s 421 -i 10 > steady042.log
+python steady_script.py -s 431 -i 10 > steady043.log
+python steady_script.py -s 441 -i 10 > steady044.log
+python steady_script.py -s 451 -i 10 > steady045.log
+python steady_script.py -s 461 -i 10 > steady046.log
+python steady_script.py -s 471 -i 10 > steady047.log
+python steady_script.py -s 481 -i 10 > steady048.log
+python steady_script.py -s 491 -i 10 > steady049.log
+python steady_script.py -s 501 -i 10 > steady050.log
+python steady_script.py -s 511 -i 10 > steady051.log
+python steady_script.py -s 521 -i 10 > steady052.log
+python steady_script.py -s 531 -i 10 > steady053.log
+python steady_script.py -s 541 -i 10 > steady054.log
+python steady_script.py -s 551 -i 10 > steady055.log
+python steady_script.py -s 561 -i 10 > steady056.log
+python steady_script.py -s 571 -i 10 > steady057.log
+python steady_script.py -s 581 -i 10 > steady058.log
+python steady_script.py -s 591 -i 10 > steady059.log
+python steady_script.py -s 601 -i 10 > steady060.log
+python steady_script.py -s 611 -i 10 > steady061.log
+python steady_script.py -s 621 -i 10 > steady062.log
+python steady_script.py -s 631 -i 10 > steady063.log
+python steady_script.py -s 641 -i 10 > steady064.log
+python steady_script.py -s 651 -i 10 > steady065.log
+python steady_script.py -s 661 -i 10 > steady066.log
+python steady_script.py -s 671 -i 10 > steady067.log
+python steady_script.py -s 681 -i 10 > steady068.log
+python steady_script.py -s 691 -i 10 > steady069.log
+python steady_script.py -s 701 -i 10 > steady070.log
+python steady_script.py -s 711 -i 10 > steady071.log
+python steady_script.py -s 721 -i 10 > steady072.log
+python steady_script.py -s 731 -i 10 > steady073.log
+python steady_script.py -s 741 -i 10 > steady074.log
+python steady_script.py -s 751 -i 10 > steady075.log
+python steady_script.py -s 761 -i 10 > steady076.log
+python steady_script.py -s 771 -i 10 > steady077.log
+python steady_script.py -s 781 -i 10 > steady078.log
+python steady_script.py -s 791 -i 10 > steady079.log
+python steady_script.py -s 801 -i 10 > steady080.log
+python steady_script.py -s 811 -i 10 > steady081.log
+python steady_script.py -s 821 -i 10 > steady082.log
+python steady_script.py -s 831 -i 10 > steady083.log
+python steady_script.py -s 841 -i 10 > steady084.log
+python steady_script.py -s 851 -i 10 > steady085.log
+python steady_script.py -s 861 -i 10 > steady086.log
+python steady_script.py -s 871 -i 10 > steady087.log
+python steady_script.py -s 881 -i 10 > steady088.log
+python steady_script.py -s 891 -i 10 > steady089.log
+python steady_script.py -s 901 -i 10 > steady090.log
+python steady_script.py -s 911 -i 10 > steady091.log
+python steady_script.py -s 921 -i 10 > steady092.log
+python steady_script.py -s 931 -i 10 > steady093.log
+python steady_script.py -s 941 -i 10 > steady094.log
+python steady_script.py -s 951 -i 10 > steady095.log
+python steady_script.py -s 961 -i 10 > steady096.log
+python steady_script.py -s 971 -i 10 > steady097.log
+python steady_script.py -s 981 -i 10 > steady098.log
+python steady_script.py -s 991 -i 10 > steady099.log

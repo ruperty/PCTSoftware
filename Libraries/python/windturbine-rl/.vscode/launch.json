@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "run_script",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "run_script",
+            "args": ["-d", "steady_wind.csv", "-m", "C:\\Users\\ruper\\Versioning\\PCTSoftware\\Libraries\\python\\windturbine-rl\\results\\steady\\20231119-195934\\steady_wind.zip"],
+            "console": "internalConsole"
+        }
+    ]
+}

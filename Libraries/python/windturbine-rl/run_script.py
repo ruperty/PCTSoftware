@@ -3,30 +3,20 @@
 from yaw_RL_module import *
 from datetime import datetime
 from os import makedirs, sep, rename
-import time
-import random
 import argparse
-import torch
-from stable_baselines3.common.utils import set_random_seed
+import random
 
-# --------------------------------------------------------------------------
-"""
-python steady_script.py -s 10 -i 1 > steady1.log
-python steady_script.py -s 10 -i 1 > steady2.log
-"""
-# --------------------------------------------------------------------------
 
-learn = True
+# """
+# python run_script.py -d steady_wind.csv -m C:\Users\ruper\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\20231119-195934\steady_wind.zip
+
+# """
+
+
 exp = False
-name = 'steady'
-
-
 power_curve = pd.read_excel('power_curve.xlsx')
-dataset_file = 'steady_wind.csv'
-(wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,
-                                                                   cycle_period=10,
-                                                                   rolling_average_duration=20)
-    
+  
+random.seed(19)
 
 yaw_params = {
     'yaw_rate_max': 0.3,
@@ -38,82 +28,80 @@ yaw_params = {
     'w2': 40,
     }
 
-model_params = {
-    'wind_timeseries': wind_timeseries,
-    'wind_timeseries_not_agg': wind_timeseries_not_agg,
-    'start_index': 100,
-    'stop_index': 1100,    
-    'start_index_test': 1100,
-    'stop_index_test': 2100,
-    'filter_duration': 1,
-    'yaw_params': yaw_params,
-    'ancestors': 12,
-    'training_steps': 500000,
-    }
-
+def get_name(model_file, dataset_file):
+    mode_name = os.path.splitext(os.path.basename(model_file.split('_')[0]))[0]
+    dataset_name = dataset_file.split('_')[0]
+    return f'{mode_name}-{dataset_name}'
 
 if __name__ == '__main__':
      
     parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
-    parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=10)
+    parser.add_argument('-d', '--dataset', type=str, help="dataset file name")
+    parser.add_argument('-m', '--model', type=str, help="model file name")
     args = parser.parse_args()
-    start=args.start
-    iters=args.iters 
+    dataset_file=args.dataset
+    model_file=args.model 
 
-    for seed in range(start, iters+start, 1):
-        print(f'loop={seed-start}, seed={seed}')    
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-        set_random_seed(seed)
+    name = get_name(model_file, dataset_file)
+    (wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,
+                                                                    cycle_period=10,
+                                                                   rolling_average_duration=20)
 
-        from datetime import datetime   
-        dateTimeObj = datetime.now()
-        print(dateTimeObj)
+    model_params = {
+        'wind_timeseries': wind_timeseries,
+        'wind_timeseries_not_agg': wind_timeseries_not_agg,
+        'start_index': 100,
+        'stop_index': 1100,    
+        'start_index_test': 1100,
+        'stop_index_test': 2100,
+        'filter_duration': 1,
+        'yaw_params': yaw_params,
+        'ancestors': 12,
+        'training_steps': 500000,
+        }
 
-        if exp:
-            experiment = Experiment(api_key='???',
-                                    project_name='yaw-rl',
-                                    workspace='albanpuech')
-            experiment.log_parameters(model_params)
-            experiment.log_code(os.path.basename(__file__))
-            experiment.log_code('yaw_RL_module.py')
-            experiment.set_name(name)
-        else:
-            experiment=None
 
-        env = YawEnv(
-            wind_timeseries,
-            model_params['start_index'],
-            model_params['stop_index'],
-            model_params['ancestors'],
-            model_params['filter_duration'],
-            yaw_params,
-            )
 
+    from datetime import datetime   
+    dateTimeObj = datetime.now()
+    print(dateTimeObj)
+
+    if exp:
+        experiment = Experiment(api_key='???',
+                                project_name='yaw-rl',
+                                workspace='albanpuech')
+        experiment.log_parameters(model_params)
+        experiment.log_code(os.path.basename(__file__))
+        experiment.log_code('yaw_RL_module.py')
+        experiment.set_name(name)
+    else:
+        experiment=None
+
+    # env = YawEnv(
+    #     wind_timeseries,
+    #     model_params['start_index'],
+    #     model_params['stop_index'],
+    #     model_params['ancestors'],
+    #     model_params['filter_duration'],
+    #     yaw_params,
+    #     )
+
+    if exp:
+        logger_callback = Cometlogger(experiment, model_params,
+                                    eval_freq=20000)
+        callback = CallbackList([logger_callback])
+    else:
+        callback=None
+
+    for _ in range(1000):
         date_time = datetime.now()
         str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
-        model = PPO('MlpPolicy', env, verbose=1)
+        # model = PPO('MlpPolicy', env, verbose=1)
 
-        if exp:
-            logger_callback = Cometlogger(experiment, model_params,
-                                        eval_freq=20000)
-            callback = CallbackList([logger_callback])
-        else:
-            callback=None
-
-        if learn:    
-            tic = time.perf_counter()
-            model.learn(total_timesteps=model_params['training_steps'],callback=callback)
-            toc = time.perf_counter()
-            elapsed = toc-tic
-            print(f'Elapsed time: {elapsed:4.4f}')  
-            model.save(f'steady_wind')
-        #else:
         # model_eval = PPO.load('steady_wind')
         # note: code on comet shows this
-        # model = PPO.load('steady_wind')
+        model_name = model_file.split('.')[0]
+        model = PPO.load(model_name)
 
 
         (res_model, nac_pos_model, power_improvement, power_control, power_simu) = test_model(
@@ -195,24 +183,29 @@ if __name__ == '__main__':
         axs[5].set_ylabel(ylabel='net power output \nincrease (per cent)', fontsize=20,)
 
         fig.tight_layout()
-        plt.savefig(f'steady_dataset',dpi=600)
+        plt.savefig(f'{name}_results',dpi=600)
             
-        fig, axs = plt.subplots(2, sharex=True)
-        axs[0].plot(range(model_params['start_index']*yaw_params['cycle_period'],model_params['stop_index']*yaw_params['cycle_period'], yaw_params['cycle_period'] ),wind_timeseries['wind_direction'][model_params['start_index']:model_params['stop_index']],label='train')
-        axs[0].plot(range(model_params['start_index_test']*yaw_params['cycle_period'],model_params['stop_index_test']*yaw_params['cycle_period'],yaw_params['cycle_period'] ),wind_timeseries['wind_direction'][model_params['start_index_test']: model_params['stop_index_test']],label='test')
-        plt.xlabel('time (sec)')
-        axs[1].plot(range(model_params['start_index']*yaw_params['cycle_period'],model_params['stop_index']*yaw_params['cycle_period'], yaw_params['cycle_period'] ),wind_timeseries['wind_speed'][model_params['start_index']:model_params['stop_index']],label='train')
-        axs[1].plot(range(model_params['start_index_test']*yaw_params['cycle_period'],model_params['stop_index_test']*yaw_params['cycle_period'],yaw_params['cycle_period'] ),wind_timeseries['wind_speed'][model_params['start_index_test']: model_params['stop_index_test']],label='test')
-        plt.setp(axs[1], ylabel='wind speed (m/s)')
-        plt.setp(axs[0], ylabel='wind direction (deg)')
-        plt.legend()
-        plt.savefig(f'steady_results',dpi=1000)
+        # fig, axs = plt.subplots(2, sharex=True)
+        # axs[0].plot(range(model_params['start_index']*yaw_params['cycle_period'],model_params['stop_index']*yaw_params['cycle_period'], yaw_params['cycle_period'] ),wind_timeseries['wind_direction'][model_params['start_index']:model_params['stop_index']],label='train')
+        # axs[0].plot(range(model_params['start_index_test']*yaw_params['cycle_period'],model_params['stop_index_test']*yaw_params['cycle_period'],yaw_params['cycle_period'] ),wind_timeseries['wind_direction'][model_params['start_index_test']: model_params['stop_index_test']],label='test')
+        # plt.xlabel('time (sec)')
+        # axs[1].plot(range(model_params['start_index']*yaw_params['cycle_period'],model_params['stop_index']*yaw_params['cycle_period'], yaw_params['cycle_period'] ),wind_timeseries['wind_speed'][model_params['start_index']:model_params['stop_index']],label='train')
+        # axs[1].plot(range(model_params['start_index_test']*yaw_params['cycle_period'],model_params['stop_index_test']*yaw_params['cycle_period'],yaw_params['cycle_period'] ),wind_timeseries['wind_speed'][model_params['start_index_test']: model_params['stop_index_test']],label='test')
+        # plt.setp(axs[1], ylabel='wind speed (m/s)')
+        # plt.setp(axs[0], ylabel='wind direction (deg)')
+        # plt.legend()
+        # plt.savefig(f'{name}_dataset',dpi=1000)
             
         print(res_baseline_simu)
         print(res_baseline_logs)
         print(res_model)
-
         power_control = res_model['power_control']
+
+        results_dir = f'results{sep}{name}{sep}{round(power_control):04}-{str_date_time}'
+        makedirs(results_dir, exist_ok=True)
+
+        print(results_dir, power_control)
+
         fname = f'results-{power_control:0.1f}.txt'
         f = open(fname, "w")
         f.write(str(res_baseline_simu))
@@ -220,16 +213,10 @@ if __name__ == '__main__':
         f.write(str(res_model))
         f.close()
 
-        results_dir = f'results{sep}{name}{sep}{round(power_control):04}-{str_date_time}'
-        makedirs(results_dir, exist_ok=True)
-
-
         rename(fname, f'{results_dir}{sep}{fname}')
         rename('res_model.html', f'{results_dir}{sep}res_model.html')
-        rename('steady_dataset.png', f'{results_dir}{sep}steady_dataset.png')
-        rename('steady_results.png', f'{results_dir}{sep}steady_results.png')
-        rename('steady_wind.zip', f'{results_dir}{sep}steady_wind.zip')
-
+        # rename(f'{name}_dataset.png', f'{results_dir}{sep}{name}_dataset.png')
+        rename(f'{name}_results.png', f'{results_dir}{sep}{name}_results.png')
 
         plt.close('all')
 
