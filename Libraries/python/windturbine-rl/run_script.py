@@ -6,17 +6,19 @@ from os import makedirs, sep, rename
 import argparse
 import random
 
+import torch
+from stable_baselines3.common.utils import set_random_seed
+
 
 # """
 # python run_script.py -d steady_wind.csv -m C:\Users\ruper\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\20231119-195934\steady_wind.zip
-
+# python run_script.py -d steady_wind.csv -m C:\Users\ryoung\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\1104-20241007-103444\steady_wind.zip
 # """
 
 
 exp = False
 power_curve = pd.read_excel('power_curve.xlsx')
   
-random.seed(19)
 
 yaw_params = {
     'yaw_rate_max': 0.3,
@@ -38,9 +40,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--dataset', type=str, help="dataset file name")
     parser.add_argument('-m', '--model', type=str, help="model file name")
+    parser.add_argument('-s', '--seed', type=int, help="seed value", default=28)
     args = parser.parse_args()
     dataset_file=args.dataset
     model_file=args.model 
+    seed=args.seed
+
 
     name = get_name(model_file, dataset_file)
     (wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,
@@ -60,7 +65,10 @@ if __name__ == '__main__':
         'training_steps': 500000,
         }
 
-
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    set_random_seed(seed)
 
     from datetime import datetime   
     dateTimeObj = datetime.now()
@@ -93,7 +101,7 @@ if __name__ == '__main__':
     else:
         callback=None
 
-    for _ in range(1000):
+    for _ in range(1):
         date_time = datetime.now()
         str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
         # model = PPO('MlpPolicy', env, verbose=1)
@@ -101,6 +109,7 @@ if __name__ == '__main__':
         # model_eval = PPO.load('steady_wind')
         # note: code on comet shows this
         model_name = model_file.split('.')[0]
+        print('model_name', model_name)
         model = PPO.load(model_name)
 
 

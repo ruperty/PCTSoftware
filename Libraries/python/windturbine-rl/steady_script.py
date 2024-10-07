@@ -13,6 +13,9 @@ from stable_baselines3.common.utils import set_random_seed
 """
 python steady_script.py -s 10 -i 1 > steady1.log
 python steady_script.py -s 10 -i 1 > steady2.log
+
+python steady_script.py -s 28 -i 1 > steady1.log
+
 """
 # --------------------------------------------------------------------------
 
