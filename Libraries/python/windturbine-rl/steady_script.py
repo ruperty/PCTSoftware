@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
         date_time = datetime.now()
         str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
-        model = PPO('MlpPolicy', env, verbose=1)
+        model = PPO('MlpPolicy', env, verbose=0)
 
         if exp:
             logger_callback = Cometlogger(experiment, model_params,
