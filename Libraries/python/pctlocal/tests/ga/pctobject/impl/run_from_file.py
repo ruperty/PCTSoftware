@@ -67,7 +67,7 @@ if __name__ == '__main__':
     runs=None
 
     eeprops = None
-    eprops = None
+    # eprops = None
     if args.eeprops is not None:
         eeprops = eval(args.eeprops)
         eprops, env_name = PCTRunProperties.get_environment_properties_from_filename(args.file)

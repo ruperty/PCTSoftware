@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
         date_time = datetime.now()
         str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
-        model = PPO('MlpPolicy', env, verbose=1)
+        model = PPO('MlpPolicy', env, verbose=0)
 
         if exp:
             logger_callback = Cometlogger(experiment, model_params,
@@ -198,7 +198,7 @@ if __name__ == '__main__':
         axs[5].set_ylabel(ylabel='net power output \nincrease (per cent)', fontsize=20,)
 
         fig.tight_layout()
-        plt.savefig(f'steady_dataset',dpi=600)
+        plt.savefig(f'steady_results',dpi=600)
             
         fig, axs = plt.subplots(2, sharex=True)
         axs[0].plot(range(model_params['start_index']*yaw_params['cycle_period'],model_params['stop_index']*yaw_params['cycle_period'], yaw_params['cycle_period'] ),wind_timeseries['wind_direction'][model_params['start_index']:model_params['stop_index']],label='train')
@@ -209,7 +209,7 @@ if __name__ == '__main__':
         plt.setp(axs[1], ylabel='wind speed (m/s)')
         plt.setp(axs[0], ylabel='wind direction (deg)')
         plt.legend()
-        plt.savefig(f'steady_results',dpi=1000)
+        plt.savefig(f'steady_dataset',dpi=1000)
             
         print(res_baseline_simu)
         print(res_baseline_logs)
@@ -223,7 +223,7 @@ if __name__ == '__main__':
         f.write(str(res_model))
         f.close()
 
-        results_dir = f'results{sep}{name}{sep}{round(power_control):04}-{str_date_time}'
+        results_dir = f'results{sep}{name}{sep}{round(power_control):04}-{seed}-{str_date_time}'
         makedirs(results_dir, exist_ok=True)
 
 
