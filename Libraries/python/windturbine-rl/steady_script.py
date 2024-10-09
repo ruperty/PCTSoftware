@@ -95,16 +95,16 @@ if __name__ == '__main__':
             yaw_params,
             )
 
-        date_time = datetime.now()
-        str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
-        model = PPO('MlpPolicy', env, verbose=0)
-
         if exp:
             logger_callback = Cometlogger(experiment, model_params,
                                         eval_freq=20000)
             callback = CallbackList([logger_callback])
         else:
             callback=None
+
+        date_time = datetime.now()
+        str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
+        model = PPO('MlpPolicy', env, verbose=0)
 
         if learn:    
             tic = time.perf_counter()
@@ -223,7 +223,7 @@ if __name__ == '__main__':
         f.write(str(res_model))
         f.close()
 
-        results_dir = f'results{sep}{name}{sep}{round(power_control):04}-{seed}-{str_date_time}'
+        results_dir = f'results{sep}{name}{sep}{round(power_control):04}-{seed:03}-{str_date_time}'
         makedirs(results_dir, exist_ok=True)
 
 
