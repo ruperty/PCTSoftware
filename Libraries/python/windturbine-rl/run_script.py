@@ -12,7 +12,7 @@ from stable_baselines3.common.utils import set_random_seed
 
 # """
 # python run_script.py -d steady_wind.csv -m C:\Users\ruper\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\20231119-195934\steady_wind.zip
-# python run_script.py -d steady_wind.csv -m C:\Users\ryoung\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\1104-20241007-103444\steady_wind.zip
+# python run_script.py -d steady_wind.csv -m C:\Users\ryoung\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\1104-20241007-103444\steady_wind.zip -s 28
 # """
 
 
@@ -40,11 +40,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--dataset', type=str, help="dataset file name")
     parser.add_argument('-m', '--model', type=str, help="model file name")
-    parser.add_argument('-s', '--seed', type=int, help="seed value", default=28)
+    parser.add_argument('-s', '--start', type=int, help="initial seed value", default=1)
+    parser.add_argument('-i', '--iters', type=int, help="number of times to run, with different seeds", default=1)
+
     args = parser.parse_args()
     dataset_file=args.dataset
     model_file=args.model 
-    seed=args.seed
+    start=args.start
+    iters=args.iters 
 
 
     name = get_name(model_file, dataset_file)
@@ -65,43 +68,45 @@ if __name__ == '__main__':
         'training_steps': 500000,
         }
 
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    set_random_seed(seed)
+    for seed in range(start, iters+start, 1):
+        print(f'loop={seed-start}, seed={seed}')    
 
-    from datetime import datetime   
-    dateTimeObj = datetime.now()
-    print(dateTimeObj)
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+        set_random_seed(seed)
 
-    if exp:
-        experiment = Experiment(api_key='???',
-                                project_name='yaw-rl',
-                                workspace='albanpuech')
-        experiment.log_parameters(model_params)
-        experiment.log_code(os.path.basename(__file__))
-        experiment.log_code('yaw_RL_module.py')
-        experiment.set_name(name)
-    else:
-        experiment=None
+        from datetime import datetime   
+        dateTimeObj = datetime.now()
+        print(dateTimeObj)
 
-    # env = YawEnv(
-    #     wind_timeseries,
-    #     model_params['start_index'],
-    #     model_params['stop_index'],
-    #     model_params['ancestors'],
-    #     model_params['filter_duration'],
-    #     yaw_params,
-    #     )
+        if exp:
+            experiment = Experiment(api_key='???',
+                                    project_name='yaw-rl',
+                                    workspace='albanpuech')
+            experiment.log_parameters(model_params)
+            experiment.log_code(os.path.basename(__file__))
+            experiment.log_code('yaw_RL_module.py')
+            experiment.set_name(name)
+        else:
+            experiment=None
 
-    if exp:
-        logger_callback = Cometlogger(experiment, model_params,
-                                    eval_freq=20000)
-        callback = CallbackList([logger_callback])
-    else:
-        callback=None
+        # env = YawEnv(
+        #     wind_timeseries,
+        #     model_params['start_index'],
+        #     model_params['stop_index'],
+        #     model_params['ancestors'],
+        #     model_params['filter_duration'],
+        #     yaw_params,
+        #     )
 
-    for _ in range(1):
+        if exp:
+            logger_callback = Cometlogger(experiment, model_params,
+                                        eval_freq=20000)
+            callback = CallbackList([logger_callback])
+        else:
+            callback=None
+
         date_time = datetime.now()
         str_date_time = date_time.strftime("%Y%m%d-%H%M%S")
         # model = PPO('MlpPolicy', env, verbose=1)
@@ -210,7 +215,7 @@ if __name__ == '__main__':
         print(res_model)
         power_control = res_model['power_control']
 
-        results_dir = f'results{sep}{name}{sep}{round(power_control):04}-{str_date_time}'
+        results_dir = f'results{sep}{name}{sep}{round(power_control):04}-{seed:03}-{str_date_time}'
         makedirs(results_dir, exist_ok=True)
 
         print(results_dir, power_control)
