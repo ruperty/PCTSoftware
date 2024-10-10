@@ -1,0 +1,42 @@
+digraph ActorCriticPolicy {
+    rankdir=LR;
+    node [shape=box];
+
+    subgraph cluster_0 {
+        label="ActorCriticPolicy";
+        features_extractor [label="features_extractor: FlattenExtractor"];
+        mlp_extractor [label="mlp_extractor: MlpExtractor"];
+        action_net [label="action_net: Linear\n(in_features=64, out_features=3, bias=True)"];
+        value_net [label="value_net: Linear\n(in_features=64, out_features=1, bias=True)"];
+    }
+
+    subgraph cluster_1 {
+        label="policy_net: Sequential";
+        policy_linear1 [label="Linear\n(in_features=48, out_features=64, bias=True)"];
+        policy_tanh1 [label="Tanh()"];
+        policy_linear2 [label="Linear\n(in_features=64, out_features=64, bias=True)"];
+        policy_tanh2 [label="Tanh()"];
+    }
+
+    subgraph cluster_2 {
+        label="value_net: Sequential";
+        value_linear1 [label="Linear\n(in_features=48, out_features=64, bias=True)"];
+        value_tanh1 [label="Tanh()"];
+        value_linear2 [label="Linear\n(in_features=64, out_features=64, bias=True)"];
+        value_tanh2 [label="Tanh()"];
+    }
+
+    features_extractor -> mlp_extractor;
+    mlp_extractor -> action_net;
+    mlp_extractor -> value_net;
+
+    mlp_extractor -> policy_linear1;
+    policy_linear1 -> policy_tanh1;
+    policy_tanh1 -> policy_linear2;
+    policy_linear2 -> policy_tanh2;
+
+    mlp_extractor -> value_linear1;
+    value_linear1 -> value_tanh1;
+    value_tanh1 -> value_linear2;
+    value_linear2 -> value_tanh2;
+}

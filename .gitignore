@@ -62,3 +62,5 @@ Libraries/python/pctlocal/tests/ga/pctobject/.cometml-runs/1473421aa7ce4160a7d5c
 Libraries/python/windturbine-rl/results_old
 Libraries/python/windturbine-rl/__pycache__/run_script.cpython-39.pyc
 Libraries/python/windturbine-rl/*.log
+Libraries/python/windturbine-rl/logs/*.log
+

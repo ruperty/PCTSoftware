@@ -54,6 +54,19 @@ model_params = {
     'training_steps': 500000,
     }
 
+def check_seed_in_files(directory, sub_directory, seed):
+    seed_str = f'{seed:03}'
+    sub_dir_path = os.path.join(directory, sub_directory)
+    
+    if not os.path.exists(sub_dir_path):
+        return False, None
+    
+    for file_name in os.listdir(sub_dir_path):
+        parts = file_name.split('-')
+        if len(parts) > 1 and parts[1] == seed_str:
+            return True, file_name
+    
+    return False, None
 
 if __name__ == '__main__':
      
@@ -66,6 +79,11 @@ if __name__ == '__main__':
 
     for seed in range(start, iters+start, 1):
         print(f'loop={seed-start}, seed={seed}')    
+        check, fname = check_seed_in_files('results', name, seed)
+        if check:
+            print(f'seed={seed} already exists in file {fname}')
+            continue
+        
         random.seed(seed)
         np.random.seed(seed)
         torch.manual_seed(seed)
