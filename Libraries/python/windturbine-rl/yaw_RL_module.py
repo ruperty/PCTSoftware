@@ -184,7 +184,7 @@ def test_trad_control(wind_timeseries, wind_timeseries_not_agg,agg, start, end, 
 
 
 
-def test_model(model,wind_timeseries,start_index,stop_index,ancestors,filter_duration,yaw_parameters,experiment=None,datatype='test'):
+def test_model(model,wind_timeseries,start_index,stop_index,ancestors,filter_duration,yaw_parameters,experiment=None,datatype='test', prefix=""):
     '''
     test RLYCA
     '''
@@ -193,7 +193,7 @@ def test_model(model,wind_timeseries,start_index,stop_index,ancestors,filter_dur
     done = False
     score, i = 0, 0
 
-    file = f'res_model.html'
+    file = f'res_model{prefix}.html'
     while not done:
         i += 1
         encoded = np.stack([observation])

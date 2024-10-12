@@ -129,6 +129,7 @@ if __name__ == '__main__':
             model_params['yaw_params'],
             experiment=experiment,
             datatype='test',
+            prefix='run'
             )
 
         (res_baseline_simu, nac_pos_baseline_simu, wind_dir) = test_trad_control(
@@ -229,7 +230,7 @@ if __name__ == '__main__':
         f.close()
 
         rename(fname, f'{results_dir}{sep}{fname}')
-        rename('res_model.html', f'{results_dir}{sep}res_model.html')
+        rename('res_modelrun.html', f'{results_dir}{sep}res_modelrun.html')
         # rename(f'{name}_dataset.png', f'{results_dir}{sep}{name}_dataset.png')
         rename(f'{name}_results.png', f'{results_dir}{sep}{name}_results.png')
 

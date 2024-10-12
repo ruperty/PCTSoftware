@@ -65,3 +65,4 @@ Libraries/python/windturbine-rl/*.log
 Libraries/python/windturbine-rl/logs/*.log
 
 Libraries/python/windturbine-rl/steady-steady_results.png
+Libraries/python/windturbine-rl/res_modelrun.html
