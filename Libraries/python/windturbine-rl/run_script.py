@@ -12,7 +12,8 @@ from stable_baselines3.common.utils import set_random_seed
 
 # """
 # python run_script.py -d steady_wind.csv -m C:\Users\ruper\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\20231119-195934\steady_wind.zip
-# python run_script.py -d steady_wind.csv -m C:\Users\ryoung\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\1104-20241007-103444\steady_wind.zip -s 28
+# python run_script.py -d steady_wind.csv -m C:\Users\ryoung\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\1104-028-20241009-214610\steady_wind.zip -s 1 -i 1000
+# python run_script.py -d steady_wind.csv -m C:\Users\ruper\Versioning\PCTSoftware\Libraries\python\windturbine-rl\results\steady\1104-028-20241009-214610\steady_wind.zip -s 1 -i 1000
 # """
 
 
