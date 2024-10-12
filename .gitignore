@@ -64,3 +64,4 @@ Libraries/python/windturbine-rl/__pycache__/run_script.cpython-39.pyc
 Libraries/python/windturbine-rl/*.log
 Libraries/python/windturbine-rl/logs/*.log
 
+Libraries/python/windturbine-rl/steady-steady_results.png
