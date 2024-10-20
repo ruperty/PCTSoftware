@@ -32,8 +32,10 @@ from pct.environment_processing import EnvironmentProcessingFactory
 # 
 # python  -m impl.run_from_file -e -d -o c:/tmp/arc -f "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode02\ga-063.080-s004-1x1-m002-ARC0154-2e60e0477d1bd7f569bad1b748111bf1.properties" -eep "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000004', 'dataset': 'test', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 750, 'history': 10, 'initial': 100}"
 
-
+"""
+python  -m impl.run_from_file -e -d -o c:/tmp/arc -f "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode19\ga-000.500-s001-1x1-m019-ARC0328-9799d017b565995c04c518b7e15c0e1c-consolidated.properties"
        
+"""
 
 if __name__ == '__main__':
 
