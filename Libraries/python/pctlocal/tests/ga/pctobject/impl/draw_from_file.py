@@ -49,6 +49,10 @@ def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, n
 
 
 
+"""
+python -m impl.draw_from_file -f "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode07\ga-000.000-s001-1x1-m007-ARC0095-ae36ff1d4ff2c88b9b856d6d2a540eb6-consolidated.properties" -o "c:\tmp"  -m "{}" -d -t 12 -n 400
+
+"""
 
 if __name__ == '__main__':
 
