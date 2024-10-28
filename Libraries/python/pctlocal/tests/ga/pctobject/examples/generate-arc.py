@@ -41,6 +41,9 @@ python examples/generate-arc.py -f configs-simple-00000004.csv -c 00000004 -p si
 
 python examples/generate-arc.py -f configs-simple-00000006.csv -c 00000006 -p simple-00000006 -ii 301 -a "-i 3" -sm -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000006',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5 }, 'fitness': 'Euclidean'}" >> configs/ar/cmds-simple.txt
 
+python examples/generate-arc.py -f configs-simple-00000007.csv -c 00000007 -p simple-00000007 -mall 1 -macl 1 -ii 401 -a "-i 3" -sm -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000007',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5 }, 'fitness': 'Euclidean'}" >> configs/ar/cmds-simple.txt
+python examples/generate-arc.py -f configs-simple-00000007.csv -c 00000007 -p simple-00000007 -pl scFitness -mall 1 -macl 1 -ii 401 -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000007',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5 }, 'fitness': 'Euclidean'}" >> configs/ar/cmds-simple.txt
+
 python examples/generate-arc.py -f configs-simple-00000010.csv -c 00000010 -p simple-00000010 -mall 1 -macl 1 -ii 351 -a "-i 3" -sm -ep "{ 'dir': '/tmp/arc-prize-2024', 'file_prefix':'arc-agi_simple_', 'code':'00000010',  'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'tolerances': {'atARCresolved': 0.5 }, 'fitness': 'Euclidean'}" >> configs/ar/cmds-simple.txt
 
 
