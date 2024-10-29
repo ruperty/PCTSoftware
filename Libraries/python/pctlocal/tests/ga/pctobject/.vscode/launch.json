@@ -63,7 +63,7 @@
             //"args": ["-f", "G:\\My Drive\\data\\ga\\Pendulum\\RewardError-RootMeanSquareError-Mode04\\ga-001.859-s093-2x3-m004-115c9fee5c1bbf61791fbc6c839f8c48.properties", "-s", "93"],
 
             // steady to variable
-            "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-SummedError-Mode05\\ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties", "-ep", "{'series': 'variable', 'zero_threshold':1, 'reward_type':'surface1'}"], //, "-v" ],
+            // "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-SummedError-Mode05\\ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties", "-ep", "{'series': 'variable', 'zero_threshold':1, 'reward_type':'surface1'}"], //, "-v" ],
             // "args": ["-f", "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-SummedError-Mode04\\40c6dd979d42a21fc4a537729b9f9e1b\\conf-0001-000.938.config" ],
             // "args": ["-d", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingSumError-Mode05\\ga-000.000-s001-1x1-m005-ARC0004-a223cb946d20052e78a1640892e5b436.properties", "-p", "scEdges" ,  "-o", "c:/tmp/ARC" ],
             // "args": [  "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness",  "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode04\\ga-003.922-s001-1x1-m004-ARC0103-6c3c62dc5588ba7b1b36674e1e7aca1e-consolidated.properties" , "-eep", "{'code': '00000003', 'dataset': 'train', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'history': 10, 'initial': 0, 'runs': 500}"],
@@ -91,7 +91,8 @@
 
             // "args": ["-s", "1", "-d", "-e", "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode02\\ga-000.446-s003-1x1-m002-ARC0257-a2d94c526ccdfed48c1867212a2f3ceb.properties" , "-eep", "{ 'dataset': 'train', 'runs': 100 }"],
             // "args": ["-s", "1", "-d", "-e", "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode00\\ga-000.441-s003-1x1-m000-ARC0254-6308d2b93a9789d5511ae743e77cb332.properties" , "-eep", "{ 'dataset': 'test', 'runs': 100 }"],
-
+            // 006
+            "args": [ "-r", "75", "-d", "-e", "-f", "testfiles\\ARC\\ga-000.500-s001-1x1-m019-ARC0328-9799d017b565995c04c518b7e15c0e1c-consolidated.properties" ], //, "-eep", "{ 'dataset': 'test', 'runs': 100 }"],
 
             "console": "internalConsole"
         },

@@ -66,7 +66,7 @@ if __name__ == '__main__':
     else:
         history=False
 
-    runs=None
+    runs=args.runs
 
     eeprops = None
     # eprops = None
