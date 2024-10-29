@@ -259,10 +259,10 @@ python -m impl.evolve ARC ARC0421-FitnessError-MovingAverageError-Mode18  -b -pl
 python -m impl.evolve ARC ARC0422-FitnessError-MovingAverageError-Mode18  -b -pl scFitness -p simple-00000007  
 python -m impl.evolve ARC ARC0423-FitnessError-MovingAverageError-Mode18  -b -pl scFitness -p simple-00000007  
 python -m impl.evolve ARC ARC0424-FitnessError-MovingAverageError-Mode18  -b -pl scFitness -p simple-00000007  
-python -m impl.evolve ARC ARC0425-FitnessError-MovingAverageError-Mode19  -b -pl scFitness -p simple-00000007  
-python -m impl.evolve ARC ARC0426-FitnessError-MovingAverageError-Mode19  -b -pl scFitness -p simple-00000007  
-python -m impl.evolve ARC ARC0427-FitnessError-MovingAverageError-Mode19  -b -pl scFitness -p simple-00000007  
-python -m impl.evolve ARC ARC0428-FitnessError-MovingAverageError-Mode19  -b -pl scFitness -p simple-00000007  
+python -m impl.evolve ARC ARC0425-FitnessError-MovingAverageError-Mode19  -b -pl scFitness -p simple-00000007 -o -s 2 -i 2
+python -m impl.evolve ARC ARC0426-FitnessError-MovingAverageError-Mode19  -b -pl scFitness -p simple-00000007 -o -s 2 -i 2  
+python -m impl.evolve ARC ARC0427-FitnessError-MovingAverageError-Mode19  -b -pl scFitness -p simple-00000007 -o -s 2 -i 2
+python -m impl.evolve ARC ARC0428-FitnessError-MovingAverageError-Mode19  -b -pl scFitness -p simple-00000007 -o  -s 2 -i 2
 python -m impl.evolve ARC ARC0429-FitnessError-MovingAverageError-Mode20  -b -pl scFitness -p simple-00000007  
 python -m impl.evolve ARC ARC0430-FitnessError-MovingAverageError-Mode20  -b -pl scFitness -p simple-00000007  
 python -m impl.evolve ARC ARC0431-FitnessError-MovingAverageError-Mode20  -b -pl scFitness -p simple-00000007  
