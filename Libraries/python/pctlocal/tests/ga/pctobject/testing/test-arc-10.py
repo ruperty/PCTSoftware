@@ -13,9 +13,10 @@ from pct.putils import Timer, PCTRunProperties
 from pct.hierarchy import PCTHierarchy
 from pct.errors import BaseErrorCollector
 import os
+import random
 
 # plots = "scEdges,scFitness"
-plots = "scEdges"
+plots = False
 render=True
 runs=250
 early_termination = True
@@ -28,9 +29,10 @@ if not os.path.exists(plots_dir):
 plots_figsize=(15,4)
 run = True #False
 
-# file = "G:\\My Drive\\data\\ga\\MicroGrid\\RewardError-RootMeanSquareError-Mode04\\ga-000.017-s001-3x5-m004-MG0001-9b7851aa082d1178ee05750f4b5815ce.properties"
 
-file = "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode19\ga-062.617-s003-1x1-m019-ARC0375-7b4718a3de3ff677ac24d839feaf0507-consolidated.properties"
+# file = "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode19\ga-062.617-s003-1x1-m019-ARC0375-7b4718a3de3ff677ac24d839feaf0507-consolidated.properties"
+
+file = "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode19\ga-000.386-s002-1x1-m019-ARC0427-e6024b9e73a754e3dc8d56773c55056f.properties"
 timer = Timer()
 timer.start()
 # hierarchy, score = PCTHierarchy.run_from_file(file, env_props=None, seed=1, render=render, move=None, min=True, plots=plots, history=False,                                               hpct_verbose= False, runs=runs, plots_dir=None, early_termination=False)
@@ -42,6 +44,8 @@ error_collector_type = prp.db['error_collector_type'].strip()
 error_response_type = prp.db['error_response_type']
 error_limit = eval(prp.db['error_limit'])
 environment_properties = eval(prp.db['environment_properties'])
+# environment_properties['index'] = 0
+
 error_properties = prp.get_error_properties()
 
 if runs==None:
@@ -64,7 +68,9 @@ if hpct_verbose:
     hierarchy.summary()
     print(hierarchy.formatted_config())
 
-hierarchy.get_node(0,0).get_function('reference').set_value(1)
+# overidding values from G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode19\ga-000.500-s001-1x1-m019-ARC0328-9799d017b565995c04c518b7e15c0e1c-consolidated.properties
+
+hierarchy.get_node(0,0).get_function('reference').set_value(3)
 print(hierarchy.get_node(0,0).get_function('reference').get_value())
 
 percs = hierarchy.get_node(0,0).get_function('perception')
@@ -72,22 +78,25 @@ percs = hierarchy.get_node(0,0).get_function('perception')
 counter = 1
 for link in percs.get_links():
     percs.weights[counter-1] = 0
-    if link.get_name() == 'IE001' :
-        percs.weights[counter-1] = 1
-    if link.get_name() == 'II002':
+    if link.get_name() == 'IE' :
         percs.weights[counter-1] = -1
+    if link.get_name() == 'II':
+        percs.weights[counter-1] = 1
     # print(f"{counter}: {link.get_name()} - {percs.weights[counter-1]}")
     counter += 1
 
 output = hierarchy.get_node(0,0).get_function('output')
-output.smooth_factor = 0.147
+output.gain = 0.147
 print(output.get_config())
 
-# actions = hierarchy.get_postprocessor()
-# for action in actions:
-#     print(action.get_config())
+actions = hierarchy.get_postprocessor()
+for action in actions:
+    for action in actions:
+        action.smooth_factor = random.uniform(0.05, 0.95)
+    # print(action.get_config())
 
 # hierarchy.summary()
+# run = False
 
 if run:
     hierarchy.run(runs, hpct_verbose)
