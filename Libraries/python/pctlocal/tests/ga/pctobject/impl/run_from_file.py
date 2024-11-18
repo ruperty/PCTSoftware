@@ -1,7 +1,6 @@
 
 import argparse, time
 from os import sep, listdir
-from cutils.paths import  get_gdrive
 from pct.hierarchy import PCTHierarchy
 from pct.putils import PCTRunProperties
 from pct.environment_processing import EnvironmentProcessingFactory

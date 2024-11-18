@@ -1,10 +1,11 @@
 
 from comet_ml import Experiment
-
 import argparse
-from cutils.paths import get_root_path, get_gdrive
-from epct.evolve import evolve_setup
 import os
+
+# from cutils.paths import get_root_path, get_gdrive
+from epct.evolve import evolve_setup
+from pct.putils import set_dirs
 
 
 # python impl/evolve.py WindTurbine WT0416-RewardError-SummedError-Mode02 -b -o 
@@ -16,9 +17,6 @@ import os
 # python impl/evolve.py ARC ARC0004-FitnessError-MovingSumError-Mode05 -b -o -db 4  > debug.log
 # python impl/evolve.py ARC ARC0020-FitnessError-MovingSumError-Mode00 -a -b -o
  
-
-
-
 
 
 
@@ -43,8 +41,9 @@ if __name__ == '__main__':
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
 	parser.add_argument('-p', '--project', type=str, help="comet project name")#, default="test-evolve")
 	parser.add_argument("-rp", "--results_props", type=str, help="properties for the results for an environment")
-	parser.add_argument("-cd", "--configs_dir", type=str, help="directory of config files", default='Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/')
+	# parser.add_argument("-cd", "--configs_dir", type=str, help="directory of config files", default='Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/')
 	parser.add_argument("-t", "--tag", type=str, help="experiment tag", default=None)
+	parser.add_argument("-ds", "--dirs", type=str, help="directories for root and gdrive", default=None)
 
 
 	args = parser.parse_args()
@@ -61,32 +60,27 @@ if __name__ == '__main__':
 	save_arch_all = args.save_arch_all
 	# log_experiment= args.log
 	results_props = eval(args.results_props) if args.results_props else None
-	plots_dir = '/tmp/ARC'
-	# Create the directory if it doesn't exist
-	if not os.path.exists(plots_dir):
-		os.makedirs(plots_dir)
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
 	display_env=args.display_env
+	dirs = set_dirs(args.dirs)
 
 		
 	verbosed = {'debug': args.debug,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': save_arch_all,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': display_env, 'hpct_verbose':hpct_verbose}
-	drive = get_gdrive()
-	root_path=get_root_path()
-	configs_dir = args.configs_dir
+
 	tag = args.tag
 
 	if results_props is not None:
 		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file, 'tag':tag,
-						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
-						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
+						'max':max, 'drive':dirs['drive'], 'root_path':dirs['root_path'], 'configs_dir':dirs['configs_dir'], 'hierarchy_plots': hierarchy_plots,
+						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
 		} | results_props
 	else:
 		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file, 'tag':tag,
-						'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
-						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
+						'max':max, 'drive':dirs['drive'], 'root_path':dirs['root_path'], 'configs_dir':dirs['configs_dir'], 'hierarchy_plots': hierarchy_plots,
+						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
 		} 
 
 
