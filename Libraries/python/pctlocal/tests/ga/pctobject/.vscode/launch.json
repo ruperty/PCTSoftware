@@ -128,8 +128,12 @@
             // "args": ["-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode13\\ga-130.000-s001-2x3-m013-ARC0108-bc651b425a3a49af18921ff8cdd1afa9.properties", "-o", "c:\\tmp\\ARC"],
 
             // "args": ["-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode15\\ga-052.000-s001-4x3-m015-ARC0110-1a18490dff3a3b77d80faaf62e1fe0a1.properties", "-o", "c:\\tmp\\ARC", "-m", "{'PL3C1ws':[0.2,0]}"],
-            "args": ["-n", "100", "-d", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode15\\ga-052.000-s001-4x3-m015-ARC0110-1a18490dff3a3b77d80faaf62e1fe0a1.properties", "-o", "c:\\tmp\\ARC", "-m", "{'RL3C1v\\n-7.00':[0.4,0.2], 'PL3C1ws':[0.2,0.8], 'CL3C1':[0.4,0.2], 'OL3C1p':[0.8,0.2]}"],
+            // "args": ["-n", "100", "-d", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode15\\ga-052.000-s001-4x3-m015-ARC0110-1a18490dff3a3b77d80faaf62e1fe0a1.properties", "-o", "c:\\tmp\\ARC", "-m", "{'RL3C1v\\n-7.00':[0.4,0.2], 'PL3C1ws':[0.2,0.8], 'CL3C1':[0.4,0.2], 'OL3C1p':[0.8,0.2]}"],
 
+            "args": ["-d", "-f", "testfiles\\ga-000.326-s066-2x3-6655-a6abebd2c88246e9f77dd8623eac6e3e.properties", "-o", "c:\\tmp\\ARC", "-m", "{}"],
+
+
+            // python -m impl.draw_from_file -f "testfiles\ga-000.326-s066-2x3-6655-a6abebd2c88246e9f77dd8623eac6e3e.properties" -o "/tmp" -m "{}" -d
 
 
             // "args": ["-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode15\\ga-052.000-s001-4x3-m015-ARC0110-1a18490dff3a3b77d80faaf62e1fe0a1-consolidated.properties", "-o", "c:\\tmp\\ARC"],

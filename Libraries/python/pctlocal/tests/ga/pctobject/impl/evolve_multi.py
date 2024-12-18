@@ -2,13 +2,11 @@
 
 from comet_ml import Experiment
 import argparse
-
-from os import cpu_count
+import os
 from multiprocessing import Pool
-from cutils.paths import get_root_path, get_gdrive
+# from cutils.paths import get_root_path, get_gdrive
 from epct.evolve import evolve_setup
-import os
-import os
+from pct.putils import set_dirs
 
 
 def remove_files_in_plots_dir(plots_dir):
@@ -36,7 +34,8 @@ if __name__ == '__main__':
 	parser.add_argument("-pl", "--plots", type=str, help="hierarchy plots definition")
 	parser.add_argument("-df", "--draw_file", help="draw image of best individual to file", action="store_true")
 	parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
-	
+	parser.add_argument("-ds", "--dirs", type=str, help="directories for root and gdrive", default=None)
+
 	args = parser.parse_args()
 	start=args.start
 	iters=args.iters
@@ -45,18 +44,17 @@ if __name__ == '__main__':
 	draw_file = args.draw_file
 	hierarchy_plots = args.plots
 	results_props = eval(args.results_props) if args.results_props else None
-	plots_dir = '/tmp/ARC'
 	log_testing_to_experiment = False
 	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
+	dirs = set_dirs(args.dirs)
 
-	remove_files_in_plots_dir(plots_dir)
+
+	remove_files_in_plots_dir(dirs['plots_dir'])
 
 	verbosed = {'debug': 0,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': False,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': False, 'hpct_verbose':False}
-	drive = get_gdrive()
-	root_path=get_root_path()
-	configs_dir = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
+
 
 	list=[]
 	for file in eval(args.files):    
@@ -75,20 +73,20 @@ if __name__ == '__main__':
 			for i in range(start, iters+start, 1):
 				if results_props:
 					arg = {'seed': i, 'file': filen, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
-                    'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
-					'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
+                    'max':max, 'drive':dirs['drive'], 'root_path':dirs['root_path'], 'configs_dir':dirs['configs_dir'], 'hierarchy_plots': hierarchy_plots,
+					'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
 					} | results_props
 				else:
 					arg = {'seed': i, 'file': filen, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
-                    'max':max, 'drive':drive, 'root_path':root_path, 'configs_dir':configs_dir, 'hierarchy_plots': hierarchy_plots,
-					'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': plots_dir
+                    'max':max, 'drive':dirs['drive'], 'root_path':dirs['root_path'], 'configs_dir':dirs['configs_dir'], 'hierarchy_plots': hierarchy_plots,
+					'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
 					} 
 
 				list.append(arg) 
 
 	# print(list)
 
-	mprocesses = cpu_count()
+	mprocesses = os.cpu_count()
 	print(f'Machine processes={mprocesses}')
 	processes = args.cpu
 	if processes > len(list):

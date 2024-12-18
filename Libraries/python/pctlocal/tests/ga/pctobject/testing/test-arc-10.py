@@ -16,9 +16,10 @@ import os
 import random
 
 # plots = "scEdges,scFitness"
-plots = False
+plots = "scTop,scFitness"
+# plots = False
 render=True
-runs=250
+runs=750
 early_termination = True
 hpct_verbose = False
 history = True
@@ -86,7 +87,7 @@ for link in percs.get_links():
     counter += 1
 
 output = hierarchy.get_node(0,0).get_function('output')
-output.gain = 0.147
+output.gain = 0.05
 print(output.get_config())
 
 actions = hierarchy.get_postprocessor()
@@ -103,7 +104,7 @@ if run:
 
     if history:
         if plots:
-            plots = hierarchy.get_plots_config(plots, "xx")
+            plots = hierarchy.get_plots_config(plots, f'Gain{output.gain:0.2f}')
             
             for plot in plots:
                 plotfile=None
