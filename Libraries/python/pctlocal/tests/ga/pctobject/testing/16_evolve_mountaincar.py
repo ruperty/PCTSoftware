@@ -37,7 +37,7 @@ move={'MountainCarContinuousV0': [-0.6, -0.5], 'Action1ws': [-0.3, -0.3],
       'OL0C0sm': [-0.55, -0.2], 'OL0C1sm': [0, -0.2], 'OL0C2sm': [0.55, -0.2], 
       'OL1C0sm': [0, -0.1], 'IV': [-0.8, 0.05], 'IP': [-1.1, 0.5], 'CL1C0': [0, 0.1]}
 move={}
-filename = 'testfiles/ga-000.326-s066-2x3-6655-a6abebd2c88246e9f77dd8623eac6e3e.properties'
+filename = 'testfiles/MountainCar/ga-000.326-s066-2x3-6655-a6abebd2c88246e9f77dd8623eac6e3e.properties'
 # great! ga-000.401-s093-2x1-6655-2b4b558d02b2661881f9a5109fedca77.properties 
 
 toolbox = base.Toolbox()
