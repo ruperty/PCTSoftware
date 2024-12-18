@@ -92,7 +92,13 @@
             // "args": ["-s", "1", "-d", "-e", "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode02\\ga-000.446-s003-1x1-m002-ARC0257-a2d94c526ccdfed48c1867212a2f3ceb.properties" , "-eep", "{ 'dataset': 'train', 'runs': 100 }"],
             // "args": ["-s", "1", "-d", "-e", "-o", "c:/tmp/arc", "-p", "scEdges,scZero,scFitness", "-f", "G:\\My Drive\\data\\ga\\ARC\\FitnessError-MovingAverageError-Mode00\\ga-000.441-s003-1x1-m000-ARC0254-6308d2b93a9789d5511ae743e77cb332.properties" , "-eep", "{ 'dataset': 'test', 'runs': 100 }"],
             // 006
-            "args": [ "-r", "75", "-d", "-e", "-f", "testfiles\\ARC\\ga-000.500-s001-1x1-m019-ARC0328-9799d017b565995c04c518b7e15c0e1c-consolidated.properties" ], //, "-eep", "{ 'dataset': 'test', 'runs': 100 }"],
+            // "args": [ "-r", "75", "-d", "-e", "-f", "testfiles\\ARC\\ga-000.500-s001-1x1-m019-ARC0328-9799d017b565995c04c518b7e15c0e1c-consolidated.properties" ], //, "-eep", "{ 'dataset': 'test', 'runs': 100 }"],
+
+            // "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-SummedError-Mode05\\ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties",  "-v" ],
+            "args": ["-f", "g:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties",  "-d", "-e" ],
+
+
+            
 
             "console": "internalConsole"
         },
