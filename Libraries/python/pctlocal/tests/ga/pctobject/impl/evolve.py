@@ -61,11 +61,10 @@ if __name__ == '__main__':
 	# log_experiment= args.log
 	results_props = eval(args.results_props) if args.results_props else None
 	log_testing_to_experiment = False
-	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
 	display_env=args.display_env
 	dirs = set_dirs(args.dirs)
-
+	print('dirs', dirs)
 		
 	verbosed = {'debug': args.debug,  'evolve_verbose': 1, 'deap_verbose': False, 'save_arch_all': save_arch_all,
 				'save_arch_gen': args.save_arch_gen, 'run_gen_best':args.run_gen_best, 'display_env': display_env, 'hpct_verbose':hpct_verbose}
@@ -75,12 +74,12 @@ if __name__ == '__main__':
 	if results_props is not None:
 		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file, 'tag':tag,
 						'max':max, 'drive':dirs['drive'], 'root_path':dirs['root_path'], 'configs_dir':dirs['configs_dir'], 'hierarchy_plots': hierarchy_plots,
-						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
+						'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
 		} | results_props
 	else:
 		arg = {'file': filename, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file, 'tag':tag,
 						'max':max, 'drive':dirs['drive'], 'root_path':dirs['root_path'], 'configs_dir':dirs['configs_dir'], 'hierarchy_plots': hierarchy_plots,
-						'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
+						'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
 		} 
 
 

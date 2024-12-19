@@ -45,7 +45,6 @@ if __name__ == '__main__':
 	hierarchy_plots = args.plots
 	results_props = eval(args.results_props) if args.results_props else None
 	log_testing_to_experiment = False
-	api_key='WVBkFFlU4zqOyfWzk5PRSQbfD'
 	project_name=args.project
 	dirs = set_dirs(args.dirs)
 
@@ -74,12 +73,12 @@ if __name__ == '__main__':
 				if results_props:
 					arg = {'seed': i, 'file': filen, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
                     'max':max, 'drive':dirs['drive'], 'root_path':dirs['root_path'], 'configs_dir':dirs['configs_dir'], 'hierarchy_plots': hierarchy_plots,
-					'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
+					'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
 					} | results_props
 				else:
 					arg = {'seed': i, 'file': filen, 'env_name':args.env_name, 'verbosed':verbosed, 'overwrite':overwrite, 'draw_file' :draw_file,
                     'max':max, 'drive':dirs['drive'], 'root_path':dirs['root_path'], 'configs_dir':dirs['configs_dir'], 'hierarchy_plots': hierarchy_plots,
-					'api_key':api_key, 'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
+					'project_name':project_name,  'log_testing_to_experiment':log_testing_to_experiment, 'plots_dir': dirs['plots_dir']
 					} 
 
 				list.append(arg) 

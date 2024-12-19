@@ -157,7 +157,7 @@
             "program": "impl/evolve.py",
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
             //"args": ["Pendulum", "PM00-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-s", "93"],
-            // "args": ["WindTurbine", "WT0095-RewardError-RootMeanSquareError-Mode02", "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}", "-db", "4"],
+            "args": ["WindTurbine", "WT0095-RewardError-RootMeanSquareError-Mode02", "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/ARC'}"],
             // "args": ["WindTurbine", "WT0005-RewardError-RootMeanSquareError-Mode00", "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}", "-db", "4"],
             // "args": ["WindTurbine", "WT0095-RewardError-RootMeanSquareError-Mode02", "-db", "0",  "-b", "-a", "-aa", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}" ], //"-db", "2"],
             // "args": ["WindTurbine", "WT0416-RewardError-SummedError-Mode02", "-o", "-b", "-p", "test-evolve", "-ep", "{}"],
@@ -176,7 +176,8 @@
             // "args": ["-a", "ARC", "ARC0101-FitnessError-MovingSumError-Mode08",  "-b", "-pl", "scEdges,scZero,scFitness"],                                 
             // "args": ["-a", "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness"],
 
-            "args": ["-a", "ARC", "ARC0425-FitnessError-MovingAverageError-Mode19",  "-b", "-pl", "scFitness"],
+            // "args": ["-a", "ARC", "ARC0378-FitnessError-MovingAverageError-Mode19",  "-b", "-pl", "scFitness", "-p", "test", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/ARC'}"],
+            // "args": ["-a", "ARC", "ARC0378-FitnessError-MovingAverageError-Mode19",  "-b", "-pl", "scFitness", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/ARC'}"],
 
 
             // "args": ["-a", "ARC", "ARC0061-FitnessError-MovingAverageError-Mode00",  "-b", "-pl", "scEdges,scZero,scFitness", "-p", "simple-00000001", "-o"],
