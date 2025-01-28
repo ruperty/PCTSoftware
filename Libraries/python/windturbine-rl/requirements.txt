@@ -31,7 +31,7 @@ bcrypt @ file:///C:/ci/bcrypt_1597936263757/work
 beautifulsoup4 @ file:///home/linux1/recipes/ci/beautifulsoup4_1610988766420/work
 bitarray @ file:///C:/ci/bitarray_1618435038389/work
 bkcharts==0.2
-black==19.10b0
+black==24.3.0
 bleach @ file:///tmp/build/80754af9/bleach_1612211392645/work
 bokeh @ file:///C:/ci/bokeh_1620784067744/work
 boto==2.49.0
@@ -79,7 +79,7 @@ filelock @ file:///home/linux1/recipes/ci/filelock_1610993975404/work
 flake8 @ file:///tmp/build/80754af9/flake8_1615834841867/work
 Flask @ file:///home/ktietz/src/ci/flask_1611932660458/work
 flatbuffers==2.0
-fonttools==4.29.1
+fonttools==4.43.0
 fsspec @ file:///tmp/build/80754af9/fsspec_1617959894824/work
 #future==0.18.2
 gast==0.5.3
