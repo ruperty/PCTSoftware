@@ -11,7 +11,9 @@ from pct.putils import set_dirs
 # python impl/evolve.py WindTurbine WT0416-RewardError-SummedError-Mode02 -b -o 
 # python impl/evolve.py CartPoleV1 Std03-InputsError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"
 # python impl/evolve.py CartPoleV1 Std00-TotalError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"
+
 # python impl/evolve.py CartPoleV1 GenTest-TotalError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"
+# python impl/evolve.py CartPoleV1 GenTest-TotalError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ruper/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"
 
 
 

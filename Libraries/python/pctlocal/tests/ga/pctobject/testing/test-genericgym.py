@@ -16,8 +16,6 @@ class GymEnvInfo:
         self.observation_space = env.observation_space
         self.num_actions = self.get_num_actions()
 
-
-
     def get_env_inputs_names(self):
         ninputs = self.observation_space.shape[0]
 
@@ -48,8 +46,12 @@ class GymEnvInfo:
         if isinstance(self.action_space, gym.spaces.box.Box):
             return self.action_space.low, self.action_space.high
         elif isinstance(self.action_space, gym.spaces.discrete.Discrete):
-            return self.action_space.n -1
-
+            if self.action_space.n == 2:
+                return np.array([0], dtype=self.action_space.dtype), np.array([1], dtype=self.action_space.dtype)
+            elif self.action_space.n == 3:
+                return np.array([-1], dtype=self.action_space.dtype), np.array([0], dtype=self.action_space.dtype), np.array([1], dtype=self.action_space.dtype)
+        
+    
 
     def get_num_states(self):
         if hasattr(self.observation_space, 'shape'):
@@ -66,24 +68,23 @@ class GymEnvInfo:
 
 if test == 0:
     # Example usage:
-    # env_info = GymEnvInfo('CartPole-v1')
-    env_name = 'MountainCarContinuous-v0'
-    # env_name = 'CartPole-v1'
-    env = gym.make(env_name) 
-    env_info = GymEnvInfo(env)
-    print("get_env_inputs_indexes", env_info.get_env_inputs_indexes())
-    print("get_env_inputs_names", env_info.get_env_inputs_names())
 
-    print("self.action_space", env_info.action_space)
+    envs = [ 'CartPole-v1', 'MountainCarContinuous-v0', 'Pendulum-v1']
+    for env_name in envs:
+        env = gym.make(env_name) 
+        env_info = GymEnvInfo(env)
+        print("get_env_inputs_indexes", env_info.get_env_inputs_indexes())
+        print("get_env_inputs_names", env_info.get_env_inputs_names())
+        print("self.action_space", env_info.action_space)
+        print("get_num_actions", env_info.get_num_actions())
+        print("get_action_space_bounds", env_info.get_action_space_bounds())
+        print()
 
-    print("get_num_actions", env_info.get_num_actions())
-    print("get_action_limits", env_info.get_action_limits())
-
-    # print("Action space bounds:", env_info.get_action_space_bounds())
-    # print("Number of actions:", env_info.get_num_actions())
-    # print("Number of input states:", env_info.get_num_states())
-    # # print("Mapped values to action space:", env_info.map_values_to_action_space([0.5]))
-    # print("Mapped values to action space:", env_info.map_values_to_action_space([3]))
+        # print("Action space bounds:", env_info.get_action_space_bounds())
+        # print("Number of actions:", env_info.get_num_actions())
+        # print("Number of input states:", env_info.get_num_states())
+        # # print("Mapped values to action space:", env_info.map_values_to_action_space([0.5]))
+        # print("Mapped values to action space:", env_info.map_values_to_action_space([3]))
 
 
 

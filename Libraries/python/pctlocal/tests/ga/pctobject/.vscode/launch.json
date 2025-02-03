@@ -157,7 +157,9 @@
             "program": "impl/evolve.py",
             // "args": ["CartPoleV1", "Std00-InputsError-RootMeanSquareError-Mode00", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
             // "args": ["CartPoleV1", "Std03-InputsError-RootMeanSquareError-Mode00", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
-            "args": ["CartPoleV1", "GenTest-TotalError-RootMeanSquareError-Mode00", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
+
+            // "args": ["CartPoleV1", "GenTest-TotalError-RootMeanSquareError-Mode00", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
+            "args": ["CartPoleV1", "GenTest-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ruper/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
         
             
         
