@@ -42,7 +42,7 @@ class GymEnvInfo:
         return self.action_space.low, self.action_space.high
 
     def get_action_space_bounds(self):
-        print(self.action_space)
+        # print(self.action_space)
         if isinstance(self.action_space, gym.spaces.box.Box):
             return self.action_space.low, self.action_space.high
         elif isinstance(self.action_space, gym.spaces.discrete.Discrete):
@@ -64,11 +64,15 @@ class GymEnvInfo:
             vals = np.clip(values, self.action_space.low, self.action_space.high)
             return vals
         if isinstance(self.action_space, gym.spaces.discrete.Discrete):
-            return values
+            if self.action_space.n == 2:
+                return np.where(values > 0.5, 1, 0)
+            elif self.action_space.n == 3:
+                return np.where(values > 0.5, 1, np.where(values < -0.5, -1, 0))
 
 if test == 0:
     # Example usage:
 
+    envs = [ 'CartPole-v1']
     envs = [ 'CartPole-v1', 'MountainCarContinuous-v0', 'Pendulum-v1']
     for env_name in envs:
         env = gym.make(env_name) 
@@ -78,6 +82,9 @@ if test == 0:
         print("self.action_space", env_info.action_space)
         print("get_num_actions", env_info.get_num_actions())
         print("get_action_space_bounds", env_info.get_action_space_bounds())
+        print("map_values_to_action_space", env_info.map_values_to_action_space(0.51))
+
+        
         print()
 
         # print("Action space bounds:", env_info.get_action_space_bounds())
