@@ -64,6 +64,7 @@ class GymEnvInfo:
             vals = np.clip(values, self.action_space.low, self.action_space.high)
             return vals
         if isinstance(self.action_space, gym.spaces.discrete.Discrete):
+            con = self.action_space.contains(values)
             if self.action_space.n == 2:
                 return np.where(values > 0.5, 1, 0)
             elif self.action_space.n == 3:
@@ -72,11 +73,12 @@ class GymEnvInfo:
 if test == 0:
     # Example usage:
 
-    envs = [ 'CartPole-v1']
-    envs = [ 'CartPole-v1', 'MountainCarContinuous-v0', 'Pendulum-v1']
+    # envs = [ 'CartPole-v1']
+    envs = [ 'Acrobot-v1', 'CartPole-v1', 'MountainCarContinuous-v0', 'Pendulum-v1']
     for env_name in envs:
         env = gym.make(env_name) 
         env_info = GymEnvInfo(env)
+        print('env_name', env_name)
         print("get_env_inputs_indexes", env_info.get_env_inputs_indexes())
         print("get_env_inputs_names", env_info.get_env_inputs_names())
         print("self.action_space", env_info.action_space)
