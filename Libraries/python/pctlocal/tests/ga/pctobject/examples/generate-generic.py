@@ -6,7 +6,7 @@ Created on Mon Apr 17 2023
 """
 
 
-# python examples/generate-generic.py -f configs.csv 
+# python examples/generate-generic.py -f configs.csv -sm -mall  1 -macl 1
 
 
 
@@ -47,7 +47,8 @@ if __name__ == '__main__':
     parser.add_argument('-mall', '--max_levels_limit', type=int, help="initial index", default=4)    
     parser.add_argument('-micl', '--min_columns_limit', type=int, help="initial index", default=1)
     parser.add_argument('-macl', '--max_columns_limit', type=int, help="initial index", default=4)
-    parser.add_argument('-pl', '--plots', type=str, help="plots", default="scEdges,scZero,scFitness")
+    parser.add_argument('-pl', '--plots', type=str, help="plots", default="scEdges")
+    # parser.add_argument('-pl', '--plots', type=str, help="plots", default="scEdges,scZero,scFitness")
 
     args = parser.parse_args()
 
@@ -86,8 +87,10 @@ if __name__ == '__main__':
 
 
     filename = f'gen{sep}{file}'
-    args = f'-b -pl {plots} -p {project} {aargs} {ow}'
-    # args = f'-b -pl scEdges,scZero,scFitness -p s-{code}-test -i 5'
+    args = f'-b -pl {plots} {aargs} {ow}'
+    if project is not None:
+        args = args + f' -p {project}'
+
 
     common_configs = {'env' : env, 'seed': seed, 'pop_size' : pop_size, 'gens': gens, 
                     'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1,  'environment_properties': env_props, 

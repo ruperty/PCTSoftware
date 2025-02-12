@@ -95,7 +95,8 @@
             // "args": [ "-r", "75", "-d", "-e", "-f", "testfiles\\ARC\\ga-000.500-s001-1x1-m019-ARC0328-9799d017b565995c04c518b7e15c0e1c-consolidated.properties" ], //, "-eep", "{ 'dataset': 'test', 'runs': 100 }"],
 
             // "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-SummedError-Mode05\\ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties",  "-v" ],
-            "args": ["-f", "g:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties",  "-d", "-e" ],
+            // "args": ["-f", "g:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties",  "-d", "-e" ],
+            "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/ga-10000.000-s001-1x1-m000-CP0002-f457efc705e6c3ff41def6ac6bcfb906.properties",  "-d", "-e", "-v" ],
 
 
             
@@ -158,11 +159,14 @@
             // "args": ["CartPoleV1", "Std00-InputsError-RootMeanSquareError-Mode00", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
             // "args": ["CartPoleV1", "Std03-InputsError-RootMeanSquareError-Mode00", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
 
-            "args": ["CartPoleV1", "GenTest-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
+            // "args": ["CartPoleV1", "GenTest-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
             // "args": ["CartPoleV1", "GenTest-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ruper/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
         
+            // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d",  "-pl", "scEdges", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
+            "args": ["GenericGym", "CP0002-RewardError-SummedError-Mode00", "-a", "-b", "-d",  "-pl", "scEdges"],
+                   
             
-        
+
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
             //"args": ["Pendulum", "PM00-RewardError-RootMeanSquareError-Mode00", "-i", "1", "-s", "93"],
             // "args": ["WindTurbine", "WT0095-RewardError-RootMeanSquareError-Mode02", "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/ARC'}"],
@@ -289,6 +293,14 @@
             "args": ["-f", "configs-simple-00000001.csv", "-c", "00000001", "-p", "simple-00000001", "-sm", "-ii", "61", "-o"],
             "program": "examples/generate-arc.py"
         },
+        {
+            "name": "generate_gym",
+            "type": "debugpy",
+            "request": "launch",
+            "args": ["-f", "configs.csv", "-sm", "-mall", "1", "-macl", "1"],
+            "program": "examples/generate-generic.py"
+        },
+
         // {
         //     "name": "example-arch",
         //     "type": "debugpy",

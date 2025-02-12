@@ -168,6 +168,8 @@ class HPCTGenerateEvolvers(object):
         value = None
         if key in record:
             value = record[key]
+            if value == '':
+                value = None
         else:
             if key in self.common_configs:
                 value = self.common_configs[key]
@@ -283,7 +285,7 @@ class HPCTGenerateEvolvers(object):
                     early_termination = self.get_config_value(record, 'early_termination')
                     config['early_termination'] = early_termination 
 
-                    evolve_termination_value = self.get_config_value(record, 'evolve_termination_value')
+                    evolve_termination_value = self.get_none_config_value(record, 'evolve_termination_value')
                     config['evolve_termination_value'] = evolve_termination_value 
 
                     if early_termination == 'TRUE':
@@ -319,6 +321,7 @@ class HPCTGenerateEvolvers(object):
                     arch={}
                     arch['name']=aname
                     arch['env_inputs_indexes']=self.get_eval_config_value(record, 'env_inputs_indexes')
+                    arch['gym_name']=self.get_none_config_value(record, 'gym_name')
 
                     zlii = self.get_none_config_value(record, 'zerolevel_inputs_indexes')  
                     if zlii and len(zlii) > 0:
@@ -469,6 +472,9 @@ class HPCTGenerateEvolvers(object):
         header = '### Environment parameters\n\n# Full list of input indexes from environment\n# List of input indexes from environment for zero level if not full\n# List of input indexes from environment for top level# List of reference values\n# Number of actions\n# Display names for environment inputs\n\n'
         
         text1 = f'env_name = {env}\n' 
+        gym_name = self.get_parameter(option, "gym_name") 
+        if gym_name is not None:
+            text1 = text1 + f'gym_name = {gym_name}\n'
         text1 = text1 + f'env_inputs_indexes = {self.get_parameter(option, "env_inputs_indexes")}\n'
         text1 = text1 + f'zerolevel_inputs_indexes = {self.get_parameter(option, "zerolevel_inputs_indexes")}\n'
         text1 = text1 + f'toplevel_inputs_indexes = {self.get_parameter(option, "toplevel_inputs_indexes")}\n'
@@ -476,8 +482,9 @@ class HPCTGenerateEvolvers(object):
         text1 = text1 + f'num_actions = {num_actions}\n'
         text1 = text1 + f'env_inputs_names = {self.get_parameter(option, "env_inputs_names")}\n'
         
-        if environment_properties is not None:
-            text1 = text1 + f'environment_properties={environment_properties}\n'
+        if environment_properties is None:
+            environment_properties={}
+        text1 = text1 + f'environment_properties={environment_properties}\n'
         
         return ''.join((header,text1))    
 

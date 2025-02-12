@@ -32,7 +32,11 @@ from pct.environment_processing import EnvironmentProcessingFactory
 # python  -m impl.run_from_file -e -d -o c:/tmp/arc -f "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode02\ga-063.080-s004-1x1-m002-ARC0154-2e60e0477d1bd7f569bad1b748111bf1.properties" -eep "{'dir': '/tmp/arc-prize-2024', 'file_prefix': 'arc-agi_simple_', 'code': '00000004', 'dataset': 'test', 'control_set': ['cells'], 'input_set': ['env', 'inputs'], 'runs': 750, 'history': 10, 'initial': 100}"
 
 # python -m impl.run_from_file -d -f "G:\My Drive\data\ga\GenericGym\TotalError-RootMeanSquareError-Mode00\ga-000.001-s001-1x1-m000-Std00-c87a416cdf0d27e307ba243474096f4e.properties"
+# python -m impl.run_from_file -d -f "G:/My Drive/data\ga\GenericGym\RewardError-SummedError-Mode00\ga-10000.000-s001-1x1-m000-CP0002-f457efc705e6c3ff41def6ac6bcfb906.properties"
 # 
+
+
+
 
 """
 
