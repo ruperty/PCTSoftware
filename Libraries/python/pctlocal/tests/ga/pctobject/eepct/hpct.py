@@ -76,7 +76,7 @@ class HPCTGenerateEvolvers(object):
 
                         flist = [filename]
                         if single_multi:
-                            cmd = f'python -m {cmdline}_multi {env} "{flist}" {args}'
+                            cmd = f'python -m {cmdline}_multi {env} "{flist}" {fargs} {args}'
                         else:
                             cmd = f'python -m {cmdline} {env} {filename} {fargs} {args}'
                         print(cmd, end='\n')

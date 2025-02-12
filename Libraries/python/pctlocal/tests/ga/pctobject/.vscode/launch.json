@@ -163,8 +163,7 @@
             // "args": ["CartPoleV1", "GenTest-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ruper/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
         
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d",  "-pl", "scEdges", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
-            "args": ["GenericGym", "CP0002-RewardError-SummedError-Mode00", "-a", "-b", "-d",  "-pl", "scEdges"],
-                   
+            "args": ["GenericGym", "CP0002-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges"],
             
 
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
@@ -254,7 +253,9 @@
             // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
             // "args": ["Pendulum", "[\"PM00-RewardError-RootMeanSquareError-Mode00\", \"PM01-RewardError-RootMeanSquareError-Mode00\"", "-i", "1", "-s", "93"],
             // "args": ["WindTurbine", "[\"WT01-RewardError-RootMeanSquareError-Mode00\" ]" ],
-            "args": ["ARC", "[\"ARC0003-FitnessError-CurrentError-Mode07\" ]",  "-o", "-b"],
+            // "args": ["ARC", "[\"ARC0003-FitnessError-CurrentError-Mode07\" ]",  "-o", "-b"],
+
+            "args": ["GenericGym", "[\"CP0002-RewardError-SummedError-Mode00 -x\" ]",  "-o", "-b",  "-pl", "scEdges"],
 
             "console": "internalConsole"
         },
@@ -297,7 +298,7 @@
             "name": "generate_gym",
             "type": "debugpy",
             "request": "launch",
-            "args": ["-f", "configs.csv", "-sm", "-mall", "1", "-macl", "1"],
+            "args": ["-f", "configs.csv", "-mall", "1", "-macl", "1"],
             "program": "examples/generate-generic.py"
         },
 

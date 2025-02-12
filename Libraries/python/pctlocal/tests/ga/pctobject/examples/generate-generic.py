@@ -23,11 +23,7 @@ def process(filename,common_configs, args, cmd, initial_index, batch, single_mul
     hge.process_csv(file, args, cmdline=cmd, initial_index=initial_index, batch=batch, single_multi=single_multi)
 
 
-
-
-
 if __name__ == '__main__':
-
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', '--file', type=str, help="file name")
@@ -47,7 +43,7 @@ if __name__ == '__main__':
     parser.add_argument('-mall', '--max_levels_limit', type=int, help="initial index", default=4)    
     parser.add_argument('-micl', '--min_columns_limit', type=int, help="initial index", default=1)
     parser.add_argument('-macl', '--max_columns_limit', type=int, help="initial index", default=4)
-    parser.add_argument('-pl', '--plots', type=str, help="plots", default="scEdges")
+    parser.add_argument('-pl', '--plots', type=str, help="plots", default="")
     # parser.add_argument('-pl', '--plots', type=str, help="plots", default="scEdges,scZero,scFitness")
 
     args = parser.parse_args()
@@ -87,7 +83,9 @@ if __name__ == '__main__':
 
 
     filename = f'gen{sep}{file}'
-    args = f'-b -pl {plots} {aargs} {ow}'
+    args = f'-b {aargs} {ow}'
+    if plots != "":
+        args = args + f' -pl {plots}'
     if project is not None:
         args = args + f' -p {project}'
 
@@ -99,6 +97,7 @@ if __name__ == '__main__':
                     'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': error_limit , 'error_properties':{'error:history': 10, 'error:initial': einitial}, 
                      'references': references}
 
+    print()
     process(filename,common_configs, args, cmd, initial_index, batch, single_multi=single_multi)
     print()
 
