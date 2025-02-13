@@ -6,7 +6,7 @@ Created on Mon Apr 17 2023
 """
 
 
-# python examples/generate-generic.py -f configs.csv -sm -mall  1 -macl 1
+# python examples/generate-generic.py -f configs.csv -pop 10 -mall  1 -macl 1 > configs/gen/cmds-simple.txt
 
 
 
