@@ -1,7 +1,6 @@
 
 from comet_ml import Experiment
 import argparse
-import os
 
 # from cutils.paths import get_root_path, get_gdrive
 from epct.evolve import evolve_setup

@@ -4,7 +4,10 @@ from comet_ml import Experiment
 import argparse
 import os
 from multiprocessing import Pool
-# from cutils.paths import get_root_path, get_gdrive
+# Ignore deprecation warnings
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
 from epct.evolve import evolve_setup
 from pct.putils import set_dirs
 

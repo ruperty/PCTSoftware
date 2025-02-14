@@ -6,7 +6,7 @@ Created on Mon Apr 17 2023
 """
 
 
-# python examples/generate-generic.py -f configs.csv -pop 10 -mall  1 -macl 1 > configs/gen/cmds-simple.txt
+# python examples/generate-generic.py -f configs.csv -mall  1 -macl 1 -o > configs/gen/cmds-simple.txt
 
 
 
@@ -76,14 +76,14 @@ if __name__ == '__main__':
 
     cmd='impl.evolve'
     # initial_index=1
-    batch = 60
+    batch = 8
     num_evals = 1
     env = 'GenericGym'
 
 
 
     filename = f'gen{sep}{file}'
-    args = f'-b {aargs} {ow}'
+    args = f'-b -a {aargs} {ow}'
     if plots != "":
         args = args + f' -pl {plots}'
     if project is not None:
