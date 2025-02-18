@@ -1,6 +1,6 @@
 
 import argparse, time
-from os import sep, listdir
+from os import sep, listdir, path, makedirs
 from pct.hierarchy import PCTHierarchy
 from pct.putils import PCTRunProperties
 from pct.environment_processing import EnvironmentProcessingFactory
@@ -95,12 +95,15 @@ if __name__ == '__main__':
         # print(eprops)
         # print(eeprops)
 
+    plots_dir=args.outdir
+    if plots_dir and not path.exists(plots_dir):
+        makedirs(plots_dir)
 
     try:
         tic = time.perf_counter()
 
         hierarchy, score = PCTHierarchy.run_from_file(args.file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
-                        plots=plots, history=history, hpct_verbose= args.verbose, runs=runs, plots_dir=args.outdir, early_termination=args.early, 
+                        plots=plots, history=history, hpct_verbose= args.verbose, runs=runs, plots_dir=plots_dir, early_termination=args.early, 
                         enhanced_environment_properties=eeprops)
         print(f'Score={score:0.3f}')
         

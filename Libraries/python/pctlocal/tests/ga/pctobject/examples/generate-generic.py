@@ -6,7 +6,7 @@ Created on Mon Apr 17 2023
 """
 
 
-# python examples/generate-generic.py -f configs.csv -mall  1 -macl 1 -o > configs/gen/cmds-simple.txt
+# python examples/generate-generic.py -f configs.csv -mall  1 -macl 1 -pl "scEdges,scError" > configs/gen/cmds-simple.txt
 
 
 
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
 
     filename = f'gen{sep}{file}'
-    args = f'-b -a {aargs} {ow}'
+    args = f'-b  {aargs} {ow}'
     if plots != "":
         args = args + f' -pl {plots}'
     if project is not None:
