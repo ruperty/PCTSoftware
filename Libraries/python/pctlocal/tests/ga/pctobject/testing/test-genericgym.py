@@ -78,8 +78,8 @@ class GymMetaData:
 if test == 0:
     # Example usage:
 
-    # envs = [ 'CartPole-v1']
-    envs = [ 'Acrobot-v1', 'CartPole-v1', 'MountainCarContinuous-v0', 'Pendulum-v1']
+    envs = [  'LunarLander-v2']
+    # envs = [ 'Acrobot-v1', 'CartPole-v1', 'MountainCarContinuous-v0', 'Pendulum-v1']
     for env_name in envs:
         env = gym.make(env_name) 
         env_info = GymMetaData(env)
