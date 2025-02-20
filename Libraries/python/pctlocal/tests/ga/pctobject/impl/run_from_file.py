@@ -33,6 +33,8 @@ from pct.environment_processing import EnvironmentProcessingFactory
 
 # python -m impl.run_from_file -d -f "G:\My Drive\data\ga\GenericGym\TotalError-RootMeanSquareError-Mode00\ga-000.001-s001-1x1-m000-Std00-c87a416cdf0d27e307ba243474096f4e.properties"
 # python -m impl.run_from_file -d -f "G:/My Drive/data\ga\GenericGym\RewardError-SummedError-Mode00\ga-10000.000-s001-1x1-m000-CP0002-f457efc705e6c3ff41def6ac6bcfb906.properties"
+# python -m impl.run_from_file -d -f "G:/My Drive/data\ga\GenericGym\RewardError-SummedError-Mode07\ga-234.000-s001-1x1-m007-CP0019-739477514af2e0106b8d9d07a6d4ec38.properties"
+# python -m impl.run_from_file -d -f "G:/My Drive/data\ga\GenericGym\TotalError-RootMeanSquareError-Mode20\ga-000.060-s003-1x1-m020-CP0008-69c7a846e350cc8ff809b5af307777bb-consolidated.properties"
 # 
 
 

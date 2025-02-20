@@ -8,42 +8,6 @@
     "version": "0.2.0",
     "configurations": [
 
-        // {
-        //     "name": "webots_ind",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-hpct-evolver-create-ind-wrestler"
-        // },
-        // {
-        //     "name": "cartpole_ind",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-hpct-evolver-create-ind-cartpole"
-        // },
-        // {
-        //     "name": "evolve_cp",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-evolve_cp_from_properties_file_minimise"
-        // },
-        // {
-        //     "name": "evolve_ww",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-evolve_ww_from_properties_file_maximise"
-        // },
-        // {
-        //     "name": "draw_from_properties_file",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-draw_from_properties_file"
-        // },
-        // {
-        //     "name": "run_from_properties_file",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-run_from_file"
-        // },
         {
             "name": "run_files_from_dir",
             "type": "debugpy",
@@ -164,7 +128,8 @@
         
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d",  "-pl", "scEdges", "-ds", "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"],
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-p", "cptest", "-o",  "-pl", "scError"],
-            "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-p", "cptest", "-o",  "-pl", "scError"],
+            // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-p", "cptest", "-o",  "-pl", "scError"],
+            "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-o",  "-pl", "scError"],
 
 
             // "args": ["GenericGym", "CP0002-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges", "-p", "cptest", "-o"],
@@ -263,16 +228,6 @@
 
             "console": "internalConsole"
         },
-        // {
-        //     "name": "evolve_wt_multi_win",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "program": "impl/evolve_multi_wt.py",
-        //     // "args": ["MountainCarContinuousV0", "MC00-ReferencedInputsError-RootMeanSquareError-Mode00xx", "-i", "1"],
-        //     // "args": ["Pendulum", "[\"PM00-RewardError-RootMeanSquareError-Mode00\", \"PM01-RewardError-RootMeanSquareError-Mode00\"", "-i", "1", "-s", "93"],
-        //     "args": ["WindTurbine", "[\"WT1000-RewardError-RootMeanSquareError-Mode05\" ]", "-b" , "-l" , "-p", "test-evolve", "-i", "3"],
-        //     "console": "internalConsole"
-        // },
         {
             "name": "evolve_wsl",
             "type": "debugpy",
@@ -284,13 +239,6 @@
         },
 
 
-
-        // {
-        //     "name": "mutate_ind",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-hpct-evolver-mutate-ind-cartpole"
-        // },
         {
             "name": "generate_arc",
             "type": "debugpy",
@@ -306,60 +254,12 @@
             "program": "examples/generate-generic.py"
         },
 
-        // {
-        //     "name": "example-arch",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-arch"
-        // },
-        // {
-        //     "name": "example-run-from-file",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-run_from_file"
-        // },
-        // {
-        //     "name": "load-from-config",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-load-from-config"
-        // },
-        // {
-        //     "name": "from-config",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-hpct-from-config"
-        // },
-        // {
-        //     "name": "mode02-evolve",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "examples.example-hpct-evolver-mode02"
-        // },       
         {
             "name": "hierarchy-draw",
             "type": "debugpy",
             "request": "launch",
             "module": "testing.test-hierarchy-draw"
         },
-        // {
-        //     "name": "run-old-mountaincar",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "testing.run-mountaincar-from-properties_file"
-        // },
-        // {
-        //     "name": " 16_evolve_mountaincar",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "testing.16_evolve_mountaincar"
-        // },
-        // {
-        //     "name": " 14_evolve_pendulum",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "testing.14_evolve_pendulum"
-        // },
         {
             "name": "general",
             "type": "debugpy",
@@ -384,20 +284,6 @@
             ]
         }
 
-
-
-        // {
-        //     "name": "test-networkx",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "testing.test-networkx"
-        // },
-        // {
-        //     "name": "deap-aplha",
-        //     "type": "debugpy",
-        //     "request": "launch",
-        //     "module": "testing.test-deap-aplha"
-        // }
 
 
         

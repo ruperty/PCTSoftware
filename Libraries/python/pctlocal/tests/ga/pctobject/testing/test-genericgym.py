@@ -12,6 +12,7 @@ test = 0
 
 class GymMetaData:
     def __init__(self, env):
+        self.env_name = env.spec.id
         self.action_space =  env.action_space
         self.observation_space = env.observation_space
         self.num_actions = self.get_num_actions()
@@ -21,7 +22,10 @@ class GymMetaData:
 
     def get_env_inputs_names(self):
         ninputs = self.observation_space.shape[0]
-        env_inputs_names = [f"I{i}" for i in range(ninputs)]
+        if self.env_name == 'CartPole-v1':
+            env_inputs_names = ['ICP', 'ICV', 'IPA', 'IPV']
+        else:
+            env_inputs_names = [f"I{i}" for i in range(ninputs)]
         return env_inputs_names
 
     def get_env_inputs_indexes(self):
@@ -67,9 +71,9 @@ class GymMetaData:
         if isinstance(action_space, gym.spaces.discrete.Discrete):
             con = action_space.contains(values)
             if action_space.n == 2:
-                return np.where(values > 0.5, 1, 0)
+                return np.where(values > 0, 1, 0)
             elif action_space.n == 3:
-                return np.where(values > 0.5, 1, np.where(values < -0.5, -1, 0))
+                return np.where(values > 0, 1, np.where(values < 0, -1, 0))
 
 if test == 0:
     # Example usage:
@@ -111,3 +115,28 @@ if test ==1:
         print()
         env.close()
 
+if test ==2:
+    # import gymnasium as gym
+
+    def get_input_names(env_name):
+        # Create the environment
+        env = gym.make(env_name)
+        
+        # Get the observation space
+        obs_space = env.observation_space
+
+        # Handle different types of observation spaces
+        if isinstance(obs_space, gym.spaces.Dict):
+            input_names = list(obs_space.spaces.keys())  # Extract dictionary keys as feature names
+        elif isinstance(obs_space, gym.spaces.Box):
+            input_names = [f"feature_{i}" for i in range(obs_space.shape[0])]  # Generate generic feature names
+        else:
+            input_names = ["observation"]  # Default case for Discrete and other spaces
+
+        env.close()  # Close the environment to free resources
+        return input_names
+
+    # Example usage
+    env_name = "CartPole-v1"  # Change this to your desired environment
+    input_features = get_input_names(env_name)
+    print(f"Input feature names for {env_name}: {input_features}")

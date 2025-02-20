@@ -1,34 +1,42 @@
 
-python -m impl.evolve GenericGym CP0001-TotalError-RootMeanSquareError-Mode00  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0002-TotalError-RootMeanSquareError-Mode02  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0003-TotalError-RootMeanSquareError-Mode07  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0004-TotalError-RootMeanSquareError-Mode16  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0005-TotalError-RootMeanSquareError-Mode17  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0006-TotalError-RootMeanSquareError-Mode18  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0007-TotalError-RootMeanSquareError-Mode19  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0008-TotalError-RootMeanSquareError-Mode20  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0009-InputsError-RootMeanSquareError-Mode00  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0010-InputsError-RootMeanSquareError-Mode02  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0011-InputsError-RootMeanSquareError-Mode07  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0012-InputsError-RootMeanSquareError-Mode16  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0013-InputsError-RootMeanSquareError-Mode17  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0014-InputsError-RootMeanSquareError-Mode18  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0015-InputsError-RootMeanSquareError-Mode19  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0016-InputsError-RootMeanSquareError-Mode20  -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0017-RewardError-SummedError-Mode00 -x -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0018-RewardError-SummedError-Mode02 -x -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0019-RewardError-SummedError-Mode07 -x -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0020-RewardError-SummedError-Mode16 -x -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0021-RewardError-SummedError-Mode17 -x -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0022-RewardError-SummedError-Mode18 -x -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0023-RewardError-SummedError-Mode19 -x -b    -pl scEdges,scError
-python -m impl.evolve GenericGym CP0024-RewardError-SummedError-Mode20 -x -b    -pl scEdges,scError
+python -m impl.evolve GenericGym CP0001-TotalError-RootMeanSquareError-Mode00  -b  -i 3  -pl scEdges,scError -p total
+python -m impl.evolve GenericGym CP0002-TotalError-RootMeanSquareError-Mode02  -b  -i 3  -pl scEdges,scError -p total
+python -m impl.evolve GenericGym CP0003-TotalError-RootMeanSquareError-Mode07  -b  -i 3  -pl scEdges,scError -p total
+python -m impl.evolve GenericGym CP0004-TotalError-RootMeanSquareError-Mode16  -b  -i 3  -pl scEdges,scError -p total
+python -m impl.evolve GenericGym CP0005-TotalError-RootMeanSquareError-Mode17  -b  -i 3  -pl scEdges,scError -p total
+python -m impl.evolve GenericGym CP0006-TotalError-RootMeanSquareError-Mode18  -b  -i 3  -pl scEdges,scError -p total
+python -m impl.evolve GenericGym CP0007-TotalError-RootMeanSquareError-Mode19  -b  -i 3  -pl scEdges,scError -p total
+python -m impl.evolve GenericGym CP0008-TotalError-RootMeanSquareError-Mode20  -b  -i 3  -pl scEdges,scError -p total
 
-python -m impl.evolve_multi GenericGym "['CP0001-TotalError-RootMeanSquareError-Mode00', 'CP0002-TotalError-RootMeanSquareError-Mode02', 'CP0003-TotalError-RootMeanSquareError-Mode07', 'CP0004-TotalError-RootMeanSquareError-Mode16', 'CP0005-TotalError-RootMeanSquareError-Mode17', 'CP0006-TotalError-RootMeanSquareError-Mode18', 'CP0007-TotalError-RootMeanSquareError-Mode19', 'CP0008-TotalError-RootMeanSquareError-Mode20']" -b    -pl scEdges,scError -p Total
+python -m impl.evolve_multi GenericGym "['CP0001-TotalError-RootMeanSquareError-Mode00', 'CP0002-TotalError-RootMeanSquareError-Mode02', 'CP0003-TotalError-RootMeanSquareError-Mode07', 'CP0004-TotalError-RootMeanSquareError-Mode16', 'CP0005-TotalError-RootMeanSquareError-Mode17', 'CP0006-TotalError-RootMeanSquareError-Mode18', 'CP0007-TotalError-RootMeanSquareError-Mode19', 'CP0008-TotalError-RootMeanSquareError-Mode20']" -b  -i 3  -pl scEdges,scError -p total
 
-python -m impl.evolve_multi GenericGym "['CP0009-InputsError-RootMeanSquareError-Mode00', 'CP0010-InputsError-RootMeanSquareError-Mode02', 'CP0011-InputsError-RootMeanSquareError-Mode07', 'CP0012-InputsError-RootMeanSquareError-Mode16', 'CP0013-InputsError-RootMeanSquareError-Mode17', 'CP0014-InputsError-RootMeanSquareError-Mode18', 'CP0015-InputsError-RootMeanSquareError-Mode19', 'CP0016-InputsError-RootMeanSquareError-Mode20']" -b    -pl scEdges,scError -p Inputs
+python -m impl.evolve_multi GenericGym "[]" -b  -i 3  -pl scEdges,scError -p total
 
-python -m impl.evolve_multi GenericGym "['CP0017-RewardError-SummedError-Mode00 -x', 'CP0018-RewardError-SummedError-Mode02 -x', 'CP0019-RewardError-SummedError-Mode07 -x', 'CP0020-RewardError-SummedError-Mode16 -x', 'CP0021-RewardError-SummedError-Mode17 -x', 'CP0022-RewardError-SummedError-Mode18 -x', 'CP0023-RewardError-SummedError-Mode19 -x', 'CP0024-RewardError-SummedError-Mode20 -x']" -b    -pl scEdges,scError -p Reward
 
-python -m impl.evolve_multi GenericGym "[]" -b    -pl scEdges,scError
+python -m impl.evolve GenericGym CP0009-InputsError-RootMeanSquareError-Mode00  -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0010-InputsError-RootMeanSquareError-Mode02  -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0011-InputsError-RootMeanSquareError-Mode07  -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0012-InputsError-RootMeanSquareError-Mode16  -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0013-InputsError-RootMeanSquareError-Mode17  -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0014-InputsError-RootMeanSquareError-Mode18  -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0015-InputsError-RootMeanSquareError-Mode19  -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0016-InputsError-RootMeanSquareError-Mode20  -b  -i 3  -pl scEdges,scError -p inputs
+
+python -m impl.evolve_multi GenericGym "['CP0009-InputsError-RootMeanSquareError-Mode00', 'CP0010-InputsError-RootMeanSquareError-Mode02', 'CP0011-InputsError-RootMeanSquareError-Mode07', 'CP0012-InputsError-RootMeanSquareError-Mode16', 'CP0013-InputsError-RootMeanSquareError-Mode17', 'CP0014-InputsError-RootMeanSquareError-Mode18', 'CP0015-InputsError-RootMeanSquareError-Mode19', 'CP0016-InputsError-RootMeanSquareError-Mode20']" -b  -i 3  -pl scEdges,scError -p inputs
+
+python -m impl.evolve_multi GenericGym "[]" -b  -i 3  -pl scEdges,scError -p inputs
+
+
+python -m impl.evolve GenericGym CP0017-RewardError-SummedError-Mode00 -x -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0018-RewardError-SummedError-Mode02 -x -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0019-RewardError-SummedError-Mode07 -x -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0020-RewardError-SummedError-Mode16 -x -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0021-RewardError-SummedError-Mode17 -x -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0022-RewardError-SummedError-Mode18 -x -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0023-RewardError-SummedError-Mode19 -x -b  -i 3  -pl scEdges,scError -p inputs
+python -m impl.evolve GenericGym CP0024-RewardError-SummedError-Mode20 -x -b  -i 3  -pl scEdges,scError -p inputs
+
+python -m impl.evolve_multi GenericGym "['CP0017-RewardError-SummedError-Mode00 -x', 'CP0018-RewardError-SummedError-Mode02 -x', 'CP0019-RewardError-SummedError-Mode07 -x', 'CP0020-RewardError-SummedError-Mode16 -x', 'CP0021-RewardError-SummedError-Mode17 -x', 'CP0022-RewardError-SummedError-Mode18 -x', 'CP0023-RewardError-SummedError-Mode19 -x', 'CP0024-RewardError-SummedError-Mode20 -x']" -b  -i 3  -pl scEdges,scError -p inputs
+
+python -m impl.evolve_multi GenericGym "[]" -b  -i 3  -pl scEdges,scError -p inputs
 

@@ -5,9 +5,16 @@ Created on Mon Apr 17 2023
 @author: ryoung
 """
 
+"""
 
-# python examples/generate-generic.py -f configs.csv -mall  1 -macl 1 -pl "scEdges,scError" > configs/gen/cmds-simple.txt
+python examples/generate-generic.py -f configs-cp.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p all > configs/gen/cmds-cp-all.txt
 
+
+python examples/generate-generic.py -f configs-cp-total.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p total > configs/gen/cmds-cp.txt
+python examples/generate-generic.py -f configs-cp-inputs.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 9 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
+python examples/generate-generic.py -f configs-cp-reward.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 17 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
+
+"""
 
 
 
