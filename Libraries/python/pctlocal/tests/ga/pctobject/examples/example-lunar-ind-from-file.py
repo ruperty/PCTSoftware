@@ -62,10 +62,11 @@ if test == 3:
         random.seed(seed)
         ind = evr.toolbox.individual()
         print(ind.get_grid())
-        ind.run(steps=2)
-        # print('IND:', ind.get_environment().env.action_space)
+        # ind.run(steps=2)
+        print('IND:', ind.get_environment().env.continuous)
               
         ind1, = evr.toolbox.mutate(ind, choice=2, add_nodes=1)
+        print('IND1:', ind1.get_environment().env.continuous)
         # print('IND1:', ind1.get_environment().env.action_space)
         # ind1 = ind
         ind1.run(steps=10)

@@ -12,12 +12,12 @@ test = 2
 
 if test ==2:
     env = gym.make('LunarLanderContinuous-v2')
-    print(env.action_space) 
-    print(env.continuous)
+    print("action_space", env.action_space) 
+    print("continuous", env.continuous)
     env1 = copy.deepcopy(env)
     # env1.continuous = True
-    print(env1.action_space)
-    print(env1.continuous)
+    print("action_space", env1.action_space) 
+    print("continuous", env1.continuous)
     env.close()
     env1.close()
 
