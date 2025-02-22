@@ -60,10 +60,12 @@
 
             // "args": ["-f", "G:\\My Drive\\data\\ga\\WindTurbine\\RewardError-SummedError-Mode05\\ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties",  "-v" ],
             // "args": ["-f", "g:\\My Drive\\data\\ga\\MountainCarContinuousV0\\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\\ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties",  "-d", "-e" ],
-            "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/ga-500.000-s001-1x1-m000-CP0017-262fcd62b9b142425160b2ffe724b273.properties",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/cartpole" ],
+            // "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/ga-500.000-s001-1x1-m000-CP0017-262fcd62b9b142425160b2ffe724b273.properties",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/cartpole" ],
 
+            // "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/ga-249.749-s001-3x3-m000-LL0001-27f5ba1b9879916bccfe328752caf0b7.properties",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/lunar" ],
 
-            
+            // "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/27f5ba1b9879916bccfe328752caf0b7/conf-0009-248.939.config",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/lunar" ],
+            "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/96eb659ed96becb4d414db17d9e56cfd/conf-0001-0022--90.542.config",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/lunar" ],
 
             "console": "internalConsole"
         },
@@ -131,7 +133,7 @@
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-p", "cptest", "-o",  "-pl", "scError"],
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-o",  "-pl", "scError"],
 
-            "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-d", "-v",  "-pl", "scError"],
+            "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-d", "-x", "-pl", "scError"],
 
 
             // "args": ["GenericGym", "CP0002-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges", "-p", "cptest", "-o"],

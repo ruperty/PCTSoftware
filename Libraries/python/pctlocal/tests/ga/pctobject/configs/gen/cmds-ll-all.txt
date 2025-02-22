@@ -1,0 +1,5 @@
+
+python -m impl.evolve GenericGym LL0001-RewardError-SummedError-Mode00 -x -b   
+
+python -m impl.evolve_multi GenericGym "['LL0001-RewardError-SummedError-Mode00 -x']" -b   
+
