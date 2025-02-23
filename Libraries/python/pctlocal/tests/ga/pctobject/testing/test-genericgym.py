@@ -1,4 +1,7 @@
 import gym, copy
+import warnings
+
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 from pct.environments import GenericGym
 
@@ -8,7 +11,23 @@ from pct.functions import Constant
 
 steps=1
 
-test = 2
+test = 3
+
+if test == 3:
+    print()
+    print("***")
+    env = gym.make('LunarLanderContinuous-v2')
+    # env.reset(seed=1, return_info=False)
+    env.reset(seed=1)
+    action = [0, 0]
+    obs, reward, done, info = env.step(action)
+    # print(obs)
+    print([f'{i:4.5f}' for i in obs], f'{reward:4.8f}')
+    action = [-0.073, 1.076 ]
+    obs, reward, done, info = env.step(action)
+    print([f'{i:4.5f}' for i in obs], f'{reward:4.8f}')
+    # print(obs)
+    env.close()
 
 if test ==2:
     env = gym.make('LunarLanderContinuous-v2')

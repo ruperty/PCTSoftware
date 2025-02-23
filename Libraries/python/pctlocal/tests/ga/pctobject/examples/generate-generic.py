@@ -9,7 +9,7 @@ Created on Mon Apr 17 2023
 
 
 
-python examples/generate-generic.py -f configs-ll.csv  > configs/gen/cmds-ll-all.txt
+python examples/generate-generic.py -f configs-ll.csv -macl 8 -pl "scEdges,scError" -p reward -a "-i 3" > configs/gen/cmds-ll-all.txt
 
 python examples/generate-generic.py -f configs-cp.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p all > configs/gen/cmds-cp-all.txt
 

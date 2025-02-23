@@ -133,7 +133,7 @@
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-p", "cptest", "-o",  "-pl", "scError"],
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-o",  "-pl", "scError"],
 
-            "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-d", "-x", "-pl", "scError"],
+            "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-v", "-x", "-pl", "scError"],
 
 
             // "args": ["GenericGym", "CP0002-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges", "-p", "cptest", "-o"],
