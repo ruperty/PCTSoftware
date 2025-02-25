@@ -9,16 +9,18 @@ Created on Mon Apr 17 2023
 
 
 
-python examples/generate-generic.py -e GenericGym -f configs-ll.csv -macl 8 -pl "scEdges,scError,scReward" -p reward -a "-i 3" > configs/gen/cmds-ll-all.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-inputs.csv -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p reward -a "-i 3" > configs/gen/cmds-ll-all.txt
 
-python examples/generate-generic.py -e GenericGym -f configs-cp.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p all > configs/gen/cmds-cp-all.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-cp.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p all > configs/gen/cmds-cp-all.txt
 
-python examples/generate-generic.py -e GenericGym -f configs-cp-total.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p total > configs/gen/cmds-cp.txt
-python examples/generate-generic.py -e GenericGym -f configs-cp-inputs.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 9 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
-python examples/generate-generic.py -e GenericGym -f configs-cp-reward.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 17 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-cp-total.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p total > configs/gen/cmds-cp.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-cp-inputs.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 9 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-cp-reward.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 17 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
 
 
 python examples/generate-generic.py -e WindTurbine -f wt/configs-wt-refinp-rms-test.csv
+
+python examples/generate-generic.py -e MountainCarContinuousV0 -f mc/configs-mc.csv
 
 """
 

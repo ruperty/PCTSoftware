@@ -6,7 +6,7 @@ import argparse
 from epct.evolve import evolve_setup
 from pct.putils import set_dirs
 
-
+"""
 # python impl/evolve.py WindTurbine WT0416-RewardError-SummedError-Mode02 -b -o 
 # python impl/evolve.py CartPoleV1 Std03-InputsError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"
 # python impl/evolve.py CartPoleV1 Std00-TotalError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"
@@ -28,7 +28,10 @@ from pct.putils import set_dirs
 # python impl/evolve.py ARC ARC0004-FitnessError-MovingSumError-Mode05 -b -o -db 4  > debug.log
 # python impl/evolve.py ARC ARC0020-FitnessError-MovingSumError-Mode00 -a -b -o
  
+python impl/evolve.py MountainCarContinuousV0 MC0001-ReferencedInputsError-RootMeanSquareError-Mode00 -b
+ 
 
+"""
 
 
 
