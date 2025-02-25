@@ -133,7 +133,10 @@
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-p", "cptest", "-o",  "-pl", "scError"],
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-o",  "-pl", "scError"],
 
-            // "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges,scReward,scError"],
+            // "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges,scReward,scError", "-p", "test"],
+            "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges,scReward,scError"],
+
+            // "args": ["GenericGym", "LL0001-InputsError-RootMeanSquareError-Mode00",  "-b", "-pl", "scEdges,scError,scReward", "-p", "inputs"],
 
 
             // "args": ["GenericGym", "CP0002-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges", "-p", "cptest", "-o"],
@@ -150,7 +153,7 @@
             // "args": ["WindTurbine", "WT0177-RewardError-RootMeanSquareError-Mode04",  "-o", "-s", "3", "-b",  "-pl", "scEdges" , "-p", "test-evolve", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
             // "args": ["WindTurbine", "WT0701-RewardError-RootMeanSquareError-Mode04",  "-o", "-s", "1", "-b",  "-pl", "scEdges" , "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
             // "args": ["WindTurbine", "WT0001-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
-            "args": ["WindTurbine", "WT0001-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b"],
+            // "args": ["WindTurbine", "WT0001-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b"],
             // "args": ["ARC", "ARC0023-FitnessError-MovingSumError-Mode08",  "-o", "-b", "-a", "-aa", "-db", "4"],
             // "args": ["ARC", "ARC0023-FitnessError-MovingSumError-Mode08",  "-o", "-b", "-a", "-aa", "-db", "4"],
 
