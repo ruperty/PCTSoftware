@@ -133,7 +133,7 @@
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-p", "cptest", "-o",  "-pl", "scError"],
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-o",  "-pl", "scError"],
 
-            "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges,scReward,scError"],
+            // "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges,scReward,scError"],
 
 
             // "args": ["GenericGym", "CP0002-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges", "-p", "cptest", "-o"],
@@ -149,7 +149,12 @@
             // // "args": ["WindTurbine", "WT0595-ReferencedInputsError-RootMeanSquareError-Mode06x", "-o", "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': False}"],
             // "args": ["WindTurbine", "WT0177-RewardError-RootMeanSquareError-Mode04",  "-o", "-s", "3", "-b",  "-pl", "scEdges" , "-p", "test-evolve", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
             // "args": ["WindTurbine", "WT0701-RewardError-RootMeanSquareError-Mode04",  "-o", "-s", "1", "-b",  "-pl", "scEdges" , "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
+            // "args": ["WindTurbine", "WT0001-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b", "-rp", "{'comparisons' : True, 'comparisons_print_plots': True}"],
+            "args": ["WindTurbine", "WT0001-ReferencedInputsError-RootMeanSquareError-Mode00",  "-b"],
             // "args": ["ARC", "ARC0023-FitnessError-MovingSumError-Mode08",  "-o", "-b", "-a", "-aa", "-db", "4"],
+            // "args": ["ARC", "ARC0023-FitnessError-MovingSumError-Mode08",  "-o", "-b", "-a", "-aa", "-db", "4"],
+
+
             // "args": ["ARC", "ARC0014-FitnessError-MovingSumError-Mode09",  "-o", "-b", "-pl", "scEdges,scZero", "-d", "-p", "test-evolve"],
             // "args": ["ARC", "ARC0001-FitnessError-MovingSumError-Mode00",  "-o", "-b", "-pl", "scEdges,scZero", "-d"],
             // "args": ["ARC", "ARC0014-FitnessError-MovingSumError-Mode09",  "-b", "-pl", "scEdges,scZero"], //, "-o", "c:/tmp/ARC"],
@@ -254,7 +259,8 @@
             "name": "generate_gym",
             "type": "debugpy",
             "request": "launch",
-            "args": ["-f", "configs.csv", "-mall", "1", "-macl", "1"],
+            // "args": ["-e", "GenericGym", "-f", "gen/configs-ll.csv", "-macl", "8", "-pl", "scEdges,scError,scReward", "-p", "reward", "-a", "-i 3" ],
+            "args": ["-e", "WindTurbine", "-f", "wt/configs-wt-refinp-rms-test.csv" ],
             "program": "examples/generate-generic.py"
         },
 

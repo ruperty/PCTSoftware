@@ -16,8 +16,8 @@ from os import sep
 
 from eepct.hpct import HPCTGenerateEvolvers
 
-test = 'arc'
-# test = 'WindTurbine'
+# test = 'arc'
+test = 'WindTurbine'
 # test = 'MicroGrid'
 
 

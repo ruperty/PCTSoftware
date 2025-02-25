@@ -352,8 +352,9 @@ class HPCTGenerateEvolvers(object):
 
                     actr=actr+1
 
-            cmd = f'python -m {cmdline}_multi {env} "{fname_list}" {args}'
-            batches.append(cmd)
+            if len(fname_list)>0:
+                cmd = f'python -m {cmdline}_multi {env} "{fname_list}" {args}'
+                batches.append(cmd)
 
             for cmd in batches:
                 print()
@@ -372,24 +373,25 @@ class HPCTGenerateEvolvers(object):
         
         if len(error_properties)>0:
             ppars='### Additional properties\n\n'
+            ppars = ''.join((ppars, f'error_properties={error_properties}\n'))
 
-        ctr = 1
-        for  prop in error_properties:
-            value = error_properties[prop]
-            if response == 'SmoothError' and prop == 'error:smooth_factor':
-                propstr = f'property{ctr} = {prop},{value}'        
-                ppars = ''.join((ppars, propstr, '\n'))
-                ctr+=1
+        # ctr = 1
+        # for  prop in error_properties:
+        #     value = error_properties[prop]
+        #     if response == 'SmoothError' and prop == 'error:smooth_factor':
+        #         propstr = f'property{ctr} = {prop},{value}'        
+        #         ppars = ''.join((ppars, propstr, '\n'))
+        #         ctr+=1
 
-            if response == 'MovingSumError' or response == 'MovingAverageError': 
-                propstr = f'property{ctr} = {prop},{value}'        
-                ppars = ''.join((ppars, propstr, '\n'))
-                ctr+=1
+        #     if response == 'MovingSumError' or response == 'MovingAverageError': 
+        #         propstr = f'property{ctr} = {prop},{value}'        
+        #         ppars = ''.join((ppars, propstr, '\n'))
+        #         ctr+=1
 
-            if collector == 'ReferencedInputsError' and  prop == 'error:referenced_inputs':
-                propstr = f'property{ctr} = {prop},{value}'        
-                ppars = ''.join((ppars, propstr, '\n'))
-                ctr+=1
+        #     if collector == 'ReferencedInputsError' and  prop == 'error:referenced_inputs':
+        #         propstr = f'property{ctr} = {prop},{value}'        
+        #         ppars = ''.join((ppars, propstr, '\n'))
+        #         ctr+=1
                 
 
         return ppars                        

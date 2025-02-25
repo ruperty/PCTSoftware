@@ -9,13 +9,16 @@ Created on Mon Apr 17 2023
 
 
 
-python examples/generate-generic.py -f configs-ll.csv -macl 8 -pl "scEdges,scError" -p reward -a "-i 3" > configs/gen/cmds-ll-all.txt
+python examples/generate-generic.py -e GenericGym -f configs-ll.csv -macl 8 -pl "scEdges,scError,scReward" -p reward -a "-i 3" > configs/gen/cmds-ll-all.txt
 
-python examples/generate-generic.py -f configs-cp.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p all > configs/gen/cmds-cp-all.txt
+python examples/generate-generic.py -e GenericGym -f configs-cp.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p all > configs/gen/cmds-cp-all.txt
 
-python examples/generate-generic.py -f configs-cp-total.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p total > configs/gen/cmds-cp.txt
-python examples/generate-generic.py -f configs-cp-inputs.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 9 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
-python examples/generate-generic.py -f configs-cp-reward.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 17 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
+python examples/generate-generic.py -e GenericGym -f configs-cp-total.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p total > configs/gen/cmds-cp.txt
+python examples/generate-generic.py -e GenericGym -f configs-cp-inputs.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 9 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
+python examples/generate-generic.py -e GenericGym -f configs-cp-reward.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 17 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
+
+
+python examples/generate-generic.py -e WindTurbine -f wt/configs-wt-refinp-rms-test.csv
 
 """
 
@@ -36,13 +39,14 @@ def process(filename,common_configs, args, cmd, initial_index, batch, single_mul
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('-e', '--env', type=str, help="environment name")
     parser.add_argument('-f', '--file', type=str, help="file name")
     parser.add_argument('-a', '--aargs', type=str, help="additional arguments", default="")
     parser.add_argument('-r', '--refs', type=str, help="references", default="")
     parser.add_argument('-ep', '--env_props', type=str, help="environment properties", default=None)
     parser.add_argument('-p', '--project', type=str, help="project name")
     parser.add_argument('-sm', '--single_multi', help="single or multi", action="store_true")
-    parser.add_argument('-el', '--error_limit', type=int, help="error limit", default=1000)
+    parser.add_argument('-el', '--error_limit', type=int, help="error limit", default=None)
     parser.add_argument('-ei', '--einitial', type=int, help="error initial", default=100)
     parser.add_argument('-ii', '--initial_index', type=int, help="initial index", default=1)
     parser.add_argument('-pop', '--pop_size', type=int, help="pop size", default=100)
@@ -54,6 +58,7 @@ if __name__ == '__main__':
     parser.add_argument('-micl', '--min_columns_limit', type=int, help="initial index", default=1)
     parser.add_argument('-macl', '--max_columns_limit', type=int, help="initial index", default=4)
     parser.add_argument('-pl', '--plots', type=str, help="plots", default="")
+    parser.add_argument('-b', '--batch', type=int, help="batch size", default=8)
     # parser.add_argument('-pl', '--plots', type=str, help="plots", default="scEdges,scZero,scFitness")
 
     args = parser.parse_args()
@@ -86,13 +91,11 @@ if __name__ == '__main__':
 
     cmd='impl.evolve'
     # initial_index=1
-    batch = 8
+    batch = args.batch
     num_evals = 1
-    env = 'GenericGym'
+    env = args.env
 
 
-
-    filename = f'gen{sep}{file}'
     args = f'-b  {aargs} {ow}'
     if plots != "":
         args = args + f' -pl {plots}'
@@ -108,6 +111,6 @@ if __name__ == '__main__':
                      'references': references}
 
     print()
-    process(filename,common_configs, args, cmd, initial_index, batch, single_multi=single_multi)
+    process(file,common_configs, args, cmd, initial_index, batch, single_multi=single_multi)
     print()
 
