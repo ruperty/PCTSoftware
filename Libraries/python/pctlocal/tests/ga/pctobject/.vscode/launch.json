@@ -65,7 +65,7 @@
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/ga-249.749-s001-3x3-m000-LL0001-27f5ba1b9879916bccfe328752caf0b7.properties",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/lunar" ],
 
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/27f5ba1b9879916bccfe328752caf0b7/conf-0009-248.939.config",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/lunar" ],
-            "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/96eb659ed96becb4d414db17d9e56cfd/conf-0001-0022--90.542.config",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/lunar" ],
+            "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties",  "-e", "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
 
             "console": "internalConsole"
         },
@@ -76,7 +76,7 @@
             "module": "impl.run_from_file",
             // "args": ["--file", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/ga-000.331-s032-2x2-m004-cdf7cc1497ad143c0b04a3d9e72ab783.properties", "-e",  "-p", "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},  {'plot_items': {'OL0C0sm':'out0', 'OL0C1sm':'out1'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]" , "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
             // "args": ["-d", "--file", "/mnt/c/Users/ruper/My Drive/data/ga/Pendulum/PM09-RewardError-RootMeanSquareError-Mode04/ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties", "-e",  "-p", "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},  {'plot_items': {'OL0C0sm':'out0', 'OL0C1sm':'out1'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]" , "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
-            "args": ["-d", "--file", "/mnt/c/Users/ruper/My Drive/data/ga/Pendulum/PM09-RewardError-RootMeanSquareError-Mode04/ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties", "-e",  "-p", "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},  {'plot_items': {'OL0C0sm':'out0', 'OL0C1sm':'out1'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]" , "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
+            "args": ["-d", "--file", "/mnt/c/Users/ruper/My Drive/data/ga/Pendulum/PM09-RewardError-RootMeanSquareError-Mode04/ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties",  "-p", "[{'plot_items': {'IP':'ip', 'IV':'iv'},'title':'Inputs'},  {'plot_items': {'OL0C0sm':'out0', 'OL0C1sm':'out1'}, 'title':'Output'}, {'plot_items': {'Action1ws':'act'}, 'title':'Action'}]" , "-o", "/mnt/c/Users/ruper/My Drive/data/ga/MountainCarContinuousV0/MC08-ReferencedInputsError-RootMeanSquareError-Mode04/cdf7cc1497ad143c0b04a3d9e72ab783"],
             // "args": ["--file", "/mnt/c/Users/ruper/My Drive/data/ga/Pendulum/PM09-RewardError-RootMeanSquareError-Mode04/ga-001.997-s093-3x5-m004-117f9e29a6b0cb384d1ff062f4042bc3.properties"],
             "console": "internalConsole"
         },
@@ -134,7 +134,7 @@
             // "args": ["GenericGym", "CP0001-TotalError-RootMeanSquareError-Mode00", "-a", "-b", "-d", "-o",  "-pl", "scError"],
 
             // "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges,scReward,scError", "-p", "test"],
-            "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges,scReward,scError"],
+            "args": ["GenericGym", "LL0001-InputsError-RootMeanSquareError-Mode00", "-a", "-b", "-pl", "scEdges,scReward,scError"],
 
             // "args": ["GenericGym", "LL0001-InputsError-RootMeanSquareError-Mode00",  "-b", "-pl", "scEdges,scError,scReward", "-p", "inputs"],
 

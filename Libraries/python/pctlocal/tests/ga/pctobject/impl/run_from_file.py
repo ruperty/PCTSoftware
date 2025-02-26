@@ -47,7 +47,11 @@ python -m impl.run_from_file -f "g:\My Drive\data\ga\MountainCarContinuousV0\MC0
 python -m impl.run_from_file -f "G:\My Drive\data\ga\WindTurbine\RewardError-SummedError-Mode05\ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties"
 
 python  -m impl.run_from_file -e -d -o c:/tmp/arc -f "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode19\ga-000.500-s001-1x1-m019-ARC0328-9799d017b565995c04c518b7e15c0e1c-consolidated.properties"
-       
+
+python  -m impl.run_from_file -p scEdges -d -o c:/tmp/plots/ll -f "G:/My Drive/data\ga\GenericGym\InputsError-RootMeanSquareError-Mode00\ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties"
+
+
+
 """
 
 if __name__ == '__main__':
