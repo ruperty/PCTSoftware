@@ -10,3 +10,8 @@ python -m impl.evolve GenericGym LL0008-InputsError-RootMeanSquareError-Mode20  
 
 python -m impl.evolve_multi GenericGym "['LL0001-InputsError-RootMeanSquareError-Mode00', 'LL0002-InputsError-RootMeanSquareError-Mode02', 'LL0003-InputsError-RootMeanSquareError-Mode07', 'LL0004-InputsError-RootMeanSquareError-Mode16', 'LL0005-InputsError-RootMeanSquareError-Mode17', 'LL0006-InputsError-RootMeanSquareError-Mode18', 'LL0007-InputsError-RootMeanSquareError-Mode19', 'LL0008-InputsError-RootMeanSquareError-Mode20']" -b  -i 3  -pl scEdges,scError,scReward -p inputs
 
+
+
+python -m impl.evolve GenericGym LL0001-InputsError-RootMeanSquareError-Mode00  -b  -o  -pl scEdges,scError,scReward -p inputs
+
+

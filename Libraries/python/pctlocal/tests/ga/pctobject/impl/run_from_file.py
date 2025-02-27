@@ -50,6 +50,7 @@ python  -m impl.run_from_file -e -d -o c:/tmp/arc -f "G:\My Drive\data\ga\ARC\Fi
 
 python  -m impl.run_from_file -p scEdges -d -o c:/tmp/plots/ll -f "G:/My Drive/data\ga\GenericGym\InputsError-RootMeanSquareError-Mode00\ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties"
 
+python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f "G:/My Drive/data\ga\GenericGym\InputsError-RootMeanSquareError-Mode00\ga-000.167-s001-4x4-m000-LL0001-5b37e6eabe41fb00a6c872c82f28b697.properties"
 
 
 """

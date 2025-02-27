@@ -64,8 +64,11 @@
 
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/ga-249.749-s001-3x3-m000-LL0001-27f5ba1b9879916bccfe328752caf0b7.properties",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/lunar" ],
 
-            // "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/27f5ba1b9879916bccfe328752caf0b7/conf-0009-248.939.config",  "-d", "-e", "-p", "scError", "-o", "c:/tmp/lunar" ],
-            "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties",  "-e", "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
+            // "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/27f5ba1b9879916bccfe328752caf0b7/conf-0009-248.939.config",  "-d", "-e", "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
+            "args": ["-f", "G:/My Drive/data/ga/GenericGym/RewardError-SummedError-Mode00/ga-248.610-s001-1x3-m000-LL0001-594a0a93e6427c2c8a0fb5cad5737ffc.properties",  "-d", "-e", "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
+
+            // "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties",  "-e", "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
+            // "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.167-s001-4x4-m000-LL0001-5b37e6eabe41fb00a6c872c82f28b697.properties",  "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
 
             "console": "internalConsole"
         },
