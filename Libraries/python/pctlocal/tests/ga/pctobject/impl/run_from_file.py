@@ -53,6 +53,23 @@ python  -m impl.run_from_file -p scEdges -d -o c:/tmp/plots/ll -f "G:/My Drive/d
 python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f "G:/My Drive/data\ga\GenericGym\InputsError-RootMeanSquareError-Mode00\ga-000.167-s001-4x4-m000-LL0001-5b37e6eabe41fb00a6c872c82f28b697.properties"
 
 
+Reward 
+0001-02
+python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f "G:/My Drive/data\ga\GenericGym\RewardError-SummedError-Mode00\ga-252.386-s002-4x8-m000-LL0001-ca807a3fd1cb933195a5bd2acc96d1a4.properties" -s 2 -e
+
+Inputs
+
+0001-01 100
+https://www.comet.com/lunarlandercontinuous-v2/inputs/49b05579757941079e72be8078c29f5a?experiment-tab=stdout
+python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f "G:/My Drive/data\ga\GenericGym\InputsError-RootMeanSquareError-Mode00\ga-000.216-s001-4x8-m000-LL0001-9b7a84d92ef57e944b51b2ce93d505b0.properties" -e
+
+0001-01 1000
+python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f "G:/My Drive/data\ga\GenericGym\InputsError-RootMeanSquareError-Mode00\ga-000.167-s001-4x4-m000-LL0001-5b37e6eabe41fb00a6c872c82f28b697.properties" -e
+
+
+
+
+
 """
 
 if __name__ == '__main__':
