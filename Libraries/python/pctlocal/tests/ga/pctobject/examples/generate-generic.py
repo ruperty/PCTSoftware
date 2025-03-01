@@ -10,7 +10,8 @@ Created on Mon Apr 17 2023
 
 
 
-python examples/generate-generic.py -e GenericGym -f gen/configs-ll-inputs.csv -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p inputs -a "-i 3" > configs/gen/cmds-ll-inputs.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-inputs.csv -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p inputs -a "-i 3" -n 3 -pop 1000 > configs/gen/cmds-ll-inputs.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-reward.csv -macl 8 -pl "scEdges,scError,scReward" -p reward -a "-i 3"  -n 3 -pop 1000  > configs/gen/cmds-ll-reward.txt
 
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-xxx.csv -macl 6 -el 1000 -pl "scEdges,scError,scReward" -p current -a "-i 3" > configs/gen/cmds-ll-xxx.txt
 
@@ -69,7 +70,7 @@ if __name__ == '__main__':
     parser.add_argument('-macl', '--max_columns_limit', type=int, help="initial index", default=4)
     parser.add_argument('-pl', '--plots', type=str, help="plots", default="")
     parser.add_argument('-b', '--batch', type=int, help="batch size", default=8)
-    # parser.add_argument('-pl', '--plots', type=str, help="plots", default="scEdges,scZero,scFitness")
+    parser.add_argument('-n', '--nevals', type=int, help="number of evaluations", default=1)
 
     args = parser.parse_args()
 
@@ -102,7 +103,7 @@ if __name__ == '__main__':
     cmd='impl.evolve'
     # initial_index=1
     batch = args.batch
-    num_evals = 1
+    num_evals = args.nevals
     env = args.env
 
 

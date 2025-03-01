@@ -14,11 +14,6 @@ from pct.putils import set_dirs
 # python impl/evolve.py CartPoleV1 GenTest-TotalError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPoleV1'}"
 # python impl/evolve.py CartPoleV1 GenTest-TotalError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ruper/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/CartPole-v1'}"
 
-# python impl/evolve.py GenericGym CP0001-TotalError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/GenericGym'}"
-# python impl/evolve.py GenericGym CP0002-RewardError-SummedError-Mode00 -a -b -d -pl scFitness
-
-
-
 
 
 # python impl/evolve.py MicroGrid MG0001-RewardError-SummedError-Mode04 -b -o -x -v 
@@ -29,7 +24,23 @@ from pct.putils import set_dirs
 # python impl/evolve.py ARC ARC0020-FitnessError-MovingSumError-Mode00 -a -b -o
  
 python impl/evolve.py MountainCarContinuousV0 MC0001-ReferencedInputsError-RootMeanSquareError-Mode00 -b
- 
+
+GenericGym
+CartpoleV1
+python impl/evolve.py GenericGym CP0001-TotalError-RootMeanSquareError-Mode00 -a -b -d -ds "{'drive': 'G:/My Drive/', 'root_path': 'C:/Users/ryoung/', 'configs_dir': 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/', 'plots_dir': '/tmp/GenericGym'}"
+python impl/evolve.py GenericGym CP0002-RewardError-SummedError-Mode00 -a -b -d -pl scFitness
+
+LunarLanderContinuousV2
+Reward
+python -m impl.evolve GenericGym LL0001-RewardError-SummedError-Mode00 -x -b -pl scEdges,scErrorscReward -p testll -d
+
+Inputs
+python -m impl.evolve GenericGym LL0001-InputsError-RootMeanSquareError-Mode00  -b  -i 3  -pl scEdges,scError,scReward -p test
+python -m impl.evolve GenericGym LL0001-InputsError-RootMeanSquareError-Mode00  -b  -pl scEdges,scError,scReward -p testll
+
+
+
+
 
 """
 
