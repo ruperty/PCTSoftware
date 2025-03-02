@@ -38,8 +38,8 @@ Inputs
 python -m impl.evolve GenericGym LL0001-InputsError-RootMeanSquareError-Mode00  -b  -i 3  -pl scEdges,scError,scReward -p test
 python -m impl.evolve GenericGym LL0001-InputsError-RootMeanSquareError-Mode00  -b  -pl scEdges,scError,scReward -p testll
 
-
-
+RefInputs
+python -m impl.evolve GenericGym LL0001-ReferencedInputsError-RootMeanSquareError-Mode00  -b 
 
 
 """
