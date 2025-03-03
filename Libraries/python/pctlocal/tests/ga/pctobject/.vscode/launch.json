@@ -139,7 +139,8 @@
             // "args": ["GenericGym", "LL0001-RewardError-SummedError-Mode00", "-a", "-b", "-x", "-pl", "scEdges,scReward,scError", "-p", "test"],
             // "args": ["GenericGym", "LL0001-InputsError-RootMeanSquareError-Mode00", "-a", "-b", "-pl", "scEdges,scReward,scError"],
 
-            "args": ["GenericGym", "LL0001-ReferencedInputsError-RootMeanSquareError-Mode00", "-b"],
+            // "args": ["GenericGym", "LL0001-ReferencedInputsError-RootMeanSquareError-Mode00", "-b"],
+            "args": ["GenericGym", "LL0009-ReferencedInputsError-SmoothError-Mode00", "-b"],
 
 
             // "args": ["GenericGym", "LL0001-InputsError-RootMeanSquareError-Mode00",  "-b", "-pl", "scEdges,scError,scReward", "-p", "inputs"],
