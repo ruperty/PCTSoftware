@@ -3,7 +3,28 @@ import argparse, time
 from os import sep, listdir, path, makedirs
 from pct.hierarchy import PCTHierarchy
 from pct.putils import PCTRunProperties
-from pct.environment_processing import EnvironmentProcessingFactory
+from comet_ml import API
+
+def get_artifact(id):
+    "a function for retrieving an artifact from comet_ml and saving it to a file"
+    # check id id is a comet_ml id or a file name
+    if id.find("/") >= 0:
+        return id
+
+    api = API()
+    # get the experiment from the id
+    experiment = api.get_experiment_by_key(id)
+    # list the artifacts
+    # list the artifacts
+    artifacts = experiment.get_asset_list()
+    # get the name of the first artifact
+    artifact = artifacts[0]
+    # download the artifact
+    filename = f"/tmp/artifacts/{artifact['file_name']}"
+    api.download_artifact(artifact['id'], filename)
+    print(f"Downloaded artifact {artifact['id']} to {filename}")
+    return filename
+
 
 # py -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.548-s013-2x2-m004-5a08e6cdc09769db0267a14f0634b051.properties"
 # py -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC06-ReferencedInputsError-RootMeanSquareError-Mode03\ga-000.554-s068-2x2-m003-5342c97128d9ad23a0fea14a6d9c05e5.properties"
@@ -122,10 +143,12 @@ if __name__ == '__main__':
     if plots_dir and not path.exists(plots_dir):
         makedirs(plots_dir)
 
+    file = get_artifact(args.file)
+
     try:
         tic = time.perf_counter()
 
-        hierarchy, score = PCTHierarchy.run_from_file(args.file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
+        hierarchy, score = PCTHierarchy.run_from_file(file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
                         plots=plots, history=history, hpct_verbose= args.verbose, runs=runs, plots_dir=plots_dir, early_termination=args.early, 
                         enhanced_environment_properties=eeprops)
         print(f'Score={score:0.3f}')
@@ -137,6 +160,9 @@ if __name__ == '__main__':
         print(e)  
         
         
+
+
+
 
 
 
