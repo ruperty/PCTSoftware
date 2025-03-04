@@ -12,7 +12,12 @@ Created on Mon Apr 17 2023
 
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-inputs.csv -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p inputs -a "-i 3" -n 3 -pop 1000 > configs/gen/cmds-ll-inputs.txt
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-reward.csv -macl 8 -pl "scEdges,scError,scReward" -p reward -a "-i 3"  -n 3 -pop 1000  > configs/gen/cmds-ll-reward.txt
-python examples/generate-generic.py -e GenericGym -f gen/configs-ll-refinputs.csv -macl 8 -pl "scEdges,scError,scReward" -p refinputs -a "-i 3" -n 3 -pop 1000 > configs/gen/cmds-ll-refinputs.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-refinputs.csv -macl 8 -pl "scEdges,scError,scReward" -p refinputs -a "-i 3" -n 3 -pop 100 > configs/gen/cmds-ll-refinputs.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-smooth-refinputs.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p refinp-sm -a "-i 3" -pop 1000 > configs/gen/cmds-ll-refinp-sm.txt
+
+
+
+
 
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-xxx.csv -macl 6 -el 1000 -pl "scEdges,scError,scReward" -p current -a "-i 3" > configs/gen/cmds-ll-xxx.txt
 
