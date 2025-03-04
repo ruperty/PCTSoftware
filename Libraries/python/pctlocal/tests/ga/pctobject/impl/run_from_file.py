@@ -3,9 +3,9 @@ import argparse, time
 from os import sep, listdir, path, makedirs
 from pct.hierarchy import PCTHierarchy
 from pct.putils import PCTRunProperties
-from comet_ml import API
+from comet_ml import API, start
 
-def get_artifact(id):
+def get_artifact_file(id):
     "a function for retrieving an artifact from comet_ml and saving it to a file"
     # check id id is a comet_ml id or a file name
     if id.find("/") >= 0:
@@ -13,17 +13,25 @@ def get_artifact(id):
 
     api = API()
     # get the experiment from the id
-    experiment = api.get_experiment_by_key(id)
-    # list the artifacts
-    # list the artifacts
-    artifacts = experiment.get_asset_list()
-    # get the name of the first artifact
-    artifact = artifacts[0]
-    # download the artifact
-    filename = f"/tmp/artifacts/{artifact['file_name']}"
-    api.download_artifact(artifact['id'], filename)
-    print(f"Downloaded artifact {artifact['id']} to {filename}")
-    return filename
+    workspaces = api.get()
+    for workspace in workspaces:
+        print(workspace)
+
+        artifacts = api.get_artifact_list(workspace)
+        for artifact_dict in artifacts['artifacts']:
+            if artifact_dict['name'] == id:
+                print(artifact_dict)
+
+                experiment = start(workspace=workspace)
+                logged_artifact  = experiment.get_artifact(id)
+                local_artifact = logged_artifact.download("/tmp/artifacts/")
+
+                # download the artifact
+                filename = f"{local_artifact.download_local_path}{id}"
+                # api.download_artifact(artifact_dict['artifactId'], filename)
+                print(f"Downloaded artifact {artifact_dict['artifactId']} to {filename}")
+                return filename
+
 
 
 # py -m impl.run_from_file -f "G:\My Drive\data\ga\MountainCarContinuousV0\MC08-ReferencedInputsError-RootMeanSquareError-Mode04\ga-000.548-s013-2x2-m004-5a08e6cdc09769db0267a14f0634b051.properties"
@@ -143,7 +151,7 @@ if __name__ == '__main__':
     if plots_dir and not path.exists(plots_dir):
         makedirs(plots_dir)
 
-    file = get_artifact(args.file)
+    file = get_artifact_file(args.file)
 
     try:
         tic = time.perf_counter()
