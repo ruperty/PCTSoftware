@@ -95,6 +95,8 @@ python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll 
 python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f "G:/My Drive/data\ga\GenericGym\InputsError-RootMeanSquareError-Mode00\ga-000.167-s001-4x4-m000-LL0001-5b37e6eabe41fb00a6c872c82f28b697.properties" -e
 
 
+python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f ga-167.524-s002-7x8-m000-LL0001-3e233a1831794be766c1bed7a8b22fa2.properties -e
+python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f C:/tmp/artifacts/ga-167.524-s002-7x8-m000-LL0001-3e233a1831794be766c1bed7a8b22fa2.properties -e
 
 
 
