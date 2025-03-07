@@ -1,12 +1,28 @@
 
-python -m impl.evolve GenericGym LL0001-RewardError-SummedError-Mode00 -x -b  -i 3  -pl scEdges,scError,scReward -p reward
-python -m impl.evolve GenericGym LL0002-RewardError-SummedError-Mode02 -x -b  -i 3  -pl scEdges,scError,scReward -p reward
-python -m impl.evolve GenericGym LL0003-RewardError-SummedError-Mode07 -x -b  -i 3  -pl scEdges,scError,scReward -p reward
-python -m impl.evolve GenericGym LL0004-RewardError-SummedError-Mode16 -x -b  -i 3  -pl scEdges,scError,scReward -p reward
-python -m impl.evolve GenericGym LL0005-RewardError-SummedError-Mode17 -x -b  -i 3  -pl scEdges,scError,scReward -p reward
-python -m impl.evolve GenericGym LL0006-RewardError-SummedError-Mode18 -x -b  -i 3  -pl scEdges,scError,scReward -p reward
-python -m impl.evolve GenericGym LL0007-RewardError-SummedError-Mode19 -x -b  -i 3  -pl scEdges,scError,scReward -p reward
-python -m impl.evolve GenericGym LL0008-RewardError-SummedError-Mode20 -x -b  -i 3  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0001-RewardError-SummedError-Mode00 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0002-RewardError-SummedError-Mode01 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0003-RewardError-SummedError-Mode02 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0004-RewardError-SummedError-Mode03 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0005-RewardError-SummedError-Mode04 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0006-RewardError-SummedError-Mode05 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0007-RewardError-SummedError-Mode07 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0008-RewardError-SummedError-Mode08 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0009-RewardError-SummedError-Mode09 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0010-RewardError-SummedError-Mode10 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0011-RewardError-SummedError-Mode11 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0012-RewardError-SummedError-Mode12 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0013-RewardError-SummedError-Mode13 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0014-RewardError-SummedError-Mode14 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0015-RewardError-SummedError-Mode15 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0016-RewardError-SummedError-Mode16 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0017-RewardError-SummedError-Mode17 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0018-RewardError-SummedError-Mode18 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0019-RewardError-SummedError-Mode19 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve GenericGym LL0020-RewardError-SummedError-Mode20 -x -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
 
-python -m impl.evolve_multi GenericGym "['LL0001-RewardError-SummedError-Mode00 -x', 'LL0002-RewardError-SummedError-Mode02 -x', 'LL0003-RewardError-SummedError-Mode07 -x', 'LL0004-RewardError-SummedError-Mode16 -x', 'LL0005-RewardError-SummedError-Mode17 -x', 'LL0006-RewardError-SummedError-Mode18 -x', 'LL0007-RewardError-SummedError-Mode19 -x', 'LL0008-RewardError-SummedError-Mode20 -x']" -b  -i 3  -pl scEdges,scError,scReward -p reward
+python -m impl.evolve_multi GenericGym "['LL0001-RewardError-SummedError-Mode00 -x', 'LL0002-RewardError-SummedError-Mode01 -x', 'LL0003-RewardError-SummedError-Mode02 -x', 'LL0004-RewardError-SummedError-Mode03 -x', 'LL0005-RewardError-SummedError-Mode04 -x', 'LL0006-RewardError-SummedError-Mode05 -x', 'LL0007-RewardError-SummedError-Mode07 -x', 'LL0008-RewardError-SummedError-Mode08 -x']" -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+
+python -m impl.evolve_multi GenericGym "['LL0009-RewardError-SummedError-Mode09 -x', 'LL0010-RewardError-SummedError-Mode10 -x', 'LL0011-RewardError-SummedError-Mode11 -x', 'LL0012-RewardError-SummedError-Mode12 -x', 'LL0013-RewardError-SummedError-Mode13 -x', 'LL0014-RewardError-SummedError-Mode14 -x', 'LL0015-RewardError-SummedError-Mode15 -x', 'LL0016-RewardError-SummedError-Mode16 -x']" -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
+
+python -m impl.evolve_multi GenericGym "['LL0017-RewardError-SummedError-Mode17 -x', 'LL0018-RewardError-SummedError-Mode18 -x', 'LL0019-RewardError-SummedError-Mode19 -x', 'LL0020-RewardError-SummedError-Mode20 -x']" -b  -i 3 -o  -pl scEdges,scError,scReward -p reward
 

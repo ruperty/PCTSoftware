@@ -9,19 +9,19 @@ Created on Mon Apr 17 2023
 
 
 
+# LunarLanderContinuousV2
 
-python examples/generate-generic.py -e GenericGym -f gen/configs-ll-inputs.csv -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p inputs -a "-i 3" -n 3 -pop 1000 > configs/gen/cmds-ll-inputs.txt
-python examples/generate-generic.py -e GenericGym -f gen/configs-ll-reward.csv -macl 8 -pl "scEdges,scError,scReward" -p reward -a "-i 3"  -n 3 -pop 1000  > configs/gen/cmds-ll-reward.txt
-python examples/generate-generic.py -e GenericGym -f gen/configs-ll-refinputs.csv -macl 8 -pl "scEdges,scError,scReward" -p refinputs -a "-i 3" -n 3 -pop 100 > configs/gen/cmds-ll-refinputs.txt
-python examples/generate-generic.py -e GenericGym -f gen/configs-ll-smooth-refinputs.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p refinp-sm -a "-i 3" -n 3 -pop 100 > configs/gen/cmds-ll-refinp-sm.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-reward.csv  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p reward -a "-i 3 -o" -pop 100  > configs/gen/cmds-ll-reward.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-inputs.csv  -mall 8 -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p inputs -a "-i 3" -pop 100 -ii 21 > configs/gen/cmds-ll-inputs.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-refinputs.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p refinputs -a "-i 3" -pop 100 -ii 41 > configs/gen/cmds-ll-refinputs.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-smooth-refinputs.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p refinp-sm -a "-i 3" -pop 100 -ii 61 > configs/gen/cmds-ll-refinp-sm.txt
 
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-refinputs-test.csv -mill 2 -mall 2 -macl 1 -pl "scEdges,scError,scReward" -p refinputs -g 2 -pop 4
-
-
 
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-xxx.csv -macl 6 -el 1000 -pl "scEdges,scError,scReward" -p current -a "-i 3" > configs/gen/cmds-ll-xxx.txt
 
 
+# CartPoleV1
 
 python examples/generate-generic.py -e GenericGym -f gen/configs-cp.csv -mall  1 -macl 1 -pl "scEdges,scError" -a "-i 3" -p all > configs/gen/cmds-cp-all.txt
 
@@ -29,8 +29,10 @@ python examples/generate-generic.py -e GenericGym -f gen/configs-cp-total.csv -m
 python examples/generate-generic.py -e GenericGym -f gen/configs-cp-inputs.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 9 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
 python examples/generate-generic.py -e GenericGym -f gen/configs-cp-reward.csv -mall  1 -macl 1 -pl "scEdges,scError" -ii 17 -a "-i 3" -p inputs >> configs/gen/cmds-cp.txt
 
-
+# WindTurbine
 python examples/generate-generic.py -e WindTurbine -f wt/configs-wt-refinp-rms-test.csv
+
+# MountainCarContinuousV0
 
 python examples/generate-generic.py -e MountainCarContinuousV0 -f mc/configs-mc.csv
 

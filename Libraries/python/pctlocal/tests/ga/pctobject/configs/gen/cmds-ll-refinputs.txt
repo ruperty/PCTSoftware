@@ -1,22 +1,28 @@
 
-python -m impl.evolve GenericGym LL0001-ReferencedInputsError-RootMeanSquareError-Mode00  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0002-ReferencedInputsError-RootMeanSquareError-Mode02  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0003-ReferencedInputsError-RootMeanSquareError-Mode07  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0004-ReferencedInputsError-RootMeanSquareError-Mode16  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0005-ReferencedInputsError-RootMeanSquareError-Mode17  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0006-ReferencedInputsError-RootMeanSquareError-Mode18  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0007-ReferencedInputsError-RootMeanSquareError-Mode19  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0008-ReferencedInputsError-RootMeanSquareError-Mode20  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0009-ReferencedInputsError-SmoothError-Mode00  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0010-ReferencedInputsError-SmoothError-Mode02  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0011-ReferencedInputsError-SmoothError-Mode07  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0012-ReferencedInputsError-SmoothError-Mode16  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0013-ReferencedInputsError-SmoothError-Mode17  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0014-ReferencedInputsError-SmoothError-Mode18  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0015-ReferencedInputsError-SmoothError-Mode19  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
-python -m impl.evolve GenericGym LL0016-ReferencedInputsError-SmoothError-Mode20  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0041-ReferencedInputsError-RootMeanSquareError-Mode00  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0042-ReferencedInputsError-RootMeanSquareError-Mode01  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0043-ReferencedInputsError-RootMeanSquareError-Mode02  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0044-ReferencedInputsError-RootMeanSquareError-Mode03  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0045-ReferencedInputsError-RootMeanSquareError-Mode04  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0046-ReferencedInputsError-RootMeanSquareError-Mode05  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0047-ReferencedInputsError-RootMeanSquareError-Mode07  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0048-ReferencedInputsError-RootMeanSquareError-Mode08  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0049-ReferencedInputsError-RootMeanSquareError-Mode09  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0050-ReferencedInputsError-RootMeanSquareError-Mode10  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0051-ReferencedInputsError-RootMeanSquareError-Mode11  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0052-ReferencedInputsError-RootMeanSquareError-Mode12  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0053-ReferencedInputsError-RootMeanSquareError-Mode13  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0054-ReferencedInputsError-RootMeanSquareError-Mode14  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0055-ReferencedInputsError-RootMeanSquareError-Mode15  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0056-ReferencedInputsError-RootMeanSquareError-Mode16  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0057-ReferencedInputsError-RootMeanSquareError-Mode17  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0058-ReferencedInputsError-RootMeanSquareError-Mode18  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0059-ReferencedInputsError-RootMeanSquareError-Mode19  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve GenericGym LL0060-ReferencedInputsError-RootMeanSquareError-Mode20  -b  -i 3  -pl scEdges,scError,scReward -p refinputs
 
-python -m impl.evolve_multi GenericGym "['LL0001-ReferencedInputsError-RootMeanSquareError-Mode00', 'LL0002-ReferencedInputsError-RootMeanSquareError-Mode02', 'LL0003-ReferencedInputsError-RootMeanSquareError-Mode07', 'LL0004-ReferencedInputsError-RootMeanSquareError-Mode16', 'LL0005-ReferencedInputsError-RootMeanSquareError-Mode17', 'LL0006-ReferencedInputsError-RootMeanSquareError-Mode18', 'LL0007-ReferencedInputsError-RootMeanSquareError-Mode19', 'LL0008-ReferencedInputsError-RootMeanSquareError-Mode20']" -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve_multi GenericGym "['LL0041-ReferencedInputsError-RootMeanSquareError-Mode00', 'LL0042-ReferencedInputsError-RootMeanSquareError-Mode01', 'LL0043-ReferencedInputsError-RootMeanSquareError-Mode02', 'LL0044-ReferencedInputsError-RootMeanSquareError-Mode03', 'LL0045-ReferencedInputsError-RootMeanSquareError-Mode04', 'LL0046-ReferencedInputsError-RootMeanSquareError-Mode05', 'LL0047-ReferencedInputsError-RootMeanSquareError-Mode07', 'LL0048-ReferencedInputsError-RootMeanSquareError-Mode08']" -b  -i 3  -pl scEdges,scError,scReward -p refinputs
 
-python -m impl.evolve_multi GenericGym "['LL0009-ReferencedInputsError-SmoothError-Mode00', 'LL0010-ReferencedInputsError-SmoothError-Mode02', 'LL0011-ReferencedInputsError-SmoothError-Mode07', 'LL0012-ReferencedInputsError-SmoothError-Mode16', 'LL0013-ReferencedInputsError-SmoothError-Mode17', 'LL0014-ReferencedInputsError-SmoothError-Mode18', 'LL0015-ReferencedInputsError-SmoothError-Mode19', 'LL0016-ReferencedInputsError-SmoothError-Mode20']" -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+python -m impl.evolve_multi GenericGym "['LL0049-ReferencedInputsError-RootMeanSquareError-Mode09', 'LL0050-ReferencedInputsError-RootMeanSquareError-Mode10', 'LL0051-ReferencedInputsError-RootMeanSquareError-Mode11', 'LL0052-ReferencedInputsError-RootMeanSquareError-Mode12', 'LL0053-ReferencedInputsError-RootMeanSquareError-Mode13', 'LL0054-ReferencedInputsError-RootMeanSquareError-Mode14', 'LL0055-ReferencedInputsError-RootMeanSquareError-Mode15', 'LL0056-ReferencedInputsError-RootMeanSquareError-Mode16']" -b  -i 3  -pl scEdges,scError,scReward -p refinputs
+
+python -m impl.evolve_multi GenericGym "['LL0057-ReferencedInputsError-RootMeanSquareError-Mode17', 'LL0058-ReferencedInputsError-RootMeanSquareError-Mode18', 'LL0059-ReferencedInputsError-RootMeanSquareError-Mode19', 'LL0060-ReferencedInputsError-RootMeanSquareError-Mode20']" -b  -i 3  -pl scEdges,scError,scReward -p refinputs
 
