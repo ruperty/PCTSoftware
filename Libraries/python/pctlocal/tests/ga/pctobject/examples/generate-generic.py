@@ -15,6 +15,8 @@ python examples/generate-generic.py -e GenericGym -f gen/configs-ll-reward.csv  
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-inputs.csv  -mall 8 -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p inputs -a "-i 3" -pop 100 -ii 21 > configs/gen/cmds-ll-inputs.txt
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-refinputs.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p refinputs -a "-i 3" -pop 100 -ii 41 > configs/gen/cmds-ll-refinputs.txt
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-smooth-refinputs.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p refinp-sm -a "-i 3" -pop 100 -ii 61 > configs/gen/cmds-ll-refinp-sm.txt
+python examples/generate-generic.py -e GenericGym -f gen/configs-ll-current-inputs.csv  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p inp-currms -a "-i 3" -pop 100 -ii 81 > configs/gen/cmds-ll-current-inputs.txt
+
 
 python examples/generate-generic.py -e GenericGym -f gen/configs-ll-refinputs-test.csv -mill 2 -mall 2 -macl 1 -pl "scEdges,scError,scReward" -p refinputs -g 2 -pop 4
 
