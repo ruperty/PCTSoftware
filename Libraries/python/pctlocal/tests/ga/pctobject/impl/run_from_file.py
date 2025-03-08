@@ -114,6 +114,15 @@ python  -m impl.run_from_file -p scEdges,scError,scReward -e -d -o c:/tmp/plots/
 python  -m impl.run_from_file -p scEdges,scError,scReward -e -d -o c:/tmp/plots/ll -f ga-000.001-s002-5x6-m004-LL0085-644082990d5f06a0dcd5132f0964c343-consolidated.properties
 
 python  -m impl.run_from_file -p scEdges,scError,scReward -e -d -o c:/tmp/plots/ll -f ga-000.291-s001-4x3-m000-LL0021-da90a797b3ffeb04e5452cb67193ced8.properties
+python  -m impl.run_from_file -p scEdges,scError,scReward -e -d -o c:/tmp/plots/ll -f ga-246.304-s002-2x8-m012-LL0012-f5fed51a080e636ea433e6a12f7ba73e-consolidated.properties
+
+python  -m impl.run_from_file -p scEdges,scError,scReward -e -d -o c:/tmp/plots/ll -f ga-227.703-s002-4x3-m019-LL0019-293b4c0697a896e1cff816671da92629-consolidated.properties
+
+
+python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f ga-000.010-s002-3x5-m001-LL0082-4200b68085acd362cfb4cbef57514448-consolidated.properties -e
+
+
+
 
 
 """
