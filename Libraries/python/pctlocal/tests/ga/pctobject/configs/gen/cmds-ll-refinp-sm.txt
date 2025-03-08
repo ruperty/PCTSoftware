@@ -1,28 +1,28 @@
 
-python -m impl.evolve GenericGym LL0061-ReferencedInputsError-SmoothError-Mode00  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0062-ReferencedInputsError-SmoothError-Mode01  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0063-ReferencedInputsError-SmoothError-Mode02  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0064-ReferencedInputsError-SmoothError-Mode03  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0065-ReferencedInputsError-SmoothError-Mode04  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0066-ReferencedInputsError-SmoothError-Mode05  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0067-ReferencedInputsError-SmoothError-Mode07  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0068-ReferencedInputsError-SmoothError-Mode08  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0069-ReferencedInputsError-SmoothError-Mode09  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0070-ReferencedInputsError-SmoothError-Mode10  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0071-ReferencedInputsError-SmoothError-Mode11  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0072-ReferencedInputsError-SmoothError-Mode12  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0073-ReferencedInputsError-SmoothError-Mode13  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0074-ReferencedInputsError-SmoothError-Mode14  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0075-ReferencedInputsError-SmoothError-Mode15  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0076-ReferencedInputsError-SmoothError-Mode16  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0077-ReferencedInputsError-SmoothError-Mode17  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0078-ReferencedInputsError-SmoothError-Mode18  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0079-ReferencedInputsError-SmoothError-Mode19  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
-python -m impl.evolve GenericGym LL0080-ReferencedInputsError-SmoothError-Mode20  -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0061-ReferencedInputsError-SmoothError-Mode00  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0062-ReferencedInputsError-SmoothError-Mode01  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0063-ReferencedInputsError-SmoothError-Mode02  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0064-ReferencedInputsError-SmoothError-Mode03  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0065-ReferencedInputsError-SmoothError-Mode04  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0066-ReferencedInputsError-SmoothError-Mode05  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0067-ReferencedInputsError-SmoothError-Mode07  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0068-ReferencedInputsError-SmoothError-Mode08  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0069-ReferencedInputsError-SmoothError-Mode09  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0070-ReferencedInputsError-SmoothError-Mode10  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0071-ReferencedInputsError-SmoothError-Mode11  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0072-ReferencedInputsError-SmoothError-Mode12  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0073-ReferencedInputsError-SmoothError-Mode13  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0074-ReferencedInputsError-SmoothError-Mode14  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0075-ReferencedInputsError-SmoothError-Mode15  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0076-ReferencedInputsError-SmoothError-Mode16  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0077-ReferencedInputsError-SmoothError-Mode17  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0078-ReferencedInputsError-SmoothError-Mode18  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0079-ReferencedInputsError-SmoothError-Mode19  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve GenericGym LL0080-ReferencedInputsError-SmoothError-Mode20  -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
 
-python -m impl.evolve_multi GenericGym "['LL0061-ReferencedInputsError-SmoothError-Mode00', 'LL0062-ReferencedInputsError-SmoothError-Mode01', 'LL0063-ReferencedInputsError-SmoothError-Mode02', 'LL0064-ReferencedInputsError-SmoothError-Mode03', 'LL0065-ReferencedInputsError-SmoothError-Mode04', 'LL0066-ReferencedInputsError-SmoothError-Mode05', 'LL0067-ReferencedInputsError-SmoothError-Mode07', 'LL0068-ReferencedInputsError-SmoothError-Mode08']" -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve_multi GenericGym "['LL0061-ReferencedInputsError-SmoothError-Mode00', 'LL0062-ReferencedInputsError-SmoothError-Mode01', 'LL0063-ReferencedInputsError-SmoothError-Mode02', 'LL0064-ReferencedInputsError-SmoothError-Mode03', 'LL0065-ReferencedInputsError-SmoothError-Mode04', 'LL0066-ReferencedInputsError-SmoothError-Mode05', 'LL0067-ReferencedInputsError-SmoothError-Mode07', 'LL0068-ReferencedInputsError-SmoothError-Mode08']" -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
 
-python -m impl.evolve_multi GenericGym "['LL0069-ReferencedInputsError-SmoothError-Mode09', 'LL0070-ReferencedInputsError-SmoothError-Mode10', 'LL0071-ReferencedInputsError-SmoothError-Mode11', 'LL0072-ReferencedInputsError-SmoothError-Mode12', 'LL0073-ReferencedInputsError-SmoothError-Mode13', 'LL0074-ReferencedInputsError-SmoothError-Mode14', 'LL0075-ReferencedInputsError-SmoothError-Mode15', 'LL0076-ReferencedInputsError-SmoothError-Mode16']" -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve_multi GenericGym "['LL0069-ReferencedInputsError-SmoothError-Mode09', 'LL0070-ReferencedInputsError-SmoothError-Mode10', 'LL0071-ReferencedInputsError-SmoothError-Mode11', 'LL0072-ReferencedInputsError-SmoothError-Mode12', 'LL0073-ReferencedInputsError-SmoothError-Mode13', 'LL0074-ReferencedInputsError-SmoothError-Mode14', 'LL0075-ReferencedInputsError-SmoothError-Mode15', 'LL0076-ReferencedInputsError-SmoothError-Mode16']" -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
 
-python -m impl.evolve_multi GenericGym "['LL0077-ReferencedInputsError-SmoothError-Mode17', 'LL0078-ReferencedInputsError-SmoothError-Mode18', 'LL0079-ReferencedInputsError-SmoothError-Mode19', 'LL0080-ReferencedInputsError-SmoothError-Mode20']" -b  -i 3  -pl scEdges,scError,scReward -p refinp-sm
+python -m impl.evolve_multi GenericGym "['LL0077-ReferencedInputsError-SmoothError-Mode17', 'LL0078-ReferencedInputsError-SmoothError-Mode18', 'LL0079-ReferencedInputsError-SmoothError-Mode19', 'LL0080-ReferencedInputsError-SmoothError-Mode20']" -b  -i 3 -o  -pl scEdges,scError,scReward -p refinp-sm
 

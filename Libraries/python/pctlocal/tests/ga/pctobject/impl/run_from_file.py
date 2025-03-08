@@ -5,12 +5,22 @@ from pct.hierarchy import PCTHierarchy
 from pct.putils import PCTRunProperties
 from comet_ml import API, start
 
+
+
 def get_artifact_file(id):
     "a function for retrieving an artifact from comet_ml and saving it to a file"
     # check id id is a comet_ml id or a file name
     if id.find("/") >= 0:
         return id
 
+    download_path = "/tmp/artifacts/"
+    if not path.exists(download_path):
+        makedirs(download_path)
+    
+    full_path = path.join(download_path, id)
+    if path.exists(full_path):
+        return full_path
+    
     api = API()
     # get the experiment from the id
     workspaces = api.get()
@@ -24,7 +34,7 @@ def get_artifact_file(id):
 
                 experiment = start(workspace=workspace)
                 logged_artifact  = experiment.get_artifact(id)
-                local_artifact = logged_artifact.download("/tmp/artifacts/")
+                local_artifact = logged_artifact.download(download_path)
 
                 # download the artifact
                 filename = f"{local_artifact.download_local_path}{id}"
@@ -98,6 +108,12 @@ python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll 
 python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f ga-167.524-s002-7x8-m000-LL0001-3e233a1831794be766c1bed7a8b22fa2.properties -e
 python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll -f C:/tmp/artifacts/ga-167.524-s002-7x8-m000-LL0001-3e233a1831794be766c1bed7a8b22fa2.properties -e
 
+python  -m impl.run_from_file -p scEdges,scError,scReward -e -d -o c:/tmp/plots/ll -f ga-027.281-s003-4x7-m002-LL0002-936bd5196dc775b496318fbcaf159a42.properties
+
+
+python  -m impl.run_from_file -p scEdges,scError,scReward -e -d -o c:/tmp/plots/ll -f ga-000.001-s002-5x6-m004-LL0085-644082990d5f06a0dcd5132f0964c343-consolidated.properties
+
+python  -m impl.run_from_file -p scEdges,scError,scReward -e -d -o c:/tmp/plots/ll -f ga-000.291-s001-4x3-m000-LL0021-da90a797b3ffeb04e5452cb67193ced8.properties
 
 
 """
@@ -110,7 +126,7 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--early', help="early termination", action="store_true")
     parser.add_argument('-d', '--display', help="display environment", action="store_true")
     parser.add_argument("-v", "--verbose", help="print output ", action="store_true")
-    parser.add_argument("-s", "--seed", type=int, help="seed value", default="1")
+    parser.add_argument("-s", "--seed", type=int, help="seed value", default=None)
     parser.add_argument("-p", "--plots", type=str, help="plots definition")
     parser.add_argument('-o', '--outdir', type=str, help="directory to save plots")
     parser.add_argument('-t', '--test', type=str, help="test variable", default="train")
