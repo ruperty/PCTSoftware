@@ -69,9 +69,12 @@
 
             // "args": ["-f", "ga-000.214-s003-1x6-m001-LL0042-8b70854a92ed8c9469dc7054e54af60c-consolidated.properties", "-v", "-d", "-e", "-p", "scError,scReward", "-o", "c:/tmp/plots/ll" ],
 
-            "args": ["-f", "ga-246.304-s002-2x8-m012-LL0012-f5fed51a080e636ea433e6a12f7ba73e-consolidated.properties", "-d", "-e", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll" ],
+            // "args": ["-f", "ga-246.304-s002-2x8-m012-LL0012-f5fed51a080e636ea433e6a12f7ba73e-consolidated.properties", "-d", "-e", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll" ],
+
+            "args": ["-f", "ga-789.241-s001-4x8-m014-LL0054-a045c840482045b8a709f337c0cf3c3d-consolidated.properties", "-s", "3", "-d", "-e", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll" ],
             
 
+            
             
 
             // "args": ["-f", "ga-027.281-s003-4x7-m002-LL0002-936bd5196dc775b496318fbcaf159a42.properties", "-s", "3",  "-d", "-e", "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
