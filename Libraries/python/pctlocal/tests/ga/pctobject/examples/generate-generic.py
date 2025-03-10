@@ -16,7 +16,7 @@ python examples/generate-generic.py -e GenericGym -f gen/LL-InputsRMS.csv  -mall
 python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsRMS.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputsRMS -a "-i 3 -o" -pop 100 -n 3 -ii 41 > configs/gen/LL-RefInputsRMS.txt
 python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsSmooth.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputsSmooth -a "-i 3 -o" -pop 100 -n 3 -ii 61 > configs/gen/LL-RefInputsSmooth.txt
 python examples/generate-generic.py -e GenericGym -f gen/LL-InputsCurrentRMS.csv  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p InputsCurrentRMS -a "-i 3 -o" -pop 100 -n 3 -ii 81 > configs/gen/LL-InputsCurrentRMS.txt
-python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsCurrentRMS.csv  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputsCurrentRMS -a "-i 3 -o" -pop 1000 -ii 101 > configs/gen/LL-RefInputsCurrentRMS.txt
+python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsCurrentRMS.csv  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputsCurrentRMS -a "-i 3 -o" -pop 1000 -n 3 -ii 101 > configs/gen/LL-RefInputsCurrentRMS.txt
 
 
 
