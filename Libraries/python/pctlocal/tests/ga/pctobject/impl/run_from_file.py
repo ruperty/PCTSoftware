@@ -126,6 +126,17 @@ python  -m impl.run_from_file -p scEdges,scError,scReward -d -o c:/tmp/plots/ll 
 
 
 
+python  -m impl.run_from_file -d -f ga-027.281-s003-4x7-m002-LL0002-936bd5196dc775b496318fbcaf159a42.properties -s 3 -p scReward -o c:/tmp/plots/ll -e
+
+
+ReferencedInputsError-CurrentRMSError-Mode02
+LL0103 02 - works for 02
+python  -m impl.run_from_file -d -f ga-000.001-s002-1x6-m002-LL0103-62a193ea2973648fda04d4e3914f2963.properties -p scError,scReward -o c:/tmp/plots/ll -e -s 2 
+
+ReferencedInputsError-CurrentRMSError-Mode07
+LL0107 02 0.015892 x -0.0365734 y -0.000227907 +0.01|-0.00|-0.00|-0.00 - why not done? 
+python  -m impl.run_from_file -d -f ga-000.016-s002-1x6-m007-LL0107-61809442949dea892d63399daad71a96-consolidated.properties -p scError,scReward -o c:/tmp/plots/ll -e -s 2 
+
 
 
 """

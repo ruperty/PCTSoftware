@@ -71,13 +71,11 @@
 
             // "args": ["-f", "ga-246.304-s002-2x8-m012-LL0012-f5fed51a080e636ea433e6a12f7ba73e-consolidated.properties", "-d", "-e", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll" ],
 
-            "args": ["-f", "ga-789.241-s001-4x8-m014-LL0054-a045c840482045b8a709f337c0cf3c3d-consolidated.properties", "-s", "3", "-d", "-e", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll" ],
-            
+            // "args": ["-f", "ga-789.241-s001-4x8-m014-LL0054-a045c840482045b8a709f337c0cf3c3d-consolidated.properties", "-s", "3", "-d", "-e", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll" ],
 
-            
-            
+            // "args": ["-f", "ga-000.383-s001-4x6-m020-LL0120-ee089cdef09595e27ce3151f25351082-consolidated.properties", "-s", "1", "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll" ],
 
-            // "args": ["-f", "ga-027.281-s003-4x7-m002-LL0002-936bd5196dc775b496318fbcaf159a42.properties", "-s", "3",  "-d", "-e", "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
+            "args": ["-f", "ga-027.281-s003-4x7-m002-LL0002-936bd5196dc775b496318fbcaf159a42.properties", "-s", "3",  "-d",  "-o", "c:/tmp/lunar" ],
 
             
 
@@ -155,7 +153,7 @@
 
             // "args": ["GenericGym", "LL0001-ReferencedInputsError-RootMeanSquareError-Mode00", "-b"],
             // "args": ["GenericGym", "LL0009-ReferencedInputsError-SmoothError-Mode00", "-b"],
-            "args": ["GenericGym", "LL0081-InputsError-CurrentRMSError-Mode00", "-b"],
+            "args": ["GenericGym", "LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test", "-b", "-p", "test", "-o"],
 
             
 
