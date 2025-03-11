@@ -14,7 +14,7 @@ Created on Mon Apr 17 2023
 python examples/generate-generic.py -e GenericGym -f gen/LL-RewardSummed.csv  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RewardSummed -a "-i 3 -o" -pop 100 -n 3 > configs/gen/LL-RewardSummed.txt
 python examples/generate-generic.py -e GenericGym -f gen/LL-InputsRMS.csv  -mall 8 -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p InputsRMS -a "-i 3 -o" -pop 100 -n 3 -ii 21 > configs/gen/LL-InputsRMS.txt
 python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsRMS.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputsRMS -a "-i 3 -o" -pop 100 -n 3 -ii 41 > configs/gen/LL-RefInputsRMS.txt
-python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsSmooth.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputsSmooth -a "-i 3 -o" -pop 100 -n 3 -ii 61 > configs/gen/LL-RefInputsSmooth.txt
+python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsSmooth.csv -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputsSmooth -a "-i 3 -o" -pop 1000 -n 3 -ii 61 > configs/gen/LL-RefInputsSmooth.txt
 python examples/generate-generic.py -e GenericGym -f gen/LL-InputsCurrentRMS.csv  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p InputsCurrentRMS -a "-i 3 -o" -pop 100 -n 3 -ii 81 > configs/gen/LL-InputsCurrentRMS.txt
 python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsCurrentRMS.csv  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputsCurrentRMS -a "-i 3 -o" -pop 1000 -n 3 -ii 101 > configs/gen/LL-RefInputsCurrentRMS.txt
 
@@ -128,7 +128,7 @@ if __name__ == '__main__':
 
 
     common_configs = {'env' : env, 'seed': seed, 'pop_size' : pop_size, 'gens': gens, 
-                    'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -1, 'upper_float' : 1,  'environment_properties': env_props, 
+                    'attr_mut_pb' : 1, 'structurepb' : 1, 'lower_float' : -10, 'upper_float' : 10,  'environment_properties': env_props, 
                     'min_levels_limit': min_levels_limit, 'max_levels_limit': max_levels_limit, 'min_columns_limit': min_columns_limit, 'max_columns_limit': max_columns_limit, 
                     'early_termination': True, 'p_crossover': 0.9, 
                     'p_mutation': 0.9, 'num_evals': num_evals, 'error_limit': error_limit , 'error_properties':{'error:history': 10, 'error:initial': einitial}, 
