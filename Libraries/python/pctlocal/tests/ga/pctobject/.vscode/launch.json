@@ -77,11 +77,11 @@
 
             // "args": ["-f", "ga-027.281-s003-4x7-m002-LL0002-936bd5196dc775b496318fbcaf159a42.properties", "-s", "5",  "-d",  "-o", "c:/tmp/lunar" ],
 
-            "args": ["-f", "ga-000.049-s003-1x6-m010-LL0070-97bd34286e40cc28d5a609c2d010df93-consolidated.properties", "-s", "4",  "-d",  "-o", "c:/tmp/plots/ll", "-e"],
+            // "args": ["-f", "ga-000.049-s003-1x6-m010-LL0070-97bd34286e40cc28d5a609c2d010df93-consolidated.properties", "-s", "4",  "-d",  "-o", "c:/tmp/plots/ll", "-e"],
+
+            "args": ["-f", "ga-000.001-s003-1x6-m002-LL0063-cab76e2334e8f1b63e365220d695f3b2.properties", "-v", "-s", "11",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
 
             
-            
-
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties",  "-e", "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.167-s001-4x4-m000-LL0001-5b37e6eabe41fb00a6c872c82f28b697.properties",  "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
 

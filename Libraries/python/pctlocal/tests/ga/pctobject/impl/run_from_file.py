@@ -4,6 +4,7 @@ from os import sep, listdir, path, makedirs
 from pct.hierarchy import PCTHierarchy
 from pct.putils import PCTRunProperties
 from comet_ml import API, start
+import shutil
 
 
 
@@ -146,6 +147,11 @@ python  -m impl.run_from_file -d -f ga-000.049-s003-1x6-m010-LL0070-97bd34286e40
 
 python  -m impl.run_from_file -d -f ga-000.047-s003-1x6-m001-LL0062-6d1cb8162c8f9716daaf23058542bd1b-consolidated.properties -p scError,scReward -o c:/tmp/plots/ll -e -s 3
 
+python  -m impl.run_from_file -d -f ga-000.001-s003-1x6-m002-LL0063-cab76e2334e8f1b63e365220d695f3b2.properties -e
+
+ -p scError,scReward -o c:/tmp/plots/ll -e -s 3
+
+
 
 
 """
@@ -198,6 +204,8 @@ if __name__ == '__main__':
         # print(eeprops)
 
     plots_dir=args.outdir
+    if plots_dir and path.exists(plots_dir):
+        shutil.rmtree(plots_dir)
     if plots_dir and not path.exists(plots_dir):
         makedirs(plots_dir)
 
