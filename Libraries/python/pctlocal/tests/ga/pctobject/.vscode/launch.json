@@ -158,7 +158,10 @@
             // "args": ["GenericGym", "LL0009-ReferencedInputsError-SmoothError-Mode00", "-b"],
 
             // "args": ["GenericGym", "LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test", "-b", "-p", "test", "-o"],
-            "args": ["GenericGym", "LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test", "-b"],
+            // "args": ["GenericGym", "LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test", "-b"],
+
+            "args": ["GenericGym", "LL1011-ReferencedInputsError-SmoothError-Mode11", "-b", "-a"],
+
 
 
             // "args": ["GenericGym", "LL0070-ReferencedInputsError-SmoothError-Mode10", "-b"],
@@ -290,12 +293,13 @@
             "name": "generate_gym",
             "type": "debugpy",
             "request": "launch",
-            "args": ["-e", "GenericGym", "-f", "gen/configs-ll-refinputs.csv", "-macl", "8", "-pl", "scEdges,scError,scReward" ],
+            // "args": ["-e", "GenericGym", "-f", "gen/configs-ll-refinputs.csv", "-macl", "8", "-pl", "scEdges,scError,scReward" ],
 
             // "args": ["-e", "GenericGym", "-f", "gen/configs-ll.csv", "-macl", "8", "-pl", "scEdges,scError,scReward", "-p", "reward", "-a", "-i 3" ],
 
+            "args": ["-e", "GenericGym", "-f", "gen/LL-RefInputsSmooth.csv", "-macl", "8", "-pl", "scEdges,scError,scReward", "-p", "RefInputsSmooth", "-ii", "1001" ],
+
             
-            // "args": ["-e", "WindTurbine", "-f", "wt/configs-wt-refinp-rms-test.csv" ],
             "program": "examples/generate-generic.py"
         },
 

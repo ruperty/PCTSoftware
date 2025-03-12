@@ -129,6 +129,13 @@ class HPCTGenerateEvolvers(object):
                     delimiter = "|"
                 rtn = rtn + delimiter + "zero^act^Binary~EASigmoidSmoothWeightedSum~{ 'lower_float': -1,'upper_float': 1, 'lower_range':0, 'upper_range':100, 'lower_slope' : 0, 'upper_slope': 50, 'initial_range':2, 'initial_slope': 10}"
 
+            if code == 'scActFltProps1':
+                delimiter = ""
+                if len(rtn)>0:
+                    delimiter = "|"
+                rtn = rtn + delimiter + "zero^act^~~{ 'lower_float': -1,'upper_float': 1}"
+
+
         return rtn
 
 
@@ -150,15 +157,15 @@ class HPCTGenerateEvolvers(object):
             elements = item.split('^')
             level = lookup[elements[0]]
             func = lookup[elements[1]]
-            values = elements[2].split('~')
-            var = [level, func, HPCTVARIABLE.TYPE, values[0]]
-            cls = [level, func, HPCTVARIABLE.FUNCTION_CLASS, values[1]]
+            values = elements[2].split('~')            
+            var = [level, func, HPCTVARIABLE.TYPE, values[0]]   if len(values[0]) > 0 else None                
+            cls = [level, func, HPCTVARIABLE.FUNCTION_CLASS, values[1]] if len(values[1]) > 0 else None
             if len(values)>2:
                 props = [level, func, HPCTVARIABLE.PROPERTIES, eval(values[2])]
             else:
                 props = [level, func, HPCTVARIABLE.PROPERTIES, None]
-            all.append(var)
-            all.append(cls)
+            if var: all.append(var)  
+            if cls: all.append(cls)  
             all.append(props)
 
         pass
