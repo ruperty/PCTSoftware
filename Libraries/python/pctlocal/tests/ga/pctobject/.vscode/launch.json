@@ -79,7 +79,10 @@
 
             // "args": ["-f", "ga-000.049-s003-1x6-m010-LL0070-97bd34286e40cc28d5a609c2d010df93-consolidated.properties", "-s", "4",  "-d",  "-o", "c:/tmp/plots/ll", "-e"],
 
-            "args": ["-f", "ga-000.001-s003-1x6-m002-LL0063-cab76e2334e8f1b63e365220d695f3b2.properties", "-v", "-s", "11",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
+            // "args": ["-f", "ga-000.001-s003-1x6-m002-LL0063-cab76e2334e8f1b63e365220d695f3b2.properties", "-v", "-s", "11",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
+            "args": ["-f", "G:/My Drive/data/ga/GenericGym/ReferencedInputsError-CurrentRMSError-Mode20/ga-000.023-s002-8x8-m020-LL0120-52558713c813661768a8baa469db87bd-consolidated.properties",  "-d", "-p", "scEdges,scError,scReward",  "-e"],
+
+
 
             
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties",  "-e", "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
@@ -157,12 +160,12 @@
             // "args": ["GenericGym", "LL0001-ReferencedInputsError-RootMeanSquareError-Mode00", "-b"],
             // "args": ["GenericGym", "LL0009-ReferencedInputsError-SmoothError-Mode00", "-b"],
 
-            // "args": ["GenericGym", "LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test", "-b", "-p", "test", "-o"],
-            // "args": ["GenericGym", "LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test", "-b"],
+            "args": ["GenericGym", "LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test", "-s", "2", "-b", "-p", "test", "-o"],
 
-            "args": ["GenericGym", "LL1011-ReferencedInputsError-SmoothError-Mode11", "-b", "-a"],
+            // "args": ["GenericGym", "LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test", "-s", "2", "-b"],
 
-
+            // "args": ["GenericGym", "LL1011-ReferencedInputsError-SmoothError-Mode11", "-b", "-a"],
+            
 
             // "args": ["GenericGym", "LL0070-ReferencedInputsError-SmoothError-Mode10", "-b"],
 
