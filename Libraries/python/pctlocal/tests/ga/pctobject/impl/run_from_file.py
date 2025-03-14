@@ -150,9 +150,11 @@ python  -m impl.run_from_file -d -f ga-000.047-s003-1x6-m001-LL0062-6d1cb8162c8f
 python  -m impl.run_from_file -d -f ga-000.001-s003-1x6-m002-LL0063-cab76e2334e8f1b63e365220d695f3b2.properties -e
 python  -m impl.run_from_file -d -f ga-000.004-s003-1x6-m011-LL0111-f78d98d3c1b730adc178d47f08b10560-consolidated.properties -e -p scError,scReward -o c:/tmp/plots/ll
 
+python  -m impl.run_from_file -d -f ga-000.002-s002-1x6-m003-LL0064-d99c41ec5c43d44e1d5825a50bd50a75.properties -e -s 2
+
+-p scError,scReward -o c:/tmp/plots/ll
 
 
- -p scError,scReward -o c:/tmp/plots/ll -e -s 3
 
 
 python  -m impl.run_from_file -d -f "G:\My Drive\data\ga\GenericGym\ReferencedInputsError-CurrentRMSError-Mode20/ga-000.023-s002-8x8-m020-LL0120-52558713c813661768a8baa469db87bd-consolidated.properties" -e

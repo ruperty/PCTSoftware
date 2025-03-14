@@ -80,9 +80,11 @@
             // "args": ["-f", "ga-000.049-s003-1x6-m010-LL0070-97bd34286e40cc28d5a609c2d010df93-consolidated.properties", "-s", "4",  "-d",  "-o", "c:/tmp/plots/ll", "-e"],
 
             // "args": ["-f", "ga-000.001-s003-1x6-m002-LL0063-cab76e2334e8f1b63e365220d695f3b2.properties", "-v", "-s", "11",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
-            "args": ["-f", "G:/My Drive/data/ga/GenericGym/ReferencedInputsError-CurrentRMSError-Mode20/ga-000.023-s002-8x8-m020-LL0120-52558713c813661768a8baa469db87bd-consolidated.properties",  "-d", "-p", "scEdges,scError,scReward",  "-e"],
+            // "args": ["-f", "G:/My Drive/data/ga/GenericGym/ReferencedInputsError-CurrentRMSError-Mode20/ga-000.023-s002-8x8-m020-LL0120-52558713c813661768a8baa469db87bd-consolidated.properties",  "-d", "-p", "scEdges,scError,scReward",  "-e"],
 
-
+            // "args": ["-f", "ga-000.002-s002-1x6-m003-LL0064-d99c41ec5c43d44e1d5825a50bd50a75.properties", "-s", "1",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
+ 
+            "args": ["-f", "ga-000.004-s003-1x6-m011-LL0111-f78d98d3c1b730adc178d47f08b10560-consolidated.properties", "-v", "-s", "7",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
 
             
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties",  "-e", "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
