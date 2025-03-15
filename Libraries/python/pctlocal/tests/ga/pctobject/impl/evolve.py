@@ -45,6 +45,8 @@ python -m impl.evolve GenericGym LL0001-ReferencedInputsError-RootMeanSquareErro
 
 python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mode20-test -b -v
 
+python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mode20 -b
+
 
 """
 

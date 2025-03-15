@@ -1,39 +1,28 @@
 
-python -m impl.evolve GenericGym LL0101-ReferencedInputsError-CurrentRMSError-Mode00  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0102-ReferencedInputsError-CurrentRMSError-Mode01  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0103-ReferencedInputsError-CurrentRMSError-Mode02  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0104-ReferencedInputsError-CurrentRMSError-Mode03  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0105-ReferencedInputsError-CurrentRMSError-Mode04  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0106-ReferencedInputsError-CurrentRMSError-Mode05  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0107-ReferencedInputsError-CurrentRMSError-Mode07  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0108-ReferencedInputsError-CurrentRMSError-Mode08  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0109-ReferencedInputsError-CurrentRMSError-Mode09  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0110-ReferencedInputsError-CurrentRMSError-Mode10  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0111-ReferencedInputsError-CurrentRMSError-Mode11  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0112-ReferencedInputsError-CurrentRMSError-Mode12  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0113-ReferencedInputsError-CurrentRMSError-Mode13  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0114-ReferencedInputsError-CurrentRMSError-Mode14  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0115-ReferencedInputsError-CurrentRMSError-Mode15  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0116-ReferencedInputsError-CurrentRMSError-Mode16  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0117-ReferencedInputsError-CurrentRMSError-Mode17  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0118-ReferencedInputsError-CurrentRMSError-Mode18  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0119-ReferencedInputsError-CurrentRMSError-Mode19  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mode20  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
+python -m impl.evolve GenericGym LL0101-ReferencedInputsError-CurrentRMSError-Mode00  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0102-ReferencedInputsError-CurrentRMSError-Mode01  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0103-ReferencedInputsError-CurrentRMSError-Mode02  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0104-ReferencedInputsError-CurrentRMSError-Mode03  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0105-ReferencedInputsError-CurrentRMSError-Mode04  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0106-ReferencedInputsError-CurrentRMSError-Mode05  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0107-ReferencedInputsError-CurrentRMSError-Mode07  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0108-ReferencedInputsError-CurrentRMSError-Mode08  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0109-ReferencedInputsError-CurrentRMSError-Mode09  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0110-ReferencedInputsError-CurrentRMSError-Mode10  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0111-ReferencedInputsError-CurrentRMSError-Mode11  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0112-ReferencedInputsError-CurrentRMSError-Mode12  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0113-ReferencedInputsError-CurrentRMSError-Mode13  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0114-ReferencedInputsError-CurrentRMSError-Mode14  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0115-ReferencedInputsError-CurrentRMSError-Mode15  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0116-ReferencedInputsError-CurrentRMSError-Mode16  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0117-ReferencedInputsError-CurrentRMSError-Mode17  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0118-ReferencedInputsError-CurrentRMSError-Mode18  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0119-ReferencedInputsError-CurrentRMSError-Mode19  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
+python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mode20  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
 
-python -m impl.evolve_multi GenericGym "['LL0101-ReferencedInputsError-CurrentRMSError-Mode00', 'LL0102-ReferencedInputsError-CurrentRMSError-Mode01', 'LL0103-ReferencedInputsError-CurrentRMSError-Mode02', 'LL0104-ReferencedInputsError-CurrentRMSError-Mode03', 'LL0105-ReferencedInputsError-CurrentRMSError-Mode04', 'LL0106-ReferencedInputsError-CurrentRMSError-Mode05', 'LL0107-ReferencedInputsError-CurrentRMSError-Mode07', 'LL0108-ReferencedInputsError-CurrentRMSError-Mode08']" -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
+python -m impl.evolve_multi GenericGym "['LL0101-ReferencedInputsError-CurrentRMSError-Mode00', 'LL0102-ReferencedInputsError-CurrentRMSError-Mode01', 'LL0103-ReferencedInputsError-CurrentRMSError-Mode02', 'LL0104-ReferencedInputsError-CurrentRMSError-Mode03', 'LL0105-ReferencedInputsError-CurrentRMSError-Mode04', 'LL0106-ReferencedInputsError-CurrentRMSError-Mode05', 'LL0107-ReferencedInputsError-CurrentRMSError-Mode07', 'LL0108-ReferencedInputsError-CurrentRMSError-Mode08']" -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
 
-python -m impl.evolve_multi GenericGym "['LL0109-ReferencedInputsError-CurrentRMSError-Mode09', 'LL0110-ReferencedInputsError-CurrentRMSError-Mode10', 'LL0111-ReferencedInputsError-CurrentRMSError-Mode11', 'LL0112-ReferencedInputsError-CurrentRMSError-Mode12', 'LL0113-ReferencedInputsError-CurrentRMSError-Mode13', 'LL0114-ReferencedInputsError-CurrentRMSError-Mode14', 'LL0115-ReferencedInputsError-CurrentRMSError-Mode15', 'LL0116-ReferencedInputsError-CurrentRMSError-Mode16']" -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
+python -m impl.evolve_multi GenericGym "['LL0109-ReferencedInputsError-CurrentRMSError-Mode09', 'LL0110-ReferencedInputsError-CurrentRMSError-Mode10', 'LL0111-ReferencedInputsError-CurrentRMSError-Mode11', 'LL0112-ReferencedInputsError-CurrentRMSError-Mode12', 'LL0113-ReferencedInputsError-CurrentRMSError-Mode13', 'LL0114-ReferencedInputsError-CurrentRMSError-Mode14', 'LL0115-ReferencedInputsError-CurrentRMSError-Mode15', 'LL0116-ReferencedInputsError-CurrentRMSError-Mode16']" -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
 
-python -m impl.evolve_multi GenericGym "['LL0117-ReferencedInputsError-CurrentRMSError-Mode17', 'LL0118-ReferencedInputsError-CurrentRMSError-Mode18', 'LL0119-ReferencedInputsError-CurrentRMSError-Mode19', 'LL0120-ReferencedInputsError-CurrentRMSError-Mode20']" -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
+python -m impl.evolve_multi GenericGym "['LL0117-ReferencedInputsError-CurrentRMSError-Mode17', 'LL0118-ReferencedInputsError-CurrentRMSError-Mode18', 'LL0119-ReferencedInputsError-CurrentRMSError-Mode19', 'LL0120-ReferencedInputsError-CurrentRMSError-Mode20']" -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputs-CurrentRMS
 
-
-
-
-
-
-python -m impl.evolve GenericGym LL0115-ReferencedInputsError-CurrentRMSError-Mode15  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0116-ReferencedInputsError-CurrentRMSError-Mode16  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0117-ReferencedInputsError-CurrentRMSError-Mode17  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0118-ReferencedInputsError-CurrentRMSError-Mode18  -b  -i 3 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0119-ReferencedInputsError-CurrentRMSError-Mode19  -b  -s 2 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
-python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mode20  -b  -s 2 -o  -pl scEdges,scError,scReward -p RefInputsCurrentRMS
