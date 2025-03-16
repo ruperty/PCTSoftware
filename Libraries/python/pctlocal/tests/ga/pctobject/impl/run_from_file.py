@@ -31,7 +31,7 @@ def get_artifact_file(id):
         artifacts = api.get_artifact_list(workspace)
         for artifact_dict in artifacts['artifacts']:
             if artifact_dict['name'] == id:
-                print(artifact_dict)
+                # print(artifact_dict)
 
                 experiment = start(workspace=workspace)
                 logged_artifact  = experiment.get_artifact(id)
@@ -168,6 +168,10 @@ python  -m impl.run_from_file -d -f ga-000.034-s003-3x7-m020-LL0120-63e93ce2b431
 python  -m impl.run_from_file -d -f ga-000.504-s001-1x6-m005-LL0066-fd4a6e5126407dec0152439b6f9ae482.properties -e -p scError,scReward -o c:/tmp/plots/ll 
 
 python  -m impl.run_from_file -d -f ga-000.005-s001-1x6-m018-LL0078-edbfd13509c4325f87c84c9d004f15e3-consolidated.properties -e -p scError,scReward -o c:/tmp/plots/ll 
+
+python  -m impl.run_from_file -d -f ga-000.002-s002-1x6-m010-LL0070-220be66133d7f53ce2495e0a33174f3a-consolidated.properties -e -p scError,scReward -o c:/tmp/plots/ll 
+python  -m impl.run_from_file -d -f "G:/My Drive/data\ga\GenericGym\ReferencedInputsError-SmoothError-Mode10\ga-000.002-s002-1x6-m010-LL0070-220be66133d7f53ce2495e0a33174f3a-consolidated.properties" -e -p scError,scReward -o c:/tmp/plots/ll 
+
 
 
 
