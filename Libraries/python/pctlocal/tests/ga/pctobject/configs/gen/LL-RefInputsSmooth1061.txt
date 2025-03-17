@@ -1,0 +1,28 @@
+
+python -m impl.evolve GenericGym LL1061-ReferencedInputsError-SmoothError-Mode00  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1062-ReferencedInputsError-SmoothError-Mode01  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1063-ReferencedInputsError-SmoothError-Mode02  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1064-ReferencedInputsError-SmoothError-Mode03  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1065-ReferencedInputsError-SmoothError-Mode04  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1066-ReferencedInputsError-SmoothError-Mode05  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1067-ReferencedInputsError-SmoothError-Mode07  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1068-ReferencedInputsError-SmoothError-Mode08  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1069-ReferencedInputsError-SmoothError-Mode09  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1070-ReferencedInputsError-SmoothError-Mode10  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1071-ReferencedInputsError-SmoothError-Mode11  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1072-ReferencedInputsError-SmoothError-Mode12  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1073-ReferencedInputsError-SmoothError-Mode13  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1074-ReferencedInputsError-SmoothError-Mode14  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1075-ReferencedInputsError-SmoothError-Mode15  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1076-ReferencedInputsError-SmoothError-Mode16  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1077-ReferencedInputsError-SmoothError-Mode17  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1078-ReferencedInputsError-SmoothError-Mode18  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1079-ReferencedInputsError-SmoothError-Mode19  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+python -m impl.evolve GenericGym LL1080-ReferencedInputsError-SmoothError-Mode20  -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+
+python -m impl.evolve_multi GenericGym "['LL1061-ReferencedInputsError-SmoothError-Mode00', 'LL1062-ReferencedInputsError-SmoothError-Mode01', 'LL1063-ReferencedInputsError-SmoothError-Mode02', 'LL1064-ReferencedInputsError-SmoothError-Mode03', 'LL1065-ReferencedInputsError-SmoothError-Mode04', 'LL1066-ReferencedInputsError-SmoothError-Mode05', 'LL1067-ReferencedInputsError-SmoothError-Mode07', 'LL1068-ReferencedInputsError-SmoothError-Mode08']" -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+
+python -m impl.evolve_multi GenericGym "['LL1069-ReferencedInputsError-SmoothError-Mode09', 'LL1070-ReferencedInputsError-SmoothError-Mode10', 'LL1071-ReferencedInputsError-SmoothError-Mode11', 'LL1072-ReferencedInputsError-SmoothError-Mode12', 'LL1073-ReferencedInputsError-SmoothError-Mode13', 'LL1074-ReferencedInputsError-SmoothError-Mode14', 'LL1075-ReferencedInputsError-SmoothError-Mode15', 'LL1076-ReferencedInputsError-SmoothError-Mode16']" -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+
+python -m impl.evolve_multi GenericGym "['LL1077-ReferencedInputsError-SmoothError-Mode17', 'LL1078-ReferencedInputsError-SmoothError-Mode18', 'LL1079-ReferencedInputsError-SmoothError-Mode19', 'LL1080-ReferencedInputsError-SmoothError-Mode20']" -b  -c 3 -o  -pl scEdges,scError,scReward -p RefInputs-Smooth
+

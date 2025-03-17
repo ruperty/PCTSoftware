@@ -20,10 +20,8 @@ python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsCurrentRMS.
 
 
 
+python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsSmooth.csv -mall 1 -macl 8 -pl "scEdges,scError,scReward" -p RefInputs-Smooth -a "-c 3 -o" -pop 10 -ii 1061 > configs/gen/LL-RefInputsSmooth1061.txt
 
-python examples/generate-generic.py -e GenericGym -f gen/configs-ll-refinputs-test.csv -mill 2 -mall 2 -macl 1 -pl "scEdges,scError,scReward" -p refinputs -g 2 -pop 4
-
-python examples/generate-generic.py -e GenericGym -f gen/configs-ll-xxx.csv -macl 6 -el 1000 -pl "scEdges,scError,scReward" -p current -a "-i 3" > configs/gen/cmds-ll-xxx.txt
 
 
 # CartPoleV1
@@ -76,7 +74,7 @@ if __name__ == '__main__':
     parser.add_argument('-pop', '--pop_size', type=int, help="pop size", default=100)
     parser.add_argument('-g', '--gens', type=int, help="gens", default=10)  
     parser.add_argument('-s', '--seed', type=int, help="seed", default=1)
-    parser.add_argument("-o", "--overwrite", help="overwrite existing results file", action="store_true")
+    parser.add_argument('-o', '--overwrite', help="overwrite existing results file", action="store_true")
     parser.add_argument('-mill', '--min_levels_limit', type=int, help="initial index", default=1)
     parser.add_argument('-mall', '--max_levels_limit', type=int, help="initial index", default=4)    
     parser.add_argument('-micl', '--min_columns_limit', type=int, help="initial index", default=1)
