@@ -28,13 +28,14 @@ def get_artifact_file(id):
     for workspace in workspaces:
         print(workspace)
 
-        artifacts = api.get_artifact_list(workspace)
+        artifacts = api.get_artifact_list(workspace=workspace)
         for artifact_dict in artifacts['artifacts']:
             if artifact_dict['name'] == id:
                 # print(artifact_dict)
 
                 experiment = start(workspace=workspace)
                 logged_artifact  = experiment.get_artifact(id)
+                print(logged_artifact.source_experiment_key)
                 local_artifact = logged_artifact.download(download_path)
 
                 # download the artifact
@@ -172,7 +173,7 @@ python  -m impl.run_from_file -d -f ga-000.005-s001-1x6-m018-LL0078-edbfd13509c4
 python  -m impl.run_from_file -d -f ga-000.002-s002-1x6-m010-LL0070-220be66133d7f53ce2495e0a33174f3a-consolidated.properties -e -p scError,scReward -o c:/tmp/plots/ll 
 python  -m impl.run_from_file -d -f "G:/My Drive/data\ga\GenericGym\ReferencedInputsError-SmoothError-Mode10\ga-000.002-s002-1x6-m010-LL0070-220be66133d7f53ce2495e0a33174f3a-consolidated.properties" -e -p scError,scReward -o c:/tmp/plots/ll 
 
-python  -m impl.run_from_file -d -f ga-000.039-s001-1x6-m011-LL1071-7e5d48b2abb12bdec7530350ccac27ab-consolidated.properties -e -p scError,scReward -o c:/tmp/plots/ll 
+python  -m impl.run_from_file -d -f ga-000.340-s002-1x6-m015-LL0075-742e34292dc70f4824f44787b0570af0-consolidated.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll 
 
 
 
@@ -239,7 +240,7 @@ if __name__ == '__main__':
         hierarchy, score = PCTHierarchy.run_from_file(file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
                         plots=plots, history=history, hpct_verbose= args.verbose, runs=runs, plots_dir=plots_dir, early_termination=args.early, 
                         enhanced_environment_properties=eeprops)
-        print(f'Score={score:0.3f}')
+        print(f'Score={score:0.3f} {hierarchy.get_environment().get_metrics()}')
         
         toc = time.perf_counter()
         elapsed = toc-tic        

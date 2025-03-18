@@ -14,9 +14,9 @@ Created on Mon Apr 17 2023
 python examples/generate-generic.py -e GenericGym -f gen/LL-RewardSummed.csv -sm -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p Reward-Summed -a "-i 3 -o" -pop 1000 -n 3 > configs/gen/LL-RewardSummed.txt
 python examples/generate-generic.py -e GenericGym -f gen/LL-InputsRMS.csv -sm  -mall 8 -macl 8 -el 1000 -pl "scEdges,scError,scReward" -p Inputs-RMS -a "-i 3 -o" -pop 1000 -n 3 -ii 21 > configs/gen/LL-InputsRMS.txt
 python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsRMS.csv -sm -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputs-RMS -a "-i 3 -o" -pop 1000 -n 3 -ii 41 > configs/gen/LL-RefInputsRMS.txt
-python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsSmooth.csv -sm -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputs-Smooth -a "-i 3 -o" -pop 1000 -n 3 -ii 61 > configs/gen/LL-RefInputsSmooth.txt
-python examples/generate-generic.py -e GenericGym -f gen/LL-InputsCurrentRMS.csv -sm  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p Inputs-CurrentRMS -a "-i 3 -o" -pop 1000 -n 3 -ii 81 > configs/gen/LL-InputsCurrentRMS.txt
-python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsCurrentRMS.csv -sm  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputs-CurrentRMS -a "-i 3 -o" -pop 1000 -n 3 -ii 101 > configs/gen/LL-RefInputsCurrentRMS.txt
+python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsSmooth.csv -sm -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputs-Smooth -a "-i 3 -c 3 -o" -pop 1000 -n 3 -ii 61 > configs/gen/LL-RefInputsSmooth.txt
+python examples/generate-generic.py -e GenericGym -f gen/LL-InputsCurrentRMS.csv -sm  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p Inputs-CurrentRMS -a "-i 3 -c 3 -o" -pop 1000 -n 3 -ii 81 > configs/gen/LL-InputsCurrentRMS.txt
+python examples/generate-generic.py -e GenericGym -f gen/LL-RefInputsCurrentRMS.csv -sm  -mall 8 -macl 8 -pl "scEdges,scError,scReward" -p RefInputs-CurrentRMS -a "-i 3 -c 3 -o" -pop 1000 -n 3 -ii 101 > configs/gen/LL-RefInputsCurrentRMS.txt
 
 
 
