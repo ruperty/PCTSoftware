@@ -27,13 +27,13 @@ def get_artifact_file(id):
     workspaces = api.get()
     for workspace in workspaces:
         print(workspace)
-
+        experiment = start(workspace=workspace)
         artifacts = api.get_artifact_list(workspace=workspace)
         for artifact_dict in artifacts['artifacts']:
             if artifact_dict['name'] == id:
                 # print(artifact_dict)
 
-                experiment = start(workspace=workspace)
+
                 logged_artifact  = experiment.get_artifact(id)
                 print(logged_artifact.source_experiment_key)
                 local_artifact = logged_artifact.download(download_path)
@@ -175,6 +175,8 @@ python  -m impl.run_from_file -d -f "G:/My Drive/data\ga\GenericGym\ReferencedIn
 
 python  -m impl.run_from_file -d -f ga-000.340-s002-1x6-m015-LL0075-742e34292dc70f4824f44787b0570af0-consolidated.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll 
 
+
+python  -m impl.run_from_file -d -f ga-000.001-s002-1x6-m011-LL0071-f2d83dfeddf17d1b316f4dd7180bb5b6-consolidated.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll 
 
 
 """
