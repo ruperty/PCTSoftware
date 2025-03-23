@@ -179,6 +179,13 @@ python  -m impl.run_from_file -d -f ga-000.340-s002-1x6-m015-LL0075-742e34292dc7
 python  -m impl.run_from_file -d -f ga-000.001-s002-1x6-m011-LL0071-f2d83dfeddf17d1b316f4dd7180bb5b6-consolidated.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll 
 
 
+python  -m impl.run_from_file -d -f ga-000.011-s002-1x6-m001-LL0062-0a9e1c620271e5d3e0a02bcab106a413-consolidated.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll 
+
+
+
+
+
+
 """
 
 if __name__ == '__main__':
