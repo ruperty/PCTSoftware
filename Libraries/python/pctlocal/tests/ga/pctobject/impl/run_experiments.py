@@ -18,9 +18,16 @@ workspace = 'lunarlandercontinuous-v2'
 project_name = 'reward-summed'
 # project_name = 'inputs-rms'
 # project_name = 'refinputs-smooth'
+
+max = False
+score_threshold=0.05
+
+if project_name == 'reward-summed':
+    score_threshold=100
+    max = True
+
+
 num_runs=100
-max = True
-score_threshold=150
 
 
 manager = CometExperimentManager(workspace=workspace)
@@ -30,7 +37,7 @@ artifact_results = manager.get_all_artifacts_indexed()
 # print("Artifacts sorted by source experiment key:", artifacts)
 
 # Test get_experiments_by_metrics
-experiments = manager.get_experiments_by_metrics(project_name=project_name, score_threshold=0.05, reward_threshold=10.0, max=max)
+experiments = manager.get_experiments_by_metrics(project_name=project_name, score_threshold=score_threshold, reward_threshold=10.0, max=max)
 # print("Filtered experiments:", experiments)
 
 
