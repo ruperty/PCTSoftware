@@ -203,6 +203,7 @@ if __name__ == '__main__':
     parser.add_argument('-ep', '--eprops', type=str, help="environment properties")
     parser.add_argument('-eep', '--eeprops', type=str, help="enhanced environment properties")
     parser.add_argument("-x", "--max", help="maximise fitness function", action="store_true")
+    parser.add_argument("-vdo", "--video", help="record video of the environment", action="store_true")
 
     args = parser.parse_args()
 
@@ -248,7 +249,7 @@ if __name__ == '__main__':
 
         hierarchy, score = PCTHierarchy.run_from_file(file, env_props=eprops, seed=args.seed, render=args.display, move=None, min=not args.max,
                         plots=plots, history=history, hpct_verbose= args.verbose, runs=runs, plots_dir=plots_dir, early_termination=args.early, 
-                        enhanced_environment_properties=eeprops)
+                        enhanced_environment_properties=eeprops, video=args.video)
         print(f'Score={score:0.3f} {hierarchy.get_environment().get_metrics()}')
         
         toc = time.perf_counter()
