@@ -26,3 +26,7 @@ python -m impl.evolve_multi GenericGym "['LL0009-RewardError-SummedError-Mode09 
 
 python -m impl.evolve_multi GenericGym "['LL0017-RewardError-SummedError-Mode17 -x', 'LL0018-RewardError-SummedError-Mode18 -x', 'LL0019-RewardError-SummedError-Mode19 -x', 'LL0020-RewardError-SummedError-Mode20 -x']" -b  -i 3 -o  -pl scEdges,scError,scReward -p Reward-Summed
 
+
+
+
+python -m impl.evolve_multi GenericGym "['LL0001-RewardError-SummedError-Mode00-test']" -x -b -o  -pl scEdges,scError,scReward -p test
