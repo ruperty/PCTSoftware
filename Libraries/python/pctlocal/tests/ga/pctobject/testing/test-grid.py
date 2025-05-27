@@ -140,7 +140,7 @@ os.makedirs(tmp_folder, exist_ok=True)
 
 for i in range(5):
     black_prob = random.uniform(0.15, 0.5)
-    new_grid = generate_symmetric_crossword_grid(size=13, min_run=3, black_prob=black_prob)
+    new_grid = generate_symmetric_crossword_grid(size=8, min_run=3, black_prob=black_prob)
     filename = os.path.join(
         tmp_folder,
         f'symmetric_crossword_grid_{i:02d}_bp_{black_prob:.2f}.png'
