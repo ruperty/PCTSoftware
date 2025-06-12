@@ -4,6 +4,40 @@ import random
 from itertools import groupby
 import os
 
+
+from PIL import Image
+import numpy as np
+
+def extract_binary_crossword_grid(filename: str, grid_size: int = 23, threshold: int = 128):
+    """
+    Load a grayscale crossword image and return a binary 2D grid representing black/white squares.
+
+    Parameters:
+    - filename: str, path to the image file
+    - grid_size: int, number of squares per row/column
+    - threshold: int, grayscale threshold to determine black (1) vs white (0)
+
+    Returns:
+    - binary_grid: np.ndarray of shape (grid_size, grid_size), dtype=int
+    """
+    img = Image.open(filename).convert("L")
+    width, height = img.size
+
+    dx = width / grid_size
+    dy = height / grid_size
+
+    binary_grid = np.zeros((grid_size, grid_size), dtype=int)
+
+    for row in range(grid_size):
+        for col in range(grid_size):
+            x = int((col + 0.5) * dx)
+            y = int((row + 0.5) * dy)
+            pixel_value = img.getpixel((x, y))
+            binary_grid[row, col] = 1 if pixel_value < threshold else 0
+
+    return binary_grid
+
+
 def generate_symmetric_crossword_grid(size=13, min_run=3, black_prob=0.2):
     """
     Generate a 180-degree rotationally symmetric crossword grid.
@@ -145,11 +179,14 @@ print(grid)
 tmp_folder = "/tmp"
 os.makedirs(tmp_folder, exist_ok=True)
 
-for i in range(5):
-    black_prob = 0.5 # random.uniform(0.15, 1)
-    new_grid = generate_symmetric_crossword_grid(size=13, min_run=3, black_prob=black_prob)
-    filename = os.path.join(
-        tmp_folder,
-        f'symmetric_crossword_grid_{i:02d}_bp_{black_prob:.2f}.png'
-    )
-    plot_crossword_grid(new_grid, filename=filename, black_prob=black_prob)
+# for i in range(5):
+#     black_prob = 0.5 # random.uniform(0.15, 1)
+#     new_grid = generate_symmetric_crossword_grid(size=13, min_run=3, black_prob=black_prob)
+#     filename = os.path.join(
+#         tmp_folder,
+#         f'symmetric_crossword_grid_{i:02d}_bp_{black_prob:.2f}.png'
+#     )
+fileprefix = "/tmp/cw1"
+grid = extract_binary_crossword_grid(f'{fileprefix}.png', grid_size=23)
+print(grid)
+plot_crossword_grid(grid, filename=f'{fileprefix}_converted.png')
