@@ -46,6 +46,13 @@ def generate_symmetric_crossword_grid(size=13, min_run=3, black_prob=0.2):
             grid[size-1-i, size-1-j] = 1
             continue  # skip to next cell
 
+        # --- ENFORCE FIRST CELL BLACK, SECOND CELL WHITE CONSTRAINT ---
+        if (i, j) == (0, 1):
+            if grid[0, 0] == 1:
+                grid[0, 1] = 0
+                grid[size-1-0, size-1-1] = 0
+                continue
+
         if random.random() < black_prob:
             # Only place black if it doesn't create a too-short white run
             if not would_create_short_white_run(grid, i, j):
@@ -96,7 +103,7 @@ def plot_crossword_grid(grid, filename='crossword_grid.png', black_prob=None):
     # Draw black borders around each square
     for i in range(nrows):
         for j in range(ncols):
-            rect = plt.Rectangle((j - 0.5, i - 0.5), 1, 1, linewidth=1, edgecolor='black', facecolor='none')
+            rect = plt.Rectangle((j - 0.5, i - 0.5), 1, 1, linewidth=1, edgecolor='black', facecolor='none') # type: ignore
             ax.add_patch(rect)
     # Set the ticks to be empty
     ax.set_xticks([])
@@ -139,8 +146,8 @@ tmp_folder = "/tmp"
 os.makedirs(tmp_folder, exist_ok=True)
 
 for i in range(5):
-    black_prob = random.uniform(0.15, 0.5)
-    new_grid = generate_symmetric_crossword_grid(size=8, min_run=3, black_prob=black_prob)
+    black_prob = 0.5 # random.uniform(0.15, 1)
+    new_grid = generate_symmetric_crossword_grid(size=13, min_run=3, black_prob=black_prob)
     filename = os.path.join(
         tmp_folder,
         f'symmetric_crossword_grid_{i:02d}_bp_{black_prob:.2f}.png'
