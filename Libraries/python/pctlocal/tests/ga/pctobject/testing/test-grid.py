@@ -171,7 +171,7 @@ grid = [
     [1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0]
 ]
 
-print(grid)
+# print(grid)
 
 # Example usage:
 # plot_crossword_grid(grid)
