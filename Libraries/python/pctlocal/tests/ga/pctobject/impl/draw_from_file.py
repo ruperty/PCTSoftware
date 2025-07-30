@@ -54,6 +54,9 @@ def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, n
 """
 python -m impl.draw_from_file -f "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode07\ga-000.000-s001-1x1-m007-ARC0095-ae36ff1d4ff2c88b9b856d6d2a540eb6-consolidated.properties" -o "/tmp"  -m "{}" -d -t 12 -n 400
 
+python -m impl.draw_from_file -f 'C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties' -o "/tmp" -m "{'IV':[0, 0.05],'IP':[-0.6, 0.3],  'OL0C0sm':[-0.28, -0.2],'OL0C1sm':[0.28, -0.2], 'OL1C0sm':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"
+
+
 """
 
 if __name__ == '__main__':
