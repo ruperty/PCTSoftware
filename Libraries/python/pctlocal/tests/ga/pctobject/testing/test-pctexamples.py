@@ -24,7 +24,7 @@ if test == "draw":
             'with_labels': True,
             'with_edge_labels': True,
             # 'funcdata': True,
-            'font_size': 8,
+            'font_size': 6,
             'node_size': 200
         }
     )
