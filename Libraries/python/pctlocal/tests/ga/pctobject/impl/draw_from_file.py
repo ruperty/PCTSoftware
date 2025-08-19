@@ -3,37 +3,40 @@
 
 import argparse
 from os import sep, makedirs
-from epct.po_evolvers import HPCTIndividual
+# from epct.po_evolvers import HPCTIndividual
+from pct.hierarchy import PCTHierarchy
 
 
 def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, node_size=200, suffixes=False):
+    if filename is None or outdir is None:
+        raise ValueError("filename and outdir must be provided")
+        
+    # Find the last separator (either \ or /) to handle both Windows and Unix paths
+    backslash_pos = filename.rfind('\\')
+    slash_pos = filename.rfind('/')
+    lastsepIndex = max(backslash_pos, slash_pos)
+    input_filename = filename[lastsepIndex+1:]
+    draw_file = outdir + sep + 'draw-' + input_filename.replace('.properties', '.png')
 
-    lastsepIndex = filename.rfind(sep)
-    propIndex = filename.rfind('.properties')
-    filenamePrefix = filename[lastsepIndex+1:propIndex]
-    draw_file = outdir + sep + 'draw-'+filenamePrefix+'.png'
+    # hpct, hep = HPCTIndividual.from_properties_file(filename)
+    hpct, _ , _ = PCTHierarchy.load_from_file(filename)
 
-    etype =filename[filename[0:lastsepIndex].rfind(sep)+1:lastsepIndex]
-
-    hpct, hep = HPCTIndividual.from_properties_file(filename)
-    env_name = hpct.get_environment().get_name()
-    hname = env_name + '\n' + etype + '\nscore=' + f'{float(filenamePrefix[3:10]):0.3f}'
-    hpct.set_name(hname)
+    # env_name = env.get_name()
+    # hname = env_name + '\n' + etype + '\nscore=' + f'{float(filenamePrefix[3:10]):0.3f}'
+    # hpct.set_name(hname)
     hpct.validate_links()
     if suffixes:
         hpct.set_suffixes()
-    print(hpct.formatted_config(3))
+    # print(hpct.formatted_config(3))
     # hpct.summary()
     hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size, funcdata=funcdata)
     print('Image saved to '+draw_file)
 
-    hpct.consolidate()
-    move={}
-    draw_file = outdir + sep + 'draw-'+filenamePrefix + '_A' +'.png'
-    hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size, funcdata=funcdata)
-    print(hpct.formatted_config(3))
-    # hpct.summary()
-    print('Image saved to '+draw_file)
+    if hpct.consolidate():
+        move={}
+        draw_file = outdir + sep + 'draw-' + input_filename.replace('.properties', '_consolidate.png')
+        hpct.draw(file=draw_file, move=move, with_edge_labels=True, font_size=font_size, node_size=node_size, funcdata=funcdata)
+        print('Image saved to '+draw_file)
 
 
 
@@ -52,7 +55,10 @@ def drawit(filename=None, outdir=None, move=None, funcdata=False, font_size=6, n
 
 
 """
-python -m impl.draw_from_file -f "G:\My Drive\data\ga\ARC\FitnessError-MovingAverageError-Mode07\ga-000.000-s001-1x1-m007-ARC0095-ae36ff1d4ff2c88b9b856d6d2a540eb6-consolidated.properties" -o "/tmp"  -m "{}" -d -t 12 -n 400
+python -m impl.draw_from_file -f "G:/My Drive/data/ga/ARC/FitnessError-MovingAverageError-Mode07/ga-000.000-s001-1x1-m007-ARC0095-ae36ff1d4ff2c88b9b856d6d2a540eb6-consolidated.properties" -o "/tmp"  -m "{}" -d -t 12 -n 400
+
+python -m impl.draw_from_file -f "C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties" -o "/tmp" -m "{'IV':[0, 0.05],'IP':[-0.6, 0.3],  'OL0C0sm':[-0.28, -0.2],'OL0C1sm':[0.28, -0.2], 'OL1C0sm':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}"
+
 
 """
 
