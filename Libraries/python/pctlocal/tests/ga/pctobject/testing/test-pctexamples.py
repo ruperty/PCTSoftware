@@ -1,8 +1,10 @@
 
 from pct.pctexamples import PCTExamples 
+import getpass
 
 # Define the config file path
-config_file = 'C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc.properties'
+user = getpass.getuser()
+config_file = f'C:/Users/{user}/Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc.properties'
 
 
 # Create only video (no plots)
