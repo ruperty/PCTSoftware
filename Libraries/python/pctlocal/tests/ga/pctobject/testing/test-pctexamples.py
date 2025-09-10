@@ -2,7 +2,7 @@
 from pct.pctexamples import PCTExamples 
 
 # Define the config file path
-config_file = 'C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties'
+config_file = 'C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc.properties'
 
 
 # Create only video (no plots)
@@ -26,7 +26,8 @@ if test == "draw":
             # 'funcdata': True,
             'font_size': 6,
             'node_size': 200
-        }
+        },
+        get_model_details=True
     )
 
 #  
