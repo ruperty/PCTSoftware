@@ -182,8 +182,11 @@ python  -m impl.run_from_file -d -f ga-000.001-s002-1x6-m011-LL0071-f2d83dfeddf1
 python  -m impl.run_from_file -d -f ga-000.011-s002-1x6-m001-LL0062-0a9e1c620271e5d3e0a02bcab106a413-consolidated.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll 
 
 
-python  -m impl.run_from_file -d -f C:/Users/ruper/Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-c4d6de.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll -r 1000 -s 2 
+python  -m impl.run_from_file -d -f C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-c4d6de.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll -r 1000 -s 2 
 
+# Same file
+python  -m impl.run_from_file -d -f ga-000.003-s001-1x6-m014-LL-4905d236177d7901a901404857d9d08c-consolidated.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll 
+python  -m impl.run_from_file -d -f C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-4905d2.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll -r 500 -s 3 -vdo 
 
 
 

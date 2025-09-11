@@ -9,6 +9,7 @@
     "configurations": [
 
 
+
         {
             "name": "run_files_from_dir",
             "type": "debugpy",
@@ -91,8 +92,14 @@
             // "args": ["-f", "ga-000.504-s001-1x6-m005-LL0066-fd4a6e5126407dec0152439b6f9ae482.properties", "-s", "1",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
 
             // "args": ["-f", "ga-000.001-s002-1x6-m011-LL0071-f2d83dfeddf17d1b316f4dd7180bb5b6-consolidated.properties", "-vdo",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
-            "args": ["-f", "ga-785.500-s001-1x3-m004-LL0025-bd0dc4ad39a3d7c952325e36cac8072a-consolidated.properties",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
+            // "args": ["-f", "ga-785.500-s001-1x3-m004-LL0025-bd0dc4ad39a3d7c952325e36cac8072a-consolidated.properties",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e"],
+
+            "args": ["-f", "C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-4905d2.properties",  "-d", "-p", "scEdges,scError,scReward", "-o", "c:/tmp/plots/ll", "-e", "-s", "3", "-vdo"],
+
             
+            // python  -m impl.run_from_file -d -f C:/Users/ryoung/Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-4905d2.properties -e -p scError,scReward,scEdges -o c:/tmp/plots/ll -r 1000 -s 3 -vdo 
+
+
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.151-s003-3x5-m000-LL0001-2606aa822a84e4098e12d1fea36644e8.properties",  "-e", "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
             // "args": ["-f", "G:/My Drive/data/ga/GenericGym/InputsError-RootMeanSquareError-Mode00/ga-000.167-s001-4x4-m000-LL0001-5b37e6eabe41fb00a6c872c82f28b697.properties",  "-d",  "-p", "scError,scReward", "-o", "c:/tmp/lunar" ],
 

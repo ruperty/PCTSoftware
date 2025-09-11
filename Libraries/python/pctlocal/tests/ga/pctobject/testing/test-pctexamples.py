@@ -10,12 +10,12 @@ env = "LunarLander"
 # env = "MountainCar"
 
 # test = "draw"
-test = "run"
-# test = "video"
+# test = "run"
+test = "video"
 suffixes = True
 
 if env == "LunarLander":
-    config_file = f'C:/Users/{user}/Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-c4d6de.properties'
+    config_file = f'C:/Users/{user}/Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-4905d2.properties'
     suffixes = False
     move = {}
 if env == "MountainCar":
@@ -60,7 +60,7 @@ if test == "video":
         config_file=config_file,
         print_summary=False,
         run_hierarchy=True,
-        steps=200,
+        steps=500,
         render=True,
         # verbose=True,
         early_termination=True,
