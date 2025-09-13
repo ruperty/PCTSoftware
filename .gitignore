@@ -70,3 +70,5 @@ Libraries/python/pctlocal/tests/ga/pctobject/random_agent.gif
 Libraries/python/pctlocal/tests/ga/pctobject/*.mp4
 Libraries/python/pctlocal/tests/ga/pctobject/tmp/symmetric_crossword_grid_00_bp_0.24.png
 Libraries/python/pctlocal/tests/ga/pctobject/random_actions.gif
+Libraries/python/pctlocal/tests/ga/pctobject/testing/random_actions.gif
+Libraries/python/pctlocal/tests/ga/pctobject/testing/random_agent.gif
