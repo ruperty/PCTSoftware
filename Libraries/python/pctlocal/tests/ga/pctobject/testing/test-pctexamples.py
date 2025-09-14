@@ -1,25 +1,42 @@
 
 from pct.pctexamples import PCTExamples  # type: ignore
 import getpass
+import os
+import pathlib
 
-# Define the config file path
-user = getpass.getuser()
+# Get the home directory (works across platforms)
+home_dir = str(pathlib.Path.home())
+print(f"Home directory: {home_dir}")
+
+# We don't need the username anymore since we're using the home directory
+# user = os.environ.get('USERNAME') or os.environ.get('USER') or getpass.getuser()
+# print(f"Detected username: {user}")
 
 
 env = "LunarLander"
 # env = "MountainCar"
 
-# test = "draw"
+test = "draw"
 # test = "run"
-test = "video"
+# test = "video"
 suffixes = True
 
 if env == "LunarLander":
-    config_file = f'C:/Users/{user}/Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-4905d2.properties'
+    config_file = os.path.join(home_dir, 'Versioning/python/nbdev/pct/nbs/testfiles/LunarLander/LunarLander-4905d2.properties')
+    # Use normalized path with OS-specific separators
+    config_file = os.path.normpath(config_file)
+    if not os.path.exists(config_file):
+        print(f"WARNING: Config file not found: {config_file}")
+        print("Please update the path to point to the correct location.")
     suffixes = False
     move = {}
 if env == "MountainCar":
-    config_file = f'C:/Users/{user}/Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc.properties'
+    config_file = os.path.join(home_dir, 'Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc.properties')
+    # Use normalized path with OS-specific separators
+    config_file = os.path.normpath(config_file)
+    if not os.path.exists(config_file):
+        print(f"WARNING: Config file not found: {config_file}")
+        print("Please update the path to point to the correct location.")
     move = {'IV':[0, 0.05],'IP':[-0.6, 0.3],  'OL0C0sm':[-0.28, -0.2],'OL0C1sm':[0.28, -0.2], 'OL1C0sm':[0,-0.1], 'MountainCarContinuousV0':[-.7,-0.5], 'Action1ws':[-0.4,-0.3]}
     # suffixes = False
 
@@ -55,8 +72,13 @@ if test == "run":
     )
 
 if test == "video":
-    # Create video and plots
-    result = PCTExamples.run_example(
+    # Check if config file exists before attempting to run
+    if not os.path.exists(config_file):
+        print(f"ERROR: Cannot run example because config file does not exist: {config_file}")
+        print("Please update the path to point to the correct location.")
+    else:
+        # Create video and plots
+        result = PCTExamples.run_example(
         config_file=config_file,
         print_summary=False,
         run_hierarchy=True,
@@ -70,4 +92,8 @@ if test == "video":
         }
     )
 
-print("Result:", result)
+# Print the result if it exists
+if 'result' in locals():
+    print("Result:", result)
+else:
+    print("No result was produced. Check the errors above.")
