@@ -58,19 +58,48 @@ def capture_lunar_lander_initializations(num_frames=20, seed_start=0, filename='
     # Close the environment
     env.close()
     
-    # Create the animation
+    # Save frames as a video/gif using Pillow instead of matplotlib
+    from PIL import Image
+    
+    # Convert frames to PIL Images
+    pil_frames = [Image.fromarray(frame) for frame in frames]
+    
+    # Save as GIF
+    if filename.endswith('.gif'):
+        print(f"Saving animation as GIF: {filename}")
+        pil_frames[0].save(
+            filename,
+            save_all=True,
+            append_images=pil_frames[1:],
+            optimize=False,
+            duration=100,  # Duration between frames in milliseconds
+            loop=0  # 0 means loop forever
+        )
+    # Save as MP4 using Pillow and imageio
+    elif filename.endswith('.mp4'):
+        try:
+            import imageio
+            print(f"Saving animation as MP4: {filename}")
+            imageio.mimsave(filename, frames, fps=10)
+        except ImportError:
+            # Fall back to GIF if imageio is not available
+            new_filename = filename.replace('.mp4', '.gif')
+            print(f"imageio not available, saving as GIF instead: {new_filename}")
+            pil_frames[0].save(
+                new_filename,
+                save_all=True,
+                append_images=pil_frames[1:],
+                optimize=False,
+                duration=100,
+                loop=0
+            )
+            filename = new_filename
+    
+    print(f"Animation saved as {filename}")
+    
+    # Display the animation (still using matplotlib for display only)
     patch = plt.imshow(frames[0])
     plt.axis('off')
-    
-    def animate(i):
-        patch.set_data(frames[i])
-    
-    # Generate the animation and save it
-    anim = animation.FuncAnimation(plt.gcf(), animate, 
-                                  frames=len(frames), interval=100)
-    anim.save(filename, writer='imagemagick')
-    
-    # Display the animation
     plt.show()
     
     return frames
@@ -145,28 +174,51 @@ def run_lunar_lander_with_random_actions(max_steps=200, seed=42, filename='rando
     # Create animation and save as video
     print(f"Creating video with {len(frames)} frames...")
     
-    # Create the animation
-    fig, ax = plt.subplots(figsize=(8, 6))
-    patch = plt.imshow(frames[0])
-    plt.axis('off')
-    plt.tight_layout()
+    # Save frames as a video/gif using Pillow instead of matplotlib
+    from PIL import Image
     
-    def animate(i):
-        patch.set_data(frames[i])
-        return [patch]
+    # Convert frames to PIL Images
+    pil_frames = [Image.fromarray(frame) for frame in frames]
     
-    # Generate and save the animation
-    anim = animation.FuncAnimation(fig, animate, frames=len(frames), interval=50)
+    # Save as GIF
+    if filename.endswith('.gif'):
+        print(f"Saving animation as GIF: {filename}")
+        pil_frames[0].save(
+            filename,
+            save_all=True,
+            append_images=pil_frames[1:],
+            optimize=False,
+            duration=50,  # Duration between frames in milliseconds
+            loop=0  # 0 means loop forever
+        )
+    # Save as MP4 using Pillow and imageio
+    elif filename.endswith('.mp4'):
+        try:
+            import imageio
+            print(f"Saving animation as MP4: {filename}")
+            imageio.mimsave(filename, frames, fps=30)
+        except ImportError:
+            # Fall back to GIF if imageio is not available
+            new_filename = filename.replace('.mp4', '.gif')
+            print(f"imageio not available, saving as GIF instead: {new_filename}")
+            pil_frames[0].save(
+                new_filename,
+                save_all=True,
+                append_images=pil_frames[1:],
+                optimize=False,
+                duration=50,
+                loop=0
+            )
+            filename = new_filename
     
-    # Save the animation - using imagemagick which is more commonly available
-    if filename.endswith('.mp4'):
-        # If we're still trying to save as mp4 but don't have FFmpeg, change to gif
-        print("Note: Saving as GIF instead of MP4 since FFmpeg may not be installed")
-        filename = filename.replace('.mp4', '.gif')
+    print(f"Animation saved as {filename}")
     
-    anim.save(filename, writer='imagemagick')
-    
-    print(f"Video saved as {filename}")
+    # Display the animation (still using matplotlib for display only)
+    # fig, ax = plt.subplots(figsize=(8, 6))
+    # patch = plt.imshow(frames[0])
+    # plt.axis('off')
+    # plt.tight_layout()
+    # plt.show()
     
     return frames, total_reward
 
@@ -174,6 +226,6 @@ def run_lunar_lander_with_random_actions(max_steps=200, seed=42, filename='rando
 if __name__ == "__main__":
     # Uncomment the function you want to run
     # capture_lunar_lander_initializations()
-    run_lunar_lander_with_random_actions()
+    run_lunar_lander_with_random_actions(seed=4)
 
 
