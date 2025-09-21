@@ -29,7 +29,66 @@ if env == "LunarLander":
         print(f"WARNING: Config file not found: {config_file}")
         print("Please update the path to point to the correct location.")
     suffixes = False
-    move = {}
+    # Configure positions for the LunarLander control unit elements, arranging them from left to right
+    # The format is 'element_name': [x_position, y_position]
+    move = {
+        # Input nodes (sensor variables)
+        'IX': [-0.5, 0],          # X position
+        'IY': [-0.5, 0],       # Y position
+        'IVX': [-0.5, 0],      # X velocity
+        'IVY': [-0.5, 0],      # Y velocity
+        'IA': [-0.5, 0],       # Angle
+        'IVA': [-0.5, 0],      # Angular velocity
+        'ILC': [-0.5, 0],      # Left contact
+        'IRC': [-0.5, 0],      # Right contact
+
+        # References
+        'RL0C0c': [-0.6, 0], # X position reference
+        'RL0C1c': [-0.15, 0], # Y position reference
+        'RL0C2c': [0.3, 0], # X velocity reference
+        'RL0C3c': [0.65, 0], # Y velocity reference
+        'RL0C4c': [0.9, 0], # Angle reference
+        'RL0C5c': [1.4, 0], # Angular velocity reference
+        
+        # # # Perceptual functions
+        'PL0C0ws': [-0.8, 0], # X position perception
+        'PL0C1ws': [-0.35, 0], # Y position perception
+        'PL0C2ws': [0.1, 0], # X velocity perception
+        'PL0C3ws': [0.45, 0], # Y velocity perception
+        'PL0C4ws': [0.75, 0], # Angle perception
+        'PL0C5ws': [1.1, 0], # Angular velocity perception
+
+        # # # Comparator functions
+        'CL0C0': [-0.95, 0],     # X position comparator
+        'CL0C1': [-0.35, 0],  # Y position comparator
+        'CL0C2': [0.25, 0],  # X velocity comparator
+        'CL0C3': [0.75, 0],  # Y velocity comparator
+        'CL0C4': [1.25, 0],  # Angle comparator
+        'CL0C5': [1.85, 0],  # Angular velocity comparator
+
+        # # # Output functions
+        # 'OL0C0p': [-0.5, 0],    # X position output
+        # 'OL0C1p': [0, 0], # Y position output
+        # 'OL0C2p': [0.65, 0], # X velocity output
+        # 'OL0C3p': [0.85, 0], # Y velocity output
+        # 'OL0C4p': [1.5, 0], # Angle output
+        # 'OL0C5p': [2, 0], # Angular velocity output
+
+        'OL0C0p': [-1.85, 0],    # X position output
+        'OL0C1p': [-0.9, 0], # Y position output
+        'OL0C2p': [0.2, 0], # X velocity output
+        'OL0C3p': [0.75, 0], # Y velocity output
+        'OL0C4p': [1.8, 0], # Angle output
+        'OL0C5p': [2.75, 0], # Angular velocity output
+
+        # Action output nodes
+        'Action1sg': [0.5, 0], # Main engine
+        'Action2sg': [1.5, 0], # Left-right engine
+        
+        # Environment
+        'GenericGym': [0, -0.1] # The environment node
+    }
+
 if env == "MountainCar":
     config_file = os.path.join(home_dir, 'Versioning/python/nbdev/pct/nbs/testfiles/MountainCar/MountainCar-cdf7cc.properties')
     # Use normalized path with OS-specific separators
@@ -44,7 +103,7 @@ if env == "MountainCar":
 if test == "draw":
     result = PCTExamples.run_example(
         config_file=config_file,
-        print_summary=True,
+        print_summary=False,
         run_hierarchy=False,
         image_params={
             'file': f'/tmp/{env}_image.png',
@@ -53,10 +112,11 @@ if test == "draw":
             'with_edge_labels': True,
             'funcdata': False,
             'font_size': 6,
-            'node_size': 200
-        },
-        suffixes=suffixes,
-        get_model_details=True
+            'node_size': 200,
+            'layout_seed': 42
+        }
+        # ,
+        # suffixes=suffixes
     )
 
 
