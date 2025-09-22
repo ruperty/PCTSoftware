@@ -114,7 +114,8 @@ if test == "draw":
             'font_size': 6,
             'node_size': 200,
             'layout_seed': 42
-        }
+        },
+        get_model_details=True
         # ,
         # suffixes=suffixes
     )
