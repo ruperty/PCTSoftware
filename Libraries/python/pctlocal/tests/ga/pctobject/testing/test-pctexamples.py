@@ -18,7 +18,7 @@ env = "LunarLander"
 
 test = "draw"
 # test = "run"
-# test = "video"
+test = "video"
 suffixes = True
 
 if env == "LunarLander":
