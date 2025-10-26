@@ -12,6 +12,7 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
                       show_title=False, show_legend=False, arrow_length_factor=0.1,
                       curve_control_factor=0.6, curve_line_width=1.0, curve_alpha=0.9, 
                       curve_resolution=100, arrowhead_size=1.0, arrowhead_style='-|>', margin: float = 0.2,
+                      auto_tight: bool = False,
                       show_local_connectors: bool = False, local_connector_count: int = 4,
                       local_connector_length: float = None, local_connector_curve: float = 0.4,
                       local_connector_color: str = 'gray', local_connector_width: float = 0.8):
@@ -327,9 +328,28 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
         ]
         ax.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1, 1))
     
-    # Use tight_layout with configurable padding and save with the same pad_inches
-    plt.tight_layout(pad=margin)
-    plt.savefig(filename, dpi=1000, bbox_inches='tight', pad_inches=margin)
+    # Save the figure. If auto_tight is requested, compute the tight bbox from the
+    # renderer, resize the figure to the bbox (in inches) and save at a sensible DPI
+    # with minimal padding. This avoids huge white margins caused by very large DPI
+    # combined with pad_inches.
+    if auto_tight:
+        try:
+            # Force a draw so the renderer and artists have correct extents
+            fig.canvas.draw()
+            renderer = fig.canvas.get_renderer()
+            tight_bbox = fig.get_tightbbox(renderer)
+            # tight_bbox is in inches; resize figure to exactly that size
+            fig.set_size_inches(tight_bbox.width, tight_bbox.height)
+            # Save with small padding and moderate DPI
+            plt.savefig(filename, dpi=300, bbox_inches='tight', pad_inches=0.01)
+        except Exception:
+            # Fallback to previous behavior on any failure
+            plt.tight_layout(pad=margin)
+            plt.savefig(filename, dpi=300, bbox_inches='tight', pad_inches=margin)
+    else:
+        # Use tight_layout with configurable padding and save with original DPI
+        plt.tight_layout(pad=margin)
+        plt.savefig(filename, dpi=1000, bbox_inches='tight', pad_inches=margin)
     plt.close()  # Close the figure instead of showing it
     
     print(f"PCT Hierarchy saved as {filename}")
@@ -567,7 +587,9 @@ if __name__ == "__main__":
     #                   level_spacing=6.0, column_spacing=4, unit_size=1.5)
 
     draw_pct_hierarchy(levels=5, columns_per_level=[2, 4, 4, 4, 2], 
-                      filename="pct_hierarchy_control.png", 
+                      filename="pcnn.png", 
                       curve_control_factor=0.7, curve_line_width=0.5,
                       level_spacing=10.0, column_spacing=8, unit_size=3,
-                      arrowhead_size=0.25, margin=0.1, show_local_connectors=True)
+                      arrowhead_size=0.25, margin=0.1, 
+                      show_local_connectors=True, local_connector_count=3,
+                      local_connector_length=2.0)
