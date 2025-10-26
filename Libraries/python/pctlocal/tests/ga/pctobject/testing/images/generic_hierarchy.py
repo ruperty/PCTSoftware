@@ -11,7 +11,7 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
                       font_color='black', unit_line_width=0.8, inter_level_arrows=True,
                       show_title=False, show_legend=False, arrow_length_factor=0.1,
                       curve_control_factor=0.6, curve_line_width=1.0, curve_alpha=0.9, 
-                      curve_resolution=100, arrowhead_size=1.0, arrowhead_style='-|>'):
+                      curve_resolution=100, arrowhead_size=1.0, arrowhead_style='-|>', margin: float = 0.2):
     """
     Generate a configurable PCT hierarchy diagram.
     
@@ -58,6 +58,9 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
     arrowhead_style : str
         Style of the arrowheads - options: '-|>' (wedge), '->' (simple), '->|' (bar), 
         '<->', '<|-|>', 'fancy', 'simple', 'wedge' (default: '-|>')
+    margin : float
+        Whitespace padding (in inches) around the figure when saving. Passed to
+        matplotlib's tight_layout(pad=...) and savefig(pad_inches=...). Default 0.2.
     """
     
     if columns_per_level is None:
@@ -241,10 +244,28 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
                                      curve_resolution=curve_resolution, arrowhead_size=arrowhead_size,
                                      arrowhead_style=arrowhead_style)
     
-    # Set axis limits and remove axes
-    ax.set_xlim(-column_spacing * max(columns_per_level), 
-                column_spacing * max(columns_per_level))
-    ax.set_ylim(-level_spacing, levels * level_spacing)
+    # Set axis limits based on actual unit positions to avoid excessive whitespace
+    # Collect all drawn positions and compute tight bounds, then add a small padding
+    all_x = []
+    all_y = []
+    for up in unit_positions.values():
+        for key, (px, py) in up.items():
+            all_x.append(px)
+            all_y.append(py)
+
+    if all_x and all_y:
+        x_min, x_max = min(all_x), max(all_x)
+        y_min, y_max = min(all_y), max(all_y)
+        # Add padding relative to unit_size and spacing so circles/arrows aren't clipped
+        pad_x = max(unit_size * 1.5, column_spacing * 0.25)
+        pad_y = max(unit_size * 1.5, level_spacing * 0.25)
+        ax.set_xlim(x_min - pad_x, x_max + pad_x)
+        ax.set_ylim(y_min - pad_y, y_max + pad_y)
+    else:
+        # Fallback to previous behavior
+        ax.set_xlim(-column_spacing * max(columns_per_level), 
+                    column_spacing * max(columns_per_level))
+        ax.set_ylim(-level_spacing, levels * level_spacing)
     ax.axis('off')
     
     # Add title if requested
@@ -266,8 +287,9 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
         ]
         ax.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1, 1))
     
-    plt.tight_layout()
-    plt.savefig(filename, dpi=300, bbox_inches='tight')
+    # Use tight_layout with configurable padding and save with the same pad_inches
+    plt.tight_layout(pad=margin)
+    plt.savefig(filename, dpi=1000, bbox_inches='tight', pad_inches=margin)
     plt.close()  # Close the figure instead of showing it
     
     print(f"PCT Hierarchy saved as {filename}")
@@ -401,6 +423,4 @@ if __name__ == "__main__":
                       filename="pct_hierarchy_control.png", 
                       curve_control_factor=0.7, curve_line_width=0.5,
                       level_spacing=10.0, column_spacing=6, unit_size=3,
-                      arrowhead_size=0.25)
-    
-    print("Hierarchies with different curve parameters created!")
+                      arrowhead_size=0.25, margin=0.1)
