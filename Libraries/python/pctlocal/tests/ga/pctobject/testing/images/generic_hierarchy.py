@@ -474,13 +474,14 @@ def _draw_short_connectors(ax, center, kind, count=4, length=0.6, curve_factor=0
         style = 'output'
         arrow_at_end = True
 
-    # Draw straight-line connectors with arrowheads for clarity
+        # Draw short S-curve connectors (Bezier) with an arrowhead at the curve end
     for ang in angles:
         rad = math.radians(ang)
+        # Outer start point (away from the circle)
         sx = cx + length * math.cos(rad)
         sy = cy + length * math.sin(rad)
 
-        # end point sits just outside the circle edge towards the start point
+        # End point sits just outside the circle edge towards the start point
         dir_x = cx - sx
         dir_y = cy - sy
         dlen = math.hypot(dir_x, dir_y)
@@ -497,25 +498,53 @@ def _draw_short_connectors(ax, center, kind, count=4, length=0.6, curve_factor=0
             start_pt = (ex, ey)
             end_pt = (sx, sy)
 
-        # Use annotate to draw a straight arrow between start_pt and end_pt
-        # Choose sensible default colors matching inter-level connectors when user left default
+        # Control points for a short S-curve between start_pt and end_pt
+        sx0, sy0 = start_pt
+        ex0, ey0 = end_pt
+        # Make control points offset vertically for a gentle S
+        ctrl1_x = sx0
+        ctrl1_y = sy0 + (ey0 - sy0) * curve_factor
+        ctrl2_x = ex0
+        ctrl2_y = ey0 - (ey0 - sy0) * curve_factor
+
+        t = np.linspace(0, 1, resolution)
+        bezier_x = (1-t)**3 * sx0 + 3*(1-t)**2 * t * ctrl1_x + 3*(1-t) * t**2 * ctrl2_x + t**3 * ex0
+        bezier_y = (1-t)**3 * sy0 + 3*(1-t)**2 * t * ctrl1_y + 3*(1-t) * t**2 * ctrl2_y + t**3 * ey0
+
+        # Style: perception local connectors use dotted style, outputs solid
         use_color = color
         if color == 'gray' or color is None:
             use_color = 'blue' if kind == 'in' else 'black'
-        # Match inter-level arrowhead sizing: mutation_scale = arrowhead_size * unit_size * 10
+        ls = ':' if kind == 'in' else '-'
+        ax.plot(bezier_x, bezier_y, color=use_color, linewidth=linewidth, linestyle=ls, zorder=2, alpha=0.9)
+
+        # Add arrowhead at the end of the bezier curve (direction from near-end to end)
+        # Determine direction using a few points before the end
+        idx = max(1, min(len(bezier_x)-1, len(bezier_x)-5))
+        dx = bezier_x[-1] - bezier_x[-idx]
+        dy = bezier_y[-1] - bezier_y[-idx]
+        length_dir = math.hypot(dx, dy)
+        if length_dir == 0:
+            dx_norm, dy_norm = 0, -1
+        else:
+            dx_norm, dy_norm = dx/length_dir, dy/length_dir
+
+        # Compute a short tail point for the arrow so the arrowhead is visible
+        arrow_tail_dist = max(0.1 * unit_size, 0.15 * length)
+        tail_x = bezier_x[-1] - dx_norm * arrow_tail_dist
+        tail_y = bezier_y[-1] - dy_norm * arrow_tail_dist
+
+        # Compute mutation scale to match inter-level arrows
         try:
             mut_scale = max(1, int(arrowhead_size * unit_size * 10))
         except Exception:
             mut_scale = max(8, int(unit_size * 12))
 
-        arrowprops = dict(arrowstyle=arrowhead_style, linewidth=linewidth, 
+        arrowprops = dict(arrowstyle=arrowhead_style, linewidth=linewidth,
                           facecolor=use_color, edgecolor=use_color,
                           shrinkA=0, shrinkB=0, mutation_scale=mut_scale)
-        # Perception connectors should match inter-level perception style (dotted)
-        if kind == 'in':
-            arrowprops['linestyle'] = ':'
-        ann = ax.annotate('', xy=end_pt, xytext=start_pt, arrowprops=arrowprops)
-        # Ensure connectors are drawn above unit lines but below labels
+        # Use annotate to draw arrowhead from tail to exact curve end
+        ann = ax.annotate('', xy=(bezier_x[-1], bezier_y[-1]), xytext=(tail_x, tail_y), arrowprops=arrowprops)
         try:
             ann.set_zorder(3.5)
         except Exception:
