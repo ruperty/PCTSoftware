@@ -11,7 +11,7 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
                       font_color='black', unit_line_width=0.8, inter_level_arrows=True,
                       show_title=False, show_legend=False, arrow_length_factor=0.1,
                       curve_control_factor=0.6, curve_line_width=1.0, curve_alpha=0.9, 
-                      curve_resolution=100, arrowhead_size=0.6, arrowhead_style='-|>'):
+                      curve_resolution=100, arrowhead_size=1.0, arrowhead_style='-|>'):
     """
     Generate a configurable PCT hierarchy diagram.
     
@@ -385,13 +385,16 @@ def draw_curved_connection(ax, start_pos, end_pos, color, style, use_arrows=True
 if __name__ == "__main__":
     # Create different hierarchy configurations
 
-    # Test with title and legend (default)
-    
-    # Test different arrowhead configurations
-    
 
-    draw_pct_hierarchy(levels=2, columns_per_level=[2, 2], 
-                      filename="pct_hierarchy.png")
+    draw_pct_hierarchy(levels=2, columns_per_level=[2,2], 
+                      filename="pct_hierarchy_control_2x2.png", 
+                      curve_control_factor=0.7, curve_line_width=0.5,
+                      level_spacing=6.0)
+
+
+    draw_pct_hierarchy(levels=3, columns_per_level=[4, 4, 4], 
+                      filename="pct_hierarchy_control_4x4x4.png", 
+                      curve_control_factor=0.7, curve_line_width=0.5,
+                      level_spacing=6.0, column_spacing=4, unit_size=1.5)
     
-    
-    print("Hierarchies with configurable arrowhead parameters created!")
+    print("Hierarchies with different curve parameters created!")
