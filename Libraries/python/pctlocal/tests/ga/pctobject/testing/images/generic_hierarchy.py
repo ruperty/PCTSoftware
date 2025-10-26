@@ -5,13 +5,13 @@ from matplotlib.path import Path
 import numpy as np
 import math
 
-def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=0.3, 
-                      level_spacing=3.0, column_spacing=2.0, 
+def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0, 
+                      level_spacing=4.0, column_spacing=2.5, 
                       filename="pct_hierarchy.png", figsize=(12, 8), use_arrows=True, 
-                      font_color='white', unit_line_width=0.8, inter_level_arrows=True,
-                      show_title=False, show_legend=False, arrow_length_factor=0.5,
-                      curve_control_factor=0.3, curve_line_width=1.0, curve_alpha=0.7, 
-                      curve_resolution=100):
+                      font_color='black', unit_line_width=0.8, inter_level_arrows=True,
+                      show_title=False, show_legend=False, arrow_length_factor=0.1,
+                      curve_control_factor=0.6, curve_line_width=1.0, curve_alpha=0.9, 
+                      curve_resolution=100, arrowhead_size=0.6, arrowhead_style='-|>'):
     """
     Generate a configurable PCT hierarchy diagram.
     
@@ -53,6 +53,11 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=0.3,
         Transparency for S-curve connections (0.0=transparent, 1.0=opaque, default: 0.7)
     curve_resolution : int
         Number of points used to draw smooth S-curves (default: 100)
+    arrowhead_size : float
+        Size multiplier for inter-level arrowheads relative to unit_size (default: 0.3)
+    arrowhead_style : str
+        Style of the arrowheads - options: '-|>' (wedge), '->' (simple), '->|' (bar), 
+        '<->', '<|-|>', 'fancy', 'simple', 'wedge' (default: '-|>')
     """
     
     if columns_per_level is None:
@@ -217,7 +222,8 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=0.3,
                                      unit_size=unit_size, arrow_length_factor=arrow_length_factor,
                                      curve_control_factor=curve_control_factor, 
                                      curve_line_width=curve_line_width, curve_alpha=curve_alpha,
-                                     curve_resolution=curve_resolution)
+                                     curve_resolution=curve_resolution, arrowhead_size=arrowhead_size,
+                                     arrowhead_style=arrowhead_style)
         
         # Perception connections: all perceptions from next level to all perceptions in current level
         for next_col in range(next_level_cols):
@@ -232,7 +238,8 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=0.3,
                                      unit_size=unit_size, arrow_length_factor=arrow_length_factor,
                                      curve_control_factor=curve_control_factor,
                                      curve_line_width=curve_line_width, curve_alpha=curve_alpha,
-                                     curve_resolution=curve_resolution)
+                                     curve_resolution=curve_resolution, arrowhead_size=arrowhead_size,
+                                     arrowhead_style=arrowhead_style)
     
     # Set axis limits and remove axes
     ax.set_xlim(-column_spacing * max(columns_per_level), 
@@ -267,7 +274,7 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=0.3,
 
 def draw_curved_connection(ax, start_pos, end_pos, color, style, use_arrows=True, unit_size=0.3, 
                          arrow_length_factor=0.5, curve_control_factor=0.3, curve_line_width=1.0, 
-                         curve_alpha=0.7, curve_resolution=100):
+                         curve_alpha=0.7, curve_resolution=100, arrowhead_size=0.3, arrowhead_style='-|>'):
     """Draw S-curve connection between two points with proper styling and optional arrowheads"""
     x1, y1 = start_pos
     x2, y2 = end_pos
@@ -342,10 +349,12 @@ def draw_curved_connection(ax, start_pos, end_pos, color, style, use_arrows=True
                 
                 # Create arrowhead at the end of the curve
                 arrow_length = unit_size * arrow_length_factor
+                arrowhead_length = unit_size * arrowhead_size
                 ax.annotate('', xy=(bezier_x[-1], bezier_y[-1]), 
                            xytext=(bezier_x[-1] - dx_norm*arrow_length, bezier_y[-1] - dy_norm*arrow_length),
-                           arrowprops=dict(arrowstyle='-|>', lw=1.0, alpha=1.0, 
-                                         facecolor='black', edgecolor='black'))
+                           arrowprops=dict(arrowstyle=arrowhead_style, lw=1.0, alpha=1.0, 
+                                         facecolor='black', edgecolor='black',
+                                         mutation_scale=arrowhead_length*10))
     elif style == 'perception':
         # Perception connections: dotted blue S-curves going upward
         # Always draw the S-curve first
@@ -365,10 +374,12 @@ def draw_curved_connection(ax, start_pos, end_pos, color, style, use_arrows=True
                 
                 # Create arrowhead at the end of the curve
                 arrow_length = unit_size * arrow_length_factor
+                arrowhead_length = unit_size * arrowhead_size
                 ax.annotate('', xy=(bezier_x[-1], bezier_y[-1]), 
                            xytext=(bezier_x[-1] - dx_norm*arrow_length, bezier_y[-1] - dy_norm*arrow_length),
-                           arrowprops=dict(arrowstyle='-|>', lw=1.0, alpha=1.0,
-                                         facecolor='blue', edgecolor='blue'))
+                           arrowprops=dict(arrowstyle=arrowhead_style, lw=1.0, alpha=1.0,
+                                         facecolor='blue', edgecolor='blue',
+                                         mutation_scale=arrowhead_length*10))
 
 # Example usage
 if __name__ == "__main__":
@@ -376,44 +387,11 @@ if __name__ == "__main__":
 
     # Test with title and legend (default)
     
-    # Test different S-curve configurations
+    # Test different arrowhead configurations
     
-    # Subtle curves
-    draw_pct_hierarchy(levels=2, columns_per_level=[2, 2], 
-                      filename="pct_hierarchy_subtle_curves.png", use_arrows=True, 
-                      unit_size=1, font_color='black', unit_line_width=0.8, 
-                      inter_level_arrows=True, show_title=False, show_legend=False,
-                      arrow_length_factor=0.1, level_spacing=4, column_spacing=2.5,
-                      curve_control_factor=0.1, curve_line_width=0.8, curve_alpha=0.5)
-    
-    # Pronounced curves
-    draw_pct_hierarchy(levels=2, columns_per_level=[2, 2], 
-                      filename="pct_hierarchy_pronounced_curves.png", use_arrows=True, 
-                      unit_size=1, font_color='black', unit_line_width=0.8, 
-                      inter_level_arrows=True, show_title=False, show_legend=False,
-                      arrow_length_factor=0.1, level_spacing=4, column_spacing=2.5,
-                      curve_control_factor=0.6, curve_line_width=2.0, curve_alpha=0.9)
-    
-    # High resolution smooth curves
-    draw_pct_hierarchy(levels=2, columns_per_level=[2, 2], 
-                      filename="pct_hierarchy_smooth_curves.png", use_arrows=True, 
-                      unit_size=1, font_color='black', unit_line_width=0.8, 
-                      inter_level_arrows=True, show_title=False, show_legend=False,
-                      arrow_length_factor=0.1, level_spacing=4, column_spacing=2.5,
-                      curve_control_factor=0.3, curve_line_width=1.5, curve_alpha=0.8,
-                      curve_resolution=200)
 
-    # draw_pct_hierarchy(levels=2, columns_per_level=[2, 2], 
-    #                   filename="pct_hierarchy_standard_arrows.png", use_arrows=True, 
-    #                   unit_size=1, font_color='black', unit_line_width=0.8, 
-    #                   inter_level_arrows=True, show_title=False, show_legend=False,
-    #                   arrow_length_factor=0.5)
-    
-    # draw_pct_hierarchy(levels=2, columns_per_level=[2, 2], 
-    #                   filename="pct_hierarchy_long_arrows.png", use_arrows=True, 
-    #                   unit_size=1, font_color='black', unit_line_width=0.8, 
-    #                   inter_level_arrows=True, show_title=False, show_legend=False,
-    #                   arrow_length_factor=1.0)
+    draw_pct_hierarchy(levels=2, columns_per_level=[2, 2], 
+                      filename="pct_hierarchy.png")
     
     
-    print("Hierarchies with configurable S-curve parameters created!")
+    print("Hierarchies with configurable arrowhead parameters created!")
