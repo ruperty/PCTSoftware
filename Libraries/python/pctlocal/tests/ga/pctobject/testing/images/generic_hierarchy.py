@@ -11,7 +11,10 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
                       font_color='black', unit_line_width=0.8, inter_level_arrows=True,
                       show_title=False, show_legend=False, arrow_length_factor=0.1,
                       curve_control_factor=0.6, curve_line_width=1.0, curve_alpha=0.9, 
-                      curve_resolution=100, arrowhead_size=1.0, arrowhead_style='-|>', margin: float = 0.2):
+                      curve_resolution=100, arrowhead_size=1.0, arrowhead_style='-|>', margin: float = 0.2,
+                      show_local_connectors: bool = False, local_connector_count: int = 4,
+                      local_connector_length: float = None, local_connector_curve: float = 0.4,
+                      local_connector_color: str = 'gray', local_connector_width: float = 0.8):
     """
     Generate a configurable PCT hierarchy diagram.
     
@@ -61,6 +64,20 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
     margin : float
         Whitespace padding (in inches) around the figure when saving. Passed to
         matplotlib's tight_layout(pad=...) and savefig(pad_inches=...). Default 0.2.
+    show_local_connectors : bool
+        If True, draw short curved connectors into each perception and out from
+        each output at the lowest level (useful to indicate multiple inputs/outputs).
+    local_connector_count : int
+        Number of short connectors to draw (default 4).
+    local_connector_length : float or None
+        Radial distance (in data units) from the circle center to start/end of
+        the short connectors. If None, derived from `unit_size`.
+    local_connector_curve : float
+        Curve factor for short connectors (default 0.4).
+    local_connector_color : str
+        Color for the short connectors (default 'gray').
+    local_connector_width : float
+        Line width for the short connectors (default 0.8).
     """
     
     if columns_per_level is None:
@@ -244,6 +261,27 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
                                      curve_resolution=curve_resolution, arrowhead_size=arrowhead_size,
                                      arrowhead_style=arrowhead_style)
     
+    # Optionally draw short local connectors at the lowest level
+    if show_local_connectors and levels > 0:
+        lowest = levels - 1
+        connector_len = local_connector_length if local_connector_length is not None else max(unit_size * 1.0, column_spacing * 0.5)
+        for col_idx in range(columns_per_level[lowest]):
+            key = (lowest, col_idx)
+            if key in unit_positions:
+                upos = unit_positions[key]
+                perc_center = upos.get('perception')
+                out_center = upos.get('output')
+                if perc_center is not None:
+                    _draw_short_connectors(ax, perc_center, kind='in', count=local_connector_count,
+                                           length=connector_len, curve_factor=local_connector_curve,
+                                           unit_size=unit_size, color=local_connector_color,
+                                           linewidth=local_connector_width)
+                if out_center is not None:
+                    _draw_short_connectors(ax, out_center, kind='out', count=local_connector_count,
+                                           length=connector_len, curve_factor=local_connector_curve,
+                                           unit_size=unit_size, color=local_connector_color,
+                                           linewidth=local_connector_width)
+
     # Set axis limits based on actual unit positions to avoid excessive whitespace
     # Collect all drawn positions and compute tight bounds, then add a small padding
     all_x = []
@@ -403,6 +441,72 @@ def draw_curved_connection(ax, start_pos, end_pos, color, style, use_arrows=True
                                          facecolor='blue', edgecolor='blue',
                                          mutation_scale=arrowhead_length*10))
 
+
+def _draw_short_connectors(ax, center, kind, count=4, length=0.6, curve_factor=0.4, 
+                           unit_size=0.3, color='gray', linewidth=0.8, resolution=40):
+    """
+    Draw a small bundle of short curved connectors either incoming to a target
+    (kind='in') or outgoing from a source (kind='out').
+    center: (x,y) tuple of the target/source circle center.
+    count: number of short connectors to draw.
+    length: radial distance from center to connector start/end.
+    curve_factor: controls curvature of the short bezier.
+    unit_size: used to avoid drawing into the circle (circle radius = unit_size*0.15).
+    """
+    # Use the same curved-connection routine for consistency with other levels.
+    cx, cy = center
+    circle_radius = unit_size * 0.15
+    # Choose angle spread depending on kind so connectors point downward
+    if kind == 'in':
+        # Start points above the circle so arrows point downward into the perception
+        angles = np.linspace(60, 120, count)
+        style = 'perception'
+        arrow_at_end = True
+    else:
+        # Start points below the circle; we'll draw from circle edge to outside so arrows point downward away
+        angles = np.linspace(240, 300, count)
+        style = 'output'
+        arrow_at_end = True
+
+    # Draw straight-line connectors with arrowheads for clarity
+    for ang in angles:
+        rad = math.radians(ang)
+        sx = cx + length * math.cos(rad)
+        sy = cy + length * math.sin(rad)
+
+        # end point sits just outside the circle edge towards the start point
+        dir_x = cx - sx
+        dir_y = cy - sy
+        dlen = math.hypot(dir_x, dir_y)
+        if dlen == 0:
+            ex, ey = cx, cy
+        else:
+            ex = cx - (dir_x / dlen) * circle_radius
+            ey = cy - (dir_y / dlen) * circle_radius
+
+        if kind == 'in':
+            start_pt = (sx, sy)
+            end_pt = (ex, ey)
+        else:
+            start_pt = (ex, ey)
+            end_pt = (sx, sy)
+
+        # Use annotate to draw a straight arrow between start_pt and end_pt
+        # Choose sensible default colors matching inter-level connectors when user left default
+        use_color = color
+        if color == 'gray' or color is None:
+            use_color = 'blue' if kind == 'in' else 'black'
+        # Moderate arrowhead size relative to unit_size
+        mut_scale = max(8, int(unit_size * 12))
+        arrowprops = dict(arrowstyle='-|>', linewidth=linewidth, color=use_color,
+                          shrinkA=0, shrinkB=0, mutation_scale=mut_scale)
+        ann = ax.annotate('', xy=end_pt, xytext=start_pt, arrowprops=arrowprops)
+        # Ensure connectors are drawn above unit lines but below labels
+        try:
+            ann.set_zorder(3.5)
+        except Exception:
+            pass
+
 # Example usage
 if __name__ == "__main__":
     # Create different hierarchy configurations
@@ -423,4 +527,4 @@ if __name__ == "__main__":
                       filename="pct_hierarchy_control.png", 
                       curve_control_factor=0.7, curve_line_width=0.5,
                       level_spacing=10.0, column_spacing=6, unit_size=3,
-                      arrowhead_size=0.25, margin=0.1)
+                      arrowhead_size=0.25, margin=0.1, show_local_connectors=True)
