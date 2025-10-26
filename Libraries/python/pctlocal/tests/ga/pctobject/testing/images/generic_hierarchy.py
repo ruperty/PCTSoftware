@@ -363,7 +363,7 @@ if __name__ == "__main__":
                       filename="pct_hierarchy_short_arrows.png", use_arrows=True, 
                       unit_size=1, font_color='black', unit_line_width=0.8, 
                       inter_level_arrows=True, show_title=False, show_legend=False,
-                      arrow_length_factor=0.1)
+                      arrow_length_factor=0.1, level_spacing=4, column_spacing=2.5)
 
     # draw_pct_hierarchy(levels=2, columns_per_level=[2, 2], 
     #                   filename="pct_hierarchy_standard_arrows.png", use_arrows=True, 
