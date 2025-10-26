@@ -386,15 +386,21 @@ if __name__ == "__main__":
     # Create different hierarchy configurations
 
 
-    draw_pct_hierarchy(levels=2, columns_per_level=[2,2], 
-                      filename="pct_hierarchy_control_2x2.png", 
-                      curve_control_factor=0.7, curve_line_width=0.5,
-                      level_spacing=6.0)
+    # draw_pct_hierarchy(levels=2, columns_per_level=[2,2], 
+    #                   filename="pct_hierarchy_control_2x2.png", 
+    #                   curve_control_factor=0.7, curve_line_width=0.5,
+    #                   level_spacing=6.0)
 
 
-    draw_pct_hierarchy(levels=3, columns_per_level=[4, 4, 4], 
-                      filename="pct_hierarchy_control_4x4x4.png", 
+    # draw_pct_hierarchy(levels=3, columns_per_level=[4, 4, 4], 
+    #                   filename="pct_hierarchy_control_4x4x4.png", 
+    #                   curve_control_factor=0.7, curve_line_width=0.5,
+    #                   level_spacing=6.0, column_spacing=4, unit_size=1.5)
+
+    draw_pct_hierarchy(levels=5, columns_per_level=[2, 4, 4, 4, 2], 
+                      filename="pct_hierarchy_control.png", 
                       curve_control_factor=0.7, curve_line_width=0.5,
-                      level_spacing=6.0, column_spacing=4, unit_size=1.5)
+                      level_spacing=10.0, column_spacing=6, unit_size=3,
+                      arrowhead_size=0.25)
     
     print("Hierarchies with different curve parameters created!")
