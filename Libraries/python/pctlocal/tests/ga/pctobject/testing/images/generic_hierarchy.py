@@ -302,11 +302,12 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
     if all_x and all_y:
         x_min, x_max = min(all_x), max(all_x)
         y_min, y_max = min(all_y), max(all_y)
-        # Add padding relative to unit_size and spacing so circles/arrows aren't clipped
-        pad_x = max(unit_size * 1.5, column_spacing * 0.25)
-        pad_y = max(unit_size * 1.5, level_spacing * 0.25)
+        # Add minimal padding just to avoid clipping circles/arrows at edges
+        # Give a bit more padding at bottom to account for local connectors
+        pad_x = unit_size * 0.4
+        pad_y = unit_size * 0.6
         ax.set_xlim(x_min - pad_x, x_max + pad_x)
-        ax.set_ylim(y_min - pad_y, y_max + pad_y)
+        ax.set_ylim(y_min - (pad_y+0.5), y_max + pad_y)
     else:
         # Fallback to previous behavior
         ax.set_xlim(-column_spacing * max(columns_per_level), 
@@ -590,11 +591,11 @@ if __name__ == "__main__":
     #                   filename="pct_hierarchy_control_4x4x4.png", 
     #                   curve_control_factor=0.7, curve_line_width=0.5,
     #                   level_spacing=6.0, column_spacing=4, unit_size=1.5)
-
+    dpi=500
     draw_pct_hierarchy(levels=5, columns_per_level=[2, 4, 4, 4, 2], 
-                      filename="pcnnry.png", auto_tight=False,
+                      filename=f'pcnnry-dpi{dpi}.png', auto_tight=False, dpi=dpi,
                       curve_control_factor=0.7, curve_line_width=0.5,
                       level_spacing=10.0, column_spacing=8, unit_size=3,
-                      arrowhead_size=0.25, margin=0.1, 
+                      arrowhead_size=0.25, margin=0.01, 
                       show_local_connectors=True, local_connector_count=3,
                       local_connector_length=2.0)
