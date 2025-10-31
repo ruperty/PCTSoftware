@@ -12,7 +12,7 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
                       show_title=False, show_legend=False, arrow_length_factor=0.1,
                       curve_control_factor=0.6, curve_line_width=1.0, curve_alpha=0.9, 
                       curve_resolution=100, arrowhead_size=1.0, arrowhead_style='-|>', margin: float = 0.2,
-                      auto_tight: bool = False,
+                      auto_tight: bool = False, dpi: int = 300,
                       show_local_connectors: bool = False, local_connector_count: int = 4,
                       local_connector_length: float = None, local_connector_curve: float = 0.4,
                       local_connector_color: str = 'gray', local_connector_width: float = 0.8):
@@ -65,6 +65,11 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
     margin : float
         Whitespace padding (in inches) around the figure when saving. Passed to
         matplotlib's tight_layout(pad=...) and savefig(pad_inches=...). Default 0.2.
+    auto_tight : bool
+        If True, compute tight bbox and resize figure to minimal size. Default False.
+    dpi : int
+        Resolution in dots per inch for the saved image. Default 300.
+        Note: When auto_tight=False, a higher DPI may be used internally.
     show_local_connectors : bool
         If True, draw short curved connectors into each perception and out from
         each output at the lowest level (useful to indicate multiple inputs/outputs).
@@ -340,16 +345,16 @@ def draw_pct_hierarchy(levels=3, columns_per_level=None, unit_size=1.0,
             tight_bbox = fig.get_tightbbox(renderer)
             # tight_bbox is in inches; resize figure to exactly that size
             fig.set_size_inches(tight_bbox.width, tight_bbox.height)
-            # Save with small padding and moderate DPI
-            plt.savefig(filename, dpi=300, bbox_inches='tight', pad_inches=0.01)
+            # Save with small padding and configured DPI
+            plt.savefig(filename, dpi=dpi, bbox_inches='tight', pad_inches=0.01)
         except Exception:
             # Fallback to previous behavior on any failure
             plt.tight_layout(pad=margin)
-            plt.savefig(filename, dpi=300, bbox_inches='tight', pad_inches=margin)
+            plt.savefig(filename, dpi=dpi, bbox_inches='tight', pad_inches=margin)
     else:
-        # Use tight_layout with configurable padding and save with original DPI
+        # Use tight_layout with configurable padding and save with configured DPI
         plt.tight_layout(pad=margin)
-        plt.savefig(filename, dpi=1000, bbox_inches='tight', pad_inches=margin)
+        plt.savefig(filename, dpi=dpi, bbox_inches='tight', pad_inches=margin)
     plt.close()  # Close the figure instead of showing it
     
     print(f"PCT Hierarchy saved as {filename}")
@@ -587,7 +592,7 @@ if __name__ == "__main__":
     #                   level_spacing=6.0, column_spacing=4, unit_size=1.5)
 
     draw_pct_hierarchy(levels=5, columns_per_level=[2, 4, 4, 4, 2], 
-                      filename="pcnn.png", 
+                      filename="pcnnry.png", auto_tight=False,
                       curve_control_factor=0.7, curve_line_width=0.5,
                       level_spacing=10.0, column_spacing=8, unit_size=3,
                       arrowhead_size=0.25, margin=0.1, 
