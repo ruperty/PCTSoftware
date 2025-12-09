@@ -131,7 +131,7 @@ jupyterlab @ file:///tmp/build/80754af9/jupyterlab_1619133235951/work
 jupyterlab-pygments @ file:///tmp/build/80754af9/jupyterlab_pygments_1601490720602/work
 jupyterlab-server @ file:///tmp/build/80754af9/jupyterlab_server_1617134334258/work
 jupyterlab-widgets @ file:///tmp/build/80754af9/jupyterlab_widgets_1609884341231/work
-keras== 3.9.0
+keras== 3.12.0
 Keras-Preprocessing==1.1.2
 keyring @ file:///C:/ci/keyring_1638531661481/work
 kiwisolver @ file:///C:/ci/kiwisolver_1612282606037/work
