@@ -47,6 +47,9 @@ python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mo
 
 python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mode20 -b
 
+python -m impl.evolve GenericGym  -b
+
+
 
 """
 
