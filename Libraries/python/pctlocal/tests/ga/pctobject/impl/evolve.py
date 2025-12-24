@@ -47,7 +47,8 @@ python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mo
 
 python -m impl.evolve GenericGym LL0120-ReferencedInputsError-CurrentRMSError-Mode20 -b
 
-python -m impl.evolve GenericGym  -b
+python -m impl.evolve GenericGym ga-000.003-s001-1x6-m014-LL-4905d236177d7901a901404857d9d08c-consolidated -b
+python -m impl.evolve GenericGym ga-000.003-s001-1x6-m014-LL-4905d236177d7901a901404857d9d08c-consolidated -b -pl scEdges,scError,scReward -p opt-refinputs-currentrms
 
 
 
